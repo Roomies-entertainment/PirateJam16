@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
@@ -7,8 +5,8 @@ public class PlayerPhysics : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PhysicsMaterial2D physicsMaterial;
 
-    private float velocityX;
-    private float velocityY;
+    public float velocityX { get; private set; }
+    public float velocityY { get; private set; }
 
     private void Start()
     {
@@ -23,10 +21,18 @@ public class PlayerPhysics : MonoBehaviour
         velocityY += force.y;
     }
 
+    public void ApplyGroundMoveForce(float speed)
+    {
+        velocityX = speed;
+    }
+
+    public void ApplyJumpForce(float speed)
+    {
+        velocityY = speed;
+    }
+
     public void DoFixedUpdate()
     {
         rb.velocity = new Vector2(velocityX, velocityY);
-
-        velocityX = 0f;
     }
 }
