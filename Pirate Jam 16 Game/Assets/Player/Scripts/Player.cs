@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     private PlayerAttack Attack;
     private Health Health;
 
+    private bool blocking;
+
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
@@ -100,12 +102,7 @@ public class Player : MonoBehaviour
     {
         Input.DoUpdate();
 
-        if (Input.attackFlag)
-        {
-            Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
-
-            Input.ClearAttackFlag();
-        }
+        ReadInputs();
 
         if (takeOneDamage)
         {
@@ -117,8 +114,44 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void ReadInputs()
+    {
+        if (Input.attackFlag)
+        {
+            Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
+
+            Input.ClearAttackFlag();
+
+            blocking = false;
+        }
+        else
+        {
+            if (Input.blockFlag)
+            {
+                if (!blocking)
+                    Debug.Log("Player is blocking");
+
+                blocking = true;
+            }
+            else
+            {
+                if (blocking)
+                    Debug.Log("Player stopped blocking");
+
+                blocking = false;
+            }
+        }
+    }
+
     public void TakeDamage(int damage)
     {
-        Health.IncrementHealth(-damage);
+        if (blocking)
+        {
+            Debug.Log("Damage blocked");
+
+            return;
+        }
+        else
+            Health.IncrementHealth(-damage);
     }
 }
