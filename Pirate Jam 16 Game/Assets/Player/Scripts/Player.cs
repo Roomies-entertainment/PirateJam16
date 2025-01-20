@@ -108,8 +108,6 @@ public class Player : MonoBehaviour
         {
             TakeDamage(1);
 
-            Debug.Log($"Player health has reached {Health.health}");
-
             takeOneDamage = false;
         }
     }
@@ -153,5 +151,7 @@ public class Player : MonoBehaviour
         }
         else
             Health.IncrementHealth(-damage);
+        
+        Debug.Log($"Player health has reached {Health.health}");
     }
 }
