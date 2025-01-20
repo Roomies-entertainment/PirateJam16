@@ -21,12 +21,12 @@ public class PlayerPhysics : MonoBehaviour
         velocityY += force.y;
     }
 
-    public void ApplyGroundMoveForce(float speed)
+    public void SetGroundMoveForce(float speed)
     {
         velocityX = speed;
     }
 
-    public void ApplyJumpForce(float speed)
+    public void SetJumpForce(float speed)
     {
         velocityY = speed;
     }
