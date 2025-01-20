@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerPhysics))]
+[RequireComponent(typeof(PlayerAttack))]
+[RequireComponent(typeof(Health))]
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class Player : MonoBehaviour
     private float stopTimer;
 
     [SerializeField] private float jumpSpeed = 9f;
+    [SerializeField] private float jumpableGroundDistance = 0.4f;
 
     [Header("")]
     [SerializeField] private float hopSpeed = 3.5f;
@@ -24,51 +27,62 @@ public class Player : MonoBehaviour
     [Header("")]
     [SerializeField] private SurfaceDetector GroundDetector;
 
+    [Header("")]
+    public bool takeOneDamage;
+
     private PlayerInput Input;
     private PlayerCollision Collision;
     private PlayerPhysics Physics;
+    private PlayerAttack Attack;
+    private Health Health;
 
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
         Collision = GetComponent<PlayerCollision>();
         Physics = GetComponent<PlayerPhysics>();
+        Attack = GetComponent<PlayerAttack>();
+        Health = GetComponent<Health>();
     }
 
     private void FixedUpdate()
     {
-        bool onGround = GroundDetector.DetectSurface();
+        HandleMovement();
 
-        if (onGround)
+        IncrementFixedUpdateTimers();
+    }
+
+    private void HandleMovement()
+    {
+        bool onGround = GroundDetector.DetectSurface(jumpableGroundDistance, out bool farHit, out float hitDistance);
+
+        if (farHit && Input.jumpFlag)
         {
-            Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(stopTimer / stopDuration), 1f) );
+            Physics.SetJumpForce(jumpSpeed);
+            Input.ClearJumpFlag();
+        }
+        else if (!onGround)
+        {
+            Physics.SetGroundMoveForce( Input.movementInput * moveSpeed );
 
-            if (Input.jumpFlag)
-            {
-                Physics.SetJumpForce(jumpSpeed);
+            hopTimer = 0f;
+            stopTimer = 0f;
+        }
+        else
+        {
+            Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(stopTimer / stopDuration), 1f) ); // Stop moving
 
-                Input.ClearJumpFlag();
-            }
-            else if (Input.movementInput != 0f && hopTimer > hopDelay)
+            if (Input.movementInput != 0f && hopTimer > hopDelay)
             {
                 Hop();
 
                 hopTimer = 0f;
             }
         }
-        else
-        {
-            Physics.SetGroundMoveForce( Input.movementInput * moveSpeed);
-
-            hopTimer = 0f;
-            stopTimer = 0f;
-        }
         
         Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * ( Physics.velocityY > 0 ? upGravityScale : downGravityScale ));
 
         Physics.DoFixedUpdate();
-
-        IncrementFixedUpdateTimers();
     }
 
     private void Hop()
@@ -85,5 +99,26 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Input.DoUpdate();
+
+        if (Input.attackFlag)
+        {
+            Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
+
+            Input.ClearAttackFlag();
+        }
+
+        if (takeOneDamage)
+        {
+            TakeDamage(1);
+
+            Debug.Log($"Player health has reached {Health.health}");
+
+            takeOneDamage = false;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health.IncrementHealth(-damage);
     }
 }
