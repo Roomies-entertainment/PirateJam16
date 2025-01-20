@@ -14,7 +14,9 @@ public class EnemyAttack : MonoBehaviour
         if (players.Count == 0)
             return new Vector2();
 
-        Vector2 firstPlayerDir = (players[0].transform.position - transform.position).normalized;
+        Vector2 firstPlayerDir = players[0].transform.position - transform.position;
+        firstPlayerDir.y = 0f;
+        firstPlayerDir.Normalize();
 
         return firstPlayerDir;
     }

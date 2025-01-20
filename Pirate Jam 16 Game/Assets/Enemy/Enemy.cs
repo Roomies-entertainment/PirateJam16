@@ -29,14 +29,15 @@ public class Enemy : MonoBehaviour
     {
         while (!gameObject.IsDestroyed())
         {
+            attackDirection = Attack.GetAttackDirection(out List<Player> players);
+            
             transform.position += attackDirection * 0.25f;
 
-            attackDirection = Attack.GetAttackDirection(out List<Player> players);
             Attack.AttackPlayers(players, attackDirection);
 
             yield return new WaitForSeconds(0.2f);
 
-            transform.position -= Vector3.right * 0.25f;
+            transform.position -= attackDirection * 0.25f;
 
             yield return new WaitForSeconds(attackDelay);
         }
