@@ -13,8 +13,6 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (var enemy in enemies)
         {
-            Debug.Log(enemy);
-
             if ( Vector2.Dot((enemy.transform.position - transform.position).normalized, attackDir.normalized) > 0f )
             {
                 Destroy(enemy);

@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
 
     private bool _jumpFlag;      public bool jumpFlag { get { return _jumpFlag; } } public void ClearJumpFlag() { _jumpFlag = false; }
     private bool _attackFlag;    public bool attackFlag { get { return _attackFlag; } } public void ClearAttackFlag() { _attackFlag = false; }
+    private bool _blockFlag;    public bool blockFlag { get { return _blockFlag; } }
 
     [SerializeField] private const float JumpTimeout = 0.35f;
 
@@ -21,13 +22,14 @@ public class PlayerInput : MonoBehaviour
         if (movementInput != 0f)
             movementInputActive = movementInput;
 
-        HandleTimedFlag(ref _jumpFlag, ref jumpTimer, Input.GetButtonDown("Jump"), JumpTimeout);
-        HandleTimedFlag(ref _attackFlag, ref attackTimer, Input.GetButtonDown("Attack"));
+        HandleTimedFlag(ref _jumpFlag, Input.GetButtonDown("Jump"), ref jumpTimer, JumpTimeout);
+        HandleTimedFlag(ref _attackFlag, Input.GetButtonDown("Attack"), ref attackTimer);
+        HandleHoldFlag(ref _blockFlag, Input.GetButton("Block"));
 
         UpdateTimers();
     }
 
-    private void HandleTimedFlag(ref bool flag, ref float timer, bool input, float timeout = -1f)
+    private void HandleTimedFlag(ref bool flag, bool input, ref float timer, float timeout = -1f)
     {
         if (!flag && input)
         {
@@ -39,6 +41,11 @@ public class PlayerInput : MonoBehaviour
         {
             flag = false;
         }
+    }
+
+    private void HandleHoldFlag(ref bool flag, bool input)
+    {
+        flag = input;
     }
 
     private void UpdateTimers()
