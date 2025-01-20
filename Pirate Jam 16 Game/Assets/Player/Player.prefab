@@ -350,7 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  stopSpeed: 0.5
   jumpSpeed: 9
+  hopSpeed: 3.5
+  hopDelay: 0.2
   upGravityScale: 2
   downGravityScale: 1.7
   GroundDetector: {fileID: 4202236265643999503}

@@ -6,12 +6,12 @@ public class PlayerInput : MonoBehaviour
     public bool jumpFlag { get; private set; }
     public void ClearJumpFlag() { jumpFlag = false; }
 
-    private const float JumpFlagTimeout = 0.1f;
+    [SerializeField] private const float JumpTimeout = 0.35f;
     private float jumpFlagTimer;
 
     public void DoUpdate()
     {
-        movementInput = Input.GetAxis("Horizontal");
+        movementInput = Input.GetAxisRaw("Horizontal");
 
         if (!jumpFlag && Input.GetButtonDown("Jump"))
         {
@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
             jumpFlagTimer = 0f;
         }
         
-        if (jumpFlag && jumpFlagTimer > JumpFlagTimeout)
+        if (jumpFlag && jumpFlagTimer > JumpTimeout)
         {
             jumpFlag = false;
         }
