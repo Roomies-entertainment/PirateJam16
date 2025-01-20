@@ -7,13 +7,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackRadius = 1f;
     [SerializeField] private int BaseDamage = 1;
 
-    public void AttackEnemies(Vector3 attackDir)
+    public void AttackEnemies(Vector3 attackDirection)
     {
-        var enemies = PlayerDetection.DetectEnemies(transform.position, attackRadius);
+        var enemies = Detection.DetectComponent<Enemy>(transform.position, attackRadius,  1 << Collisions.enemyLayer);
 
         foreach (var enemy in enemies)
         {
-            if ( Vector2.Dot((enemy.transform.position - transform.position).normalized, attackDir.normalized) > 0f )
+            if ( Vector2.Dot((enemy.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
                 enemy.TakeDamage(BaseDamage);
             }
