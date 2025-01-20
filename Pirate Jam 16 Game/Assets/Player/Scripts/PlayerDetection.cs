@@ -4,16 +4,19 @@ using UnityEngine;
 
 public static class PlayerDetection
 {
-    public static List<GameObject> DetectEnemies(Vector2 playerPos, float radius)
+    public static List<Enemy> DetectEnemies(Vector2 playerPos, float radius)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(playerPos, radius, 1 << Collisions.enemyLayer);
-        List<GameObject> enemies = new List<GameObject>();
+        List<Enemy> enemies = new List<Enemy>();
 
-        GameObject enemy;
+        Enemy enemy;
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            enemy = colliders[i].gameObject;
+            enemy = colliders[i].GetComponent<Enemy>();
+
+            if (enemy == null)
+                continue;
 
             if (!enemies.Contains(enemy))
                 enemies.Add(enemy);
