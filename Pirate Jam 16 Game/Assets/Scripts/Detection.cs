@@ -17,8 +17,6 @@ public static class Detection
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            Debug.Log(colliders[i]);
-            
             component = colliders[i].GetComponentInParent<T>();
 
             if (component == null)
