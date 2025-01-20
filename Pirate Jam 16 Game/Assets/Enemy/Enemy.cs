@@ -31,8 +31,8 @@ public class Enemy : MonoBehaviour
         {
             transform.position += attackDirection * 0.25f;
 
-            Vector2 attackDir = Attack.GetAttackDirection(out List<Player> players);
-            Attack.AttackPlayers(players, attackDir);
+            attackDirection = Attack.GetAttackDirection(out List<Player> players);
+            Attack.AttackPlayers(players, attackDirection);
 
             yield return new WaitForSeconds(0.2f);
 
