@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerPhysics))]
 [RequireComponent(typeof(PlayerAttack))]
+[RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerHealth))]
 
 public class Player : MonoBehaviour
@@ -131,6 +132,4 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-
 }
