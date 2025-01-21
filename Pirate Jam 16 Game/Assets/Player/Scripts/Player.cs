@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     private Health Health;
 
     private bool blocking;
-
+    
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
@@ -119,8 +119,13 @@ public class Player : MonoBehaviour
             Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
 
             Input.ClearAttackFlag();
+            Input.ClearBlockFlag();
 
-            blocking = false;
+            if (blocking)
+            {
+                Debug.Log("Player stopped blocking");
+                blocking = false;
+            }
         }
         else
         {
@@ -150,8 +155,10 @@ public class Player : MonoBehaviour
             return;
         }
         else
+        {
             Health.IncrementHealth(-damage);
         
-        Debug.Log($"Player health has reached {Health.health}");
+            Debug.Log($"Player health has reached {Health.health}");
+        }
     }
 }
