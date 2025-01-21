@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : Attack
 {
     [SerializeField] private float attackDelay = 2f;
-    [SerializeField] private float attackRadius = 2f;
-    [SerializeField] private int BaseDamage = 1;
 
     private Vector3 attackDirection = Vector3.right; 
 
@@ -56,5 +54,10 @@ public class EnemyAttack : MonoBehaviour
                 player.TakeDamage(BaseDamage);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

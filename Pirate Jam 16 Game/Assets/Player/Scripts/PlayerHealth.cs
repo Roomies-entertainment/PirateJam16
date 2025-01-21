@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : Health
 {
-    public bool blocking;
+    [HideInInspector] public bool blocking;
 
     protected override void IncrementHealth(int increment)
     {

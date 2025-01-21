@@ -66,7 +66,9 @@
   <ItemGroup>
     <Compile Include="Assets\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Components\AudioSourceDestroyer.cs" />
+    <Compile Include="Assets\Player\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\Components\Attack.cs" />
     <Compile Include="Assets\Enemy\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Collision.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerInput.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />
+    <Compile Include="Assets\Enemy\EnemyAnimation.cs" />
     <Compile Include="Assets\Enemy\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Components\SurfaceDetector.cs" />
     <Compile Include="Assets\Enemy\EnemyAttack.cs" />
