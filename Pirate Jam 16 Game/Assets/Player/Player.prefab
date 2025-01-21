@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 5694820400148895657}
   - component: {fileID: 41282749469230444}
   - component: {fileID: 3130445153889366091}
-  - component: {fileID: 8474078304757431640}
+  - component: {fileID: 2479779079809670167}
   - component: {fileID: 3348222302375638153}
   m_Layer: 6
   m_Name: Player
@@ -506,7 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRadius: 1
   BaseDamage: 1
---- !u!114 &8474078304757431640
+--- !u!114 &2479779079809670167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -515,11 +515,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8565715148274485684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b2520e8218f87545a9ce9ec9f746607, type: 3}
+  m_Script: {fileID: 11500000, guid: 789f6912251c42042bcc4fdd25a56cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMax: 3
   startingHealth: 3
+  healthMax: 3
 --- !u!114 &3348222302375638153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,7 +541,6 @@ MonoBehaviour:
   upGravityScale: 1.7
   downGravityScale: 1.7
   GroundDetector: {fileID: 4202236265643999503}
-  takeOneDamage: 0
 --- !u!1 &8648987973096303490
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,12 +4,38 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private float attackRadius = 1f;
+    [SerializeField] private float attackDelay = 2f;
+    [SerializeField] private float attackRadius = 2f;
     [SerializeField] private int BaseDamage = 1;
 
-    public Vector2 GetAttackDirection(out List<Player> players)
+    private Vector3 attackDirection = Vector3.right; 
+
+    private void Start()
     {
-        players = Detection.DetectComponent<Player>(transform.position, attackRadius, 1 << Collisions.playerLayer);
+        StartCoroutine(AttackLoop());
+    }
+
+    private IEnumerator AttackLoop()
+    {
+        while (gameObject != null)
+        {
+            attackDirection = GetAttackDirection(out List<PlayerHealth> players);
+            
+            transform.position += attackDirection * 0.25f;
+
+            AttackPlayers(players, attackDirection);
+
+            yield return new WaitForSeconds(0.2f);
+
+            transform.position -= attackDirection * 0.25f;
+
+            yield return new WaitForSeconds(attackDelay);
+        }
+    }
+
+    public Vector2 GetAttackDirection(out List<PlayerHealth> players)
+    {
+        players = Detection.DetectComponent<PlayerHealth>(transform.position, attackRadius, 1 << Collisions.playerLayer);
 
         if (players.Count == 0)
             return new Vector2();
@@ -21,7 +47,7 @@ public class EnemyAttack : MonoBehaviour
         return firstPlayerDir;
     }
 
-    public void AttackPlayers(List<Player> players, Vector2 attackDirection)
+    public void AttackPlayers(List<PlayerHealth> players, Vector2 attackDirection)
     {
         foreach (var player in players)
         {
