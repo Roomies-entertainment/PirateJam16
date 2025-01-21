@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 260435163}
   - component: {fileID: 260435162}
   - component: {fileID: 260435161}
-  - component: {fileID: 260435160}
+  - component: {fileID: 260435167}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -263,18 +263,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &260435160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260435159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79933f509ebfe014ba71449286a338df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &260435161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,9 +289,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 2
   attackRadius: 2
   BaseDamage: 1
+  attackSound: {fileID: 0}
+  onAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 260435167}
+        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  attackDelay: 2
 --- !u!114 &260435163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +425,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &260435167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260435159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2d8e00265a91e4b9d46dbec1979d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 0}
 --- !u!1 &289876183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,14 +1571,6 @@ PrefabInstance:
     - target: {fileID: 868922612935429444, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
-      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
-      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8565715148274485684, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_Name
