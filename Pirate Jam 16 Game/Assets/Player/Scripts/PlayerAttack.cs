@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackEnemies(Vector3 attackDirection)
     {
-        var enemies = Detection.DetectComponent<Enemy>(transform.position, attackRadius,  1 << Collisions.enemyLayer);
+        var enemies = Detection.DetectComponent<EnemyHealth>(transform.position, attackRadius,  1 << Collisions.enemyLayer);
 
         foreach (var enemy in enemies)
         {

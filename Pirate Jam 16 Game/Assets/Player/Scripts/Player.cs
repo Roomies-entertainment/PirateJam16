@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerPhysics))]
 [RequireComponent(typeof(PlayerAttack))]
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(PlayerHealth))]
 
 public class Player : MonoBehaviour
 {
@@ -27,24 +27,17 @@ public class Player : MonoBehaviour
     [Header("")]
     [SerializeField] private SurfaceDetector GroundDetector;
 
-    [Header("")]
-    public bool takeOneDamage;
-
     private PlayerInput Input;
-    private PlayerCollision Collision;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
-    private Health Health;
-
-    private bool blocking;
-
+    private PlayerHealth Health;
+    
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
-        Collision = GetComponent<PlayerCollision>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
-        Health = GetComponent<Health>();
+        Health = GetComponent<PlayerHealth>();                  Health.enabled = false;
     }
 
     private void FixedUpdate()
@@ -103,13 +96,6 @@ public class Player : MonoBehaviour
         Input.DoUpdate();
 
         ReadInputs();
-
-        if (takeOneDamage)
-        {
-            TakeDamage(1);
-
-            takeOneDamage = false;
-        }
     }
 
     private void ReadInputs()
@@ -119,39 +105,32 @@ public class Player : MonoBehaviour
             Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
 
             Input.ClearAttackFlag();
+            Input.ClearBlockFlag();
 
-            blocking = false;
+            if (Health.blocking)
+            {
+                Debug.Log("Player stopped blocking");
+                Health.blocking = false;
+            }
         }
         else
         {
             if (Input.blockFlag)
             {
-                if (!blocking)
+                if (!Health.blocking)
                     Debug.Log("Player is blocking");
 
-                blocking = true;
+                Health.blocking = true;
             }
             else
             {
-                if (blocking)
+                if (Health.blocking)
                     Debug.Log("Player stopped blocking");
 
-                blocking = false;
+                Health.blocking = false;
             }
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        if (blocking)
-        {
-            Debug.Log("Damage blocked");
 
-            return;
-        }
-        else
-            Health.IncrementHealth(-damage);
-        
-        Debug.Log($"Player health has reached {Health.health}");
-    }
 }
