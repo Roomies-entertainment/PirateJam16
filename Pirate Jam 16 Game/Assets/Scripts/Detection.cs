@@ -4,7 +4,6 @@ using UnityEngine;
 
 public static class Detection
 {
-
     public static List<T> DetectComponent<T>(Vector2 pos, float radius, LayerMask layerMask = new LayerMask())
     {
         if (layerMask == new LayerMask())

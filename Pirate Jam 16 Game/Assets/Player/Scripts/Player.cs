@@ -103,7 +103,9 @@ public class Player : MonoBehaviour
     {
         if (Input.attackFlag)
         {
-            Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
+            Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
+
+            Attack.PerformAttack(Attack.FindObjectsToAttack(direction), direction);
 
             Input.ClearAttackFlag();
             Input.ClearBlockFlag();

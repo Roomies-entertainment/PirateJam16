@@ -22,6 +22,6 @@ public class PlayerHealth : Health
             return;
         }
         
-        IncrementHealth(-damage);
+        base.TakeDamage(damage);
     }
 }

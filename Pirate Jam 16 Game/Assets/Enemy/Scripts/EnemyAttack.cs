@@ -6,7 +6,7 @@ public class EnemyAttack : Attack
 {
     [SerializeField] private float attackDelay = 2f;
 
-    private Vector3 attackDirection = Vector3.right; 
+    private Vector3 attackDirection = Vector3.right;
 
     private void Start()
     {
@@ -17,11 +17,11 @@ public class EnemyAttack : Attack
     {
         while (gameObject != null)
         {
-            attackDirection = GetAttackDirection(out List<PlayerHealth> players);
+            attackDirection = GetAttackDirection(out List<Health> players);
             
             transform.position += attackDirection * 0.25f;
 
-            AttackPlayers(players, attackDirection);
+            PerformAttack(players, attackDirection);
 
             yield return new WaitForSeconds(0.2f);
 
@@ -31,9 +31,9 @@ public class EnemyAttack : Attack
         }
     }
 
-    public Vector2 GetAttackDirection(out List<PlayerHealth> players)
+    public Vector2 GetAttackDirection(out List<Health> players)
     {
-        players = Detection.DetectComponent<PlayerHealth>(transform.position, attackRadius, 1 << Collisions.playerLayer);
+        players = Detection.DetectComponent<Health>(transform.position, attackRadius, 1 << Collisions.playerLayer);
 
         if (players.Count == 0)
             return new Vector2();
@@ -43,17 +43,6 @@ public class EnemyAttack : Attack
         firstPlayerDir.Normalize();
 
         return firstPlayerDir;
-    }
-
-    public void AttackPlayers(List<PlayerHealth> players, Vector2 attackDirection)
-    {
-        foreach (var player in players)
-        {
-            if ( Vector2.Dot((player.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
-            {
-                player.TakeDamage(BaseDamage);
-            }
-        }
     }
 
     private void OnDestroy()

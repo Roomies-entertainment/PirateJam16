@@ -11,9 +11,9 @@ public class EnemyHealth : Health
         Debug.Log($"{gameObject.name} health has reached {health}");
     }
 
-    public override void TakeDamage(int damage)
+    public override void OnTakeDamage()
     {
-        IncrementHealth(-damage);
+        base.OnTakeDamage();
 
         if (health == 0)
             Destroy(gameObject);
