@@ -4,8 +4,6 @@ public class PlayerAnimation : MonoBehaviour
 {
     public Animator Animator;
 
-    public bool attacking { get; private set; }
-
     public void DoUpdate(float movementInput)
     {
         var scale = transform.localScale;
@@ -16,13 +14,11 @@ public class PlayerAnimation : MonoBehaviour
 
     public void OnAttack()
     {
-        attacking = true;
         Animator.SetBool("Attack", true);
     }
 
     public void OnStopAttack()
     {
-        attacking = false;
         Animator.SetBool("Attack", false);
     }
 }

@@ -17,7 +17,7 @@ public class EnemyAttack : Attack
     {
         while (gameObject != null)
         {
-            attackDirection = GetAttackDirection(out List<Health> players);
+            attackDirection = GetAttackDirection(out List<ComponentData> players);
             
             transform.position += attackDirection * 0.25f;
 
@@ -27,18 +27,20 @@ public class EnemyAttack : Attack
 
             transform.position -= attackDirection * 0.25f;
 
+            StopAttack();
+
             yield return new WaitForSeconds(attackDelay);
         }
     }
 
-    public Vector2 GetAttackDirection(out List<Health> players)
+    public Vector2 GetAttackDirection(out List<ComponentData> players)
     {
         players = Detection.DetectComponent<Health>(transform.position, attackRadius, 1 << Collisions.playerLayer);
 
         if (players.Count == 0)
             return new Vector2();
 
-        Vector2 firstPlayerDir = players[0].transform.position - transform.position;
+        Vector2 firstPlayerDir = players[0].component.transform.position - transform.position;
         firstPlayerDir.y = 0f;
         firstPlayerDir.Normalize();
 

@@ -10,10 +10,13 @@ public abstract class Health : MonoBehaviour
     public int health { get; protected set; }
 
     [Header("")]
-    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip damageSound;
+    [SerializeField] protected AudioClip blockSound;
 
     [Header("")]
     [SerializeField] private UnityEvent onTakeDamage;
+    [Header("")]
+    [SerializeField] private UnityEvent onBlockDamage;
 
     protected void Awake()
     {
@@ -25,14 +28,23 @@ public abstract class Health : MonoBehaviour
         health = (int) Mathf.Clamp(health + increment, 0f, healthMax);
     }
 
-    public virtual void TakeDamage(int damage)
+    public abstract void ApplyDamage(int damage, ComponentData data);
+
+    protected virtual void TakeDamage(int damage, ComponentData data)
     {
         IncrementHealth(-damage);
-        OnTakeDamage();
+
+        if (damageSound != null)
+            SoundManager.PlaySoundNonSpatial(damageSound);
+
+        onTakeDamage.Invoke();
     }
 
-    public virtual void OnTakeDamage()
+    protected virtual void BlockDamage(int damage, ComponentData data)
     {
-        onTakeDamage.Invoke();
+        if (blockSound != null)
+            SoundManager.PlaySoundNonSpatial(damageSound);
+
+        onBlockDamage.Invoke();
     }
 }

@@ -143,8 +143,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.48}
-  m_Size: {x: 0.22, y: 0.32}
+  m_Offset: {x: 0, y: -0.53}
+  m_Size: {x: 0.22, y: 0.26}
   m_Direction: 0
 --- !u!1 &7671309097454262894
 GameObject:
@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9066606800832683364}
   - component: {fileID: 8894800512938370558}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Physics Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: cbaa6148590ef5f4781dbf7f1283f99e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b43dcc98bda84458b63c135f375d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableBlocking: 0
 --- !u!114 &5694820400148895657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,13 +424,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRadius: 1
   BaseDamage: 1
-  takeDamageSound: {fileID: 0}
+  attackSound: {fileID: 0}
   onAttack:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1858803697121880418}
         m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
         m_MethodName: OnAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStopAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1858803697121880418}
+        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
+        m_MethodName: OnStopAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -466,10 +482,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   healthMax: 3
-  attackSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  blockSound: {fileID: 0}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls: []
+  onBlockDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  HandleCollider: {fileID: 7520021747304940393}
+  BladeCollider: {fileID: 5955510217972744912}
   blocking: 0
 --- !u!114 &3348222302375638153
 MonoBehaviour:
@@ -503,7 +525,7 @@ Animator:
   m_GameObject: {fileID: 8565715148274485684}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 527aaad8823f15243bc59105af51cbed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
