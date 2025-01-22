@@ -508,7 +508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRadius: 1
   BaseDamage: 1
-  attackSound: {fileID: 0}
+  takeDamageSound: {fileID: 0}
   onAttack:
     m_PersistentCalls:
       m_Calls:
@@ -551,6 +551,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   healthMax: 3
+  attackSound: {fileID: 0}
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
   blocking: 0
 --- !u!114 &3348222302375638153
 MonoBehaviour:
@@ -573,6 +577,7 @@ MonoBehaviour:
   upGravityScale: 1.7
   downGravityScale: 1.7
   GroundDetector: {fileID: 4202236265643999503}
+  jumpSound: {fileID: 0}
 --- !u!95 &7720237000091100624
 Animator:
   serializedVersion: 5

@@ -26,19 +26,22 @@ public class Player : MonoBehaviour
     [SerializeField] private float downGravityScale = 1.7f;
 
     [Header("")]
+    public AudioClip jumpSound;
+    
+    [Header("")]
     [SerializeField] private SurfaceDetector GroundDetector;
 
     private PlayerInput Input;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
     private PlayerHealth Health;
-    
+
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
-        Health = GetComponent<PlayerHealth>();                  Health.enabled = false;
+        Health = GetComponent<PlayerHealth>();
     }
 
     private void FixedUpdate()
@@ -55,6 +58,10 @@ public class Player : MonoBehaviour
         if (farHit && Input.jumpFlag)
         {
             Physics.SetJumpForce(jumpSpeed);
+        
+            if (jumpSound != null)
+                SoundManager.PlaySoundNonSpatial(jumpSound);
+
             Input.ClearJumpFlag();
         }
         else if (!onGround)
