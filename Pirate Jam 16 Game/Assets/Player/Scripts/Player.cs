@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private PlayerInput Input;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
+    private PlayerAnimation Animation;
     private PlayerHealth Health;
 
     private void Awake()
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
         Input = GetComponent<PlayerInput>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
+        Animation = GetComponent<PlayerAnimation>();
         Health = GetComponent<PlayerHealth>();
     }
 
@@ -84,8 +86,9 @@ public class Player : MonoBehaviour
         }
         
         Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * ( Physics.velocityY > 0 ? upGravityScale : downGravityScale ));
-
         Physics.DoFixedUpdate();
+
+        Animation.DoUpdate(Input.movementInput);
     }
 
     private void Hop()
@@ -114,7 +117,6 @@ public class Player : MonoBehaviour
 
             Attack.PerformAttack(Attack.FindObjectsToAttack(direction), direction);
 
-            Input.ClearAttackFlag();
             Input.ClearBlockFlag();
 
             if (Health.blocking)
@@ -125,6 +127,9 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if (Animation.attacking)
+                Animation.OnStopAttack();
+
             if (Input.blockFlag)
             {
                 if (!Health.blocking)

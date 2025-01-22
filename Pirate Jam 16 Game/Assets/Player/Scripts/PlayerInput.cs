@@ -3,6 +3,8 @@ using UnityEngine;
 [HideInInspector]
 public class PlayerInput : MonoBehaviour
 {
+    [SerializeField] private bool enableBlocking;
+
     public float movementInput { get; private set; }
     public float movementInputActive { get; private set; }
 
@@ -13,7 +15,6 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private const float JumpTimeout = 0.35f;
 
     private float jumpTimer;
-    private float attackTimer;
 
     public void DoUpdate()
     {
@@ -23,8 +24,12 @@ public class PlayerInput : MonoBehaviour
             movementInputActive = movementInput;
 
         HandleTimedFlag(ref _jumpFlag, "Jump", ref jumpTimer, JumpTimeout);
-        HandleTimedFlag(ref _attackFlag, "Attack", ref attackTimer);
-        HandleHoldFlag(ref _blockFlag, "Block");
+        HandleHoldFlag(ref _attackFlag, "Attack");
+
+        if (enableBlocking)
+            HandleHoldFlag(ref _blockFlag, "Block");
+        else if (_blockFlag)
+            _blockFlag = false;
 
         UpdateTimers();
     }
@@ -60,6 +65,5 @@ public class PlayerInput : MonoBehaviour
     private void UpdateTimers()
     {
         jumpTimer += Time.deltaTime;
-        attackTimer += Time.deltaTime;
     }
 }

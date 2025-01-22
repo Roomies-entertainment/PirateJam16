@@ -1312,6 +1312,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: onStopAttack.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 4
       objectReference: {fileID: 0}
@@ -1335,6 +1339,10 @@ PrefabInstance:
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7720237000091100624, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 527aaad8823f15243bc59105af51cbed, type: 2}
     - target: {fileID: 8565715148274485684, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_Name
       value: Player
