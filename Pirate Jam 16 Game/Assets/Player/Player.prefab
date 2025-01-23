@@ -424,7 +424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRadius: 1
-  BaseDamage: 1
   attackSound: {fileID: 0}
   onAttack:
     m_PersistentCalls:
@@ -456,6 +455,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  fallingCritThreshold: 0.24
 --- !u!114 &1858803697121880418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +482,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
-  healthMax: 3
   damageSound: {fileID: 0}
   blockSound: {fileID: 0}
   onTakeDamage:

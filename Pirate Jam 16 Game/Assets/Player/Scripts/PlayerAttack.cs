@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttack : Attack
 {
+    [Range(0, 1)] public float fallingThreshold = 0.24f;
+    public int fallingExtraDamage = 1;
+
     public List<Health> attackedEnemies { get; private set; } = new List<Health>();
 
     public List<ComponentData> FindObjectsToAttack(Vector2 attackDirection)

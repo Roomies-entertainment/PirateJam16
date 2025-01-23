@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public abstract class Health : MonoBehaviour
 {
     [SerializeField] protected int startingHealth = 3;
-    [SerializeField] protected int healthMax = 3;
     public int health { get; protected set; }
 
     [Header("")]
@@ -20,12 +19,12 @@ public abstract class Health : MonoBehaviour
 
     protected void Awake()
     {
-        health = Mathf.Max(startingHealth, healthMax);
+        health = startingHealth;
     }
 
     protected virtual void IncrementHealth(int increment)
     {
-        health = (int) Mathf.Clamp(health + increment, 0f, healthMax);
+        health = (int) Mathf.Max(0f, health + increment);
     }
 
     public abstract void ApplyDamage(int damage, ComponentData data);

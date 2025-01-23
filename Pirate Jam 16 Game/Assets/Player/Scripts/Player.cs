@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
             Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
             var enemies = Attack.FindObjectsToAttack(direction);
-            Attack.PerformAttack(enemies, direction);
+            Attack.PerformAttack(enemies, direction, CalculateAttackDamage());
 
             Input.ClearBlockFlag();
 
@@ -163,5 +163,12 @@ public class Player : MonoBehaviour
                 Health.blocking = false;
             }
         }
+    }
+
+    private int CalculateAttackDamage()
+    {
+        return Physics.velocityY < Physics2D.gravity.y * downGravityScale * Attack.fallingThreshold ?
+        PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
+        PlayerAttack.BaseDamage;
     }
 }

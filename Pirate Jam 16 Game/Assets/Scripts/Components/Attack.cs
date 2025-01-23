@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public abstract class Attack : MonoBehaviour
 {
     [SerializeField] protected float attackRadius = 2f;
-    [SerializeField] protected int BaseDamage = 1;
+    [SerializeField] public const int BaseDamage = 1;
 
     [Header("")]
     [SerializeField] protected AudioClip attackSound;
@@ -19,7 +19,7 @@ public abstract class Attack : MonoBehaviour
 
     public bool attacking { get; private set; }
 
-    public void PerformAttack(List<ComponentData> attackedObjects, Vector2 attackDirection)
+    public void PerformAttack(List<ComponentData> attackedObjects, Vector2 attackDirection, int damage = BaseDamage)
     {
         foreach (var data in attackedObjects)
         {
@@ -27,7 +27,7 @@ public abstract class Attack : MonoBehaviour
 
             if ( Vector2.Dot((health.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
-                health.ApplyDamage(BaseDamage, data);
+                health.ApplyDamage(damage, data);
                 OnAttack(health);
             }
         }
