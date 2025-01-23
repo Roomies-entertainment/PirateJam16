@@ -7,7 +7,9 @@ public class PlayerAnimation : MonoBehaviour
     public void DoUpdate(float movementInput)
     {
         var scale = transform.localScale;
-        scale.x = movementInput > 0 ? 1f : -1f;
+
+        if (movementInput != 0)
+            scale.x = movementInput > 0 ? 1f : -1f;
 
         transform.localScale = scale;
     }
