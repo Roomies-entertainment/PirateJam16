@@ -38,6 +38,9 @@ public class Player : MonoBehaviour
     private PlayerAnimation Animation;
     private PlayerHealth Health;
 
+    private float platformPhaseTimer;
+    private const float PlatformPhaseHoldDuration = 0.2f;
+
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
@@ -109,14 +112,19 @@ public class Player : MonoBehaviour
         Input.DoUpdate();
 
         ReadInputs();
+
+        platformPhaseTimer += Time.deltaTime;
     }
 
     private void ReadInputs()
     {
-        if (Collision.onPhasablePlatform && !Collision.phasing && Input.verticalInput < -0.35f)
+        if (Input.verticalInput >= 0f)
+            platformPhaseTimer = 0.0f;
+
+        if (Collision.onPhasablePlatform && !Collision.phasing && Input.verticalInput < -0.35f && platformPhaseTimer >= PlatformPhaseHoldDuration)
         {
             Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
-            //Physics.SetForce(new Vector2(Physics.velocityX, -1f));
+            Physics.SetForce(new Vector2(Physics.velocityX, -10f));
         }
         else if (Input.attackFlag)
         {
