@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handleCollider: {fileID: 7520021747304940393}
-  bladeCollider: {fileID: 5955510217972744912}
+  bladeCollider: {fileID: 0}
   debug: 0
 --- !u!114 &3130445153889366091
 MonoBehaviour:
@@ -491,7 +491,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   HandleCollider: {fileID: 7520021747304940393}
-  BladeCollider: {fileID: 5955510217972744912}
+  BladeCollider: {fileID: 0}
   blocking: 0
 --- !u!114 &3348222302375638153
 MonoBehaviour:
@@ -545,7 +545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3499151837509429501}
-  - component: {fileID: 5955510217972744912}
+  - component: {fileID: 16487610655842237}
   m_Layer: 6
   m_Name: Blade Collider
   m_TagString: Untagged
@@ -568,8 +568,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 868922612935429444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &5955510217972744912
-CapsuleCollider2D:
+--- !u!58 &16487610655842237
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -601,5 +601,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.11}
-  m_Size: {x: 0.99, y: 1.11}
-  m_Direction: 0
+  serializedVersion: 2
+  m_Radius: 0.53
