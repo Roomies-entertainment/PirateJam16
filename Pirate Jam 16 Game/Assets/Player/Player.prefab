@@ -407,8 +407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2423c47cc49a4964685977787f5ac9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handleCollider: {fileID: 7520021747304940393}
-  bladeCollider: {fileID: 0}
+  HandleCollider: {fileID: 7520021747304940393}
+  BladeCollider: {fileID: 16487610655842237}
+  PhysicsCollider: {fileID: 8894800512938370558}
   debug: 0
 --- !u!114 &3130445153889366091
 MonoBehaviour:

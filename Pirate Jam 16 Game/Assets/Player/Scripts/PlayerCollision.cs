@@ -1,30 +1,50 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField] private Collider2D handleCollider;
-    [SerializeField] private Collider2D bladeCollider;
+    [SerializeField] private Collider2D HandleCollider;
+    [SerializeField] private Collider2D BladeCollider;
+    [SerializeField] private Collider2D PhysicsCollider;
 
     [Header("")]
     [SerializeField] private bool debug = false;
 
-    private void OnCollisionEnter(Collision collision)
+    public bool onPhasablePlatform { get; private set; }
+    public bool phasing { get; private set; }
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        var contact0 = collision.GetContact(0);
-        
-        if (contact0.thisCollider == handleCollider)
+        if (!onPhasablePlatform && collision.collider.GetComponent<PlatformEffector2D>())
+            onPhasablePlatform = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (onPhasablePlatform && collision.collider.GetComponent<PlatformEffector2D>())
+            onPhasablePlatform = false;
+    }
+
+    public IEnumerator PhaseThroughPlatforms(float duration)
+    {
+        phasing= true;
+        PhysicsCollider.enabled = false;
+
+        float timer = 0f;
+
+        while (timer < duration && phasing)
         {
-            if (debug)
-            {
-                Debug.Log("Handle Collision");
-            }
+            yield return null;
+
+            timer += Time.deltaTime;
         }
-        else if (contact0.thisCollider == bladeCollider)
-        {
-            if (debug)
-            {
-                Debug.Log("Blade Collision");
-            }
-        }
+
+        phasing = false;
+        PhysicsCollider.enabled = true;
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

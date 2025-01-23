@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private SurfaceDetector GroundDetector;
 
     private PlayerInput Input;
+    private PlayerCollision Collision;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
     private PlayerAnimation Animation;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
+        Collision = GetComponent<PlayerCollision>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
         Animation = GetComponent<PlayerAnimation>();
@@ -111,7 +113,12 @@ public class Player : MonoBehaviour
 
     private void ReadInputs()
     {
-        if (Input.attackFlag)
+        if (Collision.onPhasablePlatform && !Collision.phasing && Input.verticalInput < -0.35f)
+        {
+            Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
+            //Physics.SetForce(new Vector2(Physics.velocityX, -1f));
+        }
+        else if (Input.attackFlag)
         {
             Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
