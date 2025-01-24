@@ -385,6 +385,14 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
+      propertyPath: TargetObject
+      value: 
+      objectReference: {fileID: 255413512329139395}
     - target: {fileID: 2806729321639524867, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -1316,6 +1324,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+--- !u!4 &255413512329139395 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 868922612935429444, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+  m_PrefabInstance: {fileID: 255413512329139394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5684816948169352924
 PrefabInstance:
   m_ObjectHideFlags: 0

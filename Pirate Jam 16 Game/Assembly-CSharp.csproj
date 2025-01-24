@@ -66,9 +66,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Components\Parallax.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\Camera\CameraThreshold.cs" />
     <Compile Include="Assets\Scripts\Components\AudioSourceDestroyer.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Camera\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Components\Attack.cs" />
     <Compile Include="Assets\Scripts\Collision.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />

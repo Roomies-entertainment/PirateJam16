@@ -1257,33 +1257,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2806729321639524867, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
   m_PrefabInstance: {fileID: 8118933591397592068}
   m_PrefabAsset: {fileID: 0}
---- !u!1773428102 &1297867902
-ParentConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1297867894}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 1.5, z: -10}
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_TranslationOffsets:
-  - {x: -0.065, y: 1.371, z: -10}
-  m_RotationOffsets:
-  - {x: 0, y: 0, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 0
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 1
-  m_AffectRotationY: 0
-  m_AffectRotationZ: 1
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 1401291891}
-    weight: 1
 --- !u!1001 &1299016894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2409,7 +2382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1565820138221136609, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2400002
+      value: 1.631
       objectReference: {fileID: 0}
     - target: {fileID: 1565820138221136609, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2443,6 +2416,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
+      propertyPath: TargetObject
+      value: 
+      objectReference: {fileID: 1401291891}
+    - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
+      propertyPath: maxFollowPosY
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
+      propertyPath: minFollowPosY
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2806729321639524867, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -2450,10 +2435,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2806729321639524867, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1297867902}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
