@@ -26,7 +26,6 @@ public class EnemyAttack : Attack
             yield return new WaitForSeconds(0.2f);
 
             transform.position -= attackDirection * 0.25f;
-
             StopAttack();
 
             yield return new WaitForSeconds(attackDelay);

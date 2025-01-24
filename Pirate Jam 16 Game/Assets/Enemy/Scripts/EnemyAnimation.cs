@@ -8,4 +8,9 @@ public class EnemyAnimation : MonoBehaviour
     {
         Animator.SetBool("Attack", true);
     }
+
+    public void OnStopAttack()
+    {
+        Animator.SetBool("Attack", false);
+    }
 }
