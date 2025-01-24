@@ -7,7 +7,16 @@ public class PlayerAttack : Attack
     [Range(0, 1)] public float fallingThreshold = 0.24f;
     public int fallingExtraDamage = 1;
 
+    [Header("")]
+    public float AttackCooldown = 0f;
+    public float attackCooldownTimer {get; private set; } = 0.0f;
+
     public List<Health> attackedEnemies { get; private set; } = new List<Health>();
+
+    private void Update()
+    {
+        attackCooldownTimer += Time.deltaTime;
+    }
 
     public List<ComponentData> FindObjectsToAttack(Vector2 attackDirection)
     {
@@ -28,6 +37,13 @@ public class PlayerAttack : Attack
         }
 
         return objectsR;
+    }
+
+    protected override void OnPerformAttack()
+    {
+        base.OnPerformAttack();
+
+        attackCooldownTimer = 0.0f;
     }
 
     protected override void OnAttack(Health enemy)

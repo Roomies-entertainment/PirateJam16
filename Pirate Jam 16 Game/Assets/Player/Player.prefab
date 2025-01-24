@@ -455,7 +455,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  fallingCritThreshold: 0.24
+  fallingThreshold: 0.24
+  fallingExtraDamage: 1
+  AttackCooldown: 0
 --- !u!114 &1858803697121880418
 MonoBehaviour:
   m_ObjectHideFlags: 0

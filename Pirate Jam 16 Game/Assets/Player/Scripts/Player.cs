@@ -128,10 +128,13 @@ public class Player : MonoBehaviour
         }
         else if (Input.attackFlag)
         {
-            Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
+            if (Attack.attackCooldownTimer > Attack.AttackCooldown)
+            {
+                Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
-            var enemies = Attack.FindObjectsToAttack(direction);
-            Attack.PerformAttack(enemies, direction, CalculateAttackDamage());
+                var enemies = Attack.FindObjectsToAttack(direction);
+                Attack.PerformAttack(enemies, direction, CalculateAttackDamage());
+            }
 
             Input.ClearBlockFlag();
 
