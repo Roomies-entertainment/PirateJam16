@@ -62,8 +62,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Components\Parallax.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
-    <Compile Include="Assets\CloudSpawning.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
+    <Compile Include="Assets\Scripts\CloudDestroyer.cs" />
     <Compile Include="Assets\Scripts\Components\AudioSourceDestroyer.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
@@ -73,10 +73,12 @@
     <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Enemy\Scripts\Enemy.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\CloudSpawning.cs" />
+    <Compile Include="Assets\Scripts\SpriteFading.cs" />
     <Compile Include="Assets\Scripts\Detection.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Components\Health.cs" />
-    <Compile Include="Assets\CloudMovement.cs" />
+    <Compile Include="Assets\Scripts\CloudMovement.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />
@@ -84,7 +86,6 @@
     <Compile Include="Assets\Enemy\Scripts\EnemyAnimation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAttack.cs" />
-    <Compile Include="Assets\SpriteFading.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
   </ItemGroup>
   <ItemGroup>
