@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 3130445153889366091}
   - component: {fileID: 1858803697121880418}
   - component: {fileID: 2479779079809670167}
+  - component: {fileID: 1316175178462152386}
   - component: {fileID: 3348222302375638153}
   - component: {fileID: 7720237000091100624}
   m_Layer: 6
@@ -490,8 +491,22 @@ MonoBehaviour:
   onBlockDamage:
     m_PersistentCalls:
       m_Calls: []
-  BlockDamageColliders:
-  - {fileID: 16487610655842237}
+  TakeDamageColliders:
+  - {fileID: 7520021747304940393}
+  BlockDamageColliders: []
+--- !u!114 &1316175178462152386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBar: {fileID: 0}
 --- !u!114 &3348222302375638153
 MonoBehaviour:
   m_ObjectHideFlags: 0

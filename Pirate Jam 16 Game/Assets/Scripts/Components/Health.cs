@@ -13,10 +13,11 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected AudioClip blockSound;
 
     [Header("")]
-    [SerializeField] private UnityEvent onTakeDamage;
-    [Header("")]
+    [SerializeField] private UnityEvent<float> onTakeDamage;
     [SerializeField] private UnityEvent onBlockDamage;
 
+    [Header("")]
+    [SerializeField] protected Collider2D[] TakeDamageColliders;
     [SerializeField] protected Collider2D[] BlockDamageColliders;
 
     public bool blocking { get; private set; }
@@ -33,20 +34,32 @@ public abstract class Health : MonoBehaviour
 
     public bool ApplyDamage(int damage, ComponentData data)
     {
-        bool colliderBlocking = false;
+        bool colTakeDamage = false;
 
-        foreach(var c in BlockDamageColliders)
+        foreach(var c in TakeDamageColliders)
             if (data.colliders.Contains(c))
             {
-                colliderBlocking = true;
+                colTakeDamage = true;
 
                 break;
             }
 
-        if (blocking || colliderBlocking)
-        {
-            Debug.Log($"{gameObject.name} blocked damage");
+        if (!colTakeDamage)
+            return false;
 
+
+        bool colBlockDamage = false;
+
+        foreach(var c in BlockDamageColliders)
+            if (data.colliders.Contains(c))
+            {
+                colBlockDamage = true;
+
+                break;
+            }
+
+        if (blocking || colBlockDamage)
+        {
             BlockDamage(damage, data);
 
             return false;
@@ -59,16 +72,20 @@ public abstract class Health : MonoBehaviour
 
     protected virtual void TakeDamage(int damage, ComponentData data)
     {
+        Debug.Log($"{gameObject.name} took {damage} damage");
+
         IncrementHealth(-damage);
 
         if (damageSound != null)
             SoundManager.PlaySoundNonSpatial(damageSound);
 
-        onTakeDamage.Invoke();
+        onTakeDamage.Invoke((float) health / startingHealth);
     }
 
     protected virtual void BlockDamage(int damage, ComponentData data)
     {
+        Debug.Log($"{gameObject.name} blocked {damage} damage");
+
         if (blockSound != null)
             SoundManager.PlaySoundNonSpatial(damageSound);
 
