@@ -14,7 +14,7 @@ public class PlayerAnimation : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void OnAttack()
+    public void OnPerformAttack()
     {
         Animator.SetBool("Attack", true);
     }

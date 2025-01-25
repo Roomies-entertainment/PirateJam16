@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -132,8 +133,8 @@ public class Player : MonoBehaviour
             {
                 Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
-                var enemies = Attack.FindObjectsToAttack(direction);
-                Attack.PerformAttack(enemies, direction, CalculateAttackDamage());
+                List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
+                Attack.PerformAttack(enemies, transform.position, direction, CalculateAttackDamage());
             }
 
             Input.ClearBlockFlag();

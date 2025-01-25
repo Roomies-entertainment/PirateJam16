@@ -26,7 +26,7 @@ public class EnemyHealth : Health
         }
     }
 
-    protected override void TakeDamage(int damage, ComponentData data)
+    protected override void TakeDamage(int damage, DetectionData data)
     {
         base.TakeDamage(damage, data);
 

@@ -6,7 +6,7 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private Slider HealthBar;
 
-    public void UpdateHealthBar(float health01)
+    public void OnTakeDamage(float health01, DetectionData data)
     {
         HealthBar.value = health01;
     }

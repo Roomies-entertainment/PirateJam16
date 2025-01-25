@@ -13,7 +13,7 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected AudioClip blockSound;
 
     [Header("")]
-    [SerializeField] private UnityEvent<float> onTakeDamage;
+    [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
     [SerializeField] private UnityEvent onBlockDamage;
 
     [Header("")]
@@ -32,12 +32,12 @@ public abstract class Health : MonoBehaviour
         health = (int) Mathf.Max(0f, health + increment);
     }
 
-    public bool ApplyDamage(int damage, ComponentData data)
+    public bool ApplyDamage(int damage, DetectionData data)
     {
         bool colTakeDamage = false;
 
         foreach(var c in TakeDamageColliders)
-            if (data.colliders.Contains(c))
+            if (data.DetectedComponentData.Colliders.Contains(c))
             {
                 colTakeDamage = true;
 
@@ -51,7 +51,7 @@ public abstract class Health : MonoBehaviour
         bool colBlockDamage = false;
 
         foreach(var c in BlockDamageColliders)
-            if (data.colliders.Contains(c))
+            if (data.DetectedComponentData.Colliders.Contains(c))
             {
                 colBlockDamage = true;
 
@@ -70,7 +70,7 @@ public abstract class Health : MonoBehaviour
         return true;
     }
 
-    protected virtual void TakeDamage(int damage, ComponentData data)
+    protected virtual void TakeDamage(int damage, DetectionData data)
     {
         Debug.Log($"{gameObject.name} took {damage} damage");
 
@@ -79,10 +79,10 @@ public abstract class Health : MonoBehaviour
         if (damageSound != null)
             SoundManager.PlaySoundNonSpatial(damageSound);
 
-        onTakeDamage.Invoke((float) health / startingHealth);
+        onTakeDamage.Invoke((float) health / startingHealth, data);
     }
 
-    protected virtual void BlockDamage(int damage, ComponentData data)
+    protected virtual void BlockDamage(int damage, DetectionData data)
     {
         Debug.Log($"{gameObject.name} blocked {damage} damage");
 

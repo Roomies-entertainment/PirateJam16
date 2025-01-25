@@ -4,7 +4,7 @@ public class EnemyAnimation : MonoBehaviour
 {
     public Animator Animator;
 
-    public void OnAttack()
+    public void OnPerformAttack()
     {
         Animator.SetBool("Attack", true);
     }

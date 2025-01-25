@@ -25,14 +25,14 @@ public class PlayerAttack : Attack
 
         foreach (var enemy in enemies)
         {
-            var enemyHealth = (Health) enemy.component;
+            var enemyHealth = (Health) enemy.Component;
 
             if (attackedEnemies.Contains(enemyHealth))
                 continue;
                 
             if ( Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
-                objectsR.Add(new ComponentData(enemyHealth, enemy.colliders));
+                objectsR.Add(new ComponentData(enemyHealth, enemy.Colliders));
             }
         }
 
@@ -46,9 +46,9 @@ public class PlayerAttack : Attack
         attackCooldownTimer = 0.0f;
     }
 
-    protected override void OnAttack(Health enemy)
+    protected override void OnAttackObject(GameObject enemy)
     {
-        attackedEnemies.Add(enemy);
+        attackedEnemies.Add(enemy.GetComponent<Health>());
     }
 
     protected override void OnStopAttack()

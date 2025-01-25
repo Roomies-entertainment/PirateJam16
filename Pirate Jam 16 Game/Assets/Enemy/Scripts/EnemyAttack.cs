@@ -21,7 +21,7 @@ public class EnemyAttack : Attack
             
             transform.position += attackDirection * 0.25f;
 
-            PerformAttack(players, attackDirection);
+            PerformAttack(players, transform.position, attackDirection);
 
             yield return new WaitForSeconds(0.2f);
 
@@ -39,7 +39,7 @@ public class EnemyAttack : Attack
         if (players.Count == 0)
             return new Vector2();
 
-        Vector2 firstPlayerDir = players[0].component.transform.position - transform.position;
+        Vector2 firstPlayerDir = players[0].Component.transform.position - transform.position;
         firstPlayerDir.y = 0f;
         firstPlayerDir.Normalize();
 

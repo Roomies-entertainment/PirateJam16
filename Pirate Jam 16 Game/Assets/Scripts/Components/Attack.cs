@@ -12,30 +12,35 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] protected AudioClip attackSound;
 
     [Header("")]
-    [SerializeField] protected UnityEvent onAttack;
-
-    [Header("")]
+    [SerializeField] protected UnityEvent onPerformAttack;
+    [SerializeField] protected UnityEvent<GameObject> onAttackObject;
     [SerializeField] protected UnityEvent onStopAttack;
 
     public bool attacking { get; private set; }
 
-    public void PerformAttack(List<ComponentData> attackedObjects, Vector2 attackDirection, int damage = BaseDamage)
+    public void PerformAttack(List<ComponentData> attackedObjects, Vector2 attackPoint, Vector2 attackDirection, int damage = BaseDamage)
     {
         foreach (var data in attackedObjects)
         {
-            var health = (Health) data.component;
+            var health = (Health) data.Component;
 
             if ( Vector2.Dot((health.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
-                health.ApplyDamage(damage, data);
-                OnAttack(health);
+                health.ApplyDamage(
+                    damage,
+                    new DetectionData(attackPoint, data, new ComponentData(this)));
+                    
+                OnAttackObject(health.gameObject);
             }
         }
 
         OnPerformAttack();
     }
 
-    protected virtual void OnAttack(Health attackedObj) { }
+    protected virtual void OnAttackObject(GameObject attackedObj)
+    {
+        onAttackObject.Invoke(attackedObj);
+    }
 
     protected virtual void OnPerformAttack()
     {
@@ -44,7 +49,7 @@ public abstract class Attack : MonoBehaviour
 
         attacking = true;
 
-        onAttack.Invoke();
+        onPerformAttack.Invoke();
     }
 
     public void StopAttack()
