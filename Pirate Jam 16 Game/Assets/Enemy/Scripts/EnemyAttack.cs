@@ -21,13 +21,8 @@ public class EnemyAttack : Attack
             
             transform.position += attackDirection * 0.25f;
 
-
-            PerformAttack(players, transform.position, attackDirection);
-
             if (players.Count > 0)
                 PerformAttack(players, players[0].Component.transform.position, attackDirection);
-
-
 
             yield return new WaitForSeconds(0.2f);
 
