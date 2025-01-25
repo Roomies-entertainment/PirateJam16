@@ -8,8 +8,6 @@ public class PlayerHealth : Health
     public Collider2D HandleCollider;
     public Collider2D BladeCollider;
 
-    [HideInInspector] public bool blocking;
-
     private void Start()
     {
         if (HandleCollider == null)

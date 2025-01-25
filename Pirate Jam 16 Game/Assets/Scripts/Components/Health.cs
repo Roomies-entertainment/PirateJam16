@@ -17,6 +17,8 @@ public abstract class Health : MonoBehaviour
     [Header("")]
     [SerializeField] private UnityEvent onBlockDamage;
 
+    public bool blocking { get; private set; }
+
     protected void Awake()
     {
         health = startingHealth;
@@ -45,5 +47,17 @@ public abstract class Health : MonoBehaviour
             SoundManager.PlaySoundNonSpatial(damageSound);
 
         onBlockDamage.Invoke();
+    }
+
+    public virtual void StartBlocking()
+    {
+        Debug.Log($"{gameObject.name} is blocking");
+        blocking = true;
+    }
+
+    public virtual void StopBlocking()
+    {
+        Debug.Log($"{gameObject.name} stopped blocking");
+        blocking = false;
     }
 }
