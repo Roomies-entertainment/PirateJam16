@@ -26,41 +26,12 @@ public class EnemyHealth : Health
         }
     }
 
-    protected override void IncrementHealth(int increment)
-    {
-        base.IncrementHealth(increment);
-
-        Debug.Log($"{gameObject.name} health has reached {health}");
-    }
-
-    public override void ApplyDamage(int damage, ComponentData data)
-    {
-        TakeDamage(damage, data);
-    }
-
     protected override void TakeDamage(int damage, ComponentData data)
     {
-        if (blocking)
-        {
-            Debug.Log($"{gameObject.name} blocked damage");
-
-            return;
-        }
-
         base.TakeDamage(damage, data);
 
         if (health == 0)
             Destroy(gameObject);
-    }
-
-    public override void StartBlocking()
-    {
-        base.StartBlocking();
-    }
-
-    public override void StopBlocking()
-    {
-        base.StopBlocking();
     }
 
     private void OnDestroy()

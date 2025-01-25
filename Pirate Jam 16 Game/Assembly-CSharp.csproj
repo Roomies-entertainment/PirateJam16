@@ -69,7 +69,6 @@
     <Compile Include="Assets\Scripts\Components\SpriteFading.cs" />
     <Compile Include="Assets\Scripts\Components\TriggerObjectDestroyer.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
-    <Compile Include="Assets\Scripts\CloudDestroyer.cs" />
     <Compile Include="Assets\Scripts\Components\AudioSourceDestroyer.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
@@ -79,7 +78,6 @@
     <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Enemy\Scripts\Enemy.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerInput.cs" />
-    <Compile Include="Assets\Scripts\CloudSpawning.cs" />
     <Compile Include="Assets\Scripts\Components\ObjectSpawning.cs" />
     <Compile Include="Assets\Scripts\Detection.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />

@@ -17,6 +17,8 @@ public abstract class Health : MonoBehaviour
     [Header("")]
     [SerializeField] private UnityEvent onBlockDamage;
 
+    [SerializeField] protected Collider2D[] BlockDamageColliders;
+
     public bool blocking { get; private set; }
 
     protected void Awake()
@@ -29,7 +31,31 @@ public abstract class Health : MonoBehaviour
         health = (int) Mathf.Max(0f, health + increment);
     }
 
-    public abstract void ApplyDamage(int damage, ComponentData data);
+    public bool ApplyDamage(int damage, ComponentData data)
+    {
+        bool colliderBlocking = false;
+
+        foreach(var c in BlockDamageColliders)
+            if (data.colliders.Contains(c))
+            {
+                colliderBlocking = true;
+
+                break;
+            }
+
+        if (blocking || colliderBlocking)
+        {
+            Debug.Log($"{gameObject.name} blocked damage");
+
+            BlockDamage(damage, data);
+
+            return false;
+        }
+
+        TakeDamage(damage, data);
+        
+        return true;
+    }
 
     protected virtual void TakeDamage(int damage, ComponentData data)
     {
