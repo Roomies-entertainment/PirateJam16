@@ -327,6 +327,9 @@ MonoBehaviour:
   onBlockDamage:
     m_PersistentCalls:
       m_Calls: []
+  BlockDamageColliders: []
+  blockDuration: 1.5
+  blockInterval: 3
 --- !u!114 &6387492525786132012
 MonoBehaviour:
   m_ObjectHideFlags: 0

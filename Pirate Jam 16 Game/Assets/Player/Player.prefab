@@ -407,8 +407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2423c47cc49a4964685977787f5ac9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HandleCollider: {fileID: 7520021747304940393}
-  BladeCollider: {fileID: 16487610655842237}
   PhysicsCollider: {fileID: 8894800512938370558}
   debug: 0
 --- !u!114 &3130445153889366091
@@ -492,9 +490,8 @@ MonoBehaviour:
   onBlockDamage:
     m_PersistentCalls:
       m_Calls: []
-  HandleCollider: {fileID: 7520021747304940393}
-  BladeCollider: {fileID: 0}
-  blocking: 0
+  BlockDamageColliders:
+  - {fileID: 16487610655842237}
 --- !u!114 &3348222302375638153
 MonoBehaviour:
   m_ObjectHideFlags: 0

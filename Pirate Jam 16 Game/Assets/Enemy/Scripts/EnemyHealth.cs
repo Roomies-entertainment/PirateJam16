@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    protected override void IncrementHealth(int increment)
-    {
-        base.IncrementHealth(increment);
+    [SerializeField] private float blockDuration = 1.5f;
+    [SerializeField] private float blockInterval = 3.0f;
 
-        Debug.Log($"{gameObject.name} health has reached {health}");
+    private void Start()
+    {
+        StartCoroutine(BlockLoop(blockInterval));
     }
 
-    public override void ApplyDamage(int damage, ComponentData data)
+    private IEnumerator BlockLoop(float interval)
     {
-        TakeDamage(damage, data);
+        while (gameObject != null)
+        {
+            yield return new WaitForSeconds(interval);
+
+            StartBlocking();
+
+            yield return new WaitForSeconds(blockDuration);
+
+            StopBlocking();
+        }
     }
 
     protected override void TakeDamage(int damage, ComponentData data)
@@ -22,5 +32,10 @@ public class EnemyHealth : Health
 
         if (health == 0)
             Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

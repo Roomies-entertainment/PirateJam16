@@ -4,7 +4,9 @@ public class Parallax : MonoBehaviour
 {
     private float startOffsetX;
     [SerializeField] private GameObject cam;
-    [SerializeField] [Range(0, 1)] private float distance; // 0 = move with cam || 1 = wont move || 0.5 = half
+    
+    [SerializeField] [Range(0, 1)] [Tooltip("1 = move with cam || 0 = wont move || 0.5 = half")]
+    private float distance;
 
     void Start()
     {
