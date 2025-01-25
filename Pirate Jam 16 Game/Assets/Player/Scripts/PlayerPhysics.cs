@@ -21,6 +21,12 @@ public class PlayerPhysics : MonoBehaviour
         velocityY += force.y;
     }
 
+    public void SetForce(Vector2 force)
+    {
+        velocityX = force.x;
+        velocityY = force.y;
+    }
+
     public void SetGroundMoveForce(float speed)
     {
         velocityX = speed;

@@ -64,14 +64,32 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.23f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\SurfaceDetector.cs" />
-    <Compile Include="Assets\Player\Scripts\PlayerDetection.cs" />
-    <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Scripts\Components\Parallax.cs" />
+    <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\Scripts\Components\SpriteFading.cs" />
+    <Compile Include="Assets\Scripts\Components\TriggerObjectDestroyer.cs" />
+    <Compile Include="Assets\Camera\CameraThreshold.cs" />
+    <Compile Include="Assets\Scripts\Components\AudioSourceDestroyer.cs" />
+    <Compile Include="Assets\Player\Scripts\PlayerAnimation.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Camera\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\Components\Attack.cs" />
     <Compile Include="Assets\Scripts\Collision.cs" />
+    <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />
+    <Compile Include="Assets\Enemy\Scripts\Enemy.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\Components\ObjectSpawning.cs" />
+    <Compile Include="Assets\Scripts\Detection.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Components\Health.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Player\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />
+    <Compile Include="Assets\Scripts\Components\SurfaceDetector.cs" />
+    <Compile Include="Assets\Enemy\Scripts\EnemyAnimation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
+    <Compile Include="Assets\Scripts\Components\FloatingMovement.cs" />
+    <Compile Include="Assets\Enemy\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerPhysics))]
 [RequireComponent(typeof(PlayerAttack))]
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(PlayerAnimation))]
+[RequireComponent(typeof(PlayerHealth))]
 
 public class Player : MonoBehaviour
 {
@@ -25,18 +26,20 @@ public class Player : MonoBehaviour
     [SerializeField] private float downGravityScale = 1.7f;
 
     [Header("")]
-    [SerializeField] private SurfaceDetector GroundDetector;
-
+    public AudioClip jumpSound;
+    
     [Header("")]
-    public bool takeOneDamage;
+    [SerializeField] private SurfaceDetector GroundDetector;
 
     private PlayerInput Input;
     private PlayerCollision Collision;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
-    private Health Health;
+    private PlayerAnimation Animation;
+    private PlayerHealth Health;
 
-    private bool blocking;
+    private float platformPhaseTimer;
+    private const float PlatformPhaseHoldDuration = 0.2f;
 
     private void Awake()
     {
@@ -44,7 +47,8 @@ public class Player : MonoBehaviour
         Collision = GetComponent<PlayerCollision>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
-        Health = GetComponent<Health>();
+        Animation = GetComponent<PlayerAnimation>();
+        Health = GetComponent<PlayerHealth>();
     }
 
     private void FixedUpdate()
@@ -61,6 +65,10 @@ public class Player : MonoBehaviour
         if (farHit && Input.jumpFlag)
         {
             Physics.SetJumpForce(jumpSpeed);
+        
+            if (jumpSound != null)
+                SoundManager.PlaySoundNonSpatial(jumpSound);
+
             Input.ClearJumpFlag();
         }
         else if (!onGround)
@@ -83,8 +91,9 @@ public class Player : MonoBehaviour
         }
         
         Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * ( Physics.velocityY > 0 ? upGravityScale : downGravityScale ));
-
         Physics.DoFixedUpdate();
+
+        Animation.DoUpdate(Input.movementInput);
     }
 
     private void Hop()
@@ -104,54 +113,58 @@ public class Player : MonoBehaviour
 
         ReadInputs();
 
-        if (takeOneDamage)
-        {
-            TakeDamage(1);
-
-            Debug.Log($"Player health has reached {Health.health}");
-
-            takeOneDamage = false;
-        }
+        platformPhaseTimer += Time.deltaTime;
     }
 
     private void ReadInputs()
     {
-        if (Input.attackFlag)
+        if (Input.verticalInput >= 0f)
+            platformPhaseTimer = 0.0f;
+
+        if (Collision.onPhasablePlatform && !Collision.phasing && Input.verticalInput < -0.35f && platformPhaseTimer >= PlatformPhaseHoldDuration)
         {
-            Attack.AttackEnemies( Vector2.right * ( Input.movementInputActive > 0f ? 1f : -1f ) );
+            Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
+            Physics.SetForce(new Vector2(Physics.velocityX, -10f));
+        }
+        else if (Input.attackFlag)
+        {
+            if (Attack.attackCooldownTimer > Attack.AttackCooldown)
+            {
+                Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
-            Input.ClearAttackFlag();
+                var enemies = Attack.FindObjectsToAttack(direction);
+                Attack.PerformAttack(enemies, direction, CalculateAttackDamage());
+            }
 
-            blocking = false;
+            Input.ClearBlockFlag();
+
+            if (Health.blocking)
+            {
+                Health.StopBlocking();
+            }
         }
         else
         {
+            if (Attack.attacking)
+            {
+                Attack.StopAttack();
+            }
+
             if (Input.blockFlag)
             {
-                if (!blocking)
-                    Debug.Log("Player is blocking");
-
-                blocking = true;
+                Health.StartBlocking();
             }
-            else
+            else if (Health.blocking)
             {
-                if (blocking)
-                    Debug.Log("Player stopped blocking");
-
-                blocking = false;
+                Health.StopBlocking();
             }
         }
     }
 
-    public void TakeDamage(int damage)
+    private int CalculateAttackDamage()
     {
-        if (blocking)
-        {
-            Debug.Log("Damage blocked");
-
-            return;
-        }
-        else
-            Health.IncrementHealth(-damage);
+        return Physics.velocityY < Physics2D.gravity.y * downGravityScale * Attack.fallingThreshold ?
+        PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
+        PlayerAttack.BaseDamage;
     }
 }

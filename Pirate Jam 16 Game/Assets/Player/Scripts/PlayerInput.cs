@@ -3,17 +3,20 @@ using UnityEngine;
 [HideInInspector]
 public class PlayerInput : MonoBehaviour
 {
+    [SerializeField] private bool enableBlocking;
+
     public float movementInput { get; private set; }
     public float movementInputActive { get; private set; }
 
+    public float verticalInput { get; private set; }
+
     private bool _jumpFlag;      public bool jumpFlag { get { return _jumpFlag; } } public void ClearJumpFlag() { _jumpFlag = false; }
     private bool _attackFlag;    public bool attackFlag { get { return _attackFlag; } } public void ClearAttackFlag() { _attackFlag = false; }
-    private bool _blockFlag;    public bool blockFlag { get { return _blockFlag; } }
+    private bool _blockFlag;    public bool blockFlag { get { return _blockFlag; } } public void ClearBlockFlag() { _blockFlag = false;}
 
     [SerializeField] private const float JumpTimeout = 0.35f;
 
     private float jumpTimer;
-    private float attackTimer;
 
     public void DoUpdate()
     {
@@ -22,16 +25,22 @@ public class PlayerInput : MonoBehaviour
         if (movementInput != 0f)
             movementInputActive = movementInput;
 
-        HandleTimedFlag(ref _jumpFlag, Input.GetButtonDown("Jump"), ref jumpTimer, JumpTimeout);
-        HandleTimedFlag(ref _attackFlag, Input.GetButtonDown("Attack"), ref attackTimer);
-        HandleHoldFlag(ref _blockFlag, Input.GetButton("Block"));
+        verticalInput = Input.GetAxisRaw("Vertical");
+
+        HandleTimedFlag(ref _jumpFlag, "Jump", ref jumpTimer, JumpTimeout);
+        HandleHoldFlag(ref _attackFlag, "Attack");
+
+        if (enableBlocking)
+            HandleHoldFlag(ref _blockFlag, "Block");
+        else if (_blockFlag)
+            _blockFlag = false;
 
         UpdateTimers();
     }
 
-    private void HandleTimedFlag(ref bool flag, bool input, ref float timer, float timeout = -1f)
+    private void HandleTimedFlag(ref bool flag, string inputName, ref float timer, float timeout = -1f)
     {
-        if (!flag && input)
+        if (!flag && Input.GetButtonDown(inputName))
         {
             flag = true;
             timer = 0f;
@@ -43,14 +52,22 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void HandleHoldFlag(ref bool flag, bool input)
+    private void HandleHoldFlag(ref bool flag, string inputName)
     {
-        flag = input;
+        if (!flag)
+        {
+            if (Input.GetButtonDown(inputName))
+                flag = true;
+        }
+        else
+        {
+            if (!Input.GetButton(inputName))
+                flag = false;
+        }
     }
 
     private void UpdateTimers()
     {
         jumpTimer += Time.deltaTime;
-        attackTimer += Time.deltaTime;
     }
 }

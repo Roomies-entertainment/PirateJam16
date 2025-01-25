@@ -1,22 +1,60 @@
-using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : Attack
 {
-    [SerializeField] private float attackRadius = 1f;
-    [SerializeField] private int BaseDamage = 1;
+    [Range(0, 1)] public float fallingThreshold = 0.24f;
+    public int fallingExtraDamage = 1;
 
-    public void AttackEnemies(Vector3 attackDir)
+    [Header("")]
+    public float AttackCooldown = 0f;
+    public float attackCooldownTimer {get; private set; } = 0.0f;
+
+    public List<Health> attackedEnemies { get; private set; } = new List<Health>();
+
+    private void Update()
     {
-        var enemies = PlayerDetection.DetectEnemies(transform.position, attackRadius);
+        attackCooldownTimer += Time.deltaTime;
+    }
+
+    public List<ComponentData> FindObjectsToAttack(Vector2 attackDirection)
+    {
+        var enemies = Detection.DetectComponent<EnemyHealth>(transform.position, attackRadius, 1 << Collisions.enemyLayer);
+        var objectsR = new List<ComponentData>();
 
         foreach (var enemy in enemies)
         {
-            if ( Vector2.Dot((enemy.transform.position - transform.position).normalized, attackDir.normalized) > 0f )
+            var enemyHealth = (Health) enemy.component;
+
+            if (attackedEnemies.Contains(enemyHealth))
+                continue;
+                
+            if ( Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
-                Destroy(enemy);
+                objectsR.Add(new ComponentData(enemyHealth, enemy.colliders));
             }
         }
+
+        return objectsR;
+    }
+
+    protected override void OnPerformAttack()
+    {
+        base.OnPerformAttack();
+
+        attackCooldownTimer = 0.0f;
+    }
+
+    protected override void OnAttack(Health enemy)
+    {
+        attackedEnemies.Add(enemy);
+    }
+
+    protected override void OnStopAttack()
+    {
+        base.OnStopAttack();
+
+        attackedEnemies.Clear();
     }
 }
