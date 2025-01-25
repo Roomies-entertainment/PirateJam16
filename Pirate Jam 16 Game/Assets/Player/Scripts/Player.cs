@@ -140,8 +140,7 @@ public class Player : MonoBehaviour
 
             if (Health.blocking)
             {
-                Debug.Log("Player stopped blocking");
-                Health.blocking = false;
+                Health.StopBlocking();
             }
         }
         else
@@ -153,17 +152,11 @@ public class Player : MonoBehaviour
 
             if (Input.blockFlag)
             {
-                if (!Health.blocking)
-                    Debug.Log("Player is blocking");
-
-                Health.blocking = true;
+                Health.StartBlocking();
             }
-            else
+            else if (Health.blocking)
             {
-                if (Health.blocking)
-                    Debug.Log("Player stopped blocking");
-
-                Health.blocking = false;
+                Health.StopBlocking();
             }
         }
     }

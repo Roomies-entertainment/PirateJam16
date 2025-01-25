@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField] private Collider2D HandleCollider;
-    [SerializeField] private Collider2D BladeCollider;
     [SerializeField] private Collider2D PhysicsCollider;
 
     [Header("")]
