@@ -5603,6 +5603,10 @@ PrefabInstance:
       propertyPath: TargetObject
       value: 
       objectReference: {fileID: 1341472492}
+    - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
+      propertyPath: minFollowPosY
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2806729321639524867, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -10514,7 +10518,7 @@ Transform:
   m_GameObject: {fileID: 1861626139}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.66, z: 0}
+  m_LocalPosition: {x: 0, y: -2.499, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
