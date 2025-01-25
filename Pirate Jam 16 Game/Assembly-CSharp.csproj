@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\PlayerUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Components\Parallax.cs" />
+    <Compile Include="Assets\Scripts\Components\TimedObjectDestroyer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Components\SpriteFading.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Scripts\Components\FloatingMovement.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAttack.cs" />
+    <Compile Include="Assets\Scripts\Components\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>

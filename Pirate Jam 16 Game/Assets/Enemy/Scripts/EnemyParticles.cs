@@ -9,6 +9,6 @@ public class EnemyParticles : MonoBehaviour
 
     public void OnTakeDamage(float damage, DetectionData data)
     {
-        ParticleManager.SpawnParticle(bloodParticlePrefab, data.Point, data.DetectorComponentData.Component.transform);
+        ParticleManager.SpawnParticle(bloodParticlePrefab, data.Point, data.DetectorComponentData.Component.transform, true, 0.3f);
     }
 }

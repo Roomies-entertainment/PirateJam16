@@ -488,7 +488,6 @@ MonoBehaviour:
   startingHealth: 3
   damageSound: {fileID: 0}
   blockSound: {fileID: 0}
-  bloodParticlePrefab: {fileID: 0}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
