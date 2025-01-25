@@ -117,9 +117,8 @@ MonoBehaviour:
   - {fileID: 8800245194755690842}
   - {fileID: 6158250300490832355}
   - {fileID: 6971854579823845623}
-  initialDelay: 4
   minDelay: 4
-  maxDelay: 12
+  maxDelay: 10
 --- !u!114 &6210925305013658808
 MonoBehaviour:
   m_ObjectHideFlags: 0

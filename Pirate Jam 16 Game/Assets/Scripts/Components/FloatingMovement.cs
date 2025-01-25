@@ -9,8 +9,4 @@ public class FloatingMovement : MonoBehaviour
     void Update(){
         GetComponent<Rigidbody2D>().velocity = -transform.right * speed;
     }
-
-    void Start(){
-        transform.parent = null;
-    }
 }
