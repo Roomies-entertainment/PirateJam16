@@ -14,7 +14,8 @@ public abstract class Health : MonoBehaviour
 
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
-    [SerializeField] private UnityEvent onBlockDamage;
+    [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
+
 
     [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
@@ -35,6 +36,22 @@ public abstract class Health : MonoBehaviour
     public bool ApplyDamage(int damage, DetectionData data)
     {
         bool colTakeDamage = false;
+        bool colBlockDamage = false;
+
+        foreach(var c in TakeDamageColliders)
+            if (data.DetectedComponentData.Colliders.Contains(c))
+            {
+                colTakeDamage = true;
+
+                break;
+            }
+
+        if (!colTakeDamage)
+        {
+            BlockDamage(damage, data);
+
+            return false;
+        }
 
         foreach(var c in TakeDamageColliders)
             if (data.DetectedComponentData.Colliders.Contains(c))
@@ -46,9 +63,6 @@ public abstract class Health : MonoBehaviour
 
         if (!colTakeDamage)
             return false;
-
-
-        bool colBlockDamage = false;
 
         foreach(var c in BlockDamageColliders)
             if (data.DetectedComponentData.Colliders.Contains(c))
@@ -89,7 +103,7 @@ public abstract class Health : MonoBehaviour
         if (blockSound != null)
             SoundManager.PlaySoundNonSpatial(damageSound);
 
-        onBlockDamage.Invoke();
+        onBlockDamage.Invoke(damage, data);
     }
 
     public virtual void StartBlocking()
