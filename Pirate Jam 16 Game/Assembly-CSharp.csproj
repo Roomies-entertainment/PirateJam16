@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Components\Parallax.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Components\SpriteFading.cs" />
+    <Compile Include="Assets\Scripts\Components\TriggerObjectDestroyer.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
     <Compile Include="Assets\Scripts\CloudDestroyer.cs" />
     <Compile Include="Assets\Scripts\Components\AudioSourceDestroyer.cs" />
