@@ -82,6 +82,7 @@
     <Compile Include="Assets\Enemy\Scripts\EnemyAnimation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAttack.cs" />
+    <Compile Include="Assets\SpriteFading.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
   </ItemGroup>
   <ItemGroup>
