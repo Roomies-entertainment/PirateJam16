@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6158250300490832355}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 6971854579823845623}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0, y: -1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96324d5a052a8941915f51dd9f4f292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToSpawn:
+  cloudToSpawn:
   - {fileID: 5364979036907033481, guid: 10521e6e97457294f9444e28f789ff21, type: 3}
   - {fileID: 7694563360982211777, guid: f3cd207e6179a9a46a1c347d29a98a86, type: 3}
   - {fileID: 8067333630650621537, guid: 73b4338a83508fd4490c4a8472e97f56, type: 3}
@@ -117,9 +117,8 @@ MonoBehaviour:
   - {fileID: 8800245194755690842}
   - {fileID: 6158250300490832355}
   - {fileID: 6971854579823845623}
-  initialDelay: 1
-  minDelay: 3
-  maxDelay: 8
+  minDelay: 4
+  maxDelay: 12
 --- !u!114 &6210925305013658808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +132,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  distance: 0
+  distance: 1
