@@ -24377,6 +24377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074608031}
   - component: {fileID: 2074608032}
+  - component: {fileID: 2074608033}
   m_Layer: 0
   m_Name: WORLD TERRAIN
   m_TagString: Untagged
@@ -24416,7 +24417,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7840601689385155482, guid: 4742b4dbfeab7434bbee1cf2ebf11ec8, type: 2}
-  m_audioClip: {fileID: 8300000, guid: cfc384658ab720149ada323ab792b98d, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -24502,6 +24503,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2074608033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074608030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c6fb0c327d9bf42b205b5a79b638d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPlayer: {fileID: 2074608032}
+  audioClips:
+  - {fileID: 8300000, guid: cfc384658ab720149ada323ab792b98d, type: 3}
+  - {fileID: 8300000, guid: 103c9f3a064e4ba44a44d2c9a625bc01, type: 3}
 --- !u!1001 &2075648720
 PrefabInstance:
   m_ObjectHideFlags: 0
