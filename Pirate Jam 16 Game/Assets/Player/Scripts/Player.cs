@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     {
         bool onGround = GroundDetector.DetectSurface(jumpableGroundDistance, out bool farHit, out float hitDistance);
 
-        if (farHit && Input.jumpFlag)
+        if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
         {
             Physics.SetJumpForce(jumpSpeed);
         
