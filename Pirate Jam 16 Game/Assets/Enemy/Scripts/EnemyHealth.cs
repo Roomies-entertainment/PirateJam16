@@ -7,9 +7,14 @@ public class EnemyHealth : Health
     [SerializeField] private float blockDuration = 1.5f;
     [SerializeField] private float blockInterval = 3.0f;
 
+
+    public HealthBar healthBar;
+
     private void Start()
     {
         StartCoroutine(BlockLoop(blockInterval));
+        healthBar.barCurrentHealth = health;
+        healthBar.SetMaxHealth();
     }
 
     private IEnumerator BlockLoop(float interval)
@@ -29,6 +34,9 @@ public class EnemyHealth : Health
     protected override void TakeDamage(int damage, DetectionData data)
     {
         base.TakeDamage(damage, data);
+
+        healthBar.barCurrentHealth = health;
+        healthBar.SetHealth();
 
         if (health == 0)
             Destroy(gameObject);

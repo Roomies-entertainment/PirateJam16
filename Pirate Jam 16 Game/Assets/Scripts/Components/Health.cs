@@ -8,6 +8,7 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected int startingHealth = 3;
     public int health { get; protected set; }
 
+
     [Header("")]
     [SerializeField] protected AudioClip damageSound;
     [SerializeField] protected AudioClip blockSound;
@@ -32,6 +33,7 @@ public abstract class Health : MonoBehaviour
     {
         health = (int) Mathf.Max(0f, health + increment);
     }
+
 
     public bool ApplyDamage(int damage, DetectionData data)
     {
