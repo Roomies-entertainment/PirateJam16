@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyHealth : Health
 {
+    [SerializeField] private UnityEvent<float, DetectionData> onStart;
+
     [SerializeField] private float blockDuration = 1.5f;
     [SerializeField] private float blockInterval = 3.0f;
-
-
-    public HealthBar healthBar;
 
     private void Start()
     {
         StartCoroutine(BlockLoop(blockInterval));
-        healthBar.barCurrentHealth = health;
-        healthBar.SetMaxHealth();
+
+        onStart.Invoke(health / startingHealth, null);
     }
 
     private IEnumerator BlockLoop(float interval)
@@ -34,9 +34,6 @@ public class EnemyHealth : Health
     protected override void TakeDamage(int damage, DetectionData data)
     {
         base.TakeDamage(damage, data);
-
-        healthBar.barCurrentHealth = health;
-        healthBar.SetHealth();
 
         if (health == 0)
             Destroy(gameObject);
