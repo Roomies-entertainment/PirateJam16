@@ -10,15 +10,24 @@ public class PlayerColliders : MonoBehaviour
     [SerializeField] private Transform UprightConfiguration;
     [SerializeField] private Transform FlatConfiguration;
 
+    private void Start()
+    {
+        UpdateConfiguration(UprightConfiguration);
+    }
+
     public void OnPerformAttack()
     {
-        Colliders.position = FlatConfiguration.position;
-        Colliders.rotation = FlatConfiguration.rotation;
+        UpdateConfiguration(FlatConfiguration);
     }
 
     public void OnStopAttack()
     {
-        Colliders.position = UprightConfiguration.position;
-        Colliders.rotation = UprightConfiguration.rotation;
+        UpdateConfiguration(UprightConfiguration);
+    }
+
+    private void UpdateConfiguration(Transform configuration)
+    {
+        Colliders.position = configuration.position;
+        Colliders.rotation = configuration.rotation;
     }
 }

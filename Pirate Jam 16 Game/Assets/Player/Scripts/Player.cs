@@ -64,7 +64,8 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        bool onGround = GroundDetector.DetectSurface(jumpableGroundDistance, out bool farHit, out float hitDistance);
+        bool onGround = GroundDetector.DetectSurface(jumpableGroundDistance, out bool farHit, out float hitDistance,
+        ~(1 << Collisions.playerLayer | 1 << Collisions.playerPhysicsLayer));
 
         if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
         {

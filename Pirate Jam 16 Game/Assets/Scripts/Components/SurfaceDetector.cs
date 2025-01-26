@@ -5,7 +5,7 @@ public class SurfaceDetector : MonoBehaviour
     [SerializeField] private Transform detectionStart;
     [SerializeField] private Transform detectionEnd;
 
-    public bool DetectSurface(float extraHitDistance, out bool gotHit, out float hitDistance)
+    public bool DetectSurface(float extraHitDistance, out bool gotHit, out float hitDistance, LayerMask layerMask)
     {
         Vector2 start = detectionStart.position;
         Vector2 end = detectionEnd.position;
@@ -16,7 +16,7 @@ public class SurfaceDetector : MonoBehaviour
 
         gotHit = false;
 
-        RaycastHit2D hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraHitDistance);
+        RaycastHit2D hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraHitDistance, layerMask);
 
         if (hit.transform != null)
         {
