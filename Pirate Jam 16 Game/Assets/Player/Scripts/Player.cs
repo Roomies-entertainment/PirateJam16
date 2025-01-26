@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 
         if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
         {
-            Physics.SetJumpForce(jumpSpeed);
+            Physics.SetJumpForce(Input.attackFlag ? jumpSpeed * 0.77f : jumpSpeed);
         
             if (jumpSound != null)
                 SoundManager.PlaySoundNonSpatial(jumpSound);
