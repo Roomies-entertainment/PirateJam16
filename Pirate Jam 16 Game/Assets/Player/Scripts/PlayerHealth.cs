@@ -5,5 +5,10 @@ using UnityEngine.Events;
 
 public class PlayerHealth : Health
 {
-    
+    [SerializeField] private UnityEvent<float, DetectionData> onStart;
+
+    private void Start()
+    {
+        onStart.Invoke((float) health / startingHealth, null);
+    }
 }

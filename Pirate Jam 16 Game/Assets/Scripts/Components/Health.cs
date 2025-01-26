@@ -14,13 +14,12 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected AudioClip blockSound;
 
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
-    [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
-
-
-    [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
     [SerializeField] protected Collider2D[] BlockDamageColliders;
+
+    [Header("")]
+    [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
+    [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
 
     public bool blocking { get; private set; }
 

@@ -4,9 +4,10 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
+    [Header("")]
     [SerializeField] private Slider HealthBar;
 
-    public void OnTakeDamage(float health01, DetectionData data)
+    public void UpdateHealthBar(float health01, DetectionData data = null)
     {
         HealthBar.value = health01;
     }
