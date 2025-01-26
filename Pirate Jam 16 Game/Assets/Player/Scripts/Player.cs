@@ -42,6 +42,9 @@ public class Player : MonoBehaviour
     private float platformPhaseTimer;
     private const float PlatformPhaseHoldDuration = 0.2f;
 
+    private float jumpDampTimer;
+    private const float JumpDampDuration = 0.1f;
+
     private void Awake()
     {
         Input = GetComponent<PlayerInput>();
@@ -65,7 +68,7 @@ public class Player : MonoBehaviour
 
         if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
         {
-            Physics.SetJumpForce(Input.attackFlag ? jumpSpeed * 0.7f : jumpSpeed);
+            Physics.SetJumpForce(jumpDampTimer < JumpDampDuration ? jumpSpeed * 0.7f : jumpSpeed);
         
             if (jumpSound != null)
                 SoundManager.PlaySoundNonSpatial(jumpSound);
@@ -115,6 +118,7 @@ public class Player : MonoBehaviour
         ReadInputs();
 
         platformPhaseTimer += Time.deltaTime;
+        jumpDampTimer += Time.deltaTime;
     }
 
     private void ReadInputs()
@@ -143,6 +147,8 @@ public class Player : MonoBehaviour
             {
                 Health.StopBlocking();
             }
+
+            jumpDampTimer = 0f;
         }
         else
         {
