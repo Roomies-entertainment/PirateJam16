@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public static class SoundManager
 {
-    private static GameObject nonPositionalSource;
-
-    public static void Initialize()
-    {
-        nonPositionalSource = new GameObject("Non Positional Sound Sources");
-    }
+    public static ManagerReferences References;
 
     public static void PlaySoundSpatial(AudioClip clip, Vector3 position, float volume = 1.0f, bool loop = false, float pitch = 1.0f, float spatialBlend = 0f)
     {
@@ -20,7 +16,7 @@ public static class SoundManager
             return;
         }
 
-        AudioSource source = new GameObject($"clip.name Sound Source").AddComponent<AudioSource>();
+        AudioSource source = new GameObject($"{clip.name} Sound Source").AddComponent<AudioSource>();
 
         source.playOnAwake = true;
         source.clip = clip;
@@ -28,6 +24,7 @@ public static class SoundManager
         source.pitch = pitch;
         source.spatialBlend = spatialBlend;
         source.loop = loop;
+        source.outputAudioMixerGroup = References.sfxMixerGroup;
         source.Play();
 
         AudioSourceDestroyer destroyer = source.gameObject.AddComponent<AudioSourceDestroyer>();
@@ -46,7 +43,7 @@ public static class SoundManager
             return;
         }
 
-        AudioSource source = nonPositionalSource.AddComponent<AudioSource>();
+        AudioSource source = References.nonPositionalSource.AddComponent<AudioSource>();
 
         source.playOnAwake = true;
         source.clip = clip;
@@ -54,6 +51,7 @@ public static class SoundManager
         source.pitch = pitch;
         source.spatialBlend = 0f;
         source.loop = loop;
+        source.outputAudioMixerGroup = References.sfxMixerGroup;
         source.Play();
 
         AudioSourceDestroyer destroyer = source.gameObject.AddComponent<AudioSourceDestroyer>();
