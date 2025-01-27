@@ -12,6 +12,7 @@ public abstract class Health : MonoBehaviour
     [Header("")]
     [SerializeField] protected AudioClip damageSound;
     [SerializeField] protected AudioClip blockSound;
+    [SerializeField] protected AudioClip deathSound;
 
     [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
@@ -20,6 +21,7 @@ public abstract class Health : MonoBehaviour
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
+    [SerializeField] private UnityEvent onDie;
 
     public bool blocking { get; private set; }
 
@@ -31,8 +33,18 @@ public abstract class Health : MonoBehaviour
     protected virtual void IncrementHealth(int increment)
     {
         health = (int) Mathf.Max(0f, health + increment);
+
+        if (health == 0)
+            OnDie();
     }
 
+    protected virtual void OnDie()
+    {
+        if (deathSound != null)
+            SoundManager.PlaySoundNonSpatial(deathSound);
+            
+        onDie.Invoke();
+    }
 
     public bool ApplyDamage(int damage, DetectionData data)
     {

@@ -17,6 +17,13 @@ public class EnemyHealth : Health
         onStart.Invoke(health / startingHealth, null);
     }
 
+    protected override void OnDie()
+    {
+        base.OnDie();
+
+        Destroy(gameObject);
+    }
+
     private IEnumerator BlockLoop(float interval)
     {
         while (gameObject != null)
@@ -29,14 +36,6 @@ public class EnemyHealth : Health
 
             StopBlocking();
         }
-    }
-
-    protected override void TakeDamage(int damage, DetectionData data)
-    {
-        base.TakeDamage(damage, data);
-
-        if (health == 0)
-            Destroy(gameObject);
     }
 
     private void OnDestroy()
