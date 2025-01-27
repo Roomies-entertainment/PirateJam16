@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5932277601470437524}
-  - component: {fileID: 4202236265643999503}
+  - component: {fileID: 4025760569256774760}
   m_Layer: 6
   m_Name: Ground Detector
   m_TagString: Untagged
@@ -150,7 +150,7 @@ Transform:
   - {fileID: 3499661632324197838}
   m_Father: {fileID: 868922612935429444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4202236265643999503
+--- !u!114 &4025760569256774760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,11 +159,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 2152134707575330843}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c06789c5b14b4344b9366cfa4f705b76, type: 3}
+  m_Script: {fileID: 11500000, guid: 69413d06b9be32c41a3cead28b9df0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectionStart: {fileID: 206086572408447496}
   detectionEnd: {fileID: 3499661632324197838}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  extraCastDistance: 0.4
+  onHitEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onHitExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onSurfaceEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onSurfaceExit:
+    m_PersistentCalls:
+      m_Calls: []
   StartUprightConfiguration: {fileID: 4995205138039501981}
   EndUprightConfiguration: {fileID: 3867095051614008485}
   StartFlatConfiguration: {fileID: 7550890209642039529}
@@ -729,7 +745,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4202236265643999503}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SurfaceDetector, Assembly-CSharp
         m_MethodName: OnPerformAttack
         m_Mode: 1
@@ -771,7 +787,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4202236265643999503}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SurfaceDetector, Assembly-CSharp
         m_MethodName: OnStopAttack
         m_Mode: 1
@@ -814,6 +830,7 @@ MonoBehaviour:
   startingHealth: 3
   damageSound: {fileID: 0}
   blockSound: {fileID: 0}
+  deathSound: {fileID: 0}
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
   BlockDamageColliders: []
@@ -847,6 +864,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
   onStart:
     m_PersistentCalls:
       m_Calls:
@@ -903,13 +923,13 @@ MonoBehaviour:
   moveSpeed: 3.5
   stopDuration: 0.15
   jumpSpeed: 9.5
-  jumpableGroundDistance: 0.4
   hopSpeed: 3.5
   hopDelay: 0.15
   upGravityScale: 1.7
   downGravityScale: 1.7
+  walkSound: {fileID: 0}
   jumpSound: {fileID: 0}
-  GroundDetector: {fileID: 4202236265643999503}
+  GroundDetector: {fileID: 4025760569256774760}
 --- !u!95 &7720237000091100624
 Animator:
   serializedVersion: 5

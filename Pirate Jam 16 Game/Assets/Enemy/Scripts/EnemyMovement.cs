@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float moveDelay = 3.0f;
     [SerializeField] private float moveDuration = 0.8f;
+
+    [Header("")]
+    [SerializeField] private UnityEvent onStartMoving;
+    [SerializeField] private UnityEvent onStopMoving;
 
     private float moveTimer;
     private float velocityX = 0.0f;
@@ -43,10 +48,14 @@ public class EnemyMovement : MonoBehaviour
     private void StartMoving()
     {
         velocityX = Random.value > 0.5f ? moveSpeed : -moveSpeed;
+
+        onStartMoving.Invoke();
     }
 
     private void StopMoving()
     {
         velocityX = 0.0f;
+
+        onStopMoving.Invoke();
     }
 }

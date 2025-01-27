@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     private float stopTimer;
 
     [SerializeField] private float jumpSpeed = 9f;
-    [SerializeField] private float jumpableGroundDistance = 0.4f;
 
     [Header("")]
     [SerializeField] private float hopSpeed = 3.5f;
@@ -27,6 +26,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float downGravityScale = 1.7f;
 
     [Header("")]
+    public AudioClip walkSound;
     public AudioClip jumpSound;
     
     [Header("")]
@@ -64,8 +64,8 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        bool onGround = GroundDetector.DetectSurface(jumpableGroundDistance, out bool farHit, out float hitDistance,
-        ~(1 << Collisions.playerLayer | 1 << Collisions.playerPhysicsLayer));
+        bool farHit = GroundDetector.gotHit;
+        bool onGround = GroundDetector.surfaceDetected;
 
         if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
         {
@@ -103,6 +103,9 @@ public class Player : MonoBehaviour
 
     private void Hop()
     {
+        if (walkSound != null)
+            SoundManager.PlaySoundNonSpatial(walkSound, 0.4f);
+        
         Physics.SetJumpForce(hopSpeed);
     }
 
@@ -115,7 +118,10 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Input.DoUpdate();
+    }
 
+    private void LateUpdate()
+    {
         ReadInputs();
 
         platformPhaseTimer += Time.deltaTime;
