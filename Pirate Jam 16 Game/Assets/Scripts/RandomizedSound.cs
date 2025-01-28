@@ -11,5 +11,9 @@ public class RandomizedSound : MonoBehaviour
 
     public void PlaySound(){
         SoundManager.PlaySoundNonSpatial(audioClips[index]);
+        index = index + 1;
+
+        if (index >= audioClips.Length)
+            index = 0;
     }
 }
