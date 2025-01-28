@@ -8153,6 +8153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 725634230}
   - component: {fileID: 725634229}
+  - component: {fileID: 725634231}
   m_Layer: 0
   m_Name: Test Object
   m_TagString: Untagged
@@ -8172,8 +8173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips:
-  - {fileID: 8300000, guid: e05e0cf790ece22409b6a5b3f688f415, type: 3}
+  audioClips: []
 --- !u!4 &725634230
 Transform:
   m_ObjectHideFlags: 0
@@ -8189,6 +8189,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &725634231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725634228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips: []
 --- !u!4 &726523639 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3332868623517169892, guid: 4c97ac4c2ef49564892c6cd37998c346, type: 3}
