@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public class OnTriggerEvent : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<Collider> onTriggerEnter;
+    [SerializeField] private UnityEvent<Collider2D> onTriggerEnter;
     
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         onTriggerEnter.Invoke(collider);
     }
