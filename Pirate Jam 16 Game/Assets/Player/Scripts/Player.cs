@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         }
         else if (Input.attackFlag)
         {
-            if (Attack.attackCooldownTimer > Attack.AttackCooldown)
+            if (Attack.attackTimer > Attack.AttackDuration)
             {
                 Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
 
             jumpDampTimer = 0f;
         }
-        else
+        else if (Attack.attackTimer > Attack.AttackDuration)
         {
             if (Attack.attacking)
             {

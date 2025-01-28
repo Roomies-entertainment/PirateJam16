@@ -63,7 +63,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Player Attack
-  m_Speed: 0.45
+  m_Speed: 0.25
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8178742973995029064}
@@ -149,9 +149,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.016281595
-  m_TransitionOffset: 0.029829778
-  m_ExitTime: 0.0026845466
+  m_TransitionDuration: 0.0005503214
+  m_TransitionOffset: 0.15956655
+  m_ExitTime: 0.005593245
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

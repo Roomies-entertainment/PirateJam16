@@ -8,14 +8,14 @@ public class PlayerAttack : Attack
     public int fallingExtraDamage = 1;
 
     [Header("")]
-    public float AttackCooldown = 0f;
-    public float attackCooldownTimer {get; private set; } = 0.0f;
+    public float AttackDuration = 0f;
+    public float attackTimer {get; private set; } = 0.0f;
 
     public List<Health> attackedEnemies { get; private set; } = new List<Health>();
 
     private void Update()
     {
-        attackCooldownTimer += Time.deltaTime;
+        attackTimer += Time.deltaTime;
     }
 
     public List<ComponentData> FindObjectsToAttack(Vector2 attackDirection)
@@ -43,7 +43,7 @@ public class PlayerAttack : Attack
     {
         base.OnPerformAttack();
 
-        attackCooldownTimer = 0.0f;
+        attackTimer = 0.0f;
     }
 
     protected override void OnAttackObject(GameObject enemy)
