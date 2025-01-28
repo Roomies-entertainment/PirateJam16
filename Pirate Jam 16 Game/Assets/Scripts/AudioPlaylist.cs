@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioPlaylist : MonoBehaviour
 {
@@ -11,13 +12,33 @@ public class AudioPlaylist : MonoBehaviour
 
     private float audioInterval;
 
-    private void Start(){
+    void Awake(){
+        DontDestroyOnLoad(this.gameObject);
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("music");
+
+        if (objs.Length > 1){
+            Destroy(this.gameObject);
+
+        }
+
         audioPlayer.clip = audioClips[0];
         currentClip = audioPlayer.clip;
         audioPlayer.Play();
         audioInterval = currentClip.length;
-        
+
         StartCoroutine(AudioPlaylistCycle());
+    }
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0)){
+            Destroy(this.gameObject);
+        }
+    }
+
+
+    private void Start(){
+        
     }
 
     IEnumerator AudioPlaylistCycle(){
