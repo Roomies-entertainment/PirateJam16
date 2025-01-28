@@ -16555,6 +16555,10 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: AttackDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: onAttackObject.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
