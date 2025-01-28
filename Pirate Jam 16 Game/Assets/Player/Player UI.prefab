@@ -188,7 +188,19 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7018080540895064274}
+        m_TargetAssemblyTypeName: SliderGradient, Assembly-CSharp
+        m_MethodName: UpdateColor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &7018080540895064274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,15 +216,15 @@ MonoBehaviour:
   gradient:
     serializedVersion: 2
     key0: {r: 0.690566, g: 0, b: 0, a: 1}
-    key1: {r: 0.98490566, g: 0.8666452, b: 0.005574857, a: 1}
+    key1: {r: 0.9843137, g: 0.76775885, b: 0.0039215395, a: 1}
     key2: {r: 0.0462761, g: 0.8792453, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 20277
-    ctime1: 44333
+    ctime0: 21511
+    ctime1: 44641
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -231,7 +243,6 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  slider: {fileID: 8259310288684739994}
   fill: {fileID: 6992552441252944898}
 --- !u!1 &1770600399400652893
 GameObject:
@@ -639,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0462761, g: 0.8792453, b: 0, a: 1}
+  m_Color: {r: 0.690566, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

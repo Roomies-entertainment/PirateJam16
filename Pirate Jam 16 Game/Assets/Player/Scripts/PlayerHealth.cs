@@ -9,6 +9,6 @@ public class PlayerHealth : Health
 
     private void Start()
     {
-        onStart.Invoke((float) health, null);
+        onStart.Invoke((float) health / startingHealth, null);
     }
 }

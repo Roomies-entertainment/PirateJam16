@@ -7,14 +7,24 @@ using UnityEngine.UI;
 public class SliderGradient : MonoBehaviour
 {
     [SerializeField] private Gradient gradient;
-    [SerializeField] private Slider slider;
     [SerializeField] private Image fill;
 
-    private void Update()
+    private float lastSliderValue = 0f;
+
+    private void OnValidate()
     {
-        if (slider == null || fill == null)
-            return;
-        
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        Start();
+    }
+
+    private void Start()
+    {
+        UpdateColor(lastSliderValue);
+    }
+
+    public void UpdateColor(float value)
+    {
+        fill.color = gradient.Evaluate(value);
+
+        lastSliderValue = value;
     }
 }
