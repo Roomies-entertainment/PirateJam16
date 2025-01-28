@@ -20,6 +20,8 @@ public abstract class Health : MonoBehaviour
 
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
+    [SerializeField] private UnityEvent onStartBlocking;
+    [SerializeField] private UnityEvent onStopBlocking;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
     [SerializeField] private UnityEvent onDie;
 
@@ -123,11 +125,15 @@ public abstract class Health : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} is blocking");
         blocking = true;
+
+        onStartBlocking.Invoke();
     }
 
     public virtual void StopBlocking()
     {
         Debug.Log($"{gameObject.name} stopped blocking");
         blocking = false;
+
+        onStopBlocking.Invoke();
     }
 }
