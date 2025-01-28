@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(PlayerCollision))]
@@ -24,11 +25,11 @@ public class Player : MonoBehaviour
     [Header("")]
     [SerializeField] private float upGravityScale = 2f;
     [SerializeField] private float downGravityScale = 1.7f;
-
-    [Header("")]
-    public AudioClip walkSound;
-    public AudioClip jumpSound;
     
+    [Header("")]
+    [SerializeField] private UnityEvent onWalkHop;
+    [SerializeField] private UnityEvent onJump;
+
     [Header("")]
     [SerializeField] private SurfaceDetector GroundDetector;
 
@@ -71,8 +72,7 @@ public class Player : MonoBehaviour
         {
             Physics.SetJumpForce(jumpDampTimer < JumpDampDuration ? jumpSpeed * 0.7f : jumpSpeed);
         
-            if (jumpSound != null)
-                SoundManager.PlaySoundNonSpatial(jumpSound);
+            onJump.Invoke();
 
             Input.ClearJumpFlag();
         }
@@ -103,8 +103,7 @@ public class Player : MonoBehaviour
 
     private void Hop()
     {
-        if (walkSound != null)
-            SoundManager.PlaySoundNonSpatial(walkSound, 0.4f);
+        onWalkHop.Invoke();
         
         Physics.SetJumpForce(hopSpeed);
     }
@@ -140,12 +139,12 @@ public class Player : MonoBehaviour
         }
         else if (Input.attackFlag)
         {
-            if (Attack.attackCooldownTimer > Attack.AttackCooldown)
+            if (Attack.attackTimer > Attack.AttackDuration)
             {
                 Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
                 List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
-                Attack.PerformAttack(enemies, transform.position, direction, CalculateAttackDamage());
+                Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
             }
 
             Input.ClearBlockFlag();
@@ -157,7 +156,7 @@ public class Player : MonoBehaviour
 
             jumpDampTimer = 0f;
         }
-        else
+        else if (Attack.attackTimer > Attack.AttackDuration)
         {
             if (Attack.attacking)
             {

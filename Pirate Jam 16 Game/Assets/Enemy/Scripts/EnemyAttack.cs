@@ -22,7 +22,7 @@ public class EnemyAttack : Attack
             transform.position += attackDirection * 0.25f;
 
             if (players.Count > 0)
-                PerformAttack(players, players[0].Component.transform.position, attackDirection);
+                AttackObjects(players, players[0].Component.transform.position, attackDirection);
 
             yield return new WaitForSeconds(0.2f);
 

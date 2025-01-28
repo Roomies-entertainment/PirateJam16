@@ -18,7 +18,7 @@ public abstract class Attack : MonoBehaviour
 
     public bool attacking { get; private set; }
 
-    public void PerformAttack(List<ComponentData> attackedObjects, Vector2 attackPoint, Vector2 attackDirection, int damage = BaseDamage)
+    public void AttackObjects(List<ComponentData> attackedObjects, Vector2 attackPoint, Vector2 attackDirection, int damage = BaseDamage)
     {
         foreach (var data in attackedObjects)
         {
@@ -34,7 +34,8 @@ public abstract class Attack : MonoBehaviour
             }
         }
 
-        OnPerformAttack();
+        if (!attacking)
+            OnPerformAttack();
     }
 
     protected virtual void OnAttackObject(GameObject attackedObj)
