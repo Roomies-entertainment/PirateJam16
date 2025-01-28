@@ -6,14 +6,9 @@ using UnityEngine;
 
 public class RandomizedSound : MonoBehaviour
 {
-    int index;
     [SerializeField] private AudioClip[] audioClips;
 
     public void PlaySound(){
-        SoundManager.PlaySoundNonSpatial(audioClips[index]);
-        index = index + 1;
-
-        if (index >= audioClips.Length)
-            index = 0;
+        SoundManager.PlaySoundNonSpatial(audioClips[Random.Range(0, audioClips.Length)]);
     }
 }
