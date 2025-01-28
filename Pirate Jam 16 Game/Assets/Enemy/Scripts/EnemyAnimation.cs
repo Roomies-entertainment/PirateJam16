@@ -9,6 +9,16 @@ public class EnemyAnimation : MonoBehaviour
         Animator.SetBool("Attack", true);
     }
 
+    public void OnStartBlocking()
+    {
+        Animator.SetBool("Block", true);
+    }
+
+    public void OnStopBlocking()
+    {
+        Animator.SetBool("Block", false);
+    }
+
     public void OnStopAttack()
     {
         Animator.SetBool("Attack", false);
