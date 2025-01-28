@@ -49,6 +49,11 @@ public class EnemyMovement : MonoBehaviour
     {
         velocityX = Random.value > 0.5f ? moveSpeed : -moveSpeed;
 
+        transform.localScale = new Vector3(
+            transform.localScale.x * (velocityX > 0 ? 1f : -1f),
+            transform.localScale.y,
+            transform.localScale.z);
+
         onStartMoving.Invoke();
     }
 
