@@ -13,11 +13,9 @@ public class SliderGradient : MonoBehaviour
 
     private void OnValidate()
     {
-        Start();
-    }
-
-    private void Start()
-    {
+        if (Application.isPlaying)
+            return;
+            
         UpdateColor(lastSliderValue);
     }
 
