@@ -32,6 +32,13 @@ public class CameraFollow : MonoBehaviour
             return;
         }
 
+        if (TargetObject == null)
+        {
+            //Debug.Log($"{this} in FollowTarget() - TargetObject is null");
+
+            return;
+        }
+
         tWorldPosClamped = new Vector2(TargetObject.position.x, Mathf.Clamp(TargetObject.position.y, minFollowPosY, maxFollowPosY));
         tScreenPosN1P1Clamped = ScreenPosToN1P1(Camera.WorldToScreenPoint(tWorldPosClamped));
 
