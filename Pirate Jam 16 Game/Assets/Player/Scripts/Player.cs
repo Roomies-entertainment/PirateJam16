@@ -76,7 +76,8 @@ public class Player : MonoBehaviour
 
             Input.ClearJumpFlag();
         }
-        else if (!onGround)
+
+        if (!onGround)
         {
             Physics.SetGroundMoveForce( Input.movementInput * moveSpeed );
 
