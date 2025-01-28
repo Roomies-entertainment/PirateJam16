@@ -335,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 6211953336703635736}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.504, z: 0}
+  m_LocalPosition: {x: 0, y: -0.508, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -745,8 +745,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SurfaceDetector, Assembly-CSharp
+      - m_Target: {fileID: 4025760569256774760}
+        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
         m_MethodName: OnPerformAttack
         m_Mode: 1
         m_Arguments:
@@ -787,8 +787,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SurfaceDetector, Assembly-CSharp
+      - m_Target: {fileID: 4025760569256774760}
+        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
         m_MethodName: OnStopAttack
         m_Mode: 1
         m_Arguments:
@@ -801,7 +801,7 @@ MonoBehaviour:
         m_CallState: 2
   fallingThreshold: 0.24
   fallingExtraDamage: 1
-  AttackCooldown: 0
+  AttackDuration: 0
 --- !u!114 &1858803697121880418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -849,6 +849,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onStartBlocking:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopBlocking:
+    m_PersistentCalls:
+      m_Calls: []
   onBlockDamage:
     m_PersistentCalls:
       m_Calls:
@@ -927,8 +933,12 @@ MonoBehaviour:
   hopDelay: 0.15
   upGravityScale: 1.7
   downGravityScale: 1.7
-  walkSound: {fileID: 0}
-  jumpSound: {fileID: 0}
+  onWalkHop:
+    m_PersistentCalls:
+      m_Calls: []
+  onJump:
+    m_PersistentCalls:
+      m_Calls: []
   GroundDetector: {fileID: 4025760569256774760}
 --- !u!95 &7720237000091100624
 Animator:
