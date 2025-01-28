@@ -16538,6 +16538,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2479779079809670167, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: startingHealth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479779079809670167, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -20011,6 +20015,38 @@ PrefabInstance:
     - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Color.r
       value: 0.0462761
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.ctime0
+      value: 22282
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.ctime1
+      value: 44564
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.key0.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.key0.r
+      value: 0.690566
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.key1.b
+      value: 0.0039215395
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.key1.g
+      value: 0.76775885
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: gradient.key1.r
+      value: 0.9843137
       objectReference: {fileID: 0}
     - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_LocalScale.x
