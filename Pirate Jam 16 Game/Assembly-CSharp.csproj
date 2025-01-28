@@ -135,6 +135,7 @@
     <Compile Include="Assets\Scripts\AudioPlaylist.cs" />
     <Compile Include="Assets\Scripts\Components\FloatingMovement.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAttack.cs" />
+    <Compile Include="Assets\Scripts\Components\DeathScreen.cs" />
     <Compile Include="Assets\Scripts\Components\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
