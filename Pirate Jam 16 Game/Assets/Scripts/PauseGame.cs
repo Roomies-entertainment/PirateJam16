@@ -7,6 +7,7 @@ public class PauseGame : MonoBehaviour
 {
 
     public GameObject pauseMenu;
+    public GameObject controlMenu;
 
     public bool shouldShow = false;
 
@@ -26,6 +27,14 @@ public class PauseGame : MonoBehaviour
         }
     }
 
+    void Awake(){
+        if (controlMenu == null)
+            return;
+
+        controlMenu.SetActive(false);
+        pauseMenu.SetActive(true);
+    }
+
     void PauseTheGame()
     {
         
@@ -37,6 +46,16 @@ public class PauseGame : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
+    }
+
+    public void EnterControlMenu(){
+        pauseMenu.SetActive(false);
+        controlMenu.SetActive(true);
+    }
+
+    public void ControlToMenu(){
+        controlMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     public void StartTheGame()
