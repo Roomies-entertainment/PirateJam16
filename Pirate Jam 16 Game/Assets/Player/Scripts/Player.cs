@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
                 Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
 
                 List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
-                Attack.PerformAttack(enemies, transform.position, direction, CalculateAttackDamage());
+                Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
             }
 
             Input.ClearBlockFlag();
