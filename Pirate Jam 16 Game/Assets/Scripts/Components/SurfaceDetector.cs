@@ -51,6 +51,7 @@ public class SurfaceDetector : MonoBehaviour
         else
         {
             hitDistance = 0f;
+            surfaceDetected = false;
         }
 
         if (!gotHitStore && gotHit)
