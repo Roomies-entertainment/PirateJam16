@@ -49,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
     {
         velocityX = Random.value > 0.5f ? moveSpeed : -moveSpeed;
 
-        FaceDirection(Vector2.right * (velocityX > 0 ? -1f : 1f));
+        FaceDirection(Vector2.right * (velocityX > 0 ? 1f : -1f));
 
         onStartMoving.Invoke();
     }
