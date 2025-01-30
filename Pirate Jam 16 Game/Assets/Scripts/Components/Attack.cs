@@ -12,7 +12,7 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] protected AudioClip attackSound;
 
     [Header("")]
-    [SerializeField] protected UnityEvent onPerformAttack;
+    [SerializeField] protected UnityEvent<Vector2> onPerformAttack;
     [SerializeField] protected UnityEvent<GameObject> onAttackObject;
     [SerializeField] protected UnityEvent onStopAttack;
 
@@ -35,7 +35,7 @@ public abstract class Attack : MonoBehaviour
         }
 
         if (!attacking)
-            OnPerformAttack();
+            OnPerformAttack(attackDirection);
     }
 
     protected virtual void OnAttackObject(GameObject attackedObj)
@@ -43,14 +43,14 @@ public abstract class Attack : MonoBehaviour
         onAttackObject.Invoke(attackedObj);
     }
 
-    protected virtual void OnPerformAttack()
+    protected virtual void OnPerformAttack(Vector2 direction)
     {
         if (attackSound != null)
             SoundManager.PlaySoundNonSpatial(attackSound);
 
         attacking = true;
 
-        onPerformAttack.Invoke();
+        onPerformAttack.Invoke(direction);
     }
 
     public void StopAttack()
