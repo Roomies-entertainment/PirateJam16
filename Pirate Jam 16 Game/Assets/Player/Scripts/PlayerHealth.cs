@@ -11,4 +11,9 @@ public class PlayerHealth : Health
     {
         onStart.Invoke((float) health / startingHealth, null);
     }
+
+    public void DifficultySet(int hp){
+        startingHealth = hp;
+        health = startingHealth;
+    }
 }

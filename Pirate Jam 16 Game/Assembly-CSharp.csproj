@@ -136,6 +136,7 @@
     <Compile Include="Assets\Scripts\Components\DeathScreen.cs" />
     <Compile Include="Assets\Scripts\Components\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
+    <Compile Include="Assets\DifficultySetting.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
   <ItemGroup>
