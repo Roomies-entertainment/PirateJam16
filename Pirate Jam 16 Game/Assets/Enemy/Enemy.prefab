@@ -64,8 +64,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: 0, y: -0.1}
+  m_Size: {x: 0.85, y: 1.7}
   m_Direction: 0
 --- !u!1 &163987361430350355
 GameObject:
@@ -462,8 +462,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: 0, y: -0.1}
+  m_Size: {x: 0.85, y: 1.7}
   m_Direction: 0
 --- !u!1 &6420354229262035856
 GameObject:
@@ -968,7 +968,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ebca01c0f265652438536f33bbe9b6db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 3.3333333, y: 3.3333333}
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRadius: 1.3
+  attackRadius: 1.1
   attackSound: {fileID: 0}
   onPerformAttack:
     m_PersistentCalls:
@@ -1076,6 +1076,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
         m_MethodName: OnPerformAttack
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2361295163402679407}
+        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
+        m_MethodName: FaceDirection
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
