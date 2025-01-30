@@ -49,10 +49,7 @@ public class EnemyMovement : MonoBehaviour
     {
         velocityX = Random.value > 0.5f ? moveSpeed : -moveSpeed;
 
-        transform.localScale = new Vector3(
-            transform.localScale.x * (velocityX > 0 ? 1f : -1f),
-            transform.localScale.y,
-            transform.localScale.z);
+        FaceDirection(Vector2.right * (velocityX > 0 ? -1f : 1f));
 
         onStartMoving.Invoke();
     }
@@ -62,5 +59,13 @@ public class EnemyMovement : MonoBehaviour
         velocityX = 0.0f;
 
         onStopMoving.Invoke();
+    }
+
+    public void FaceDirection(Vector2 direction)
+    {
+        transform.localScale = new Vector3(
+            transform.localScale.x * (direction.x > 0 ? 1f : -1f),
+            transform.localScale.y,
+            transform.localScale.z);
     }
 }

@@ -39,9 +39,9 @@ public class PlayerAttack : Attack
         return objectsR;
     }
 
-    protected override void OnPerformAttack()
+    protected override void OnPerformAttack(Vector2 direction)
     {
-        base.OnPerformAttack();
+        base.OnPerformAttack(direction);
 
         attackTimer = 0.0f;
     }
