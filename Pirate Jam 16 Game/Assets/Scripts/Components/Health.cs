@@ -99,7 +99,7 @@ public abstract class Health : MonoBehaviour
         return true;
     }
 
-    protected virtual void TakeDamage(int damage, DetectionData data)
+    public virtual void TakeDamage(int damage, DetectionData data)
     {
         Debug.Log($"{gameObject.name} took {damage} damage");
 

@@ -1010,6 +1010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e3d292aa90ab849a1b332720b43805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkBackwardsChance: 0.3
   moveSpeed: 1
   moveDelay: 3
   moveDuration: 0.8
