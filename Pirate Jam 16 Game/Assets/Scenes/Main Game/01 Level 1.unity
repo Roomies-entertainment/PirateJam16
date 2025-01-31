@@ -8621,6 +8621,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3e3073e261020b40b381767147d0cbf, type: 3}
+--- !u!114 &803683953 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2337516493862450350, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+  m_PrefabInstance: {fileID: 1709332497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &805526954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 119281448868799113, guid: 68a80e2d7ad59554a96ab23daf96576f, type: 3}
@@ -16150,6 +16161,10 @@ PrefabInstance:
       propertyPath: HealthBar
       value: 
       objectReference: {fileID: 1709332498}
+    - target: {fileID: 1316175178462152386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: counterText
+      value: 
+      objectReference: {fileID: 803683953}
     - target: {fileID: 2479779079809670167, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

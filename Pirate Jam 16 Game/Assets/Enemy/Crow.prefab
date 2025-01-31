@@ -406,7 +406,7 @@ MonoBehaviour:
   onStopAttack:
     m_PersistentCalls:
       m_Calls: []
-  attackDelay: 0.8
+  attackDelay: 0.4
 --- !u!114 &1214602602346395932
 MonoBehaviour:
   m_ObjectHideFlags: 0

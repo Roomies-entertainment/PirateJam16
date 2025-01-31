@@ -11825,6 +11825,10 @@ PrefabInstance:
       propertyPath: HealthBar
       value: 
       objectReference: {fileID: 1194402437}
+    - target: {fileID: 1316175178462152386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: counterText
+      value: 
+      objectReference: {fileID: 1709332498}
     - target: {fileID: 2479779079809670167, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -12377,6 +12381,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+--- !u!114 &1709332498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2337516493862450350, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+  m_PrefabInstance: {fileID: 1709332497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1719293061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 924934626317581404, guid: bc95a77816a576c4386b158ca3d1cc69, type: 3}
