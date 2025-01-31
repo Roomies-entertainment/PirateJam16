@@ -53,7 +53,7 @@ public class DifficultySetting : MonoBehaviour
             case 3:
                 if (player == null)
                     return;
-                player.GetComponent<PlayerHealth>().DifficultySet(1);
+                player.GetComponent<PlayerHealth>().DifficultySet(3);
                 Debug.Log("Difficulty Hard Set");
                 //hard Mode
                 break;
@@ -61,7 +61,7 @@ public class DifficultySetting : MonoBehaviour
             case 2:
                 if (player == null)
                     return;
-                player.GetComponent<PlayerHealth>().DifficultySet(6);
+                player.GetComponent<PlayerHealth>().DifficultySet(12);
                 Debug.Log("Difficulty Normal Set");
                 //Medium Mode
                 break;
@@ -69,7 +69,7 @@ public class DifficultySetting : MonoBehaviour
             case 1:
                 if (player == null)
                     return;
-                player.GetComponent<PlayerHealth>().DifficultySet(10);
+                player.GetComponent<PlayerHealth>().DifficultySet(24);
                 Debug.Log("Difficulty Easy Set");
                 // Easy Mode
                 break;

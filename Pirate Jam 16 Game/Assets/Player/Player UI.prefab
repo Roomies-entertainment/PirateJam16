@@ -372,7 +372,7 @@ RectTransform:
   m_GameObject: {fileID: 602244446259214124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.72725165, y: 0.72725165, z: 0.72725165}
+  m_LocalScale: {x: 0.8751019, y: 0.8751019, z: 0.8751019}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2634114969285647405}
@@ -382,7 +382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 81.24997, y: -34.16667}
+  m_AnchoredPosition: {x: 100.9, y: -63.7}
   m_SizeDelta: {x: 166.97, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8259310288684739994
@@ -470,8 +470,8 @@ MonoBehaviour:
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 18119
-    ctime1: 46800
+    ctime0: 13107
+    ctime1: 39321
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
     atime5: 0
     atime6: 0
     atime7: 0
-    m_Mode: 1
+    m_Mode: 0
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2

@@ -19416,81 +19416,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Color.g
       value: 0.8792453
       objectReference: {fileID: 0}
     - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Color.r
-      value: 0.0462761
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.ctime0
-      value: 22282
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.ctime1
-      value: 44564
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.key0.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.key0.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.key0.r
-      value: 0.690566
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.key1.b
-      value: 0.0039215395
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.key1.g
-      value: 0.76775885
-      objectReference: {fileID: 0}
-    - target: {fileID: 7018080540895064274, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: gradient.key1.r
-      value: 0.9843137
-      objectReference: {fileID: 0}
-    - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.8751019
-      objectReference: {fileID: 0}
-    - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.8751019
-      objectReference: {fileID: 0}
-    - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8751019
-      objectReference: {fileID: 0}
-    - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 100.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -63.7
+      value: 0.046276093
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
