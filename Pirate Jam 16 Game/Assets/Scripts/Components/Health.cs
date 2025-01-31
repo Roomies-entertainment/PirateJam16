@@ -46,6 +46,8 @@ public abstract class Health : MonoBehaviour
             SoundManager.PlaySoundNonSpatial(deathSound);
             
         onDie.Invoke();
+
+        Destroy(gameObject);
     }
 
     public bool ApplyDamage(int damage, DetectionData data)
