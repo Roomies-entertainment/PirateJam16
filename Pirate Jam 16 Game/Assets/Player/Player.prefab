@@ -827,15 +827,16 @@ GameObject:
   - component: {fileID: 868922612935429444}
   - component: {fileID: 5423264366728701440}
   - component: {fileID: 4709282171187345005}
+  - component: {fileID: 3348222302375638153}
   - component: {fileID: 4706367888957590372}
-  - component: {fileID: 5694820400148895657}
   - component: {fileID: 41282749469230444}
+  - component: {fileID: 6328531377824871612}
+  - component: {fileID: 5694820400148895657}
+  - component: {fileID: 2479779079809670167}
   - component: {fileID: 3130445153889366091}
   - component: {fileID: 1858803697121880418}
-  - component: {fileID: 2479779079809670167}
-  - component: {fileID: 1316175178462152386}
   - component: {fileID: 7231450657616111676}
-  - component: {fileID: 3348222302375638153}
+  - component: {fileID: 1316175178462152386}
   - component: {fileID: 7720237000091100624}
   m_Layer: 6
   m_Name: Player
@@ -943,6 +944,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &3348222302375638153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448380c194bfec9479ed9a4a9dcfcd41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4706367888957590372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +969,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableBlocking: 0
+--- !u!114 &41282749469230444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2423c47cc49a4964685977787f5ac9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PhysicsCollider: {fileID: 8894800512938370558}
+  GroundDetector: {fileID: 4025760569256774760}
+  debug: 0
+--- !u!114 &6328531377824871612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276ea2da493d7014da8407ffb8c18ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3.5
+  stopDuration: 0.15
+  jumpSpeed: 9.5
+  hopSpeed: 3.5
+  hopDelay: 0.15
+  upGravityScale: 1.7
+  downGravityScale: 1.7
+  onWalkHop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2749931266050490962}
+        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onJump:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6099572124019817767}
+        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5694820400148895657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,143 +1047,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4709282171187345005}
   physicsMaterial: {fileID: 6200000, guid: ee458159d3aa1b149a4bf51560aa0409, type: 2}
---- !u!114 &41282749469230444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8565715148274485684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2423c47cc49a4964685977787f5ac9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PhysicsCollider: {fileID: 8894800512938370558}
-  debug: 0
---- !u!114 &3130445153889366091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8565715148274485684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRadius: 1
-  attackSound: {fileID: 0}
-  onPerformAttack:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1858803697121880418}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnPerformAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3543168907676297395}
-        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
-        m_MethodName: OnPerformAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4025760569256774760}
-        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
-        m_MethodName: OnPerformAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5898101182678172206}
-        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onAttackObject:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopAttack:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1858803697121880418}
-        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3543168907676297395}
-        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4025760569256774760}
-        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  fallingThreshold: 0.24
-  fallingExtraDamage: 1
-  AttackDuration: 0.3
---- !u!114 &1858803697121880418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8565715148274485684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0253060f8d7f1c442a1958b0975291d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 7720237000091100624}
 --- !u!114 &2479779079809670167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,7 +1168,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1316175178462152386
+--- !u!114 &3130445153889366091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1237,10 +1177,121 @@ MonoBehaviour:
   m_GameObject: {fileID: 8565715148274485684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
+  m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
+  directionChecking: 0
+  attackRadius: 1
+  attackSound: {fileID: 0}
+  onPerformAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1858803697121880418}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: OnPerformAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3543168907676297395}
+        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
+        m_MethodName: OnPerformAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4025760569256774760}
+        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
+        m_MethodName: OnPerformAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5898101182678172206}
+        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAttackObject:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1858803697121880418}
+        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
+        m_MethodName: OnStopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3543168907676297395}
+        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
+        m_MethodName: OnStopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4025760569256774760}
+        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
+        m_MethodName: OnStopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  fallingThreshold: 0.24
+  fallingExtraDamage: 1
+  AttackDuration: 0.3
+--- !u!114 &1858803697121880418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0253060f8d7f1c442a1958b0975291d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 7720237000091100624}
 --- !u!114 &7231450657616111676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,7 +1305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockParticlePrefab: {fileID: 2138625240426279239, guid: 247509540e4bd8045825d47668b9a448, type: 3}
---- !u!114 &3348222302375638153
+--- !u!114 &1316175178462152386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1263,47 +1314,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8565715148274485684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 448380c194bfec9479ed9a4a9dcfcd41, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3.5
-  stopDuration: 0.15
-  jumpSpeed: 9.5
-  hopSpeed: 3.5
-  hopDelay: 0.15
-  upGravityScale: 1.7
-  downGravityScale: 1.7
-  onWalkHop:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2749931266050490962}
-        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onJump:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6099572124019817767}
-        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  GroundDetector: {fileID: 4025760569256774760}
+  HealthBar: {fileID: 0}
 --- !u!95 &7720237000091100624
 Animator:
   serializedVersion: 5

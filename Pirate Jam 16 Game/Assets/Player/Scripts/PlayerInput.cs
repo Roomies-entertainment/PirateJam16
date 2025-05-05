@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
     private float jumpTimer;
 
-    public void DoUpdate()
+    public void GetInputs()
     {
         movementInput = Input.GetAxisRaw("Horizontal");
         
@@ -39,8 +39,6 @@ public class PlayerInput : MonoBehaviour
             HandleHoldFlag(ref _blockFlag, "Block");
         else if (_blockFlag)
             _blockFlag = false;
-
-        UpdateTimers();
     }
 
     private void HandleHoldFlag(ref bool flag, string inputName)
@@ -71,7 +69,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void UpdateTimers()
+    public void UpdateTimers()
     {
         jumpTimer += Time.deltaTime;
     }

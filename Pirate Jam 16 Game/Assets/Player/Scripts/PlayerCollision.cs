@@ -4,9 +4,13 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] private Collider2D PhysicsCollider;
+    public SurfaceDetector GroundDetector;
 
     [Header("")]
     [SerializeField] private bool debug = false;
+
+    public float platformPhaseTimer { get; private set; }
+    public const float PlatformPhaseHoldDuration = 0.2f;
 
     public bool onPhasablePlatform { get; private set; }
     public bool phasing { get; private set; }
@@ -44,5 +48,15 @@ public class PlayerCollision : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    public void IncrementPhaseTimers()
+    {
+        platformPhaseTimer += Time.deltaTime;
+    }
+
+    public void ResetPhaseTimers()
+    {
+        platformPhaseTimer = 0.0f;
     }
 }
