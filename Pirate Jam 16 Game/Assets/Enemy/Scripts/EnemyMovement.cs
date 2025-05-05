@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] [Range(0, 1)] private float walkBackwardsChance = 0.3f;
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float moveDelay = 3.0f;
     [SerializeField] private float moveDuration = 0.8f;
@@ -47,12 +48,12 @@ public class EnemyMovement : MonoBehaviour
 
     private void StartMoving()
     {
-        velocityX = Random.value > 0.5f ? moveSpeed : -moveSpeed;
+        bool lr = Random.value > 0.5f;
 
-        transform.localScale = new Vector3(
-            transform.localScale.x * (velocityX > 0 ? 1f : -1f),
-            transform.localScale.y,
-            transform.localScale.z);
+        velocityX = lr ? moveSpeed : -moveSpeed;
+
+        if (Random.value > walkBackwardsChance)
+            FaceDirection(Vector2.right * (lr ? 1f : -1f));
 
         onStartMoving.Invoke();
     }
@@ -62,5 +63,13 @@ public class EnemyMovement : MonoBehaviour
         velocityX = 0.0f;
 
         onStopMoving.Invoke();
+    }
+
+    public void FaceDirection(Vector2 direction)
+    {
+        transform.localScale = new Vector3(
+            Mathf.Abs(transform.localScale.x) * (direction.x > 0 ? 1f : -1f),
+            transform.localScale.y,
+            transform.localScale.z);
     }
 }

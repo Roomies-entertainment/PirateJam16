@@ -8,6 +8,7 @@ public class PauseGame : MonoBehaviour
 
     public GameObject pauseMenu;
     public GameObject controlMenu;
+    public GameObject difficultyMenu;
 
     public bool shouldShow = false;
 
@@ -56,6 +57,13 @@ public class PauseGame : MonoBehaviour
     public void ControlToMenu(){
         controlMenu.SetActive(false);
         pauseMenu.SetActive(true);
+        difficultyMenu.SetActive(false);
+    }
+
+    public void NewGame(){
+        controlMenu.SetActive(false);
+        pauseMenu.SetActive(false);
+        difficultyMenu.SetActive(true);
     }
 
     public void StartTheGame()
@@ -67,6 +75,8 @@ public class PauseGame : MonoBehaviour
     public void ReturnToMenu()
     {
         Time.timeScale = 1;
+        GameObject difficulty = GameObject.FindGameObjectWithTag("difficulty");
+        Object.Destroy(difficulty);
         SceneManager.LoadScene("00 Menu");
     }
 
