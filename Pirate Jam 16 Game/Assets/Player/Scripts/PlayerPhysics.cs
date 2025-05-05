@@ -37,7 +37,7 @@ public class PlayerPhysics : MonoBehaviour
         velocityY = speed;
     }
 
-    public void DoFixedUpdate()
+    public void MovePlayer()
     {
         rb.velocity = new Vector2(velocityX, velocityY);
     }

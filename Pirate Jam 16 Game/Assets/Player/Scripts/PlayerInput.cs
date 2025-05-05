@@ -10,15 +10,20 @@ public class PlayerInput : MonoBehaviour
 
     public float verticalInput { get; private set; }
 
-    private bool _jumpFlag;      public bool jumpFlag { get { return _jumpFlag; } } public void ClearJumpFlag() { _jumpFlag = false; }
-    private bool _attackFlag;    public bool attackFlag { get { return _attackFlag; } } public void ClearAttackFlag() { _attackFlag = false; }
-    private bool _blockFlag;    public bool blockFlag { get { return _blockFlag; } } public void ClearBlockFlag() { _blockFlag = false;}
+    private bool _jumpFlag;
+    public bool jumpFlag { get { return _jumpFlag; } }      public void ClearJumpFlag() { _jumpFlag = false; }
+
+    private bool _attackFlag;
+    public bool attackFlag { get { return _attackFlag; } }  public void ClearAttackFlag() { _attackFlag = false; }
+    
+    private bool _blockFlag;
+    public bool blockFlag { get { return _blockFlag; } }    public void ClearBlockFlag() { _blockFlag = false;}
 
     [SerializeField] private const float JumpTimeout = 0.35f;
 
     private float jumpTimer;
 
-    public void DoUpdate()
+    public void GetInputs()
     {
         movementInput = Input.GetAxisRaw("Horizontal");
         
@@ -34,22 +39,6 @@ public class PlayerInput : MonoBehaviour
             HandleHoldFlag(ref _blockFlag, "Block");
         else if (_blockFlag)
             _blockFlag = false;
-
-        UpdateTimers();
-    }
-
-    private void HandleTimedFlag(ref bool flag, string inputName, ref float timer, float timeout = -1f)
-    {
-        if (!flag && Input.GetButtonDown(inputName))
-        {
-            flag = true;
-            timer = 0f;
-        }
-        
-        if (timeout > 0f && flag && timer > timeout)
-        {
-            flag = false;
-        }
     }
 
     private void HandleHoldFlag(ref bool flag, string inputName)
@@ -66,7 +55,21 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void UpdateTimers()
+    private void HandleTimedFlag(ref bool flag, string inputName, ref float timer, float timeout = float.PositiveInfinity)
+    {
+        if (!flag && Input.GetButtonDown(inputName))
+        {
+            flag = true;
+            timer = 0f;
+        }
+        
+        if (flag && timer > timeout)
+        {
+            flag = false;
+        }
+    }
+
+    public void UpdateTimers()
     {
         jumpTimer += Time.deltaTime;
     }

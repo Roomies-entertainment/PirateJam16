@@ -9,7 +9,7 @@ public abstract class Attack : MonoBehaviour
 
     [Header("")]
     [SerializeField] protected float attackRadius = 2f;
-    [SerializeField] public const int BaseDamage = 1;
+    public const int BaseDamage = 1;
 
     [Header("")]
     [SerializeField] protected AudioClip attackSound;

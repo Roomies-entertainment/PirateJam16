@@ -4,7 +4,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     public Animator Animator;
 
-    public void DoUpdate(float movementInput)
+    public void FaceDirection(float movementInput)
     {
         var scale = transform.localScale;
 
