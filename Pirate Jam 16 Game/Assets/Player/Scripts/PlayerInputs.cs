@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [HideInInspector]
-public class PlayerInputFlags : MonoBehaviour
+public class PlayerInputs : MonoBehaviour
 {
     public float horizontalInput { get; private set; }
     public float movementInputActive { get; private set; }

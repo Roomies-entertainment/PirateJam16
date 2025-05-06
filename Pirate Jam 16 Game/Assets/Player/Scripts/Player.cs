@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[RequireComponent(typeof(PlayerInputFlags))]
+[RequireComponent(typeof(PlayerInputs))]
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerPhysics))]
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private bool enableBlocking;
 
-    private PlayerInputFlags InputFlags;
+    private PlayerInputs Inputs;
     private PlayerCollision Collision;
     private PlayerMovement Movement;
     private PlayerPhysics Physics;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        InputFlags = GetComponent<PlayerInputFlags>();
+        Inputs = GetComponent<PlayerInputs>();
         Collision = GetComponent<PlayerCollision>();
         Movement = GetComponent<PlayerMovement>();
         Physics = GetComponent<PlayerPhysics>();
@@ -51,18 +51,18 @@ public class Player : MonoBehaviour
         bool farHit = Collision.GroundDetector.gotHit;
         bool onGround = Collision.GroundDetector.surfaceDetected;
 
-        if ((onGround || farHit && Physics.velocityY > 0f) && InputFlags.jumpFlag)
+        if ((onGround || farHit && Physics.velocityY > 0f) && Inputs.jumpFlag)
         {
             Physics.SetJumpForce(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
         
             Movement.OnJump();
 
-            InputFlags.ClearJumpFlag();
+            Inputs.ClearJumpFlag();
         }
 
         if (!onGround)
         {
-            Physics.SetGroundMoveForce( InputFlags.horizontalInput * Movement.moveSpeed );
+            Physics.SetGroundMoveForce( Inputs.horizontalInput * Movement.moveSpeed );
 
             Movement.ResetGroundedTimers();
         }
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         {
             Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration), 1f) ); // Stop moving
 
-            if (InputFlags.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
+            if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
             {
                 Movement.OnWalkHop();
                 
@@ -83,12 +83,12 @@ public class Player : MonoBehaviour
 
         Physics.MovePlayer();
 
-        Animation.FaceDirection(InputFlags.horizontalInput);
+        Animation.FaceDirection(Inputs.horizontalInput);
     }
 
     private void Update()
     {
-        InputFlags.UpdateTimers();
+        Inputs.UpdateTimers();
     }
 
     private void LateUpdate()
@@ -101,26 +101,26 @@ public class Player : MonoBehaviour
 
     private void ReadInputs()
     {
-        if (InputFlags.verticalInput >= 0f)
+        if (Inputs.verticalInput >= 0f)
             Collision.ResetPhaseTimers();
 
-        if (Collision.onPhasablePlatform && !Collision.phasing && InputFlags.verticalInput < -0.35f &&
+        if (Collision.onPhasablePlatform && !Collision.phasing && Inputs.verticalInput < -0.35f &&
             Collision.platformPhaseTimer >= PlayerCollision.PlatformPhaseHoldDuration)
         {
             Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
             Physics.SetForce(new Vector2(Physics.velocityX, -10f));
         }
-        else if (InputFlags.attackFlag)
+        else if (Inputs.attackFlag)
         {
             if (Attack.attackTimer > Attack.AttackDuration)
             {
-                Vector2 direction = Vector2.right * (InputFlags.movementInputActive > 0f ? 1f : -1f);
+                Vector2 direction = Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f);
 
                 List<DetectedComponent> enemies = Attack.DetectEnemyHealthComponents(direction);
                 Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
             }
 
-            InputFlags.ClearBlockFlag();
+            Inputs.ClearBlockFlag();
 
             if (Health.blocking)
             {
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
                 Attack.StopAttack();
             }
 
-            if (enableBlocking && InputFlags.blockFlag)
+            if (enableBlocking && Inputs.blockFlag)
             {
                 Health.StartBlocking();
             }
