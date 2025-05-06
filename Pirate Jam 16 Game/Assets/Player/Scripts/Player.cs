@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerInputManager))]
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerPhysics))]
@@ -13,7 +13,7 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    private PlayerInput Input;
+    private PlayerInputManager InputManager;
     private PlayerCollision Collision;
     private PlayerMovement Movement;
     private PlayerPhysics Physics;
@@ -23,8 +23,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Input = GetComponent<PlayerInput>();
+        InputManager = GetComponent<PlayerInputManager>();
         Collision = GetComponent<PlayerCollision>();
+        Movement = GetComponent<PlayerMovement>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
         Animation = GetComponent<PlayerAnimation>();
@@ -43,18 +44,18 @@ public class Player : MonoBehaviour
         bool farHit = Collision.GroundDetector.gotHit;
         bool onGround = Collision.GroundDetector.surfaceDetected;
 
-        if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
+        if ((onGround || farHit && Physics.velocityY > 0f) && InputManager.jumpFlag)
         {
             Physics.SetJumpForce(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
         
             Movement.OnJump();
 
-            Input.ClearJumpFlag();
+            InputManager.ClearJumpFlag();
         }
 
         if (!onGround)
         {
-            Physics.SetGroundMoveForce( Input.movementInput * Movement.moveSpeed );
+            Physics.SetGroundMoveForce( InputManager.horizontalInput * Movement.moveSpeed );
 
             Movement.ResetGroundedTimers();
         }
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour
         {
             Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration), 1f) ); // Stop moving
 
-            if (Input.movementInput != 0f && Movement.hopTimer > Movement.hopDelay)
+            if (InputManager.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
             {
                 Movement.OnWalkHop();
                 
@@ -75,13 +76,12 @@ public class Player : MonoBehaviour
 
         Physics.MovePlayer();
 
-        Animation.FaceDirection(Input.movementInput);
+        Animation.FaceDirection(InputManager.horizontalInput);
     }
 
     private void Update()
     {
-        Input.GetInputs();
-        Input.UpdateTimers();
+        InputManager.UpdateTimers();
     }
 
     private void LateUpdate()
@@ -94,26 +94,26 @@ public class Player : MonoBehaviour
 
     private void ReadInputs()
     {
-        if (Input.verticalInput >= 0f)
+        if (InputManager.verticalInput >= 0f)
             Collision.ResetPhaseTimers();
 
-        if (Collision.onPhasablePlatform && !Collision.phasing && Input.verticalInput < -0.35f &&
+        if (Collision.onPhasablePlatform && !Collision.phasing && InputManager.verticalInput < -0.35f &&
             Collision.platformPhaseTimer >= PlayerCollision.PlatformPhaseHoldDuration)
         {
             Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
             Physics.SetForce(new Vector2(Physics.velocityX, -10f));
         }
-        else if (Input.attackFlag)
+        else if (InputManager.attackFlag)
         {
             if (Attack.attackTimer > Attack.AttackDuration)
             {
-                Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
+                Vector2 direction = Vector2.right * (InputManager.movementInputActive > 0f ? 1f : -1f);
 
                 List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
                 Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
             }
 
-            Input.ClearBlockFlag();
+            InputManager.ClearBlockFlag();
 
             if (Health.blocking)
             {
@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
                 Attack.StopAttack();
             }
 
-            if (Input.blockFlag)
+            if (InputManager.blockFlag)
             {
                 Health.StartBlocking();
             }

@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [HideInInspector]
-public class PlayerInput : MonoBehaviour
+public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private bool enableBlocking;
 
-    public float movementInput { get; private set; }
+    public float horizontalInput { get; private set; }
     public float movementInputActive { get; private set; }
 
     public float verticalInput { get; private set; }
@@ -23,41 +24,52 @@ public class PlayerInput : MonoBehaviour
 
     private float jumpTimer;
 
-    public void GetInputs()
+    private void OnMove(InputValue inputValue)
     {
-        movementInput = Input.GetAxisRaw("Horizontal");
-        
-        if (movementInput != 0f)
-            movementInputActive = movementInput;
+        Vector2 value = inputValue.Get<Vector2>();
 
-        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = value.x;
+        verticalInput = value.y;
 
-        HandleTimedFlag(ref _jumpFlag, "Jump", ref jumpTimer, JumpTimeout);
-        HandleHoldFlag(ref _attackFlag, "Attack");
+        if (horizontalInput != 0f)
+            movementInputActive = horizontalInput;
+    }
 
+    private void OnJump(InputValue inputValue)
+    {
+        HandleTimedFlag(ref _jumpFlag, inputValue.isPressed, ref jumpTimer, JumpTimeout);
+    }
+
+    private void OnAttack(InputValue inputValue)
+    {
+        HandleHoldFlag(ref _attackFlag, inputValue.isPressed);
+    }
+
+    private void OnBlock(InputValue inputValue)
+    {
         if (enableBlocking)
-            HandleHoldFlag(ref _blockFlag, "Block");
+            HandleHoldFlag(ref _blockFlag, inputValue.isPressed);
         else if (_blockFlag)
             _blockFlag = false;
     }
 
-    private void HandleHoldFlag(ref bool flag, string inputName)
+    private void HandleHoldFlag(ref bool flag, bool isPressed)
     {
         if (!flag)
         {
-            if (Input.GetButtonDown(inputName))
+            if (isPressed)
                 flag = true;
         }
         else
         {
-            if (!Input.GetButton(inputName))
+            if (!isPressed)
                 flag = false;
         }
     }
 
-    private void HandleTimedFlag(ref bool flag, string inputName, ref float timer, float timeout = float.PositiveInfinity)
+    private void HandleTimedFlag(ref bool flag, bool isPressed, ref float timer, float timeout = float.PositiveInfinity)
     {
-        if (!flag && Input.GetButtonDown(inputName))
+        if (!flag && isPressed)
         {
             flag = true;
             timer = 0f;
