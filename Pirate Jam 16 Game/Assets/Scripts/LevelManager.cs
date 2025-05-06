@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
         audioPlayer.enabled = true;
         yield return new WaitForSeconds(audioInterval + 0.2f);
 
-        int nextLevel = SceneManager.loadedSceneCount;
-        SceneManager.LoadScene(nextLevel + 1);
+        int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextLevel);
     }
 }

@@ -1068,8 +1068,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionChecking: 0
+  directionChecking: 1
   attackRadius: 1.1
+  attackSound: {fileID: 0}
   onPerformAttack:
     m_PersistentCalls:
       m_Calls:
@@ -1097,7 +1098,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onHitObject:
+  onAttackObject:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6010920451800552079}
@@ -1112,9 +1113,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onMissObject:
-    m_PersistentCalls:
-      m_Calls: []
   onStopAttack:
     m_PersistentCalls:
       m_Calls:
@@ -1144,6 +1142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+  damageSound: {fileID: 0}
+  blockSound: {fileID: 0}
+  deathSound: {fileID: 0}
   TakeDamageColliders:
   - {fileID: 2339789651052063718}
   BlockDamageColliders: []
@@ -1258,7 +1259,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  debug: 0
   onStart:
     m_PersistentCalls:
       m_Calls:
