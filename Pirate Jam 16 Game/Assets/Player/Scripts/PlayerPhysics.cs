@@ -8,7 +8,7 @@ public class PlayerPhysics : MonoBehaviour
     public float velocityX { get; private set; }
     public float velocityY { get; private set; }
 
-    private void Start()
+    public void InitializeRigidbody()
     {
         rb.gravityScale = 0;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;

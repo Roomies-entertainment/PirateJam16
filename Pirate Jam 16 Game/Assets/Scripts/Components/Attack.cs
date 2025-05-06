@@ -12,9 +12,6 @@ public abstract class Attack : MonoBehaviour
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] protected AudioClip attackSound;
-
-    [Header("")]
     [SerializeField] protected UnityEvent<Vector2> onPerformAttack;
     [SerializeField] protected UnityEvent<GameObject> onAttackObject;
     [SerializeField] protected UnityEvent onStopAttack;
@@ -48,9 +45,6 @@ public abstract class Attack : MonoBehaviour
 
     protected virtual void OnPerformAttack(Vector2 direction)
     {
-        if (attackSound != null)
-            SoundManager.PlaySoundNonSpatial(attackSound);
-
         attacking = true;
 
         onPerformAttack.Invoke(direction);

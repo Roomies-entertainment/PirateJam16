@@ -14,9 +14,6 @@ public class PlayerHealth : Health
 
     protected override void OnDie()
     {
-        if (deathSound != null)
-            SoundManager.PlaySoundNonSpatial(deathSound);
-            
         onDie.Invoke();
     }
 

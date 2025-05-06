@@ -34,6 +34,11 @@ public class Player : MonoBehaviour
         Health = GetComponent<PlayerHealth>();
     }
 
+    private void Start()
+    {
+        Physics.InitializeRigidbody();
+    }
+
     private void FixedUpdate()
     {
         HandleMovement();

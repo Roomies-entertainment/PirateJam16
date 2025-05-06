@@ -8,12 +8,6 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected int startingHealth = 3;
     public int health { get; protected set; }
 
-
-    [Header("")]
-    [SerializeField] protected AudioClip damageSound;
-    [SerializeField] protected AudioClip blockSound;
-    [SerializeField] protected AudioClip deathSound;
-
     [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
     [SerializeField] protected Collider2D[] BlockDamageColliders;
@@ -42,9 +36,6 @@ public abstract class Health : MonoBehaviour
 
     protected virtual void OnDie()
     {
-        if (deathSound != null)
-            SoundManager.PlaySoundNonSpatial(deathSound);
-            
         onDie.Invoke();
 
         Destroy(gameObject);
@@ -107,18 +98,12 @@ public abstract class Health : MonoBehaviour
 
         IncrementHealth(-damage);
 
-        if (damageSound != null)
-            SoundManager.PlaySoundNonSpatial(damageSound);
-
         onTakeDamage.Invoke((float) health / startingHealth, data);
     }
 
     protected virtual void BlockDamage(int damage, DetectionData data)
     {
         Debug.Log($"{gameObject.name} blocked {damage} damage");
-
-        if (blockSound != null)
-            SoundManager.PlaySoundNonSpatial(damageSound);
 
         onBlockDamage.Invoke(damage, data);
     }
