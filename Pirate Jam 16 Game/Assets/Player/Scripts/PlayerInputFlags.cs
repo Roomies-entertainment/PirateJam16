@@ -2,10 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [HideInInspector]
-public class PlayerInputManager : MonoBehaviour
+public class PlayerInputFlags : MonoBehaviour
 {
-    [SerializeField] private bool enableBlocking;
-
     public float horizontalInput { get; private set; }
     public float movementInputActive { get; private set; }
 
@@ -47,10 +45,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnBlock(InputValue inputValue)
     {
-        if (enableBlocking)
-            HandleHoldFlag(ref _blockFlag, inputValue.isPressed);
-        else if (_blockFlag)
-            _blockFlag = false;
+        HandleHoldFlag(ref _blockFlag, inputValue.isPressed);
     }
 
     private void HandleHoldFlag(ref bool flag, bool isPressed)

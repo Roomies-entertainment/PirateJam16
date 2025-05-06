@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[RequireComponent(typeof(PlayerInputManager))]
+[RequireComponent(typeof(PlayerInputFlags))]
 [RequireComponent(typeof(PlayerCollision))]
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerPhysics))]
@@ -13,7 +13,9 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    private PlayerInputManager InputManager;
+    [SerializeField] private bool enableBlocking;
+
+    private PlayerInputFlags InputFlags;
     private PlayerCollision Collision;
     private PlayerMovement Movement;
     private PlayerPhysics Physics;
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        InputManager = GetComponent<PlayerInputManager>();
+        InputFlags = GetComponent<PlayerInputFlags>();
         Collision = GetComponent<PlayerCollision>();
         Movement = GetComponent<PlayerMovement>();
         Physics = GetComponent<PlayerPhysics>();
@@ -44,18 +46,18 @@ public class Player : MonoBehaviour
         bool farHit = Collision.GroundDetector.gotHit;
         bool onGround = Collision.GroundDetector.surfaceDetected;
 
-        if ((onGround || farHit && Physics.velocityY > 0f) && InputManager.jumpFlag)
+        if ((onGround || farHit && Physics.velocityY > 0f) && InputFlags.jumpFlag)
         {
             Physics.SetJumpForce(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
         
             Movement.OnJump();
 
-            InputManager.ClearJumpFlag();
+            InputFlags.ClearJumpFlag();
         }
 
         if (!onGround)
         {
-            Physics.SetGroundMoveForce( InputManager.horizontalInput * Movement.moveSpeed );
+            Physics.SetGroundMoveForce( InputFlags.horizontalInput * Movement.moveSpeed );
 
             Movement.ResetGroundedTimers();
         }
@@ -63,7 +65,7 @@ public class Player : MonoBehaviour
         {
             Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration), 1f) ); // Stop moving
 
-            if (InputManager.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
+            if (InputFlags.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
             {
                 Movement.OnWalkHop();
                 
@@ -76,12 +78,12 @@ public class Player : MonoBehaviour
 
         Physics.MovePlayer();
 
-        Animation.FaceDirection(InputManager.horizontalInput);
+        Animation.FaceDirection(InputFlags.horizontalInput);
     }
 
     private void Update()
     {
-        InputManager.UpdateTimers();
+        InputFlags.UpdateTimers();
     }
 
     private void LateUpdate()
@@ -94,26 +96,26 @@ public class Player : MonoBehaviour
 
     private void ReadInputs()
     {
-        if (InputManager.verticalInput >= 0f)
+        if (InputFlags.verticalInput >= 0f)
             Collision.ResetPhaseTimers();
 
-        if (Collision.onPhasablePlatform && !Collision.phasing && InputManager.verticalInput < -0.35f &&
+        if (Collision.onPhasablePlatform && !Collision.phasing && InputFlags.verticalInput < -0.35f &&
             Collision.platformPhaseTimer >= PlayerCollision.PlatformPhaseHoldDuration)
         {
             Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
             Physics.SetForce(new Vector2(Physics.velocityX, -10f));
         }
-        else if (InputManager.attackFlag)
+        else if (InputFlags.attackFlag)
         {
             if (Attack.attackTimer > Attack.AttackDuration)
             {
-                Vector2 direction = Vector2.right * (InputManager.movementInputActive > 0f ? 1f : -1f);
+                Vector2 direction = Vector2.right * (InputFlags.movementInputActive > 0f ? 1f : -1f);
 
                 List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
                 Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
             }
 
-            InputManager.ClearBlockFlag();
+            InputFlags.ClearBlockFlag();
 
             if (Health.blocking)
             {
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour
                 Attack.StopAttack();
             }
 
-            if (InputManager.blockFlag)
+            if (enableBlocking && InputFlags.blockFlag)
             {
                 Health.StartBlocking();
             }
