@@ -47,8 +47,6 @@ public abstract class Health : MonoBehaviour
     protected virtual void OnDie()
     {
         onDie?.Invoke();
-
-        Destroy(gameObject);
     }
 
     public DamageResult ApplyDamage(int damage, DetectionData data)

@@ -12,11 +12,6 @@ public class PlayerHealth : Health
         onStart?.Invoke((float) health / startingHealth, null);
     }
 
-    protected override void OnDie()
-    {
-        onDie?.Invoke();
-    }
-
     public void DifficultySet(int hp){
         startingHealth = hp;
         health = startingHealth;
