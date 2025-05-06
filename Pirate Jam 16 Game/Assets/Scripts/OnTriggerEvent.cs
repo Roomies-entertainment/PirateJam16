@@ -9,6 +9,6 @@ public class OnTriggerEvent : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        onTriggerEnter.Invoke(collider);
+        onTriggerEnter?.Invoke(collider);
     }
 }

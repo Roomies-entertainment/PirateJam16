@@ -21,6 +21,16 @@ public abstract class Health : MonoBehaviour
 
     public bool blocking { get; private set; }
 
+    public enum DamageResult
+    {
+        Hit,
+        Miss,
+        Block
+    }
+
+    [Header("")]
+    [SerializeField] protected bool debug;
+
     protected void Awake()
     {
         health = startingHealth;
@@ -36,91 +46,91 @@ public abstract class Health : MonoBehaviour
 
     protected virtual void OnDie()
     {
-        onDie.Invoke();
+        onDie?.Invoke();
 
         Destroy(gameObject);
     }
 
-    public bool ApplyDamage(int damage, DetectionData data)
+    public DamageResult ApplyDamage(int damage, DetectionData data)
     {
         bool colTakeDamage = false;
-        bool colBlockDamage = false;
 
         foreach(var c in TakeDamageColliders)
-            if (data.DetectedComponentData.Colliders.Contains(c))
+            if (data.DetectedComponent.Colliders.Contains(c))
             {
                 colTakeDamage = true;
 
                 break;
             }
-
+ 
         if (!colTakeDamage)
+        {
+            return DamageResult.Miss;
+        }
+        
+        if (blocking)
         {
             BlockDamage(damage, data);
 
-            return false;
+            return DamageResult.Block;
         }
-
-        foreach(var c in TakeDamageColliders)
-            if (data.DetectedComponentData.Colliders.Contains(c))
-            {
-                colTakeDamage = true;
-
-                break;
-            }
-
-        if (!colTakeDamage)
-            return false;
 
         foreach(var c in BlockDamageColliders)
-            if (data.DetectedComponentData.Colliders.Contains(c))
+            if (data.DetectedComponent.Colliders.Contains(c))
             {
-                colBlockDamage = true;
+                BlockDamage(damage, data);
 
-                break;
+                return DamageResult.Block;
             }
-
-        if (blocking || colBlockDamage)
-        {
-            BlockDamage(damage, data);
-
-            return false;
-        }
 
         TakeDamage(damage, data);
         
-        return true;
+        return DamageResult.Hit;
     }
 
     public virtual void TakeDamage(int damage, DetectionData data)
     {
-        Debug.Log($"{gameObject.name} took {damage} damage");
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} took {damage} damage");
+        }
 
         IncrementHealth(-damage);
 
-        onTakeDamage.Invoke((float) health / startingHealth, data);
+        onTakeDamage?.Invoke((float) health / startingHealth, data);
     }
 
     protected virtual void BlockDamage(int damage, DetectionData data)
     {
-        Debug.Log($"{gameObject.name} blocked {damage} damage");
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} blocked {damage} damage");
+        }
 
-        onBlockDamage.Invoke(damage, data);
+        onBlockDamage?.Invoke(damage, data);
     }
 
     public virtual void StartBlocking()
     {
-        Debug.Log($"{gameObject.name} is blocking");
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} is blocking");
+        }
+
         blocking = true;
 
-        onStartBlocking.Invoke();
+        onStartBlocking?.Invoke();
     }
 
     public virtual void StopBlocking()
     {
-        Debug.Log($"{gameObject.name} stopped blocking");
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} stopped blocking");
+        }
+
         blocking = false;
 
-        onStopBlocking.Invoke();
+        onStopBlocking?.Invoke();
     }
 }

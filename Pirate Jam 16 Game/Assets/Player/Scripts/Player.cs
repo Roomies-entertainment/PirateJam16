@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
             {
                 Vector2 direction = Vector2.right * (InputFlags.movementInputActive > 0f ? 1f : -1f);
 
-                List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
+                List<DetectedComponent> enemies = Attack.DetectEnemyHealthComponents(direction);
                 Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
             }
 

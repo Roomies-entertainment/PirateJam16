@@ -1070,7 +1070,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionChecking: 0
   attackRadius: 1.1
-  attackSound: {fileID: 0}
   onPerformAttack:
     m_PersistentCalls:
       m_Calls:
@@ -1098,7 +1097,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onAttackObject:
+  onHitObject:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6010920451800552079}
@@ -1113,6 +1112,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onMissObject:
+    m_PersistentCalls:
+      m_Calls: []
   onStopAttack:
     m_PersistentCalls:
       m_Calls:
@@ -1256,6 +1258,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  debug: 0
   onStart:
     m_PersistentCalls:
       m_Calls:

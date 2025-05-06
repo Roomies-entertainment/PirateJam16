@@ -5,24 +5,24 @@ using UnityEngine;
 public class DetectionData
 {
     public Vector2 Point { get; private set; }
-    public ComponentData DetectedComponentData { get; private set; }
-    public ComponentData DetectorComponentData { get; private set; }
+    public DetectedComponent DetectedComponent { get; private set; }
+    public DetectedComponent DetectorComponent { get; private set; }
     
 
-    public DetectionData(Vector2 point, ComponentData detectedComponentData, ComponentData detectorComponentData)
+    public DetectionData(Vector2 point, DetectedComponent detectedComponentData, DetectedComponent detectorComponentData)
     {
         Point = point;
-        DetectedComponentData = detectedComponentData;
-        DetectorComponentData = detectorComponentData;
+        DetectedComponent = detectedComponentData;
+        DetectorComponent = detectorComponentData;
     }
 }
 
-public class ComponentData
+public class DetectedComponent
 {
     public Component Component { get; private set; }
     public readonly List<Collider2D> Colliders = new List<Collider2D>();
 
-    public ComponentData(Component component, List<Collider2D> colliders = null)
+    public DetectedComponent(Component component, List<Collider2D> colliders = null)
     {
         Component = component;
 
@@ -36,18 +36,18 @@ public class ComponentData
 
 public static class Detection
 {
-    public static List<ComponentData> DetectComponent<T>(Vector2 pos, float radius, LayerMask layerMask = new LayerMask()) where T : Component
+    public static List<DetectedComponent> DetectComponent<T>(Vector2 pos, float radius, LayerMask layerMask = new LayerMask()) where T : Component
     {
         if (layerMask.value == 0)
             layerMask = ~0;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius, layerMask);
 
-        List<ComponentData> dataList = new List<ComponentData>();
+        List<DetectedComponent> dataList = new List<DetectedComponent>();
         List<T> addedComponents = new List<T>();
 
         T component;
-        ComponentData data;
+        DetectedComponent data;
 
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -60,7 +60,7 @@ public static class Detection
 
             if (index == -1) // Not yet added
             {
-                data = new ComponentData(component);
+                data = new DetectedComponent(component);
                 data.Colliders.Add(colliders[i]);
 
                 dataList.Add(data);

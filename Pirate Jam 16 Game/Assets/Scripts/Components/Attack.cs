@@ -13,24 +13,30 @@ public abstract class Attack : MonoBehaviour
 
     [Header("")]
     [SerializeField] protected UnityEvent<Vector2> onPerformAttack;
-    [SerializeField] protected UnityEvent<GameObject> onAttackObject;
+    [SerializeField] protected UnityEvent<GameObject> onHitObject;
+    [SerializeField] protected UnityEvent<GameObject> onMissObject;
     [SerializeField] protected UnityEvent onStopAttack;
 
     public bool attacking { get; private set; }
 
-    public void AttackObjects(List<ComponentData> attackedObjects, Vector2 attackPoint, Vector2 attackDirection, int damage = BaseDamage)
+    public void AttackObjects(List<DetectedComponent> detectedHealthComponents, Vector2 attackPoint, Vector2 attackDirection, int damage = BaseDamage)
     {
-        foreach (var data in attackedObjects)
+        foreach (DetectedComponent detectedHC in detectedHealthComponents)
         {
-            var health = (Health) data.Component;
+            var health = (Health) detectedHC.Component;
 
             if (!directionChecking || Vector2.Dot((health.transform.position - transform.position).normalized, attackDirection.normalized) > 0f)
             {
-                health.ApplyDamage(
-                    damage,
-                    new DetectionData(attackPoint, data, new ComponentData(this)));
-                    
-                OnAttackObject(health.gameObject);
+                var result = health.ApplyDamage(damage, new DetectionData(attackPoint, detectedHC, new DetectedComponent(this)));
+                
+                switch(result)
+                {
+                    case Health.DamageResult.Hit:
+                        onHitObject?.Invoke(health.gameObject); break;
+
+                    case Health.DamageResult.Miss:
+                        onMissObject?.Invoke(health.gameObject); break;
+                }
             }
         }
 
@@ -40,14 +46,14 @@ public abstract class Attack : MonoBehaviour
 
     protected virtual void OnAttackObject(GameObject attackedObj)
     {
-        onAttackObject.Invoke(attackedObj);
+        onHitObject?.Invoke(attackedObj);
     }
 
     protected virtual void OnPerformAttack(Vector2 direction)
     {
         attacking = true;
 
-        onPerformAttack.Invoke(direction);
+        onPerformAttack?.Invoke(direction);
     }
 
     public void StopAttack()
@@ -59,6 +65,6 @@ public abstract class Attack : MonoBehaviour
     {
         attacking = false;
 
-        onStopAttack.Invoke();
+        onStopAttack?.Invoke();
     }
 }

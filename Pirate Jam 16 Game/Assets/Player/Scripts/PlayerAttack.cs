@@ -18,12 +18,12 @@ public class PlayerAttack : Attack
         attackTimer += Time.deltaTime;
     }
 
-    public List<ComponentData> FindObjectsToAttack(Vector2 attackDirection)
+    public List<DetectedComponent> DetectEnemyHealthComponents(Vector2 attackDirection)
     {
-        var enemies = Detection.DetectComponent<EnemyHealth>(transform.position, attackRadius, 1 << Collisions.enemyLayer);
-        var objectsR = new List<ComponentData>();
+        var enemyHCs = Detection.DetectComponent<EnemyHealth>(transform.position, attackRadius, 1 << Collisions.enemyLayer);
+        var objectsR = new List<DetectedComponent>();
 
-        foreach (var enemy in enemies)
+        foreach (var enemy in enemyHCs)
         {
             var enemyHealth = (Health) enemy.Component;
 
@@ -32,7 +32,7 @@ public class PlayerAttack : Attack
                 
             if ( Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
-                objectsR.Add(new ComponentData(enemyHealth, enemy.Colliders));
+                objectsR.Add(new DetectedComponent(enemyHealth, enemy.Colliders));
             }
         }
 

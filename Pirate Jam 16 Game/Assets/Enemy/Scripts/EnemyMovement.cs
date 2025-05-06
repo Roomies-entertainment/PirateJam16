@@ -55,14 +55,14 @@ public class EnemyMovement : MonoBehaviour
         if (Random.value > walkBackwardsChance)
             FaceDirection(Vector2.right * (lr ? 1f : -1f));
 
-        onStartMoving.Invoke();
+        onStartMoving?.Invoke();
     }
 
     private void StopMoving()
     {
         velocityX = 0.0f;
 
-        onStopMoving.Invoke();
+        onStopMoving?.Invoke();
     }
 
     public void FaceDirection(Vector2 direction)

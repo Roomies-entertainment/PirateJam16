@@ -14,7 +14,7 @@ public class EnemyHealth : Health
     {
         StartCoroutine(BlockLoop(blockInterval));
 
-        onStart.Invoke(health / startingHealth, null);
+        onStart?.Invoke(health / startingHealth, null);
     }
 
     private IEnumerator BlockLoop(float interval)

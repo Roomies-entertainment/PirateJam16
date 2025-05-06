@@ -56,20 +56,20 @@ public class SurfaceDetector : MonoBehaviour
 
         if (!gotHitStore && gotHit)
         {
-            onSurfaceEnter.Invoke();
+            onSurfaceEnter?.Invoke();
         }
         else if (gotHitStore && !gotHit)
         {
-            onSurfaceExit.Invoke();
+            onSurfaceExit?.Invoke();
         }
 
         if (!surfaceDetectedStore && surfaceDetected)
         {
-            onSurfaceEnter.Invoke();
+            onSurfaceEnter?.Invoke();
         }
         else if (surfaceDetectedStore && !surfaceDetected)
         {
-            onSurfaceExit.Invoke();
+            onSurfaceExit?.Invoke();
         }
     }
 }
