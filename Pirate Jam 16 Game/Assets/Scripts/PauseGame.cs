@@ -14,9 +14,9 @@ public class PauseGame : MonoBehaviour
 
     void Update()
     {
-
         if (shouldShow == false)
             return;
+
 
         if (Input.GetButtonDown("Cancel") && pauseMenu.activeInHierarchy == false)
         {
