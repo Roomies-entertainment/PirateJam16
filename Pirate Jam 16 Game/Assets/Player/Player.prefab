@@ -711,7 +711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9066606800832683364}
   - component: {fileID: 8894800512938370558}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Physics Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

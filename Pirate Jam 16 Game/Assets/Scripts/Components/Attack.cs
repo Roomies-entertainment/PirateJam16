@@ -86,7 +86,10 @@ public abstract class Attack : MonoBehaviour
     {
         if (!attacking)
         {
-            Debug.Log($"{gameObject.name} in StopAttack() - not attacking");
+            if (debug)
+            {
+                Debug.Log($"{gameObject.name} in StopAttack() - not attacking");
+            }
 
             return;
         }

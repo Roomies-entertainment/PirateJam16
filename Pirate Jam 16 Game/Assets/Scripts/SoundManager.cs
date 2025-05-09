@@ -43,6 +43,11 @@ public static class SoundManager
             return;
         }
 
+        if (References == null)
+        {
+            return;
+        }
+
         AudioSource source = References.nonPositionalSource.AddComponent<AudioSource>();
 
         source.playOnAwake = true;
