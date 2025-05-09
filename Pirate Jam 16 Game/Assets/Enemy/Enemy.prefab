@@ -812,6 +812,50 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a9c749d91398e4542a37d96df03b66b8, type: 3}
   - {fileID: 8300000, guid: 5fffa2cfed34d8048bf1cd6625577752, type: 3}
   - {fileID: 8300000, guid: 9cd2f832720b7c543ab33eea9e15ca04, type: 3}
+--- !u!1 &6943361342508850390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5258054714236518640}
+  - component: {fileID: 8153457415369828248}
+  m_Layer: 7
+  m_Name: Attack Circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5258054714236518640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6943361342508850390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.11, z: 0}
+  m_LocalScale: {x: 0.74911004, y: 0.74911004, z: 0.74911004}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4079875813400938342}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8153457415369828248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6943361342508850390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7844832413395711637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1357,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5258054714236518640}
   - {fileID: 7154951927751350616}
   - {fileID: 1610576917763008177}
   - {fileID: 2766751282481814192}
@@ -1463,7 +1508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRadius: 1.1
+  AttackCircle: {fileID: 8153457415369828248}
   onStartAttack:
     m_PersistentCalls:
       m_Calls:

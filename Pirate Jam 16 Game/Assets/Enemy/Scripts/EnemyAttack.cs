@@ -40,7 +40,8 @@ public class EnemyAttack : Attack
 
     private Vector2 GetAttackDirection(out List<DetectedComponent> players)
     {
-        players = Detection.DetectComponent<Health>(transform.position, attackRadius, 1 << Collisions.playerLayer);
+        players = Detection.DetectComponent<Health>(
+            AttackCircle.transform.position, AttackCircle.GetRadius(), 1 << Collisions.playerLayer);
 
         if (players.Count == 0)
         {

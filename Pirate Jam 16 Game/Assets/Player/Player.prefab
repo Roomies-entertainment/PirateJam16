@@ -652,6 +652,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6433622942316594875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7752513680495441953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4887106379026133171}
+  - component: {fileID: 7492755210599710390}
+  m_Layer: 6
+  m_Name: Attack Circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4887106379026133171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752513680495441953}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5435998, y: 0.5435998, z: 0.5435998}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 868922612935429444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7492755210599710390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752513680495441953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7898100762804299592
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +903,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4887106379026133171}
   - {fileID: 5868378279259282056}
   - {fileID: 4032350075772467919}
   - {fileID: 5932277601470437524}
@@ -1225,7 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRadius: 1
+  AttackCircle: {fileID: 7492755210599710390}
   onStartAttack:
     m_PersistentCalls:
       m_Calls:

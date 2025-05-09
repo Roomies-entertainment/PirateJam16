@@ -22,7 +22,8 @@ public class PlayerAttack : Attack
 
     public List<DetectedComponent> FindHealthComponents(Vector2 attackDirection)
     {
-        var enemyHCs = Detection.DetectComponent<EnemyHealth>(transform.position, attackRadius, 1 << Collisions.enemyLayer);
+        var enemyHCs = Detection.DetectComponent<EnemyHealth>(
+            AttackCircle.transform.position, AttackCircle.GetRadius(), 1 << Collisions.enemyLayer);
 
         var objectsR = new List<DetectedComponent>();
 

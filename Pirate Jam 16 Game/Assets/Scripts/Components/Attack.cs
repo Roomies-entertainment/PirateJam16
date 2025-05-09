@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public abstract class Attack : MonoBehaviour
 {
     [Header("")]
-    [SerializeField] protected float attackRadius = 2f;
+    [SerializeField] protected CircleGizmo AttackCircle;
     public const int BaseDamage = 1;
 
     [Header("")]
