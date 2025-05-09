@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ParticleManager
+public static class ParticleM
 {
     public static void SpawnParticle(GameObject particlePrefab, Vector2 position, Transform parent = null,
     bool startPlaying = true, float stopAfter = 0f)

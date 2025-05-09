@@ -13,7 +13,7 @@ public class ManagerReferences : MonoBehaviour
 
     private void Awake()
     {
-        SoundManager.References = this;
+        SoundM.References = this;
 
         nonPositionalSource = new GameObject("Non Positional Sound Sources");
     }

@@ -8,6 +8,6 @@ public class PlayerParticles : MonoBehaviour
 
     public void OnBlockDamage(float damage, DetectionData data)
     {
-        ParticleManager.SpawnParticle(blockParticlePrefab, data.Point);
+        ParticleM.SpawnParticle(blockParticlePrefab, data.Point);
     }
 }

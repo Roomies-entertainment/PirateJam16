@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public static class SoundManager
+public static class SoundM
 {
     public static ManagerReferences References;
 
