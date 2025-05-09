@@ -112,12 +112,13 @@ public class Player : MonoBehaviour
         }
         else if (Inputs.attackFlag)
         {
-            if (Attack.attackTimer > Attack.AttackDuration)
+            if (!Attack.attacking)
             {
-                Vector2 direction = Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f);
+                var attackDirection = Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f);
+                var enemies = Attack.FindHealthComponents(attackDirection);
+                var damage = CalculateAttackDamage();
 
-                List<DetectedComponent> enemies = Attack.DetectEnemyHealthComponents(direction);
-                Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
+                Attack.StartAttack(enemies, attackDirection, damage);
             }
 
             Inputs.ClearBlockFlag();

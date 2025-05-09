@@ -1003,7 +1003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b43dcc98bda84458b63c135f375d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableBlocking: 0
 --- !u!114 &3348222302375638153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,6 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448380c194bfec9479ed9a4a9dcfcd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableBlocking: 0
 --- !u!114 &41282749469230444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1107,9 +1107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 6
-  damageSound: {fileID: 0}
-  blockSound: {fileID: 0}
-  deathSound: {fileID: 8300000, guid: 4bc962bb27e5cbd49ab1ead74798853a, type: 3}
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
   BlockDamageColliders: []
@@ -1200,6 +1197,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  debug: 0
   onStart:
     m_PersistentCalls:
       m_Calls:
@@ -1227,10 +1225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionChecking: 0
   attackRadius: 1
-  attackSound: {fileID: 0}
-  onPerformAttack:
+  onStartAttack:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1858803697121880418}
@@ -1281,7 +1277,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onAttackObject:
+  onHitObject:
+    m_PersistentCalls:
+      m_Calls: []
+  onMissObject:
     m_PersistentCalls:
       m_Calls: []
   onStopAttack:
@@ -1323,6 +1322,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  debug: 0
   fallingThreshold: 0.24
   fallingExtraDamage: 1
   AttackDuration: 0.3
@@ -1365,6 +1365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 0}
+  counterText: {fileID: 0}
 --- !u!95 &7720237000091100624
 Animator:
   serializedVersion: 5

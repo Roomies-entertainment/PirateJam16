@@ -17,7 +17,7 @@ public abstract class Health : MonoBehaviour
     [SerializeField] private UnityEvent onStartBlocking;
     [SerializeField] private UnityEvent onStopBlocking;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
-    [SerializeField] protected UnityEvent onDie;
+    [SerializeField] private UnityEvent onDie;
 
     public bool blocking { get; private set; }
 

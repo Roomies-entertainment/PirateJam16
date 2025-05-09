@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : Attack
 {
+    [Header("")]
     [Range(0, 1)] public float fallingThreshold = 0.24f;
     public int fallingExtraDamage = 1;
 
@@ -11,6 +12,7 @@ public class PlayerAttack : Attack
     public float AttackDuration = 0f;
     public float attackTimer {get; private set; } = 0.0f;
 
+    private Vector2 attackDirection;
     public List<Health> attackedEnemies { get; private set; } = new List<Health>();
 
     private void Update()
@@ -18,9 +20,10 @@ public class PlayerAttack : Attack
         attackTimer += Time.deltaTime;
     }
 
-    public List<DetectedComponent> DetectEnemyHealthComponents(Vector2 attackDirection)
+    public List<DetectedComponent> FindHealthComponents(Vector2 attackDirection)
     {
         var enemyHCs = Detection.DetectComponent<EnemyHealth>(transform.position, attackRadius, 1 << Collisions.enemyLayer);
+
         var objectsR = new List<DetectedComponent>();
 
         foreach (var enemy in enemyHCs)
@@ -30,7 +33,7 @@ public class PlayerAttack : Attack
             if (attackedEnemies.Contains(enemyHealth))
                 continue;
                 
-            if ( Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
+            if ( attackDirection.sqrMagnitude == 0 || Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
                 objectsR.Add(new DetectedComponent(enemyHealth, enemy.Colliders));
             }
@@ -39,16 +42,18 @@ public class PlayerAttack : Attack
         return objectsR;
     }
 
-    protected override void OnPerformAttack(Vector2 direction)
+    protected override void OnStartAttack(Vector2 direction)
     {
-        base.OnPerformAttack(direction);
+        base.OnStartAttack(direction);
 
         attackTimer = 0.0f;
     }
 
-    protected override void OnAttackObject(GameObject enemy)
+    protected override void OnHitObject(GameObject enemy)
     {
         attackedEnemies.Add(enemy.GetComponent<Health>());
+
+        base.OnHitObject(enemy);
     }
 
     protected override void OnStopAttack()

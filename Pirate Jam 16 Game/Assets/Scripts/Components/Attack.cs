@@ -1,63 +1,101 @@
 using System.Collections.Generic;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public abstract class Attack : MonoBehaviour
 {
-    [SerializeField] protected bool directionChecking;
-
     [Header("")]
     [SerializeField] protected float attackRadius = 2f;
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] protected UnityEvent<Vector2> onPerformAttack;
-    [SerializeField] protected UnityEvent<GameObject> onHitObject;
-    [SerializeField] protected UnityEvent<GameObject> onMissObject;
-    [SerializeField] protected UnityEvent onStopAttack;
+    [SerializeField] private UnityEvent<Vector2> onStartAttack;
+    [SerializeField] private UnityEvent<GameObject> onHitObject;
+    [SerializeField] private UnityEvent<GameObject> onMissObject;
+    [SerializeField] private UnityEvent onStopAttack;
+
+    [Header("")]
+    [SerializeField] protected bool debug;
 
     public bool attacking { get; private set; }
 
-    public void AttackObjects(List<DetectedComponent> detectedHealthComponents, Vector2 attackPoint, Vector2 attackDirection, int damage = BaseDamage)
+    public void StartAttack(List<DetectedComponent> detectedHealthComponents, Vector2 attackDirection = new Vector2(), int damage = BaseDamage)
     {
+        if (attacking)
+        {
+            if (debug)
+            {
+                Debug.Log($"{gameObject.name} already attacking");
+            }
+
+            return;
+        }
+
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} attacking with {damage} damage");
+        }
+
+        OnStartAttack(attackDirection);
+
         foreach (DetectedComponent detectedHC in detectedHealthComponents)
         {
             var health = (Health) detectedHC.Component;
-
-            if (!directionChecking || Vector2.Dot((health.transform.position - transform.position).normalized, attackDirection.normalized) > 0f)
+            var result = health.ApplyDamage(damage, new DetectionData(health.transform.position, detectedHC, new DetectedComponent(this)));
+            
+            switch(result)
             {
-                var result = health.ApplyDamage(damage, new DetectionData(attackPoint, detectedHC, new DetectedComponent(this)));
-                
-                switch(result)
-                {
-                    case Health.DamageResult.Hit:
-                        onHitObject?.Invoke(health.gameObject); break;
+                case Health.DamageResult.Hit:
+                    OnHitObject(health.gameObject); break;
 
-                    case Health.DamageResult.Miss:
-                        onMissObject?.Invoke(health.gameObject); break;
-                }
+                case Health.DamageResult.Miss:
+                    OnMissObject(health.gameObject); break;
             }
         }
-
-        if (!attacking)
-            OnPerformAttack(attackDirection);
     }
 
-    protected virtual void OnAttackObject(GameObject attackedObj)
-    {
-        onHitObject?.Invoke(attackedObj);
-    }
-
-    protected virtual void OnPerformAttack(Vector2 direction)
+    protected virtual void OnStartAttack(Vector2 direction)
     {
         attacking = true;
 
-        onPerformAttack?.Invoke(direction);
+        onStartAttack?.Invoke(direction);
     }
 
-    public void StopAttack()
+    protected virtual void OnHitObject(GameObject attackedObj)
     {
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} hit {attackedObj.name}");
+        }
+
+        onHitObject?.Invoke(attackedObj);
+    }
+
+    protected virtual void OnMissObject(GameObject attackedObj)
+    {
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} missed {attackedObj.name}");
+        }
+
+        onMissObject?.Invoke(attackedObj);
+    }
+
+    public virtual void StopAttack()
+    {
+        if (!attacking)
+        {
+            Debug.Log($"{gameObject.name} in StopAttack() - not attacking");
+
+            return;
+        }
+
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} attack complete");
+        }
+
         OnStopAttack();
     }
 
