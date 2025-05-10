@@ -8,8 +8,8 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float followSpeedY = 1f;
 
     [Header("")]
-    public float minFollowPosY = 0f;
-    public float maxFollowPosY = 3f;
+    public float minOffsetY = 1.5f;
+    public float maxOffsetY = 3f;
 
     [Header("")]
     [SerializeField] public Transform TargetObject;
@@ -39,7 +39,10 @@ public class CameraFollow : MonoBehaviour
             return;
         }
 
-        tWorldPosClamped = new Vector2(TargetObject.position.x, Mathf.Clamp(TargetObject.position.y, minFollowPosY, maxFollowPosY));
+        float minPosY = TargetObject.position.y + minOffsetY;
+        float maxPosY = TargetObject.position.y + maxOffsetY;
+
+        tWorldPosClamped = new Vector2(TargetObject.position.x, Mathf.Clamp(TargetObject.position.y, minPosY, maxPosY));
         tScreenPosN1P1Clamped = ScreenPosToN1P1(Camera.WorldToScreenPoint(tWorldPosClamped));
 
         FollowTarget(); 
