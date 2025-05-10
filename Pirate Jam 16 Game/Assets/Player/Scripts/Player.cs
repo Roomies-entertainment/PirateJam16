@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
         if (Collision.onPhasablePlatform && !Collision.phasing && Inputs.verticalInput < -0.35f &&
             Collision.platformPhaseTimer >= PlayerCollision.PlatformPhaseHoldDuration)
         {
-            Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
+            Collision.StartCoroutine(Collision.PhaseThroughPlatforms(Collision.GroundDetector.hit.collider, 0.1f));
             Physics.SetVerticalSpeed(-10f);
         }
         else if (Inputs.attackFlag)

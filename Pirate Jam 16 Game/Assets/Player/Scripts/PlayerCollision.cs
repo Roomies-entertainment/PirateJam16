@@ -27,10 +27,10 @@ public class PlayerCollision : MonoBehaviour
             onPhasablePlatform = false;
     }
 
-    public IEnumerator PhaseThroughPlatforms(float duration)
+    public IEnumerator PhaseThroughPlatforms(Collider2D platformCollider, float duration)
     {
         phasing = true;
-        PhysicsCollider.enabled = false;
+        Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, true);
 
         float timer = 0f;
 
@@ -41,8 +41,7 @@ public class PlayerCollision : MonoBehaviour
             timer += Time.deltaTime;
         }
 
-        phasing = false;
-        PhysicsCollider.enabled = true;
+        Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, false);
     }
 
     private void OnDestroy()
