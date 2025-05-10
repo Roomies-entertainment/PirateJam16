@@ -29,7 +29,7 @@ public class PlayerCollision : MonoBehaviour
 
     public IEnumerator PhaseThroughPlatforms(float duration)
     {
-        phasing= true;
+        phasing = true;
         PhysicsCollider.enabled = false;
 
         float timer = 0f;

@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
+    //public Rigidbody2D rb { get; private set; }
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PhysicsMaterial2D physicsMaterial;
 
-    public float velocityX { get; private set; }
-    public float velocityY { get; private set; }
+    public float speedX { get; private set; }
+    public float speedY { get; private set; }
 
     public void InitializeRigidbody()
     {
@@ -17,28 +18,22 @@ public class PlayerPhysics : MonoBehaviour
 
     public void AddForce(Vector2 force)
     {
-        velocityX += force.x;
-        velocityY += force.y;
+        speedX += force.x;
+        speedY += force.y;
     }
 
-    public void SetForce(Vector2 force)
+    public void SetHorizontalSpeed(float speed)
     {
-        velocityX = force.x;
-        velocityY = force.y;
+        speedX = speed;
     }
 
-    public void SetGroundMoveForce(float speed)
+    public void SetVerticalSpeed(float speed)
     {
-        velocityX = speed;
-    }
-
-    public void SetJumpForce(float speed)
-    {
-        velocityY = speed;
+        speedY = speed;
     }
 
     public void MovePlayer()
     {
-        rb.velocity = new Vector2(velocityX, velocityY);
+        rb.velocity = new Vector2(speedX, speedY);
     }
 }

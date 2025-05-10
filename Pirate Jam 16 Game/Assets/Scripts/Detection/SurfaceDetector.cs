@@ -20,7 +20,7 @@ public class SurfaceDetector : MonoBehaviour
 
     public bool gotHit { get; private set; }
     public bool surfaceDetected { get; private set; }
-
+    public RaycastHit2D hit { get; private set; }
     public float hitDistance { get; private set; }
 
     private void Update()
@@ -39,7 +39,7 @@ public class SurfaceDetector : MonoBehaviour
 
         float contactDistanceMax = Vector2.Distance(start, end);
 
-        RaycastHit2D hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraCastDistance, layerMask);
+        hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraCastDistance, layerMask);
 
         gotHit = hit.transform != null;
 

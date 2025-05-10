@@ -51,9 +51,9 @@ public class Player : MonoBehaviour
         bool farHit = Collision.GroundDetector.gotHit;
         bool onGround = Collision.GroundDetector.surfaceDetected;
 
-        if ((onGround || farHit && Physics.velocityY > 0f) && Inputs.jumpFlag)
+        if ((onGround || farHit && Physics.speedY > 0f) && Inputs.jumpFlag)
         {
-            Physics.SetJumpForce(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
+            Physics.SetVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
         
             Movement.OnJump();
 
@@ -62,24 +62,26 @@ public class Player : MonoBehaviour
 
         if (!onGround)
         {
-            Physics.SetGroundMoveForce( Inputs.horizontalInput * Movement.moveSpeed );
+            Debug.Log("!");
+            
+            Physics.SetHorizontalSpeed( Inputs.horizontalInput * Movement.moveSpeed );
+            Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * (
+                Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
             Movement.ResetGroundedTimers();
         }
         else
         {
-            Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration), 1f) ); // Stop moving
+            Physics.SetVerticalSpeed(Physics2D.gravity.y * (Movement.downGravityScale * Time.fixedDeltaTime));
+            Physics.SetHorizontalSpeed( Physics.speedX * ( 1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration) ) ); // Stop moving
 
             if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
             {
                 Movement.OnWalkHop();
                 
-                Physics.SetJumpForce(Movement.hopSpeed);
+                Physics.SetVerticalSpeed(Movement.hopSpeed);
             }
         }
-        
-        Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * (
-            Physics.velocityY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
         Physics.MovePlayer();
 
@@ -108,7 +110,7 @@ public class Player : MonoBehaviour
             Collision.platformPhaseTimer >= PlayerCollision.PlatformPhaseHoldDuration)
         {
             Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
-            Physics.SetForce(new Vector2(Physics.velocityX, -10f));
+            Physics.SetVerticalSpeed(-10f);
         }
         else if (Inputs.attackFlag)
         {
@@ -150,7 +152,7 @@ public class Player : MonoBehaviour
 
     private int CalculateAttackDamage()
     {
-        return Physics.velocityY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
+        return Physics.speedY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
         PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
         PlayerAttack.BaseDamage;
     }
