@@ -62,18 +62,18 @@ public class Player : MonoBehaviour
 
         if (!onGround)
         {
-            Debug.Log("!");
-            
             Physics.SetHorizontalSpeed( Inputs.horizontalInput * Movement.moveSpeed );
-            Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * (
+            Physics.AddForce(Physics2D.gravity * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
             Movement.ResetGroundedTimers();
         }
         else
         {
-            Physics.SetVerticalSpeed(Physics2D.gravity.y * (Movement.downGravityScale * Time.fixedDeltaTime));
             Physics.SetHorizontalSpeed( Physics.speedX * ( 1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration) ) ); // Stop moving
+
+            Physics.AddForce(Vector2.up * Physics2D.gravity.y * Movement.downGravityScale);
+            Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
 
             if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
             {

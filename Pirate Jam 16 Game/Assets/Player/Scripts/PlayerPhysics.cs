@@ -18,6 +18,8 @@ public class PlayerPhysics : MonoBehaviour
 
     public void AddForce(Vector2 force)
     {
+        force *= Time.fixedDeltaTime;
+        
         speedX += force.x;
         speedY += force.y;
     }
@@ -30,6 +32,11 @@ public class PlayerPhysics : MonoBehaviour
     public void SetVerticalSpeed(float speed)
     {
         speedY = speed;
+    }
+
+    public void ClampVerticalSpeed(float min, float max)
+    {
+        speedY = Mathf.Clamp(speedY, min, max);
     }
 
     public void MovePlayer()
