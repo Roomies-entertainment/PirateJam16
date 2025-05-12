@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
 
+        Collision.IncrementTimers(Time.fixedDeltaTime);
         Movement.IncrementGroundedTimers();
     }
 
@@ -65,6 +66,11 @@ public class Player : MonoBehaviour
             Physics.SetHorizontalSpeed( Inputs.horizontalInput * Movement.moveSpeed );
             Physics.AddForce(Physics2D.gravity * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
+            
+            if (Collision.GetOnWall(out ContactPoint2D contactPoint))
+            {
+                Physics.SlideAlongSurface(contactPoint.normal);
+            }
 
             Movement.ResetGroundedTimers();
         }
@@ -97,7 +103,6 @@ public class Player : MonoBehaviour
     {
         ReadInputs();
 
-        Collision.IncrementPhaseTimers();
         Movement.IncrementJumpTimers();
     }
 
@@ -105,12 +110,21 @@ public class Player : MonoBehaviour
     {
         if (Inputs.verticalInput >= 0f)
             Collision.ResetPhaseTimers();
-
-        if (Collision.onPhasablePlatform && !Collision.phasing && Inputs.verticalInput < -0.35f &&
-            Collision.platformPhaseTimer >= PlayerCollision.PlatformPhaseHoldDuration)
+        else
         {
-            Collision.StartCoroutine(Collision.PhaseThroughPlatforms(Collision.GroundDetector.hit.collider, 0.1f));
-            Physics.SetVerticalSpeed(-10f);
+            if (Collision.platformPhaseState > PlayerCollision.PlatformPhaseState.ForcePhasing)
+            {
+                Collision.StopPhasingThroughPlatforms();
+            }
+        }
+
+        if (Collision.GetOnPhasablePlatform(out ContactPoint2D contactPoint) &&
+            Collision.platformPhaseState == PlayerCollision.PlatformPhaseState.None &&
+            Inputs.verticalInput < -0.35f &&
+            Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration)
+        {
+            Collision.StartPhasingThroughPlatforms(contactPoint.collider, 0.1f);
+            Physics.SetVerticalSpeed(-Movement.fallThroughPlatformSpeed);
         }
         else if (Inputs.attackFlag)
         {

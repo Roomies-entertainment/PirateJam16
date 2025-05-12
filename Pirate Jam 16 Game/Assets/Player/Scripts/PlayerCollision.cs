@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
@@ -6,56 +7,194 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private Collider2D PhysicsCollider;
     public SurfaceDetector GroundDetector;
 
+    public float platformPhaseHoldTimer { get; private set; }
+    public const float PlatformPhaseHoldDuration = 0.2f;
+
+    private ContactPoint2D phasableContactPoint;
+    public bool GetOnPhasablePlatform()
+    {
+        if (ContactPointNull(phasableContactPoint))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
+    public bool GetOnPhasablePlatform(out ContactPoint2D contactPoint)
+    {
+        contactPoint = phasableContactPoint;
+
+        if (ContactPointNull(phasableContactPoint))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
+    public enum PlatformPhaseState
+    {
+        None,
+        ForcePhasing,
+        Phasing
+    }
+
+    public PlatformPhaseState platformPhaseState { get; private set; }
+    private List<Collider2D> phasedPlatforms = new();
+
+
+    [Header("")]
+    [SerializeField] [Range(0, 1)] [Tooltip("0 = Nothings a wall | 1 = Everythings a wall\nGets ignored when touching PlatformEffector components")]
+    private float wallSensitivity = 0.3f;
+    private ContactPoint2D wallContactPoint;
+    public bool GetOnWall()
+    {
+        if (ContactPointNull(wallContactPoint))
+        {
+            return false;
+        }
+        
+        return true;
+    }
+    public bool GetOnWall(out ContactPoint2D contactPoint)
+    {
+        contactPoint = wallContactPoint;
+
+        if (ContactPointNull(wallContactPoint))
+            return false;
+        
+        return true;
+    }
+
     [Header("")]
     [SerializeField] private bool debug = false;
 
-    public float platformPhaseTimer { get; private set; }
-    public const float PlatformPhaseHoldDuration = 0.2f;
+    private bool ContactPointNull(ContactPoint2D contactPoint)
+    {
+        return contactPoint.normal.sqrMagnitude == 0;
+    }
 
-    public bool onPhasablePlatform { get; private set; }
-    public bool phasing { get; private set; }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!onPhasablePlatform && collision.collider.GetComponent<PlatformEffector2D>())
-            onPhasablePlatform = true;
+        SetContactFlagsAndData(collision, out bool phasingThroughCollider);
+
+        if (platformPhaseState > PlatformPhaseState.None && phasingThroughCollider)
+        {
+            if (!Physics2D.GetIgnoreCollision(PhysicsCollider, collision.otherCollider))
+            {
+                Physics2D.IgnoreCollision(PhysicsCollider, collision.otherCollider, true);
+                phasedPlatforms.Add(collision.otherCollider);
+            }
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (onPhasablePlatform && collision.collider.GetComponent<PlatformEffector2D>())
-            onPhasablePlatform = false;
+        SetContactFlagsAndData(collision, out bool phasingThroughCollider);
     }
 
-    public IEnumerator PhaseThroughPlatforms(Collider2D platformCollider, float duration)
+    private void SetContactFlagsAndData(Collision2D collision, out bool phasingThroughCollider)
     {
-        phasing = true;
-        Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, true);
+        bool exiting = collision.contactCount == 0;
+
+        float maxNormalY = wallSensitivity;
+
+        // Basically if contacts are null player will know theyre not touching walls etc.
+
+        ContactPoint2D firstContactPoint = exiting ? new ContactPoint2D() : collision.GetContact(0);
+
+        phasableContactPoint = firstContactPoint;
+        wallContactPoint = firstContactPoint;
+
+        phasingThroughCollider = true;
+  
+        if (!exiting)
+        {
+            var platformEffector = firstContactPoint.collider.GetComponent<PlatformEffector2D>();
+
+            if (platformEffector == null)
+            {
+                phasableContactPoint = new ContactPoint2D();
+
+                phasingThroughCollider = false;
+            }
+
+            if (firstContactPoint.normal.y < 0 ||
+                firstContactPoint.normal.y >= maxNormalY || (
+                    firstContactPoint.collider.usedByEffector &&
+                    firstContactPoint.normal.y < Mathf.Sin(platformEffector.sideArc * 0.5f * Mathf.Deg2Rad))
+                )
+            {
+                wallContactPoint = new ContactPoint2D();
+            }
+        }
+    }
+
+    public void StartPhasingThroughPlatforms(Collider2D platformCollider, float minDuration)
+    {
+        if (platformPhaseState > PlatformPhaseState.None)
+        {
+            return;
+        }
+
+        StartCoroutine(StartPhasingThroughPlatformsCR(platformCollider, minDuration));
+    }
+
+    public IEnumerator StartPhasingThroughPlatformsCR(Collider2D platformCollider, float minDuration)
+    {
+        if (!Physics2D.GetIgnoreCollision(PhysicsCollider, platformCollider))
+        {
+            Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, true);
+            phasedPlatforms.Add(platformCollider);
+        }
+        
+        platformPhaseState = PlatformPhaseState.ForcePhasing;
 
         float timer = 0f;
 
-        while (timer < duration && phasing)
+        while (timer < minDuration)
         {
             yield return null;
 
             timer += Time.deltaTime;
         }
 
-        Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, false);
+        platformPhaseState = PlatformPhaseState.Phasing;
+    }
+
+    public void StopPhasingThroughPlatforms()
+    {
+        if (platformPhaseState == PlatformPhaseState.ForcePhasing)
+        {
+            return;
+        }
+
+        foreach(Collider2D p in phasedPlatforms)
+        {
+            Physics2D.IgnoreCollision(PhysicsCollider, p, false);
+        }
+
+        phasedPlatforms.Clear();
+
+        platformPhaseState = PlatformPhaseState.None;
+    }
+
+    public void IncrementTimers(float increment)
+    {
+        increment = Mathf.Abs(increment);
+
+        platformPhaseHoldTimer += increment;
+    }
+
+    public void ResetPhaseTimers()
+    {
+        platformPhaseHoldTimer = 0.0f;
     }
 
     private void OnDestroy()
     {
         StopAllCoroutines();
-    }
-
-    public void IncrementPhaseTimers()
-    {
-        platformPhaseTimer += Time.deltaTime;
-    }
-
-    public void ResetPhaseTimers()
-    {
-        platformPhaseTimer = 0.0f;
     }
 }

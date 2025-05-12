@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     public float downGravityScale = 1.7f;
 
     [Header("")]
+    public float fallThroughPlatformSpeed = 5f;
+
+    [Header("")]
     [SerializeField] private UnityEvent onWalkHop;
     [SerializeField] private UnityEvent onJump;
 

@@ -34,6 +34,20 @@ public class PlayerPhysics : MonoBehaviour
         speedY = speed;
     }
 
+    public void SlideAlongSurface(Vector2 surfaceNormal)
+    {
+        Vector2 currentSpeed = new Vector2(speedX, speedY);
+        Vector2 slidSpeed = currentSpeed;
+
+        float normalDot = Vector2.Dot(slidSpeed, surfaceNormal);
+
+        slidSpeed -= surfaceNormal * normalDot;
+        slidSpeed += surfaceNormal * Mathf.Max(0f, normalDot);
+
+        speedX = slidSpeed.x;
+        speedY = slidSpeed.y;
+    }
+
     public void ClampVerticalSpeed(float min, float max)
     {
         speedY = Mathf.Clamp(speedY, min, max);
