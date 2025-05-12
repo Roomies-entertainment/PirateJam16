@@ -162,6 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69413d06b9be32c41a3cead28b9df0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castShapeWidth: 0.2
+  castShapeLength: 0
+  castShapeAngle: 0
+  castShape: 1
+  capsuleDirection: 0
   detectionStart: {fileID: 206086572408447496}
   detectionEnd: {fileID: 3499661632324197838}
   layerMask:

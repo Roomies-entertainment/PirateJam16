@@ -3,6 +3,13 @@ using UnityEngine.Events;
 
 public class SurfaceDetector : MonoBehaviour
 {
+    [SerializeField] private float castShapeWidth;
+    [SerializeField] private float castShapeLength;
+    [SerializeField] private float castShapeAngle;
+    [SerializeField] private Detection.CastType2D castShape;
+    [SerializeField] private CapsuleDirection2D capsuleDirection;
+
+    [Header("")]
     [SerializeField] protected Transform detectionStart;
     [SerializeField] protected Transform detectionEnd;
 
@@ -39,7 +46,25 @@ public class SurfaceDetector : MonoBehaviour
 
         float contactDistanceMax = Vector2.Distance(start, end);
 
-        hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraCastDistance, layerMask);
+        switch (castShape)
+        {
+            case Detection.CastType2D.Ray:
+                hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraCastDistance, layerMask);
+                break;
+            
+            case Detection.CastType2D.Circle:
+                hit = Physics2D.CircleCast(start, castShapeWidth / 2, direction, contactDistanceMax + extraCastDistance, layerMask);
+                break;
+
+            case Detection.CastType2D.Box:
+                hit = Physics2D.BoxCast(start, new Vector2(castShapeWidth, castShapeLength), castShapeAngle, direction, contactDistanceMax + extraCastDistance, layerMask);
+                break;
+
+            case Detection.CastType2D.Capsule:
+                hit = Physics2D.CapsuleCast(
+                    start, new Vector2(castShapeWidth, castShapeLength), capsuleDirection, castShapeAngle, direction, contactDistanceMax + extraCastDistance, layerMask);
+                break;
+        }
 
         gotHit = hit.transform != null;
 

@@ -36,6 +36,14 @@ public class DetectedComponent
 
 public static class Detection
 {
+    public enum CastType2D
+    {
+        Ray,
+        Circle,
+        Box,
+        Capsule
+    }
+    
     public static List<DetectedComponent> DetectComponent<T>(Vector2 pos, float radius, LayerMask layerMask = new LayerMask()) where T : Component
     {
         if (layerMask.value == 0)
