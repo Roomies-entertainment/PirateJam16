@@ -10,6 +10,15 @@ public class PlayerCollision : MonoBehaviour
     public float platformPhaseHoldTimer { get; private set; }
     public const float PlatformPhaseHoldDuration = 0.2f;
 
+    private void TryPhaseThroughPlatform(Collider2D platformCollider)
+    {
+        if (!Physics2D.GetIgnoreCollision(PhysicsCollider, platformCollider))
+        {
+            Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, true);
+            phasedPlatforms.Add(platformCollider);
+        }
+    }
+
     private ContactPoint2D phasableContactPoint;
     public bool GetOnPhasablePlatform()
     {
@@ -82,11 +91,7 @@ public class PlayerCollision : MonoBehaviour
 
         if (platformPhaseState > PlatformPhaseState.None && phasingThroughCollider)
         {
-            if (!Physics2D.GetIgnoreCollision(PhysicsCollider, collision.otherCollider))
-            {
-                Physics2D.IgnoreCollision(PhysicsCollider, collision.otherCollider, true);
-                phasedPlatforms.Add(collision.otherCollider);
-            }
+            TryPhaseThroughPlatform(collision.otherCollider);
         }
     }
 
@@ -144,11 +149,7 @@ public class PlayerCollision : MonoBehaviour
 
     public IEnumerator StartPhasingThroughPlatformsCR(Collider2D platformCollider, float minDuration)
     {
-        if (!Physics2D.GetIgnoreCollision(PhysicsCollider, platformCollider))
-        {
-            Physics2D.IgnoreCollision(PhysicsCollider, platformCollider, true);
-            phasedPlatforms.Add(platformCollider);
-        }
+        TryPhaseThroughPlatform(platformCollider);
         
         platformPhaseState = PlatformPhaseState.ForcePhasing;
 
