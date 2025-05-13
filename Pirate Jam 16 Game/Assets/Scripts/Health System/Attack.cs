@@ -20,7 +20,8 @@ public abstract class Attack : MonoBehaviour
 
     public bool attacking { get; private set; }
 
-    public void StartAttack(List<DetectedComponent> detectedHealthComponents, Vector2 attackDirection = new Vector2(), int damage = BaseDamage)
+    public void StartAttack(
+        List<DetectedComponent<Health>> detectedHealthComponents, Vector2 attackDirection = new Vector2(), int damage = BaseDamage)
     {
         if (attacking)
         {
@@ -39,10 +40,11 @@ public abstract class Attack : MonoBehaviour
 
         OnStartAttack(attackDirection);
 
-        foreach (DetectedComponent detectedHC in detectedHealthComponents)
+        foreach (var detectedHC in detectedHealthComponents)
         {
-            var health = (Health) detectedHC.Component;
-            var result = health.ProcessAttack(damage, new DetectionData(health.transform.position, detectedHC, new DetectedComponent(this)));
+            var health =  detectedHC.Component;
+            var result = health.ProcessAttack(
+                damage, new DetectionData<Health, Attack>(health.transform.position, detectedHC, new DetectedComponent<Attack>(this)));
             
             switch(result)
             {

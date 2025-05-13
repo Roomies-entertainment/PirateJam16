@@ -11,7 +11,7 @@ public class PlayerUI : MonoBehaviour
 
     private static int deathCounter;
 
-    public void UpdateHealthBar(float health01, DetectionData data = null)
+    public void UpdateHealthBar(float health01, DetectionData<Health, Attack> data = null)
     {
         HealthBar.value = health01;
     }

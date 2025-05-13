@@ -20,12 +20,12 @@ public class PlayerAttack : Attack
         attackTimer += Time.deltaTime;
     }
 
-    public List<DetectedComponent> FindHealthComponents(Vector2 attackDirection)
+    public List<DetectedComponent<Health>> FindHealthComponents(Vector2 attackDirection)
     {
         var enemyHCs = Detection.DetectComponent<EnemyHealth>(
             AttackCircle.transform.position, AttackCircle.GetRadius(), 1 << Collisions.enemyLayer);
 
-        var objectsR = new List<DetectedComponent>();
+        var objectsR = new List<DetectedComponent<Health>>();
 
         foreach (var enemy in enemyHCs)
         {
@@ -36,7 +36,7 @@ public class PlayerAttack : Attack
                 
             if ( attackDirection.sqrMagnitude == 0 || Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
             {
-                objectsR.Add(new DetectedComponent(enemyHealth, enemy.Colliders));
+                objectsR.Add(new DetectedComponent<Health>(enemyHealth, enemy.Colliders));
             }
         }
 

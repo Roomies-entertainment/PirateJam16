@@ -13,10 +13,10 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected Collider2D[] BlockDamageColliders;
 
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
+    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onTakeDamage;
     [SerializeField] private UnityEvent onStartBlocking;
     [SerializeField] private UnityEvent onStopBlocking;
-    [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
+    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onBlockDamage;
     [SerializeField] private UnityEvent onDie;
 
     public bool blocking { get; private set; }
@@ -49,7 +49,7 @@ public abstract class Health : MonoBehaviour
         onDie?.Invoke();
     }
 
-    public virtual AttackResult ProcessAttack(int damage, DetectionData data)
+    public virtual AttackResult ProcessAttack(int damage, DetectionData<Health, Attack> data)
     {
         bool blockColliderHit = BlockDamageColliderHit(data);
         bool damageColliderHit = TakeDamageColliderHit(data);
@@ -73,7 +73,7 @@ public abstract class Health : MonoBehaviour
         return attackResult;
     }
 
-    protected bool BlockDamageColliderHit(DetectionData data)
+    protected bool BlockDamageColliderHit(DetectionData<Health, Attack> data)
     {
         foreach(var c in BlockDamageColliders)
         {
@@ -86,7 +86,7 @@ public abstract class Health : MonoBehaviour
         return false;
     }
 
-    protected bool TakeDamageColliderHit(DetectionData data)
+    protected bool TakeDamageColliderHit(DetectionData<Health, Attack> data)
     {
         foreach(var c in TakeDamageColliders)
         {
@@ -114,7 +114,7 @@ public abstract class Health : MonoBehaviour
         return AttackResult.Miss;
     }
 
-    public virtual void ApplyDamage(int damage, DetectionData data)
+    public virtual void ApplyDamage(int damage, DetectionData<Health, Attack> data)
     {
         if (debug)
         {
@@ -126,7 +126,7 @@ public abstract class Health : MonoBehaviour
         onTakeDamage?.Invoke((float) health / startingHealth, data);
     }
 
-    protected virtual void BlockDamage(int damage, DetectionData data)
+    protected virtual void BlockDamage(int damage, DetectionData<Health, Attack> data)
     {
         if (debug)
         {

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerHealth : Health
 {
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData> onStart;
+    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
     private void Start()
     {

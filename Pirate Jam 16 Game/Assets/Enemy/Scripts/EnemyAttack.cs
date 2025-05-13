@@ -11,7 +11,7 @@ public class EnemyAttack : Attack
 
     public void StartAttack()
     {
-        List<DetectedComponent> players;
+        List<DetectedComponent<Health>> players;
         var attackDirection = GetAttackDirection(out players);
 
         if (debug && (players == null || players.Count == 0))
@@ -38,7 +38,7 @@ public class EnemyAttack : Attack
         transform.position -= new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
     }
 
-    private Vector2 GetAttackDirection(out List<DetectedComponent> players)
+    private Vector2 GetAttackDirection(out List<DetectedComponent<Health>> players)
     {
         players = Detection.DetectComponent<Health>(
             AttackCircle.transform.position, AttackCircle.GetRadius(), 1 << Collisions.playerLayer);
