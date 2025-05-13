@@ -42,14 +42,14 @@ public abstract class Attack : MonoBehaviour
         foreach (DetectedComponent detectedHC in detectedHealthComponents)
         {
             var health = (Health) detectedHC.Component;
-            var result = health.ApplyDamage(damage, new DetectionData(health.transform.position, detectedHC, new DetectedComponent(this)));
+            var result = health.ProcessAttack(damage, new DetectionData(health.transform.position, detectedHC, new DetectedComponent(this)));
             
             switch(result)
             {
-                case Health.DamageResult.Hit:
+                case Health.AttackResult.Hit:
                     OnHitObject(health.gameObject); break;
 
-                case Health.DamageResult.Miss:
+                case Health.AttackResult.Miss:
                     OnMissObject(health.gameObject); break;
             }
         }

@@ -684,7 +684,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5435998, y: 0.5435998, z: 0.5435998}
+  m_LocalScale: {x: 0.63008654, y: 0.63008654, z: 0.63008654}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 868922612935429444}
@@ -1080,6 +1080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PhysicsCollider: {fileID: 8894800512938370558}
   GroundDetector: {fileID: 4025760569256774760}
+  wallSensitivity: 0.3
   debug: 0
 --- !u!114 &6328531377824871612
 MonoBehaviour:
@@ -1100,6 +1101,7 @@ MonoBehaviour:
   hopDelay: 0.15
   upGravityScale: 1.7
   downGravityScale: 1.7
+  fallThroughPlatformSpeed: 5
   onWalkHop:
     m_PersistentCalls:
       m_Calls:
@@ -1159,7 +1161,8 @@ MonoBehaviour:
   startingHealth: 6
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
-  BlockDamageColliders: []
+  BlockDamageColliders:
+  - {fileID: 16487610655842237}
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:

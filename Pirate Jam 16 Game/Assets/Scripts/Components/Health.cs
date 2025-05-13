@@ -21,7 +21,7 @@ public abstract class Health : MonoBehaviour
 
     public bool blocking { get; private set; }
 
-    public enum DamageResult
+    public enum AttackResult
     {
         Hit,
         Miss,
@@ -49,44 +49,72 @@ public abstract class Health : MonoBehaviour
         onDie?.Invoke();
     }
 
-    public DamageResult ApplyDamage(int damage, DetectionData data)
+    public virtual AttackResult ProcessAttack(int damage, DetectionData data)
     {
-        bool colTakeDamage = false;
+        bool blockColliderHit = BlockDamageColliderHit(data);
+        bool damageColliderHit = TakeDamageColliderHit(data);
 
-        foreach(var c in TakeDamageColliders)
-            if (data.DetectedComponent.Colliders.Contains(c))
-            {
-                colTakeDamage = true;
+        AttackResult attackResult = ProcessDamageFlags(blocking, blockColliderHit, damageColliderHit);
 
+        switch(attackResult)
+        {
+            case AttackResult.Hit:
+                ApplyDamage(damage, data);
                 break;
-            }
- 
-        if (!colTakeDamage)
-        {
-            return DamageResult.Miss;
-        }
-        
-        if (blocking)
-        {
-            BlockDamage(damage, data);
 
-            return DamageResult.Block;
-        }
-
-        foreach(var c in BlockDamageColliders)
-            if (data.DetectedComponent.Colliders.Contains(c))
-            {
+            case AttackResult.Miss:
+                break;
+                
+            case AttackResult.Block:
                 BlockDamage(damage, data);
+                break;
+        }
 
-                return DamageResult.Block;
-            }
-
-        TakeDamage(damage, data);
-        
-        return DamageResult.Hit;
+        return attackResult;
     }
 
-    public virtual void TakeDamage(int damage, DetectionData data)
+    protected bool BlockDamageColliderHit(DetectionData data)
+    {
+        foreach(var c in BlockDamageColliders)
+        {
+            if (data.DetectedComponent.Colliders.Contains(c))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    protected bool TakeDamageColliderHit(DetectionData data)
+    {
+        foreach(var c in TakeDamageColliders)
+        {
+            if (data.DetectedComponent.Colliders.Contains(c))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    protected virtual AttackResult ProcessDamageFlags(bool blocking, bool blockColliderHit, bool damageColliderHit)
+    {
+        if (blocking || blockColliderHit)
+        {
+            return AttackResult.Block;
+        }
+
+        if (damageColliderHit)
+        {
+            return AttackResult.Hit;
+        }
+        
+        return AttackResult.Miss;
+    }
+
+    public virtual void ApplyDamage(int damage, DetectionData data)
     {
         if (debug)
         {
