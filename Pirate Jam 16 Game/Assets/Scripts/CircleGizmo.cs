@@ -8,7 +8,6 @@ public class CircleGizmo : MonoBehaviour
 {
     public float GetRadius()
     {
-        Debug.Log(Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z));
         return Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
     }
 

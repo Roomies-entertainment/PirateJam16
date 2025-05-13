@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Triggers\PlayerKillTrigger.cs" />
     <Compile Include="Assets\Scripts\UI\VolumeSettings.cs" />
     <Compile Include="Assets\Scripts\DeathScreen.cs" />
+    <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
     <Compile Include="Assets\Camera\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Components\Attack.cs" />

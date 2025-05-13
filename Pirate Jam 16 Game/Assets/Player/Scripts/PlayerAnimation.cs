@@ -14,12 +14,12 @@ public class PlayerAnimation : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void OnPerformAttack(Vector2 direction)
+    public void PlayAttackAnimation(Vector2 direction)
     {
         Animator.SetBool("Attack", true);
     }
 
-    public void OnStopAttack()
+    public void StopAttackAnimation()
     {
         Animator.SetBool("Attack", false);
     }
