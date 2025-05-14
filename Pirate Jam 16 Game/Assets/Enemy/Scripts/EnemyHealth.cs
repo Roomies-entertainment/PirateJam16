@@ -10,7 +10,7 @@ public class EnemyHealth : Health
 
     private void Start()
     {
-        onStart?.Invoke(health / startingHealth, null);
+        onStart?.Invoke(health / maxHealth, null);
     }
 
     protected override void OnDie()

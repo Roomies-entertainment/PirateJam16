@@ -49,7 +49,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4583600965880227296}
+        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3251378955705933928
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,4 +261,5 @@ MonoBehaviour:
   pitchMin: 1
   pitchMax: 1
   loop: 0
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: 05985dfaac687334fb2ec9760c56df0c, type: 3}

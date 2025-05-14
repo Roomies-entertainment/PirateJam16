@@ -82,6 +82,7 @@
     <Compile Include="Assets\Player\Scripts\PlayerInputs.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Game\Credits\CreditsScroll.cs" />
+    <Compile Include="Assets\Scripts\Health System\HealCollider.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />

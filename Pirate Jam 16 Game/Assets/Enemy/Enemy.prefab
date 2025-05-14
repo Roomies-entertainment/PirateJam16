@@ -246,6 +246,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: c34a16ccc579fd143b91f66757071383, type: 3}
   - {fileID: 8300000, guid: b97387af4a6f9b543b3821760ed16de6, type: 3}
@@ -295,6 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 217eae47965840747a6dc99cfbc1ba5c, type: 3}
   - {fileID: 8300000, guid: 367428ec9ab815b4b8ad5e72ba49300b, type: 3}
@@ -343,6 +351,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 26629c467a875f14fbcf57257fa627ed, type: 3}
   - {fileID: 8300000, guid: 6f2ace06fada38c4da4016b12a8f561d, type: 3}
@@ -537,6 +549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 4bccdd5ca0c122a4caee65e36c50504f, type: 3}
   - {fileID: 8300000, guid: f764eee21d3e8bf4a97ceb783de28fad, type: 3}
@@ -807,6 +823,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 137c04925283fb94daeb02707e2847aa, type: 3}
   - {fileID: 8300000, guid: a9c749d91398e4542a37d96df03b66b8, type: 3}
@@ -866,6 +886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3645906595857359502}
   - component: {fileID: 8474063733792174953}
+  - component: {fileID: 6219183095613743534}
   m_Layer: 7
   m_Name: Health Bar
   m_TagString: Untagged
@@ -945,6 +966,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6219183095613743534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7844832413395711637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bba7e61884a274897f6b897cc43d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 8474063733792174953}
 --- !u!1 &8256152152087624786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,7 +1370,6 @@ GameObject:
   - component: {fileID: 5406199405212925236}
   - component: {fileID: 6387492525786132012}
   - component: {fileID: 1145639373945813187}
-  - component: {fileID: 7265846982020261240}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -1572,6 +1605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+  maxHealth: 3
   TakeDamageColliders:
   - {fileID: 2339789651052063718}
   BlockDamageColliders: []
@@ -1590,7 +1624,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7265846982020261240}
+      - m_Target: {fileID: 6219183095613743534}
         m_TargetAssemblyTypeName: HealthBar, Assembly-CSharp
         m_MethodName: SetHealth
         m_Mode: 0
@@ -1690,7 +1724,7 @@ MonoBehaviour:
   onStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7265846982020261240}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HealthBar, Assembly-CSharp
         m_MethodName: SetHealth
         m_Mode: 0
@@ -1729,16 +1763,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodParticlePrefab: {fileID: 8146563544243152603, guid: b46c73100e2ccae42a45a6037553e7a2, type: 3}
   blockParticlePrefab: {fileID: 2138625240426279239, guid: 57dcfefe06d9e1743b611fa765465674, type: 3}
---- !u!114 &7265846982020261240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9092179470456444528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9bba7e61884a274897f6b897cc43d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 8474063733792174953}

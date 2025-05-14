@@ -7,6 +7,9 @@ public abstract class Health : MonoBehaviour
 {
     [SerializeField] [Tooltip("Object always considered to be dead if health is at 0")]
     protected int startingHealth = 1;
+
+    [SerializeField]
+    protected int maxHealth = 1;
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
 
@@ -16,6 +19,7 @@ public abstract class Health : MonoBehaviour
 
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onTakeDamage;
+    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onHeal;
     [SerializeField] private UnityEvent onStartBlocking;
     [SerializeField] private UnityEvent onStopBlocking;
     [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onBlockDamage;
@@ -42,7 +46,16 @@ public abstract class Health : MonoBehaviour
     {
         bool deadStore = dead;
             
-        health = Mathf.Max(0, health + increment);
+        health = Mathf.Clamp(health + increment, 0, maxHealth);
+
+        if (increment < 0)
+        {
+            onTakeDamage?.Invoke((float) health / maxHealth, null);
+        }
+        else if (increment > 0)
+        {
+            onHeal?.Invoke((float) health / maxHealth, null);
+        }
 
         if (!deadStore && dead)
             OnDie();
@@ -126,8 +139,6 @@ public abstract class Health : MonoBehaviour
         }
 
         IncrementHealth(-damage);
-
-        onTakeDamage?.Invoke((float) health / startingHealth, data);
     }
 
     protected virtual void BlockDamage(int damage, DetectionData<Health, Attack> data)

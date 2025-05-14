@@ -10,7 +10,7 @@ public class PlayerHealth : Health
 
     private void Start()
     {
-        onStart?.Invoke((float) health / startingHealth, null);
+        onStart?.Invoke((float) health / maxHealth, null);
     }
 
     protected override AttackResult ProcessDamageFlags(bool blocking, bool blockColliderHit, bool damageColliderHit)

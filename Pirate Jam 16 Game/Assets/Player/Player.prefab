@@ -233,6 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 0d578d66ff40f944ea5961a334d945f1, type: 3}
   - {fileID: 8300000, guid: a7f60b6beb5fe364786dfbc7a5f6a17f, type: 3}
@@ -312,6 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: ed63a9cc26a346c4898b3c3e5133d764, type: 3}
   - {fileID: 8300000, guid: 188e0d362f8c50c408a5a68fc81bb4c3, type: 3}
@@ -641,6 +649,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 98435831b45d3da479d798e162f0e6cc, type: 3}
   - {fileID: 8300000, guid: 606dc94af405da74aa071e0118a6687a, type: 3}
@@ -898,6 +910,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: 666bae18d12d1634d8aa1178dcf3f0ed, type: 3}
   - {fileID: 8300000, guid: af133d47569730f47a2329aa3fe9b792, type: 3}
@@ -1014,6 +1030,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: ce03fa8a8c828e544956f2ff9e0c8196, type: 3}
   - {fileID: 8300000, guid: 318f947260d3b7343828b7089e0a6635, type: 3}
@@ -1372,6 +1392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 6
+  maxHealth: 6
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
   BlockDamageColliders: []
@@ -1402,6 +1423,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1316175178462152386}
+        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
+        m_MethodName: UpdateHealthBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onHeal:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 1316175178462152386}
         m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
         m_MethodName: UpdateHealthBar
