@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class RandomM
 {
-    public static System.Random RandomSeedless = new();
+    public static System.Random RandomSeedless { get; private set; } = new();
     
     public static float Float0To1(System.Random random = null)
     {

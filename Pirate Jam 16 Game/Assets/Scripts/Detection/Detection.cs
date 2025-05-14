@@ -23,7 +23,7 @@ public class DetectedComponent<T>
     public T Component { get; private set; }
     public readonly List<Collider2D> Colliders = new List<Collider2D>();
 
-    public DetectedComponent(T component, List<Collider2D> colliders = null)
+    public DetectedComponent(T component, params Collider2D[] colliders)
     {
         Component = component;
 
@@ -45,42 +45,65 @@ public static class Detection
         Capsule
     }
     
-    public static List<DetectedComponent<T>> DetectComponent<T>(Vector2 pos, float radius, LayerMask layerMask = new LayerMask()) where T : Component
+public static void DetectComponentsInParent(
+    Vector2 pos, float radius, out Dictionary<Collider2D, Object> components,
+    LayerMask layerMask = default, params System.Type[] types)
+{
+    if (types.Length == 0)
+    {
+        throw new System.ArgumentException("At least one type must be provided.", nameof(types));
+    }
+
+    if (layerMask.value == 0)
+        layerMask = ~0;
+
+    Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius, layerMask);
+
+    components = new();
+    HashSet<Component> addedComponents = new();
+
+    for (int i = 0; i < colliders.Length; i++)
+    {
+        foreach (var T in types)
+        {
+            if (!T.IsSubclassOf(typeof(Component)))
+            {
+                continue;
+            }
+
+            var component = colliders[i].GetComponentInParent(T);
+
+            if (component == null || !addedComponents.Add(component))
+            {
+                continue;
+            }
+
+            components[colliders[i]] = component;
+        }
+    }
+}
+
+public static void DetectComponentInParent<Type>(
+    Vector2 pos, float radius, out List<Type> components, LayerMask layerMask = default) where Type : Component
     {
         if (layerMask.value == 0)
             layerMask = ~0;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius, layerMask);
 
-        List<DetectedComponent<T>> dataList = new List<DetectedComponent<T>>();
-        List<T> addedComponents = new List<T>();
-
-        T component;
-        DetectedComponent<T> data;
+        components = new();
+        HashSet<Type> addedComponents = new();
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            component = colliders[i].GetComponentInParent<T>();
+            var component = colliders[i].GetComponentInParent<Type>();
 
-            if (component == null)
+            if (component == null || !addedComponents.Add(component))
+            {
                 continue;
-
-            int index = addedComponents.IndexOf(component);
-
-            if (index == -1) // Not yet added
-            {
-                data = new DetectedComponent<T>(component);
-                data.Colliders.Add(colliders[i]);
-
-                dataList.Add(data);
-                addedComponents.Add(component);
             }
-            else
-            {
-                dataList[index].Colliders.Add(colliders[i]);
-            }
-        }        
 
-        return dataList;
+            components.Add(component);
+        }
     }
 }

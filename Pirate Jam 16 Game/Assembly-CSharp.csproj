@@ -69,6 +69,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Triggers\TriggerObjectDestroyer.cs" />
+    <Compile Include="Assets\Interactables\Scripts\Interact.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\Scripts\Detection\SurfaceDetector.cs" />
     <Compile Include="Assets\Scripts\Movement\Physics2DMove.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Assets\Scripts\Detection\Detection.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
-    <Compile Include="Assets\Scripts\Interactions\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Health System\ObjectHealth.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Movement\FloatingMovement.cs" />
@@ -96,13 +97,14 @@
     <Compile Include="Assets\Scripts\Triggers\PlayerKillTrigger.cs" />
     <Compile Include="Assets\Scripts\Events\EventChain.cs" />
     <Compile Include="Assets\Scripts\UI\VolumeSettings.cs" />
-    <Compile Include="Assets\Scripts\Interactions\Interact.cs" />
+    <Compile Include="Assets\Particles\Scripts\ParticleM.cs" />
     <Compile Include="Assets\Scripts\Health System\Health.cs" />
     <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
     <Compile Include="Assets\Camera\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
+    <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerUI.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\ObjectSpawning.cs" />
@@ -112,9 +114,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+    <Compile Include="Assets\Interactables\Scripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\Triggers\OnTriggerEvent.cs" />
     <Compile Include="Assets\Scripts\CircleGizmo.cs" />
     <Compile Include="Assets\Scripts\UI\DifficultySetting.cs" />
+    <Compile Include="Assets\Particles\Scripts\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -133,7 +137,6 @@
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\UI\DeathScreen.cs" />
-    <Compile Include="Assets\Scripts\Particles\ParticleSystemStop.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundM.cs" />
     <Compile Include="Assets\Scripts\UI\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Health System\Attack.cs" />
@@ -145,7 +148,6 @@
     <Compile Include="Assets\Enemy\Scripts\EnemyAnimation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\Particles\ParticleM.cs" />
     <Compile Include="Assets\Scripts\LevelM.cs" />
     <Compile Include="Assets\Scripts\RandomM.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAttack.cs" />

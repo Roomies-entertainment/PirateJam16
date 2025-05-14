@@ -15,34 +15,29 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] private UnityEvent<GameObject> onMissObject;
     [SerializeField] private UnityEvent onStopAttack;
 
+    protected Vector2 attackDirection;
+    public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
+
     [Header("")]
     [SerializeField] protected bool debug;
 
     public bool attacking { get; private set; }
 
-    public void StartAttack(
-        List<DetectedComponent<Health>> detectedHealthComponents, Vector2 attackDirection = new Vector2(), int damage = BaseDamage)
+    public void PerformAttack(List<DetectedComponent<Health>> detectedHealthComponents, int damage = BaseDamage)
     {
-        if (attacking)
+        if (!attacking)
         {
             if (debug)
             {
-                Debug.Log($"{gameObject.name} already attacking");
+                Debug.Log($"{gameObject.name} attacking with {damage} damage");
             }
 
-            return;
+            OnStartAttack(attackDirection);
         }
-
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} attacking with {damage} damage");
-        }
-
-        OnStartAttack(attackDirection);
 
         foreach (var detectedHC in detectedHealthComponents)
         {
-            var health =  detectedHC.Component;
+            var health = detectedHC.Component;
             var result = health.ProcessAttack(
                 damage, new DetectionData<Health, Attack>(health.transform.position, detectedHC, new DetectedComponent<Attack>(this)));
             

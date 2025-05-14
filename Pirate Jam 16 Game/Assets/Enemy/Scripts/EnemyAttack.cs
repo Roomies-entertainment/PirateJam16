@@ -6,13 +6,10 @@ public class EnemyAttack : Attack
 {
     [SerializeField] protected bool directionChecking;
 
-    [Header("")]
-    private Vector2 attackDirection = Vector3.right;
-
     public void StartAttack()
     {
         List<DetectedComponent<Health>> players;
-        var attackDirection = GetAttackDirection(out players);
+        SetAttackDirection(GetAttackDirection(out players));
 
         if (debug && (players == null || players.Count == 0))
         {
@@ -23,7 +20,7 @@ public class EnemyAttack : Attack
 
         transform.position += new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
 
-        base.StartAttack(players, attackDirection);
+        base.PerformAttack(players);
     } 
 
     public override void StopAttack()
@@ -40,8 +37,16 @@ public class EnemyAttack : Attack
 
     private Vector2 GetAttackDirection(out List<DetectedComponent<Health>> players)
     {
-        players = Detection.DetectComponent<Health>(
-            AttackCircle.transform.position, AttackCircle.GetRadius(), 1 << Collisions.playerLayer);
+        Detection.DetectComponentsInParent(
+            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components,
+            1 << Collisions.playerLayer, typeof(PlayerHealth));
+
+        players = new();
+
+        foreach(var c in components)
+        {
+            players.Add(new DetectedComponent<Health>(c.Value as Health, c.Key));
+        }
 
         if (players.Count == 0)
         {

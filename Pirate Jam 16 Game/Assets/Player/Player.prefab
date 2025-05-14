@@ -1032,10 +1032,10 @@ GameObject:
   - component: {fileID: 4706367888957590372}
   - component: {fileID: 3348222302375638153}
   - component: {fileID: 41282749469230444}
-  - component: {fileID: 6328531377824871612}
   - component: {fileID: 5694820400148895657}
-  - component: {fileID: 2479779079809670167}
+  - component: {fileID: 6328531377824871612}
   - component: {fileID: 3130445153889366091}
+  - component: {fileID: 2479779079809670167}
   - component: {fileID: 1858803697121880418}
   - component: {fileID: 7231450657616111676}
   - component: {fileID: 1316175178462152386}
@@ -1182,6 +1182,20 @@ MonoBehaviour:
   GroundDetector: {fileID: 4025760569256774760}
   wallSensitivity: 0.3
   debug: 0
+--- !u!114 &5694820400148895657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be08b2f6569760e41b524daa82eb93e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 4709282171187345005}
+  physicsMaterial: {fileID: 6200000, guid: ee458159d3aa1b149a4bf51560aa0409, type: 2}
 --- !u!114 &6328531377824871612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,7 +1246,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5694820400148895657
+--- !u!114 &3130445153889366091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1241,11 +1255,110 @@ MonoBehaviour:
   m_GameObject: {fileID: 8565715148274485684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be08b2f6569760e41b524daa82eb93e5, type: 3}
+  m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 4709282171187345005}
-  physicsMaterial: {fileID: 6200000, guid: ee458159d3aa1b149a4bf51560aa0409, type: 2}
+  AttackCircle: {fileID: 7492755210599710390}
+  onStartAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1858803697121880418}
+        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
+        m_MethodName: PlayAttackAnimation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3543168907676297395}
+        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
+        m_MethodName: OnPerformAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4025760569256774760}
+        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
+        m_MethodName: OnPerformAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5898101182678172206}
+        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onHitObject:
+    m_PersistentCalls:
+      m_Calls: []
+  onMissObject:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1858803697121880418}
+        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
+        m_MethodName: StopAttackAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3543168907676297395}
+        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
+        m_MethodName: OnStopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4025760569256774760}
+        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
+        m_MethodName: OnStopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  debug: 0
+  fallingThreshold: 0.24
+  fallingExtraDamage: 1
+  AttackDuration: 0.3
 --- !u!114 &2479779079809670167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,119 +1490,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3130445153889366091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8565715148274485684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackCircle: {fileID: 7492755210599710390}
-  onStartAttack:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1858803697121880418}
-        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
-        m_MethodName: PlayAttackAnimation
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3543168907676297395}
-        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
-        m_MethodName: OnPerformAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4025760569256774760}
-        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
-        m_MethodName: OnPerformAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5898101182678172206}
-        m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onHitObject:
-    m_PersistentCalls:
-      m_Calls: []
-  onMissObject:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopAttack:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1858803697121880418}
-        m_TargetAssemblyTypeName: PlayerAnimation, Assembly-CSharp
-        m_MethodName: StopAttackAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3543168907676297395}
-        m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4025760569256774760}
-        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  debug: 0
-  fallingThreshold: 0.24
-  fallingExtraDamage: 1
-  AttackDuration: 0.3
 --- !u!114 &1858803697121880418
 MonoBehaviour:
   m_ObjectHideFlags: 0

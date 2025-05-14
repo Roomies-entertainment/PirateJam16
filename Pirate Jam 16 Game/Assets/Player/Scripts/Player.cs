@@ -130,12 +130,14 @@ public class Player : MonoBehaviour
         {
             if (!Attack.attacking)
             {
-                var attackDirection = Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f);
-                var enemies = Attack.FindHealthComponents(attackDirection);
-                var damage = CalculateAttackDamage();
-
-                Attack.StartAttack(enemies, attackDirection, damage);
+                Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
             }
+            
+            Attack.FindComponents(out var enemies, out var interactables);
+            var damage = CalculateAttackDamage();
+
+            Attack.PerformAttack(enemies, damage);
+            Attack.PerformInteractions(interactables);
 
             Inputs.ClearBlockFlag();
 

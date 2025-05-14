@@ -5,8 +5,10 @@ using UnityEngine.Events;
 
 public abstract class Health : MonoBehaviour
 {
-    [SerializeField] protected int startingHealth = 3;
+    [SerializeField] [Tooltip("Object always considered to be dead if health is at 0")]
+    protected int startingHealth = 1;
     public int health { get; protected set; }
+    public bool dead { get { return health <= 0; } }
 
     [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
@@ -36,11 +38,13 @@ public abstract class Health : MonoBehaviour
         health = startingHealth;
     }
 
-    protected virtual void IncrementHealth(int increment)
+    public virtual void IncrementHealth(int increment)
     {
-        health = (int) Mathf.Max(0f, health + increment);
+        bool deadStore = dead;
+            
+        health = Mathf.Max(0, health + increment);
 
-        if (health == 0)
+        if (!deadStore && dead)
             OnDie();
     }
 

@@ -12,35 +12,67 @@ public class PlayerAttack : Attack
     public float AttackDuration = 0f;
     public float attackTimer {get; private set; } = 0.0f;
 
-    private Vector2 attackDirection;
-    public List<Health> attackedEnemies { get; private set; } = new List<Health>();
+    public List<GameObject> hitObjects { get; private set; } = new List<GameObject>();
 
     private void Update()
     {
         attackTimer += Time.deltaTime;
     }
 
-    public List<DetectedComponent<Health>> FindHealthComponents(Vector2 attackDirection)
+    public void FindComponents(
+        out List<DetectedComponent<Health>> healthComponents,
+        out List<DetectedComponent<Interactable>> interactables)
     {
-        var enemyHCs = Detection.DetectComponent<EnemyHealth>(
-            AttackCircle.transform.position, AttackCircle.GetRadius(), 1 << Collisions.enemyLayer);
+        Detection.DetectComponentsInParent(
+            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components, ~(1 << Collisions.playerLayer),
+            typeof(EnemyHealth), typeof(ObjectHealth), typeof(Interactable));
 
-        var objectsR = new List<DetectedComponent<Health>>();
+        healthComponents = new List<DetectedComponent<Health>>();
+        interactables = new List<DetectedComponent<Interactable>>();
 
-        foreach (var enemy in enemyHCs)
+        foreach (var c in components)
         {
-            var enemyHealth = (Health) enemy.Component;
+            var health = c.Value as Health;
+            var interactable = c.Value as Interactable;
 
-            if (attackedEnemies.Contains(enemyHealth))
-                continue;
-                
-            if ( attackDirection.sqrMagnitude == 0 || Vector2.Dot((enemyHealth.transform.position - transform.position).normalized, attackDirection.normalized) > 0f )
+            if (health && CanHitObject(health.gameObject))
             {
-                objectsR.Add(new DetectedComponent<Health>(enemyHealth, enemy.Colliders));
+                healthComponents.Add(new DetectedComponent<Health>(health, c.Key));
+            }
+            else if (interactable && CanHitObject(interactable.gameObject))
+            {
+                interactables.Add(new DetectedComponent<Interactable>(interactable));
             }
         }
+    }
 
-        return objectsR;
+    public void PerformInteractions(List<DetectedComponent<Interactable>> detectedInteractableComponents)
+    {
+        foreach (var c in detectedInteractableComponents)
+        {
+            var interactable = c.Component;
+
+            interactable.Interact();
+
+            OnHitObject(interactable.gameObject);
+        }
+    }
+
+    private bool CanHitObject(GameObject obj)
+    {
+        if (hitObjects.Contains(obj))
+            return false;
+            
+        if (!AttackDirectionHit(obj.transform.position))
+            return false;
+        
+        return true;
+    }
+
+    private bool AttackDirectionHit(Vector2 objPosition)
+    {
+        return attackDirection.sqrMagnitude == 0 ||
+            Vector2.Dot((objPosition - new Vector2(transform.position.x, transform.position.y)).normalized, attackDirection.normalized) > 0f;
     }
 
     protected override void OnStartAttack(Vector2 direction)
@@ -50,17 +82,17 @@ public class PlayerAttack : Attack
         attackTimer = 0.0f;
     }
 
-    protected override void OnHitObject(GameObject enemy)
+    protected override void OnHitObject(GameObject obj)
     {
-        attackedEnemies.Add(enemy.GetComponent<Health>());
+        hitObjects.Add(obj);
 
-        base.OnHitObject(enemy);
+        base.OnHitObject(obj);
     }
 
     protected override void OnStopAttack()
     {
         base.OnStopAttack();
 
-        attackedEnemies.Clear();
+        hitObjects.Clear();
     }
 }
