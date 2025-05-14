@@ -102,10 +102,12 @@
     <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
     <Compile Include="Assets\Camera\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueTrigger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerUI.cs" />
+    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueUI.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\ObjectSpawning.cs" />
     <Compile Include="Assets\Enemy\Scripts\Enemy.cs" />
@@ -118,6 +120,8 @@
     <Compile Include="Assets\Scripts\Triggers\OnTriggerEvent.cs" />
     <Compile Include="Assets\Scripts\CircleGizmo.cs" />
     <Compile Include="Assets\Scripts\UI\DifficultySetting.cs" />
+    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueManager.cs" />
+    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueCharacter.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Assets\Scripts\Audio\SoundM.cs" />
     <Compile Include="Assets\Scripts\UI\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Health System\Attack.cs" />
+    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\Movement2D.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyParticles.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
