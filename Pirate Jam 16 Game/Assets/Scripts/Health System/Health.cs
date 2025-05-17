@@ -42,19 +42,34 @@ public abstract class Health : MonoBehaviour
         health = startingHealth;
     }
 
-    public virtual void IncrementHealth(int increment)
+    public void IncrementHealth(int increment)
+    {
+        IncrementHealth(increment, null);
+    }
+    
+    public virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
     {
         bool deadStore = dead;
-            
+
         health = Mathf.Clamp(health + increment, 0, maxHealth);
 
         if (increment < 0)
         {
-            onTakeDamage?.Invoke((float) health / maxHealth, null);
+            if (debug)
+            {
+                Debug.Log($"{gameObject.name} took {-increment} damage");
+            }
+
+            onTakeDamage?.Invoke((float)health / maxHealth, data);
         }
         else if (increment > 0)
         {
-            onHeal?.Invoke((float) health / maxHealth, null);
+            if (debug)
+            {
+                Debug.Log($"{gameObject.name} healed by {increment} points");
+            }
+
+            onHeal?.Invoke((float)health / maxHealth, data);
         }
 
         if (!deadStore && dead)
@@ -76,7 +91,7 @@ public abstract class Health : MonoBehaviour
         switch(attackResult)
         {
             case AttackResult.Hit:
-                ApplyDamage(damage, data);
+                IncrementHealth(-damage, data);
                 break;
 
             case AttackResult.Miss:
@@ -129,16 +144,6 @@ public abstract class Health : MonoBehaviour
         }
         
         return AttackResult.Miss;
-    }
-
-    public virtual void ApplyDamage(int damage, DetectionData<Health, Attack> data)
-    {
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} took {damage} damage");
-        }
-
-        IncrementHealth(-damage);
     }
 
     protected virtual void BlockDamage(int damage, DetectionData<Health, Attack> data)
