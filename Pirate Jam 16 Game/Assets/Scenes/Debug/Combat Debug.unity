@@ -991,6 +991,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3875231902810757568, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: objectsToSpawn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875231902810757568, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: objectsToSpawn.Array.data[0]
+      value: 
+      objectReference: {fileID: 7315523072878255739, guid: 43412d7c3505f0042b37dbb27bfbad04, type: 3}
     - target: {fileID: 4028386132206259462, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: chance
       value: 1
@@ -1046,6 +1054,34 @@ PrefabInstance:
     - target: {fileID: 4079875813400938342, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: Spawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: SpawnObjects, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5406199405212925236, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9092179470456444528, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_Name

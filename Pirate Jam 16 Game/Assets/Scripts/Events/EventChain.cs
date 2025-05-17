@@ -22,10 +22,15 @@ public class EventChain : MonoBehaviour
         set { if (!_enabled && value) { OnEnable(); } _enabled = value; }
     }
 
+    private void Awake()
+    {
+        _enabled = base.enabled;
+    }
+
     private void OnEnable()
     {
         _enabled = true;
-        
+
         index = 0;
 
         SetDelay();
@@ -44,9 +49,9 @@ public class EventChain : MonoBehaviour
         {
             currentEvent = events[index];
             currentEvent.Event?.Invoke();
-            
+
             index = (enabled && loop) ? (index + 1) % events.Count : index + 1;
-            
+
             SetDelay();
             timer = 0f;
         }
