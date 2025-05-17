@@ -15,16 +15,17 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private UnityEvent onStopMoving;
 
     private float moveTimer;
-    private float velocityX = 0.0f;
+    private Vector2 faceDirection = Vector2.right;
+    private float currentSpeed = 0.0f;
 
     private void FixedUpdate()
     {
-        transform.position += Vector3.right * velocityX * Time.fixedDeltaTime;
+        transform.Translate(faceDirection * (currentSpeed * Time.fixedDeltaTime));
     }
 
     private void Update()
     {
-        if (velocityX == 0)
+        if (currentSpeed == 0)
         {
             if (moveTimer > moveDelay)
             {
@@ -48,30 +49,31 @@ public class EnemyMovement : MonoBehaviour
 
     private void StartMoving()
     {
-        int moveLOrR = Random.value > 0.5f ? 1 : -1;
-        int faceLorR = moveLOrR;
+        currentSpeed = moveSpeed;
 
         if (Random.value < walkBackwardsChance)
-            faceLorR *= -1;
+        {
+            currentSpeed *= -1f;
+        }
 
-        velocityX = moveSpeed * moveLOrR;
-
-        FaceDirection(Vector2.right * faceLorR);
+        FaceDirection(Vector2.right * (Random.value > 0.5f ? 1 : -1));
 
         onStartMoving?.Invoke();
     }
 
     private void StopMoving()
     {
-        velocityX = 0.0f;
+        currentSpeed = 0.0f;
 
         onStopMoving?.Invoke();
     }
 
     public void FaceDirection(Vector2 direction)
     {
+        faceDirection = direction;
+
         transform.localScale = new Vector3(
-            Mathf.Abs(transform.localScale.x) * (direction.x > 0 ? 1f : -1f),
+            Mathf.Abs(transform.localScale.x) * (faceDirection.x > 0 ? 1f : -1f),
             transform.localScale.y,
             transform.localScale.z);
     }

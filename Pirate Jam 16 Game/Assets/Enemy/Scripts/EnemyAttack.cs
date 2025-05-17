@@ -11,10 +11,15 @@ public class EnemyAttack : Attack
         List<DetectedComponent<Health>> players;
         SetAttackDirection(GetAttackDirection(out players));
 
-        if (debug && (players == null || players.Count == 0))
+        if (debug)
         {
-            Debug.Log($"{gameObject.name} in StartAttack() - detectedHealthComponents null or count = 0");
+            Debug.Log($"{gameObject.name} in StartAttack()");
+            Debug.Log($"players = {players}");
+            Debug.Log($"players count = {players.Count}");
+        }
 
+        if (players == null || players.Count == 0)
+        {
             return;
         }
 
