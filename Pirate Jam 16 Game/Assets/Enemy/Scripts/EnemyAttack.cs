@@ -42,7 +42,7 @@ public class EnemyAttack : Attack
     {
         Detection.DetectComponentsInParent(
             AttackCircle.transform.position, AttackCircle.GetRadius(), out var components,
-            1 << Collisions.playerLayer, typeof(PlayerHealth));
+            1 << CollisionM.playerLayer, typeof(PlayerHealth));
 
         players = new();
 

@@ -24,7 +24,7 @@ public class PlayerAttack : Attack
         out List<DetectedComponent<Interactable>> interactables)
     {
         Detection.DetectComponentsInParent(
-            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components, ~(1 << Collisions.playerLayer),
+            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components, ~(1 << CollisionM.playerLayer),
             typeof(EnemyHealth), typeof(ObjectHealth), typeof(Interactable));
 
         healthComponents = new List<DetectedComponent<Health>>();
