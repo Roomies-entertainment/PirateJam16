@@ -5,9 +5,9 @@ using UnityEngine;
 public static class ParticleM
 {
     public static void SpawnParticle(GameObject particlePrefab, Vector2 position, Transform parent = null,
-    bool startPlaying = true, float stopAfter = 0f)
+    bool startPlaying = true, float stopAfter = 0f, float zSortingOffset = 0.01f)
     {
-        ParticleSystem system = GameObject.Instantiate(particlePrefab, position, default, parent).GetComponent<ParticleSystem>();
+        ParticleSystem system = GameObject.Instantiate(particlePrefab, new Vector3(position.x, position.y, -zSortingOffset), default, parent).GetComponent<ParticleSystem>();
 
         if (system == null)
             return;
