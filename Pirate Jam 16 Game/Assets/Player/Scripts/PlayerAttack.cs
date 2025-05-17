@@ -71,8 +71,12 @@ public class PlayerAttack : Attack
 
     private bool AttackDirectionHit(Vector2 objPosition)
     {
-        return attackDirection.sqrMagnitude == 0 ||
-            Vector2.Dot((objPosition - new Vector2(transform.position.x, transform.position.y)).normalized, attackDirection.normalized) > 0f;
+        return
+            !directionChecking ||
+            attackDirection.sqrMagnitude == 0 ||
+            Vector2.Dot(
+                (objPosition - new Vector2(transform.position.x, transform.position.y)).normalized,
+                attackDirection.normalized) > -directionCheckDistance;
     }
 
     protected override void OnStartAttack(Vector2 direction)
@@ -87,6 +91,13 @@ public class PlayerAttack : Attack
         hitObjects.Add(obj);
 
         base.OnHitObject(obj);
+    }
+
+    protected override void OnHitBlocked(GameObject obj)
+    {
+        hitObjects.Add(obj);
+
+        base.OnHitBlocked(obj);
     }
 
     protected override void OnStopAttack()

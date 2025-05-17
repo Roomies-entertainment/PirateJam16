@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
-    [SerializeField] protected bool directionChecking;
-
     public void StartAttack()
     {
         List<DetectedComponent<Health>> players;

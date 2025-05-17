@@ -10,18 +10,23 @@ public abstract class Attack : MonoBehaviour
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] private UnityEvent<Vector2> onStartAttack;
-    [SerializeField] private UnityEvent<GameObject> onHitObject;
-    [SerializeField] private UnityEvent<GameObject> onMissObject;
-    [SerializeField] private UnityEvent onStopAttack;
+    [SerializeField] protected float directionCheckDistance = 1f;
+    [SerializeField] protected bool directionChecking = true;
 
     protected Vector2 attackDirection;
     public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
 
+    public bool attacking { get; private set; }
+
     [Header("")]
     [SerializeField] protected bool debug;
 
-    public bool attacking { get; private set; }
+    [Header("")]
+    [SerializeField] private UnityEvent<Vector2> onStartAttack;
+    [SerializeField] private UnityEvent<GameObject> onHitObject;
+    [SerializeField] private UnityEvent<GameObject> onHitBlocked;
+    [SerializeField] private UnityEvent<GameObject> onMissObject;
+    [SerializeField] private UnityEvent onStopAttack;
 
     public void PerformAttack(List<DetectedComponent<Health>> detectedHealthComponents, int damage = BaseDamage)
     {
@@ -46,6 +51,9 @@ public abstract class Attack : MonoBehaviour
                 case Health.AttackResult.Hit:
                     OnHitObject(health.gameObject); break;
 
+                case Health.AttackResult.Block:
+                    OnHitBlocked(health.gameObject); break;
+
                 case Health.AttackResult.Miss:
                     OnMissObject(health.gameObject); break;
             }
@@ -67,6 +75,16 @@ public abstract class Attack : MonoBehaviour
         }
 
         onHitObject?.Invoke(attackedObj);
+    }
+
+    protected virtual void OnHitBlocked(GameObject attackedObj)
+    {
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} blocked by {attackedObj.name}");
+        }
+
+        onHitBlocked?.Invoke(attackedObj);
     }
 
     protected virtual void OnMissObject(GameObject attackedObj)
