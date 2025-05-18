@@ -6,8 +6,8 @@ public class PlayerParticles : MonoBehaviour
 {
     [SerializeField] protected GameObject blockParticlePrefab;
 
-    public void OnBlockDamage(float damage, DetectionData data)
+    public void OnBlockDamage(float damage, DetectionData<Health, Attack> data)
     {
-        ParticleManager.SpawnParticle(blockParticlePrefab, data.Point);
+        ParticleM.SpawnParticle(blockParticlePrefab, data.Point);
     }
 }

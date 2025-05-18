@@ -48,21 +48,24 @@ public class EnemyMovement : MonoBehaviour
 
     private void StartMoving()
     {
-        bool lr = Random.value > 0.5f;
+        int moveLOrR = Random.value > 0.5f ? 1 : -1;
+        int faceLorR = moveLOrR;
 
-        velocityX = lr ? moveSpeed : -moveSpeed;
+        if (Random.value < walkBackwardsChance)
+            faceLorR *= -1;
 
-        if (Random.value > walkBackwardsChance)
-            FaceDirection(Vector2.right * (lr ? 1f : -1f));
+        velocityX = moveSpeed * moveLOrR;
 
-        onStartMoving.Invoke();
+        FaceDirection(Vector2.right * faceLorR);
+
+        onStartMoving?.Invoke();
     }
 
     private void StopMoving()
     {
         velocityX = 0.0f;
 
-        onStopMoving.Invoke();
+        onStopMoving?.Invoke();
     }
 
     public void FaceDirection(Vector2 direction)

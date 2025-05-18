@@ -5,19 +5,27 @@ using UnityEngine.Events;
 
 public class PlayerHealth : Health
 {
-    [SerializeField] private UnityEvent<float, DetectionData> onStart;
+    [Header("")]
+    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
     private void Start()
     {
-        onStart.Invoke((float) health / startingHealth, null);
+        onStart?.Invoke((float) health / maxHealth, null);
     }
 
-    protected override void OnDie()
+    protected override AttackResult ProcessDamageFlags(bool blocking, bool blockColliderHit, bool damageColliderHit)
     {
-        if (deathSound != null)
-            SoundManager.PlaySoundNonSpatial(deathSound);
-            
-        onDie.Invoke();
+        if (blocking || blockColliderHit)
+        {
+            return AttackResult.Block;
+        }
+
+        if (damageColliderHit)
+        {
+            return AttackResult.Hit;
+        }
+        
+        return AttackResult.Block;
     }
 
     public void DifficultySet(int hp){

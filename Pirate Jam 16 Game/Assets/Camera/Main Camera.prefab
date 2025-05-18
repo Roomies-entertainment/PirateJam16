@@ -420,8 +420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followSpeedX: 1
   followSpeedY: 1
-  minFollowPosY: 0.5
-  maxFollowPosY: 3
+  minOffsetY: 1.5
+  maxOffsetY: 3
   TargetObject: {fileID: 0}
   Camera: {fileID: 1878026990095829499}
 --- !u!1 &3989239706530445302

@@ -5,34 +5,18 @@ using UnityEngine.Events;
 
 public class EnemyHealth : Health
 {
-    [SerializeField] private UnityEvent<float, DetectionData> onStart;
-
-    [SerializeField] private float blockDuration = 1.5f;
-    [SerializeField] private float blockInterval = 3.0f;
+    [Header("")]
+    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
     private void Start()
     {
-        StartCoroutine(BlockLoop(blockInterval));
-
-        onStart.Invoke(health / startingHealth, null);
+        onStart?.Invoke(health / maxHealth, null);
     }
 
-    private IEnumerator BlockLoop(float interval)
+    protected override void OnDie()
     {
-        while (gameObject != null)
-        {
-            yield return new WaitForSeconds(interval);
+        base.OnDie();
 
-            StartBlocking();
-
-            yield return new WaitForSeconds(blockDuration);
-
-            StopBlocking();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
+        Destroy(gameObject);
     }
 }

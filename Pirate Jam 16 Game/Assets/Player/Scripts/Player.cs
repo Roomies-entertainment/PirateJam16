@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerInput))]
+
+[RequireComponent(typeof(PlayerInputs))]
 [RequireComponent(typeof(PlayerCollision))]
+[RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerPhysics))]
 [RequireComponent(typeof(PlayerAttack))]
 [RequireComponent(typeof(PlayerAnimation))]
@@ -11,151 +13,140 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] [Range(0, 1)] private float stopDuration = 0.15f;
-    private float stopTimer;
+    [SerializeField] private bool enableBlocking;
 
-    [SerializeField] private float jumpSpeed = 9f;
-
-    [Header("")]
-    [SerializeField] private float hopSpeed = 3.5f;
-    [SerializeField] private float hopDelay = 0.2f;
-    private float hopTimer;
-
-    [Header("")]
-    [SerializeField] private float upGravityScale = 2f;
-    [SerializeField] private float downGravityScale = 1.7f;
-    
-    [Header("")]
-    [SerializeField] private UnityEvent onWalkHop;
-    [SerializeField] private UnityEvent onJump;
-
-    [Header("")]
-    [SerializeField] private SurfaceDetector GroundDetector;
-
-    private PlayerInput Input;
+    private PlayerInputs Inputs;
     private PlayerCollision Collision;
+    private PlayerMovement Movement;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
     private PlayerAnimation Animation;
     private PlayerHealth Health;
 
-    private float platformPhaseTimer;
-    private const float PlatformPhaseHoldDuration = 0.2f;
-
-    private float jumpDampTimer;
-    private const float JumpDampDuration = 0.1f;
-
     private void Awake()
     {
-        Input = GetComponent<PlayerInput>();
+        Inputs = GetComponent<PlayerInputs>();
         Collision = GetComponent<PlayerCollision>();
+        Movement = GetComponent<PlayerMovement>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
         Animation = GetComponent<PlayerAnimation>();
         Health = GetComponent<PlayerHealth>();
     }
 
+    private void Start()
+    {
+        Physics.InitializeRigidbody();
+    }
+
     private void FixedUpdate()
     {
         HandleMovement();
 
-        IncrementFixedUpdateTimers();
+        Collision.IncrementTimers(Time.fixedDeltaTime);
+        Movement.IncrementGroundedTimers();
     }
 
     private void HandleMovement()
     {
-        bool farHit = GroundDetector.gotHit;
-        bool onGround = GroundDetector.surfaceDetected;
+        bool farHit = Collision.GroundDetector.gotHit;
+        bool onGround = Collision.GroundDetector.surfaceDetected;
 
-        if ((onGround || farHit && Physics.velocityY > 0f) && Input.jumpFlag)
+        if ((onGround || farHit && Physics.speedY > 0f) && Inputs.jumpFlag)
         {
-            Physics.SetJumpForce(jumpDampTimer < JumpDampDuration ? jumpSpeed * 0.7f : jumpSpeed);
+            Physics.SetVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
         
-            onJump.Invoke();
+            Movement.OnJump();
 
-            Input.ClearJumpFlag();
+            Inputs.ClearJumpFlag();
         }
 
         if (!onGround)
         {
-            Physics.SetGroundMoveForce( Input.movementInput * moveSpeed );
+            Physics.SetHorizontalSpeed( Inputs.horizontalInput * Movement.moveSpeed );
+            Physics.AddForce(Physics2D.gravity * (
+                Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
+            
+            if (Collision.GetOnWall(out ContactPoint2D contactPoint))
+            {
+                Physics.SlideAlongSurface(contactPoint.normal);
+            }
 
-            hopTimer = 0f;
-            stopTimer = 0f;
+            Movement.ResetGroundedTimers();
         }
         else
         {
-            Physics.SetGroundMoveForce( Physics.velocityX * Mathf.Pow(1f - Mathf.Clamp01(stopTimer / stopDuration), 1f) ); // Stop moving
+            Physics.SetHorizontalSpeed( Physics.speedX * ( 1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration) ) ); // Stop moving
 
-            if (Input.movementInput != 0f && hopTimer > hopDelay)
+            Physics.AddForce(Vector2.up * Physics2D.gravity.y * Movement.downGravityScale);
+            Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
+
+            if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
             {
-                Hop();
-
-                hopTimer = 0f;
+                Movement.OnWalkHop();
+                
+                Physics.SetVerticalSpeed(Movement.hopSpeed);
             }
         }
-        
-        Physics.AddForce(Physics2D.gravity * Time.fixedDeltaTime * ( Physics.velocityY > 0 ? upGravityScale : downGravityScale ));
-        Physics.DoFixedUpdate();
 
-        Animation.DoUpdate(Input.movementInput);
-    }
+        Physics.MovePlayer();
 
-    private void Hop()
-    {
-        onWalkHop.Invoke();
-        
-        Physics.SetJumpForce(hopSpeed);
-    }
-
-    private void IncrementFixedUpdateTimers()
-    {
-        hopTimer += Time.fixedDeltaTime;
-        stopTimer += Time.fixedDeltaTime;
+        Animation.FaceDirection(Inputs.horizontalInput);
     }
 
     private void Update()
     {
-        Input.DoUpdate();
+        Inputs.UpdateTimers();
     }
 
     private void LateUpdate()
     {
         ReadInputs();
 
-        platformPhaseTimer += Time.deltaTime;
-        jumpDampTimer += Time.deltaTime;
+        Movement.IncrementJumpTimers();
     }
 
     private void ReadInputs()
     {
-        if (Input.verticalInput >= 0f)
-            platformPhaseTimer = 0.0f;
-
-        if (Collision.onPhasablePlatform && !Collision.phasing && Input.verticalInput < -0.35f && platformPhaseTimer >= PlatformPhaseHoldDuration)
+        if (Inputs.verticalInput >= 0f)
+            Collision.ResetPhaseTimers();
+        else
         {
-            Collision.StartCoroutine(Collision.PhaseThroughPlatforms(0.1f));
-            Physics.SetForce(new Vector2(Physics.velocityX, -10f));
-        }
-        else if (Input.attackFlag)
-        {
-            if (Attack.attackTimer > Attack.AttackDuration)
+            if (Collision.platformPhaseState > PlayerCollision.PlatformPhaseState.ForcePhasing)
             {
-                Vector2 direction = Vector2.right * (Input.movementInputActive > 0f ? 1f : -1f);
-
-                List<ComponentData> enemies = Attack.FindObjectsToAttack(direction);
-                Attack.AttackObjects(enemies, transform.position, direction, CalculateAttackDamage());
+                Collision.StopPhasingThroughPlatforms();
             }
+        }
 
-            Input.ClearBlockFlag();
+        if (Collision.GetOnPhasablePlatform(out ContactPoint2D contactPoint) &&
+            Collision.platformPhaseState == PlayerCollision.PlatformPhaseState.None &&
+            Inputs.verticalInput < -0.35f &&
+            Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration)
+        {
+            Collision.StartPhasingThroughPlatforms(contactPoint.collider, 0.1f);
+            Physics.SetVerticalSpeed(-Movement.fallThroughPlatformSpeed);
+        }
+        else if (Inputs.attackFlag)
+        {
+            if (!Attack.attacking)
+            {
+                Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
+            }
+            
+            Attack.FindComponents(out var enemies, out var interactables);
+            var damage = CalculateAttackDamage();
+
+            Attack.PerformAttack(enemies, damage);
+            Attack.PerformInteractions(interactables);
+
+            Inputs.ClearBlockFlag();
 
             if (Health.blocking)
             {
                 Health.StopBlocking();
             }
 
-            jumpDampTimer = 0f;
+            Movement.ResetJumpTimers();
         }
         else if (Attack.attackTimer > Attack.AttackDuration)
         {
@@ -164,7 +155,7 @@ public class Player : MonoBehaviour
                 Attack.StopAttack();
             }
 
-            if (Input.blockFlag)
+            if (enableBlocking && Inputs.blockFlag)
             {
                 Health.StartBlocking();
             }
@@ -177,7 +168,7 @@ public class Player : MonoBehaviour
 
     private int CalculateAttackDamage()
     {
-        return Physics.velocityY < Physics2D.gravity.y * downGravityScale * Attack.fallingThreshold ?
+        return Physics.speedY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
         PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
         PlayerAttack.BaseDamage;
     }

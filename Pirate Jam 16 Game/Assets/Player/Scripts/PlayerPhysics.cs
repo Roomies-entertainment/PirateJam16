@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
+    //public Rigidbody2D rb { get; private set; }
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PhysicsMaterial2D physicsMaterial;
 
-    public float velocityX { get; private set; }
-    public float velocityY { get; private set; }
+    public float speedX { get; private set; }
+    public float speedY { get; private set; }
 
-    private void Start()
+    public void InitializeRigidbody()
     {
         rb.gravityScale = 0;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -17,28 +18,43 @@ public class PlayerPhysics : MonoBehaviour
 
     public void AddForce(Vector2 force)
     {
-        velocityX += force.x;
-        velocityY += force.y;
+        force *= Time.fixedDeltaTime;
+        
+        speedX += force.x;
+        speedY += force.y;
     }
 
-    public void SetForce(Vector2 force)
+    public void SetHorizontalSpeed(float speed)
     {
-        velocityX = force.x;
-        velocityY = force.y;
+        speedX = speed;
     }
 
-    public void SetGroundMoveForce(float speed)
+    public void SetVerticalSpeed(float speed)
     {
-        velocityX = speed;
+        speedY = speed;
     }
 
-    public void SetJumpForce(float speed)
+    public void SlideAlongSurface(Vector2 surfaceNormal)
     {
-        velocityY = speed;
+        Vector2 currentSpeed = new Vector2(speedX, speedY);
+        Vector2 slidSpeed = currentSpeed;
+
+        float normalDot = Vector2.Dot(slidSpeed, surfaceNormal);
+
+        slidSpeed -= surfaceNormal * normalDot;
+        slidSpeed += surfaceNormal * Mathf.Max(0f, normalDot);
+
+        speedX = slidSpeed.x;
+        speedY = slidSpeed.y;
     }
 
-    public void DoFixedUpdate()
+    public void ClampVerticalSpeed(float min, float max)
     {
-        rb.velocity = new Vector2(velocityX, velocityY);
+        speedY = Mathf.Clamp(speedY, min, max);
+    }
+
+    public void MovePlayer()
+    {
+        rb.velocity = new Vector2(speedX, speedY);
     }
 }

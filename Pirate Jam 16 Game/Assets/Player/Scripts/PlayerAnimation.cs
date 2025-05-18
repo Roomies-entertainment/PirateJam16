@@ -4,7 +4,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     public Animator Animator;
 
-    public void DoUpdate(float movementInput)
+    public void FaceDirection(float movementInput)
     {
         var scale = transform.localScale;
 
@@ -14,12 +14,12 @@ public class PlayerAnimation : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void OnPerformAttack(Vector2 direction)
+    public void PlayAttackAnimation(Vector2 direction)
     {
         Animator.SetBool("Attack", true);
     }
 
-    public void OnStopAttack()
+    public void StopAttackAnimation()
     {
         Animator.SetBool("Attack", false);
     }

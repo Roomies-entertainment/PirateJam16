@@ -14,9 +14,9 @@ TagManager:
   - Water
   - UI
   - Player
-  - Player Physics
   - Enemy
-  - Enemy Physics
+  - PlayerOnly
+  - 
   - 
   - 
   - 

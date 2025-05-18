@@ -4,51 +4,59 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
-    [SerializeField] private float attackDelay = 2f;
+    [SerializeField] protected bool directionChecking;
 
-    private Vector3 attackDirection = Vector3.right;
-
-    private void Start()
+    public void StartAttack()
     {
-        StartCoroutine(AttackLoop());
-    }
+        List<DetectedComponent<Health>> players;
+        SetAttackDirection(GetAttackDirection(out players));
 
-    private IEnumerator AttackLoop()
-    {
-        while (gameObject != null)
+        if (debug && (players == null || players.Count == 0))
         {
-            attackDirection = GetAttackDirection(out List<ComponentData> players);
-            
-            transform.position += attackDirection * 0.25f;
+            Debug.Log($"{gameObject.name} in StartAttack() - detectedHealthComponents null or count = 0");
 
-            if (players.Count > 0)
-                AttackObjects(players, players[0].Component.transform.position, attackDirection);
-
-            yield return new WaitForSeconds(0.2f);
-
-            transform.position -= attackDirection * 0.25f;
-            StopAttack();
-
-            yield return new WaitForSeconds(attackDelay);
+            return;
         }
+
+        transform.position += new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
+
+        base.PerformAttack(players);
+    } 
+
+    public override void StopAttack()
+    {
+        base.StopAttack();
+
+        if (!attacking)
+        {
+            return;
+        }
+
+        transform.position -= new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
     }
 
-    public Vector2 GetAttackDirection(out List<ComponentData> players)
+    private Vector2 GetAttackDirection(out List<DetectedComponent<Health>> players)
     {
-        players = Detection.DetectComponent<Health>(transform.position, attackRadius, 1 << Collisions.playerLayer);
+        Detection.DetectComponentsInParent(
+            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components,
+            1 << Collisions.playerLayer, typeof(PlayerHealth));
+
+        players = new();
+
+        foreach(var c in components)
+        {
+            players.Add(new DetectedComponent<Health>(c.Value as Health, c.Key));
+        }
 
         if (players.Count == 0)
+        {
             return new Vector2();
+        }
 
         Vector2 firstPlayerDir = players[0].Component.transform.position - transform.position;
         firstPlayerDir.y = 0f;
         firstPlayerDir.Normalize();
 
         return firstPlayerDir;
-    }
-
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
     }
 }
