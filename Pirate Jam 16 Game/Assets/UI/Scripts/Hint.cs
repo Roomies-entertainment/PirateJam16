@@ -49,8 +49,18 @@ public class Hint : MonoBehaviour
 
     public void DisplayHint(string hint)
     {
-        //Debug.Log("In DisplayHint");
-        
+        if (!enabled)
+        {
+            return;
+        }
+
+        if (PlayerPrefs.GetInt("enableHints") == 0)
+        {
+            enabled = false;
+
+            return;
+        }
+
         if (hint.Length == 0)
         {
             return;
