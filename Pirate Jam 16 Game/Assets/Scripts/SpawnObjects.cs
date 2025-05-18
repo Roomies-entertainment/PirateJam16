@@ -5,8 +5,8 @@ using UnityEngine;
 public class SpawnObjects : MonoBehaviour
 {
 
-    [SerializeField] private bool spawnOnStart;
-    [SerializeField] private bool loop;
+    [SerializeField] private bool spawnOnStart = true;
+    [SerializeField] private bool loop = true;
 
     [Header("")]
     [SerializeField] private float minDelay = 0f;

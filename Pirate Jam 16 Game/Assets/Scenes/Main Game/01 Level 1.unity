@@ -19199,12 +19199,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b2b20ee87440046b627b3972f21a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnOnStart: 1
+  loop: 1
+  minDelay: 4
+  maxDelay: 12
+  amount: 1
+  spawnPointRadius: 1
   objectsToSpawn:
   - {fileID: 9092179470456444528, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
   spawnPoints:
   - {fileID: 1704358799}
-  minDelay: 4
-  maxDelay: 12
 --- !u!4 &1704358802
 Transform:
   m_ObjectHideFlags: 0
@@ -19359,6 +19363,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3547945241665563833, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547945241665563833, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5571551095898074040, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -19441,15 +19453,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Color.g
