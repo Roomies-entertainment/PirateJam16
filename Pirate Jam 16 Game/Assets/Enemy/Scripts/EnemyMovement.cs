@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer sprite;
+
+    [Header("")]
     [SerializeField] [Range(0, 1)] private float walkBackwardsChance = 0.3f;
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float moveDelay = 3.0f;
@@ -72,9 +75,9 @@ public class EnemyMovement : MonoBehaviour
     {
         faceDirection = direction;
 
-        transform.localScale = new Vector3(
-            Mathf.Abs(transform.localScale.x) * (faceDirection.x > 0 ? 1f : -1f),
-            transform.localScale.y,
-            transform.localScale.z);
+        sprite.transform.localScale = new Vector3(
+            Mathf.Abs(sprite.transform.localScale.x) * (faceDirection.x > 0 ? 1f : -1f),
+            sprite.transform.localScale.y,
+            sprite.transform.localScale.z);
     }
 }
