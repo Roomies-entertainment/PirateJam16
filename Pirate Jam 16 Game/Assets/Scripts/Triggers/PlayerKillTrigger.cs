@@ -9,7 +9,7 @@ public class PlayerKillTrigger : MonoBehaviour
         if (collider.gameObject.layer == CollisionM.playerLayer)
         {
             var player = collider.GetComponentInParent<Health>();
-            player.IncrementHealth(-player.health, null);
+            player.IncrementHealth(-player.health);
         }         
     }
 }

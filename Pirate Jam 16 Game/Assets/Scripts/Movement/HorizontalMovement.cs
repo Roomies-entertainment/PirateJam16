@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,69 +7,45 @@ public class HorizontalMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
 
     [Header("")]
-    [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private float moveDelay = 3.0f;
-    [SerializeField] private float moveDuration = 0.8f;
-    [SerializeField][Range(0, 1)] private float walkBackwardsChance = 0.3f;
-
-    [Header("")]
     [SerializeField] private UnityEvent<Vector2> onStartMoving;
     [SerializeField] private UnityEvent<Vector2> onStopMoving;
 
-    private float moveTimer;
-    private Vector2 faceDirection = Vector2.right;
-    private float currentSpeed = 0.0f;
+    public bool startMovingFlag { get; private set; }
+    public bool stopMovingFlag { get; private set; }
 
-    private void FixedUpdate()
+    private Vector2 faceDirection = Vector2.right;
+    public float currentSpeed { get; private set; }
+
+    public Vector2 moveDirection { get { return (faceDirection.x * currentSpeed) > 0 ? Vector2.right : Vector2.left; } }
+
+    private void Start() { } // Ensures component toggle in inspector
+
+    private void LateUpdate()
     {
-        MoveHorizontally();
+        startMovingFlag = false;
+        stopMovingFlag = false;
     }
 
-    private void MoveHorizontally()
+    public void MoveHorizontally()
     {
         rigidbody.velocity = new Vector2(faceDirection.x * currentSpeed, rigidbody.velocity.y);
     }
 
-    private void Update()
+    public void StartMoving(float speed)
     {
-        if (currentSpeed == 0)
-        {
-            if (moveTimer > moveDelay)
-            {
-                StartMoving();
+        currentSpeed = speed;
 
-                moveTimer = 0.0f;
-            }
-        }
-        else
-        {
-            if (moveTimer > moveDuration)
-            {
-                StopMoving();
+        FaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
 
-                moveTimer = 0.0f;
-            }
-        }
-
-        moveTimer += Time.deltaTime;
-    }
-
-    private void StartMoving()
-    {
-        currentSpeed = moveSpeed;
-
-        if (Random.value < walkBackwardsChance)
-        {
-            currentSpeed *= -1f;
-        }
-
-        FaceDirection(Vector2.right * (Random.value > 0.5f ? 1 : -1));
+        startMovingFlag = true;
 
         onStartMoving?.Invoke((faceDirection * currentSpeed).normalized);
     }
 
-    private void StopMoving()
+    public void StopMoving()
     {
+        stopMovingFlag = true;
+
         onStopMoving?.Invoke((faceDirection * currentSpeed).normalized);
 
         currentSpeed = 0.0f;

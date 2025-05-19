@@ -4,6 +4,8 @@ public class EnemyAnimation : MonoBehaviour
 {
     public Animator Animator;
 
+    private void Start() { } // Ensures component toggle in inspector
+    
     public void OnPerformAttack()
     {
         Animator.SetBool("Attack", true);
