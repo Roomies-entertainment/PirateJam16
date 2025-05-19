@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMovement))]
+[RequireComponent(typeof(HorizontalMovement))]
 [RequireComponent(typeof(EnemyAttack))]
 [RequireComponent(typeof(EnemyAnimation))]
 [RequireComponent(typeof(EnemyHealth))]

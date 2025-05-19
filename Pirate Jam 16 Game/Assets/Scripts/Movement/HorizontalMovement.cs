@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyMovement : MonoBehaviour
+public class HorizontalMovement : MonoBehaviour
 {
+    [SerializeField] private new Rigidbody2D rigidbody;
     [SerializeField] private SpriteRenderer sprite;
 
     [Header("")]
-    [SerializeField] [Range(0, 1)] private float walkBackwardsChance = 0.3f;
     [SerializeField] private float moveSpeed = 1.0f;
     [SerializeField] private float moveDelay = 3.0f;
     [SerializeField] private float moveDuration = 0.8f;
+    [SerializeField][Range(0, 1)] private float walkBackwardsChance = 0.3f;
 
     [Header("")]
-    [SerializeField] private UnityEvent onStartMoving;
-    [SerializeField] private UnityEvent onStopMoving;
+    [SerializeField] private UnityEvent<Vector2> onStartMoving;
+    [SerializeField] private UnityEvent<Vector2> onStopMoving;
 
     private float moveTimer;
     private Vector2 faceDirection = Vector2.right;
@@ -23,7 +25,12 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(faceDirection * (currentSpeed * Time.fixedDeltaTime));
+        MoveHorizontally();
+    }
+
+    private void MoveHorizontally()
+    {
+        rigidbody.velocity = new Vector2(faceDirection.x * currentSpeed, rigidbody.velocity.y);
     }
 
     private void Update()
@@ -61,14 +68,31 @@ public class EnemyMovement : MonoBehaviour
 
         FaceDirection(Vector2.right * (Random.value > 0.5f ? 1 : -1));
 
-        onStartMoving?.Invoke();
+        onStartMoving?.Invoke((faceDirection * currentSpeed).normalized);
     }
 
     private void StopMoving()
     {
-        currentSpeed = 0.0f;
+        onStopMoving?.Invoke((faceDirection * currentSpeed).normalized);
 
-        onStopMoving?.Invoke();
+        currentSpeed = 0.0f;
+    }
+
+    public void MoveAwayFromCurrentDirection()
+    {
+        currentSpeed *= -1f;
+    }
+
+    public void TurnAwayFromCurrentDirection()
+    {
+        if (currentSpeed < 0)
+        {
+            currentSpeed *= -1f;
+        }
+        else
+        {
+            faceDirection *= -1f;
+        }
     }
 
     public void FaceDirection(Vector2 direction)
