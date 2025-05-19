@@ -85,6 +85,7 @@
     <Compile Include="Assets\UI\Scripts\DifficultySetting.cs" />
     <Compile Include="Assets\Game\Credits\CreditsScroll.cs" />
     <Compile Include="Assets\Scripts\Health System\HealCollider.cs" />
+    <Compile Include="Assets\Scripts\Movement\JumpMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -103,9 +104,12 @@
     <Compile Include="Assets\Scripts\Events\Event.cs" />
     <Compile Include="Assets\Scripts\Events\EventChain.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleM.cs" />
+    <Compile Include="Assets\Scripts\Detection\OverlapCheck.cs" />
     <Compile Include="Assets\Scripts\Health System\Health.cs" />
     <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
     <Compile Include="Assets\Sound\Scripts\AudioSourceDestroyer.cs" />
+    <Compile Include="Assets\Scripts\LROverlapChecks.cs" />
+    <Compile Include="Assets\Scripts\Movement\HorizontalMovement.cs" />
     <Compile Include="Assets\Camera\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueTrigger.cs" />
@@ -115,7 +119,6 @@
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueUI.cs" />
-    <Compile Include="Assets\Enemy\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Enemy\Scripts\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Assets\UI\Scripts\DeathScreen.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueManager.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueCharacter.cs" />
+    <Compile Include="Assets\Scripts\Movement\ClimbMovement.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -1185,12 +1189,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.InputSystem.ForUI">
-      <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.InputSystem">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.InputSystem.ForUI">
+      <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">

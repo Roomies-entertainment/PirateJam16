@@ -1,12 +1,15 @@
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class SurfaceDetector : MonoBehaviour
 {
+    [SerializeField] private Detection.CastType2D castShape;
+
+    [Header("")]
     [SerializeField] private float castShapeWidth;
     [SerializeField] private float castShapeLength;
     [SerializeField] private float castShapeAngle;
-    [SerializeField] private Detection.CastType2D castShape;
     [SerializeField] private CapsuleDirection2D capsuleDirection;
 
     [Header("")]
@@ -18,11 +21,8 @@ public class SurfaceDetector : MonoBehaviour
     [SerializeField] protected float extraCastDistance = 0f;
 
     [Header("")]
-    [SerializeField] protected UnityEvent onHitEnter;
-    [SerializeField] protected UnityEvent onHitExit;
-
-    [Header("")]
     [SerializeField] protected UnityEvent onSurfaceEnter;
+    [SerializeField] protected UnityEvent onSurfaceStay;
     [SerializeField] protected UnityEvent onSurfaceExit;
 
     public bool gotHit { get; private set; }
@@ -37,7 +37,6 @@ public class SurfaceDetector : MonoBehaviour
 
     public void DetectSurface()
     {
-        bool gotHitStore = gotHit;
         bool surfaceDetectedStore = surfaceDetected;
 
         Vector2 start = detectionStart.position;
@@ -51,9 +50,9 @@ public class SurfaceDetector : MonoBehaviour
             case Detection.CastType2D.Ray:
                 hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraCastDistance, layerMask);
                 break;
-            
+
             case Detection.CastType2D.Circle:
-                hit = Physics2D.CircleCast(start, castShapeWidth / 2, direction, contactDistanceMax + extraCastDistance, layerMask);
+                hit = Physics2D.CircleCast(start, castShapeWidth * 0.5f, direction, contactDistanceMax + extraCastDistance, layerMask);
                 break;
 
             case Detection.CastType2D.Box:
@@ -79,18 +78,13 @@ public class SurfaceDetector : MonoBehaviour
             surfaceDetected = false;
         }
 
-        if (!gotHitStore && gotHit)
-        {
-            onSurfaceEnter?.Invoke();
-        }
-        else if (gotHitStore && !gotHit)
-        {
-            onSurfaceExit?.Invoke();
-        }
-
         if (!surfaceDetectedStore && surfaceDetected)
         {
             onSurfaceEnter?.Invoke();
+        }
+        else if (surfaceDetectedStore && surfaceDetected)
+        {
+            onSurfaceStay?.Invoke();
         }
         else if (surfaceDetectedStore && !surfaceDetected)
         {
