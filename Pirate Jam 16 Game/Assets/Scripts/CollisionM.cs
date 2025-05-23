@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Collisions
+public static class CollisionM
 {
     public static int playerLayer = 6;
     public static int enemyLayer = 7;

@@ -3,15 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
-[Serializable]
-public class EventData
-{
-    public UnityEvent Event;
-    public float delayMin;
-    public float delayMax;
-}
-
 public class EventChain : MonoBehaviour
 {
     [SerializeField] private bool loop;
@@ -33,13 +24,13 @@ public class EventChain : MonoBehaviour
 
     private void Awake()
     {
-        base.enabled = enabled;
+        _enabled = base.enabled;
     }
 
     private void OnEnable()
     {
-        base.enabled = true;
-        
+        _enabled = true;
+
         index = 0;
 
         SetDelay();
@@ -58,9 +49,9 @@ public class EventChain : MonoBehaviour
         {
             currentEvent = events[index];
             currentEvent.Event?.Invoke();
-            
-            index = (enabled && loop) ? (index + 1) % events.Count : index + 1; // Potentially let index overflow to disable script
-            
+
+            index = (enabled && loop) ? (index + 1) % events.Count : index + 1;
+
             SetDelay();
             timer = 0f;
         }

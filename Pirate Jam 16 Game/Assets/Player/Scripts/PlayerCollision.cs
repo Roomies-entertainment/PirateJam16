@@ -104,7 +104,7 @@ public class PlayerCollision : MonoBehaviour
     {
         bool exiting = collision.contactCount == 0;
 
-        float maxNormalY = wallSensitivity;
+        float maxNormalYAbs = wallSensitivity;
 
         // Basically if contacts are null player will know theyre not touching walls etc.
 
@@ -126,8 +126,8 @@ public class PlayerCollision : MonoBehaviour
                 phasingThroughCollider = false;
             }
 
-            if (firstContactPoint.normal.y < 0 ||
-                firstContactPoint.normal.y >= maxNormalY || (
+            if (firstContactPoint.normal.y <= -maxNormalYAbs ||
+                firstContactPoint.normal.y >= maxNormalYAbs || (
                     firstContactPoint.collider.usedByEffector &&
                     firstContactPoint.normal.y < Mathf.Sin(platformEffector.sideArc * 0.5f * Mathf.Deg2Rad))
                 )

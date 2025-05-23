@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
-    [SerializeField] protected bool directionChecking;
-
+    private void Start() { } // Ensures component toggle in inspector
+    
     public void StartAttack()
     {
         List<DetectedComponent<Health>> players;
         SetAttackDirection(GetAttackDirection(out players));
 
-        if (debug && (players == null || players.Count == 0))
+        if (debug)
         {
-            Debug.Log($"{gameObject.name} in StartAttack() - detectedHealthComponents null or count = 0");
+            Debug.Log($"{gameObject.name} in StartAttack()");
+            Debug.Log($"players = {players}");
+            Debug.Log($"players count = {players.Count}");
+        }
 
+        if (players == null || players.Count == 0)
+        {
             return;
         }
 
@@ -39,7 +44,7 @@ public class EnemyAttack : Attack
     {
         Detection.DetectComponentsInParent(
             AttackCircle.transform.position, AttackCircle.GetRadius(), out var components,
-            1 << Collisions.playerLayer, typeof(PlayerHealth));
+            1 << CollisionM.playerLayer, typeof(PlayerHealth));
 
         players = new();
 

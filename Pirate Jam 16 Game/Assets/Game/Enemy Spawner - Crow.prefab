@@ -46,13 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b2b20ee87440046b627b3972f21a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minDelay: 4
+  maxDelay: 12
+  spawnOnStart: 1
+  loop: 1
   objectsToSpawn:
   - {fileID: 9092179470456444528, guid: 11c3da1c9c6583d4eadb14148b566c31, type: 3}
   spawnPoints:
   - {fileID: 2192717712863099916}
   - {fileID: 3345329088194095930}
-  minDelay: 4
-  maxDelay: 12
 --- !u!114 &934235864277464606
 MonoBehaviour:
   m_ObjectHideFlags: 0
