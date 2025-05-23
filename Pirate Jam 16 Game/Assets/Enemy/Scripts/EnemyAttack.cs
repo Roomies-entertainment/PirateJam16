@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
+    private void Start() { } // Ensures component toggle in inspector
+    
     public void StartAttack()
     {
         List<DetectedComponent<Health>> players;

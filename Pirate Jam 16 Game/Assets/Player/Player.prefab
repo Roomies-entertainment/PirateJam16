@@ -162,10 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69413d06b9be32c41a3cead28b9df0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castShape: 1
   castShapeWidth: 0.2
   castShapeLength: 0
   castShapeAngle: 0
-  castShape: 1
   capsuleDirection: 0
   detectionStart: {fileID: 206086572408447496}
   detectionEnd: {fileID: 3499661632324197838}
@@ -173,13 +173,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   extraCastDistance: 0.4
-  onHitEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onHitExit:
-    m_PersistentCalls:
-      m_Calls: []
   onSurfaceEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onSurfaceStay:
     m_PersistentCalls:
       m_Calls: []
   onSurfaceExit:
@@ -849,7 +846,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.63008654, y: 0.63008654, z: 0.63008654}
+  m_LocalScale: {x: 0.6634811, y: 0.6634811, z: 0.6634811}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 868922612935429444}
@@ -866,6 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7898100762804299592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,6 +1277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackCircle: {fileID: 7492755210599710390}
+  directionCheckDistance: 1
+  directionChecking: 1
+  debug: 0
   onStartAttack:
     m_PersistentCalls:
       m_Calls:
@@ -1333,6 +1334,9 @@ MonoBehaviour:
   onHitObject:
     m_PersistentCalls:
       m_Calls: []
+  onHitBlocked:
+    m_PersistentCalls:
+      m_Calls: []
   onMissObject:
     m_PersistentCalls:
       m_Calls: []
@@ -1375,7 +1379,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  debug: 0
   fallingThreshold: 0.24
   fallingExtraDamage: 1
   AttackDuration: 0.3

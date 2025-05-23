@@ -44,10 +44,15 @@ public abstract class Health : MonoBehaviour
 
     public void IncrementHealth(int increment)
     {
+        if (!enabled)
+        {
+            return;
+        }
+        
         IncrementHealth(increment, null);
     }
     
-    public virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
+    protected virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
     {
         bool deadStore = dead;
 
@@ -83,6 +88,11 @@ public abstract class Health : MonoBehaviour
 
     public virtual AttackResult ProcessAttack(int damage, DetectionData<Health, Attack> data)
     {
+        if (!enabled)
+        {
+            return AttackResult.Miss;
+        }
+
         bool blockColliderHit = BlockDamageColliderHit(data);
         bool damageColliderHit = TakeDamageColliderHit(data);
 

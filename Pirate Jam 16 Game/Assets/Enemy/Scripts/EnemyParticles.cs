@@ -8,6 +8,8 @@ public class EnemyParticles : MonoBehaviour
     [SerializeField] protected GameObject bloodParticlePrefab;
     [SerializeField] protected GameObject blockParticlePrefab;
 
+    private void Start() { } // Ensures component toggle in inspector
+    
     public void OnTakeDamage(float damage, DetectionData<Health, Attack> data)
     {
         ParticleM.SpawnParticle(bloodParticlePrefab, data.Point, data.DetectorComponent.Component.transform, true, 0.15f);

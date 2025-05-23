@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Events\Event.cs" />
     <Compile Include="Assets\Scripts\Events\EventChain.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleM.cs" />
+    <Compile Include="Assets\Enemy\Scripts\GroundedEnemyDetection.cs" />
     <Compile Include="Assets\Scripts\Detection\OverlapCheck.cs" />
     <Compile Include="Assets\Scripts\Health System\Health.cs" />
     <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
@@ -117,9 +118,9 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Sound\Scripts\AudioPlaylist.cs" />
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
+    <Compile Include="Assets\Enemy\Scripts\Behaviours\DumbSoldierBehaviour.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueUI.cs" />
-    <Compile Include="Assets\Enemy\Scripts\Enemy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Assets\Scripts\Movement\ClimbMovement.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\GameObjectExtensions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
