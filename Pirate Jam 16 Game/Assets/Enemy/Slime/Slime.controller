@@ -22,7 +22,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 17c17b99d805cef42ad5f780abae34a9, type: 2}
+  m_Motion: {fileID: 7400000, guid: 56757a1bb9dabe744bbd37ee75b16455, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -49,7 +49,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9308d70e0ca1ad3458f7dc7f801c2611, type: 2}
+  m_Motion: {fileID: 7400000, guid: fd4744153090dc346930466b83b6dcd8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -145,7 +145,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy
+  m_Name: Slime
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Attack
@@ -212,10 +212,10 @@ AnimatorStateMachine:
     m_Position: {x: 310, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8957743140024321150}
-    m_Position: {x: 310, y: 10, z: 0}
+    m_Position: {x: 320, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7556032550978961218}
-    m_Position: {x: 20, y: 20, z: 0}
+    m_Position: {x: 20, y: 10, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
@@ -274,7 +274,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2dfe665121ecc4d4b9a07fbe8990a8bd, type: 2}
+  m_Motion: {fileID: 7400000, guid: 48af45efd66fdc14db4b7d0db8d024b9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
