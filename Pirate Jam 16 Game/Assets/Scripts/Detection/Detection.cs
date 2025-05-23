@@ -60,7 +60,7 @@ public static void DetectComponentsInParent(
     Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius, layerMask);
 
     components = new();
-    HashSet<Component> addedComponents = new();
+    HashSet<GameObject> objectsAdded = new();
 
     for (int i = 0; i < colliders.Length; i++)
     {
@@ -73,7 +73,7 @@ public static void DetectComponentsInParent(
 
             var component = colliders[i].GetComponentInParent(T);
 
-            if (component == null || !addedComponents.Add(component))
+            if (component == null || !objectsAdded.Add(component.gameObject))
             {
                 continue;
             }
