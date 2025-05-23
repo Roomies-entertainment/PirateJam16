@@ -3,7 +3,7 @@ using UnityEngine;
 public class DumbSoldierBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject Components;
-    [SerializeField] private GroundedEnemyDetection DetectionComponents;
+    [SerializeField] private GroundedEnemyDetection GroundedEnemyDetection;
 
     private HorizontalMovement HorizontalMovement;
     private JumpMovement JumpMovement;
@@ -185,9 +185,9 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
     private void UpdateJumpMovement()
     {
-        if (DetectionComponents.GroundCheck.check &&
-            DetectionComponents.StepChecks.enterFlag &&
-            (DetectionComponents.StepClearanceChecks.checkCount == 0) &&
+        if (GroundedEnemyDetection.GroundCheck.check &&
+            GroundedEnemyDetection.StepChecks.enterFlag &&
+            (GroundedEnemyDetection.StepClearanceChecks.checkCount == 0) &&
             HorizontalMovement.currentSpeed != 0)
         {
             JumpMovement.Jump();
@@ -211,7 +211,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
                 {
                     Attack.StopAttack();
 
-                    if (DetectionComponents.PlayerCheck.check)
+                    if (GroundedEnemyDetection.PlayerCheck.check)
                         SetAttackState(AttackState.Block);
                     else
                         SetAttackState(AttackState.Attack);
@@ -268,8 +268,8 @@ public class DumbSoldierBehaviour : MonoBehaviour
         {
             Vector2 moveDir = HorizontalMovement.moveDirection;
 
-            DetectionComponents.StepChecks.SetChecks(moveDir);
-            DetectionComponents.StepClearanceChecks.SetChecks(moveDir);
+            GroundedEnemyDetection.StepChecks.SetChecks(moveDir);
+            GroundedEnemyDetection.StepClearanceChecks.SetChecks(moveDir);
         }
 
     }
