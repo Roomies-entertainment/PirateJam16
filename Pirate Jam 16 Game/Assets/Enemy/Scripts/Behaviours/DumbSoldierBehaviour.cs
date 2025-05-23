@@ -45,7 +45,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
         Blocking
     }
 
-    private AttackState attackState;
+    private AttackState attackState = AttackState.None;
 
     private void SetAttackState(AttackState setTo)
     {
@@ -77,10 +77,11 @@ public class DumbSoldierBehaviour : MonoBehaviour
                 break;
         }
 
+        attackState = setTo;
+
         attackStateChange[0] = attackState;
         attackStateChange[1] = setTo;
-
-
+        
         attackLoopTimer = 0f;
     }
 
@@ -135,6 +136,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(attackState);
         if (HorizontalMovement.enabled)
             UpdateHorizontalMovement();
 
@@ -198,6 +200,12 @@ public class DumbSoldierBehaviour : MonoBehaviour
     {
         switch (attackState)
         {
+            case AttackState.Null:
+            case AttackState.None:
+                SetAttackState(AttackState.Attack);
+
+                break;
+
             case AttackState.Attack:
 
                 if (attackLoopTimer > attackDelay)
