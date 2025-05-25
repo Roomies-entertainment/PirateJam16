@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -73,7 +73,7 @@ MonoBehaviour:
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
-  m_LastLoadedLayoutName: Kaleb
+  m_LastLoadedLayoutName: 
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 29075
+  controlID: 143
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 150}
   m_MaxSize: {x: 8096, y: 24288}
   vertical: 1
-  controlID: 29004
+  controlID: 72
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 29076
+  controlID: 144
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -298,8 +298,8 @@ MonoBehaviour:
     y: 0
     width: 515
     height: 952
-  m_MinSize: {x: 276, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -466,9 +466,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d0f80000
-      m_LastClickedID: 63696
-      m_ExpandedIDs: 1462feffe262feffb863feffc863feff028dfeffaa8dfeffb08dfeffb68dfeffc08dfeffc28efeffd08efeffe88efeffaa8ffeffb68ffeffd88ffeffec8ffefffa8ffeff0690feff1e90feff3290feff4e90feff5090feffb093feff1a98feff809efeff3e9ffeff409ffeffe6a2feffaaa7ffffe6a7ffffcee2ffffd8f1fffff4f1ffff42f4ffff00f5ffff7af5ffff64f6ffff74f6ffff2af7ffff1afbfffff4ffffff4479000010e100004ee1000056e10000a6f80000e0f8000000f90000
+      m_SelectedIDs: 92780000
+      m_LastClickedID: 30866
+      m_ExpandedIDs: 4cf6fffff0f6ffffc4f7ffffc6f7ffff22780000467800006678000086780000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -944,9 +944,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.1160245, y: -3.54515, z: 0.04058887}
+    m_Target: {x: 76.28562, y: -5.63995, z: 0.05069499}
     speed: 2
-    m_Value: {x: 6.1160245, y: -3.54515, z: 0.04058887}
+    m_Value: {x: 76.28562, y: -5.63995, z: 0.05069499}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -996,9 +996,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.9339433
+    m_Target: 2.9233983
     speed: 2
-    m_Value: 3.9339433
+    m_Value: 2.9233983
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1068,7 +1068,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes/Main Game
+    - Assets/Scripts/Health System
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1076,16 +1076,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes/Main Game
+  - Assets/Scripts/Health System
   m_LastFoldersGridSize: -1
   m_LastProjectPath: F:\RoomiesEntertainment\PirateJam16\Pirate Jam 16 Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ba770000
-    m_LastClickedID: 30650
-    m_ExpandedIDs: 00000000d4750000d6750000d8750000da750000aa77000000ca9a3b
+    scrollPos: {x: 0, y: 67}
+    m_SelectedIDs: 36800000
+    m_LastClickedID: 32822
+    m_ExpandedIDs: 00000000a67e0000a87e0000aa7e0000ac7e0000ae7e0000147f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1113,7 +1113,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d4750000d6750000d8750000da750000aa77000000ca9a3b
+    m_ExpandedIDs: 00000000a67e0000a87e0000aa7e0000ac7e0000ae7e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1239,7 +1239,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -105770
+  m_LastSelectedObjectID: 30854
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1281,7 +1281,7 @@ MonoBehaviour:
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 877
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
