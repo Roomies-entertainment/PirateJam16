@@ -335,7 +335,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.159, z: 0}
-  m_LocalScale: {x: 1.6842912, y: 2.37436, z: 1.3081874}
+  m_LocalScale: {x: 1.6842912, y: 2.433719, z: 1.3081874}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1622704684545824213}
@@ -1214,6 +1214,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3618339497995387731}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 9092179470456444528}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   debug: 0
   onStart:
     m_PersistentCalls:
@@ -1489,7 +1501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Components: {fileID: 6671308400160840112}
-  GroundedEnemyDetection: {fileID: 4401777088617193454}
+  DetectionComponents: {fileID: 4401777088617193454}
   moveSpeed: 1
   moveDelay: 3
   moveDuration: 0.8

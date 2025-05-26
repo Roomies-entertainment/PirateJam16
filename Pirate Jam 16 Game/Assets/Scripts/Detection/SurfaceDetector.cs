@@ -21,6 +21,9 @@ public class SurfaceDetector : MonoBehaviour
     [SerializeField] protected float extraCastDistance = 0f;
 
     [Header("")]
+    [SerializeField] protected bool detectTriggers = false;
+
+    [Header("")]
     [SerializeField] protected UnityEvent onSurfaceEnter;
     [SerializeField] protected UnityEvent onSurfaceStay;
     [SerializeField] protected UnityEvent onSurfaceExit;
@@ -45,6 +48,13 @@ public class SurfaceDetector : MonoBehaviour
 
         float contactDistanceMax = Vector2.Distance(start, end);
 
+        bool hitTriggerStore = Physics2D.queriesHitTriggers;
+
+        if (detectTriggers)
+        {
+            Physics2D.queriesHitTriggers = true;
+        }
+
         switch (castShape)
         {
             case Detection.CastType2D.Ray:
@@ -63,6 +73,11 @@ public class SurfaceDetector : MonoBehaviour
                 hit = Physics2D.CapsuleCast(
                     start, new Vector2(castShapeWidth, castShapeLength), capsuleDirection, castShapeAngle, direction, contactDistanceMax + extraCastDistance, layerMask);
                 break;
+        }
+
+        if (detectTriggers)
+        {
+            Physics2D.queriesHitTriggers = hitTriggerStore;
         }
 
         gotHit = hit.transform != null;

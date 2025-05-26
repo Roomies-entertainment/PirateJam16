@@ -42,15 +42,15 @@ public class EnemyAttack : Attack
 
     private Vector2 GetAttackDirection(out List<DetectedComponent<Health>> players)
     {
-        Detection.DetectComponentsInParent(
-            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components,
+        var components = Detection.DetectComponentsInParents(
+            AttackCircle.transform.position, AttackCircle.GetRadius(),
             1 << CollisionM.playerLayer, typeof(PlayerHealth));
 
         players = new();
 
         foreach(var c in components)
         {
-            players.Add(new DetectedComponent<Health>(c.Value as Health, c.Key));
+            players.Add(new DetectedComponent<Health>(c.Key as Health, c.Value));
         }
 
         if (players.Count == 0)

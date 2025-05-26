@@ -5,11 +5,15 @@ using UnityEngine.Events;
 
 public abstract class Health : MonoBehaviour
 {
-    [SerializeField] [Tooltip("Object always considered to be dead if health is at 0")]
+    [SerializeField] [Tooltip("Object starts dead if this is 0")]
     protected int startingHealth = 1;
 
     [SerializeField]
     protected int maxHealth = 1;
+    
+    [Header("")]
+    [SerializeField][Tooltip("Used for DestroyObject()")]
+    protected float destroyObjectDelay = 0.8f;
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
 
@@ -42,13 +46,15 @@ public abstract class Health : MonoBehaviour
         health = startingHealth;
     }
 
+    protected virtual void Start() { } // Gives it enabled checkbox
+
     public void IncrementHealth(int increment)
     {
         if (!enabled)
         {
             return;
         }
-        
+
         IncrementHealth(increment, null);
     }
     
@@ -86,10 +92,14 @@ public abstract class Health : MonoBehaviour
         onDie?.Invoke();
     }
 
-    public void DestroyObject()
-    {
-        new WaitForSeconds(0.8f);
-        Destroy(this.gameObject);
+    public new void DestroyObject(Object objOverride = null)
+    { 
+        Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay);
+    }
+    
+    public void DestroyObjectNoDelay(Object objOverride = null)
+    { 
+        Destroy(objOverride != null ? objOverride : gameObject);
     }
 
     public virtual AttackResult ProcessAttack(int damage, DetectionData<Health, Attack> data)
@@ -104,7 +114,7 @@ public abstract class Health : MonoBehaviour
 
         AttackResult attackResult = ProcessDamageFlags(blocking, blockColliderHit, damageColliderHit);
 
-        switch(attackResult)
+        switch (attackResult)
         {
             case AttackResult.Hit:
                 IncrementHealth(-damage, data);
@@ -112,7 +122,7 @@ public abstract class Health : MonoBehaviour
 
             case AttackResult.Miss:
                 break;
-                
+
             case AttackResult.Block:
                 BlockDamage(damage, data);
                 break;

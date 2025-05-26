@@ -23,27 +23,29 @@ public class PlayerAttack : Attack
         out List<DetectedComponent<Health>> healthComponents,
         out List<DetectedComponent<Interactable>> interactables)
     {
-        Detection.DetectComponentsInParent(
-            AttackCircle.transform.position, AttackCircle.GetRadius(), out var components, ~(1 << CollisionM.playerLayer),
+        var components = Detection.DetectComponentsInParents(
+            AttackCircle.transform.position, AttackCircle.GetRadius(),
+            ~(1 << CollisionM.playerLayer),
             typeof(EnemyHealth), typeof(ObjectHealth), typeof(Interactable));
-
+            
         healthComponents = new List<DetectedComponent<Health>>();
         interactables = new List<DetectedComponent<Interactable>>();
 
         foreach (var c in components)
         {
-            var health = c.Value as Health;
-            var interactable = c.Value as Interactable;
+            var health = c.Key as Health;
+            var interactable = c.Key as Interactable;
 
             if (health && CanHitObject(health.gameObject))
             {
-                healthComponents.Add(new DetectedComponent<Health>(health, c.Key));
+                healthComponents.Add(new DetectedComponent<Health>(health, c.Value));
             }
             else if (interactable && CanHitObject(interactable.gameObject))
             {
                 interactables.Add(new DetectedComponent<Interactable>(interactable));
             }
         }
+        
     }
 
     public void PerformInteractions(List<DetectedComponent<Interactable>> detectedInteractableComponents)
