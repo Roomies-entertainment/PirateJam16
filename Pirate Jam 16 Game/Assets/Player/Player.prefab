@@ -173,6 +173,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   extraCastDistance: 0.4
+  detectTriggers: 0
   onSurfaceEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -1396,6 +1397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 6
   maxHealth: 6
+  destroyObjectDelay: 0.8
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
   BlockDamageColliders: []

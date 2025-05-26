@@ -85,12 +85,14 @@
     <Compile Include="Assets\UI\Scripts\DifficultySetting.cs" />
     <Compile Include="Assets\Game\Credits\CreditsScroll.cs" />
     <Compile Include="Assets\Scripts\Health System\HealCollider.cs" />
+    <Compile Include="Assets\Scripts\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Movement\JumpMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerParticles.cs" />
     <Compile Include="Assets\Scripts\Detection\Detection.cs" />
+    <Compile Include="Assets\Scripts\Triggers\TriggerEvent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\Health System\ObjectHealth.cs" />
@@ -127,7 +129,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Interactables\Scripts\Interactable.cs" />
-    <Compile Include="Assets\Scripts\Triggers\OnTriggerEvent.cs" />
     <Compile Include="Assets\Scripts\CircleGizmo.cs" />
     <Compile Include="Assets\UI\Scripts\DeathScreen.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueManager.cs" />
