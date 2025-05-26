@@ -11,6 +11,7 @@ public class TriggerEvent : MonoBehaviour
 
     [Header("")]
     [SerializeField] private UnityEvent<Collider2D> onTriggerEnter;
+    [SerializeField] private UnityEvent<Collider2D> onTriggerStay;
     [SerializeField] private UnityEvent<Collider2D> onTriggerExit;
 
     private Collider2D col;
@@ -39,6 +40,14 @@ public class TriggerEvent : MonoBehaviour
             enterCooldownTimer = onEnterCooldown;
 
             onTriggerEnter?.Invoke(collider);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        if (ProcessCollider(collider))
+        {
+            onTriggerStay?.Invoke(collider);
         }
     }
 

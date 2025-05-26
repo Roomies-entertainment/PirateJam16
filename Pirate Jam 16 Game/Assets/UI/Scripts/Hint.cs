@@ -21,6 +21,12 @@ public class Hint : MonoBehaviour
 
     private bool displaying;
 
+    private void OnValidate()
+    {
+        if (duration <= 0)
+            duration = 0.1f;
+    }
+
     private void Start()
     {
         SetObjectsActive(false);
@@ -72,7 +78,9 @@ public class Hint : MonoBehaviour
         text.text = hint;
 
         displayTimer = 0f;
-        fadeTimer = 0f;
+
+        if (!displaying)
+            fadeTimer = 0f;
 
         UpdateHint();
 
