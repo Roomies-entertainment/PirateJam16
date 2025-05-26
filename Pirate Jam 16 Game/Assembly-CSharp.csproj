@@ -162,9 +162,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\UI\Scripts\PlayerUI.cs" />
+    <Compile Include="Assets\Scripts\Tags.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAnimation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
+    <Compile Include="Assets\Scripts\GameObjectM.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\LevelM.cs" />
     <Compile Include="Assets\Scripts\RandomM.cs" />

@@ -14,9 +14,9 @@ public class DifficultySetting : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("difficulty");
+        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.Difficulty);
 
-        if (objs.Length > 1)
+        if (objs.Count > 1)
         {
             Destroy(this.gameObject);
 
@@ -26,7 +26,7 @@ public class DifficultySetting : MonoBehaviour
 
     public void SetTheDifficulty()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObjectM.FindGameObjectWithTag(Tags.TagType.Player);
         SetDifficulty();
     }
 
