@@ -48,7 +48,12 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpDampTimer = 0f;
     }
+/* 
+    public Vector3 JumpVector()
+    {
 
+    }
+ */
     public void OnJump()
     {
         onJump?.Invoke();
