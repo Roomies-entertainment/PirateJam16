@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Detection\SurfaceDetector.cs" />
     <Compile Include="Assets\Scripts\Movement\Physics2DMove.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\FadingBackground.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Scripts\Effects\SpriteFading.cs" />
