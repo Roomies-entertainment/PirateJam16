@@ -168,8 +168,10 @@ public class Player : MonoBehaviour
 
     private int CalculateAttackDamage()
     {
-        return Physics.speedY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
-        PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
-        PlayerAttack.BaseDamage;
+        return (
+            !Collision.GroundDetector.surfaceDetected &&
+            Physics.speedY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
+                PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
+                PlayerAttack.BaseDamage);
     }
 }

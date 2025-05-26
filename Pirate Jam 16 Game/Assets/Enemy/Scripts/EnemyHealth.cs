@@ -6,23 +6,10 @@ using UnityEngine.Events;
 public class EnemyHealth : Health
 {
     [Header("")]
-    [SerializeField] bool destroySelfAndChildren = true;
-
-    [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
     private void Start()
     {
         onStart?.Invoke(health / maxHealth, null);
-    }
-
-    protected override void OnDie()
-    {
-        base.OnDie();
-
-        if (destroySelfAndChildren)
-        {
-            DestroyObject();
-        }
     }
 }
