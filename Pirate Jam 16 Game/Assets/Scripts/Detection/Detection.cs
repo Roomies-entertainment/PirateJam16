@@ -78,6 +78,8 @@ public static void DetectComponentsInParent(
                 continue;
             }
 
+            Debug.Log(component);
+
             components[colliders[i]] = component;
         }
     }

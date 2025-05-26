@@ -223,6 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: fd178d727c1d1404fb87a738e1993f25, type: 3}
   - {fileID: 8300000, guid: fd7404dd0922eb04898685a0b49d7f11, type: 3}
@@ -271,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3686658514506477869
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56ca705640854b449dc5a3d617061de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -650,10 +656,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 1
+  maxHealth: 1
   TakeDamageColliders:
   - {fileID: 1619706018419456607}
   BlockDamageColliders: []
   onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
     m_PersistentCalls:
       m_Calls: []
   onStartBlocking:
@@ -680,6 +690,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1728396502702770868}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 9092179470456444528}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   debug: 0
   onStart:
     m_PersistentCalls:
@@ -697,10 +719,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackCircle: {fileID: 5673110662011044144}
+  directionCheckDistance: 1
+  directionChecking: 0
+  debug: 1
   onStartAttack:
     m_PersistentCalls:
       m_Calls: []
   onHitObject:
+    m_PersistentCalls:
+      m_Calls: []
+  onHitBlocked:
     m_PersistentCalls:
       m_Calls: []
   onMissObject:
@@ -709,8 +737,6 @@ MonoBehaviour:
   onStopAttack:
     m_PersistentCalls:
       m_Calls: []
-  debug: 1
-  directionChecking: 0
 --- !u!114 &1214602602346395932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,6 +749,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
+  pitchMin: 1
+  pitchMax: 1
+  loop: 0
   audioClips:
   - {fileID: 8300000, guid: c95552856a27ff8409b04c0b538a6c64, type: 3}
   - {fileID: 8300000, guid: cf0b863a760a63846b4ec9cbd9e0144c, type: 3}

@@ -86,10 +86,14 @@ public abstract class Health : MonoBehaviour
         onDie?.Invoke();
     }
 
-    public void DestroyObject()
+    public void DestroyObject(GameObject destroy = null)
     {
         new WaitForSeconds(0.8f);
-        Destroy(this.gameObject);
+
+        if (destroy != null)
+            Destroy(destroy);
+        else
+            Destroy(gameObject);
     }
 
     public virtual AttackResult ProcessAttack(int damage, DetectionData<Health, Attack> data)
