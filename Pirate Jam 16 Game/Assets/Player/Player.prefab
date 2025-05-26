@@ -1127,7 +1127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 32b636048e58f514ea05cab462bca67d, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1140,21 +1140,69 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9784a8fd-e545-44d4-b068-5bb705d822b1
+      m_Calls:
+      - m_Target: {fileID: 4706367888957590372}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fcf47a90-8e06-4061-857d-c29cd61ba9a2
     m_ActionName: Gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 70274a5f-2f98-4d25-b268-63dcbc22ad5b
+      m_Calls:
+      - m_Target: {fileID: 4706367888957590372}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5aaaa819-2b32-4134-be91-09aec153fe2a
     m_ActionName: Gameplay/Jump[/Keyboard/w,/Keyboard/upArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9551be6e-f1d9-4b93-9252-51f3be67bb5b
+      m_Calls:
+      - m_Target: {fileID: 4706367888957590372}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c54712e6-dce4-4e47-a18f-f375d3ad2a22
     m_ActionName: Gameplay/Attack[/Keyboard/s,/Keyboard/downArrow,/Keyboard/space,/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5d788166-9321-4322-bd42-def55608af47
-    m_ActionName: Gameplay/Block[/Keyboard/ctrl,/Keyboard/shift,/Mouse/rightButton]
+      m_Calls:
+      - m_Target: {fileID: 4706367888957590372}
+        m_TargetAssemblyTypeName: PlayerInputs, Assembly-CSharp
+        m_MethodName: OnBlock
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a15efd4e-dd87-4f0f-9004-98b2d6790170
+    m_ActionName: Gameplay/Block[/Keyboard/ctrl,/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -1277,6 +1325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePlayers: 0
+  damageEnemies: 1
+  damageObjects: 1
+  hitInteractables: 1
   AttackCircle: {fileID: 7492755210599710390}
   directionCheckDistance: 1
   directionChecking: 1

@@ -1198,6 +1198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Wasp
       objectReference: {fileID: 0}
+    - target: {fileID: 9092179470456444528, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
