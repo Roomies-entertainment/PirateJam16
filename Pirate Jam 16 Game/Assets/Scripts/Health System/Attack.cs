@@ -13,8 +13,8 @@ public abstract class Attack : MonoBehaviour
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] protected float directionCheckDistance = 1f;
     [SerializeField] protected bool directionChecking = true;
+    [SerializeField] protected float directionCheckDistance = 1f;
 
     public Vector2 attackDirection { get; private set; }
     public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
@@ -194,8 +194,6 @@ public abstract class Attack : MonoBehaviour
         return
             !directionChecking ||
             attackDirection.sqrMagnitude == 0 ||
-            Vector2.Dot(
-                (objPosition - new Vector2(transform.position.x, transform.position.y)).normalized,
-                attackDirection.normalized) > -directionCheckDistance;
+            Detection.DirectionCheck(attackDirection, transform.position, objPosition, directionCheckDistance);
     }
 }

@@ -49,50 +49,53 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
     private void SetAttackState(AttackState setTo)
     {
-        switch (setTo)
+        if (setTo == AttackState.Attack || setTo == AttackState.Block)
         {
-            case AttackState.Attack:
-
-                RandomizeAttackDelay();
-
-                break;
-
-            case AttackState.Attacking:
-
-                RandomizeAttackDuration();
-                Attack.FindComponents(out var healthComponents, out var interactables);
-
-                Debug.Log(healthComponents);
-
-                if (healthComponents.Count > 0)
-                {
-                    Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
-
-                    Attack.PerformAttack(healthComponents);
-
-                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
-                }
-                else if (interactables.Count > 0)
-                {
-                    Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
-
-                    Attack.PerformInteractions(interactables);
-                }
-
-                break;
-
-            case AttackState.Block:
-
-                RandomizeBlockDelay();
-
-                break;
-
-            case AttackState.Blocking:
-
-                RandomizeBlockDuration();
-
-                break;
+            Attack.StopAttack();
         }
+
+        switch (setTo)
+            {
+                case AttackState.Attack:
+
+                    RandomizeAttackDelay();
+
+                    break;
+
+                case AttackState.Attacking:
+
+                    RandomizeAttackDuration();
+                    Attack.FindComponents(out var healthComponents, out var interactables);
+
+                    if (healthComponents.Count > 0)
+                    {
+                        Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
+
+                        Attack.PerformAttack(healthComponents);
+
+                        transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
+                    }
+                    else if (interactables.Count > 0)
+                    {
+                        Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
+
+                        Attack.PerformInteractions(interactables);
+                    }
+
+                    break;
+
+                case AttackState.Block:
+
+                    RandomizeBlockDelay();
+
+                    break;
+
+                case AttackState.Blocking:
+
+                    RandomizeBlockDuration();
+
+                    break;
+            }
 
         attackStateChange[0] = attackState;
         attackStateChange[1] = setTo;
@@ -161,7 +164,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
             UpdateJumpMovement();
 
         if (Attack.enabled)
-            UpdateAttack();
+            UpdateAttackState();
 
         if (Health.enabled)
             UpdateHealth();
@@ -213,11 +216,8 @@ public class DumbSoldierBehaviour : MonoBehaviour
         }
     }
 
-    private void UpdateAttack()
+    private void UpdateAttackState()
     {
-        Debug.Log(attackLoopTimer);
-        Debug.Log(attackState);
-
         switch (attackState)
         {
             case AttackState.Attack:
@@ -231,8 +231,6 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
                 if (attackLoopTimer > attackDuration)
                 {
-                    Attack.StopAttack();
-
                     if (DetectionComponents.PlayerCheck.check)
                         SetAttackState(AttackState.Block);
                     else
@@ -265,6 +263,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
         {
             if (!Health.blocking && attackStateChange[1] == AttackState.Blocking)
             {
+                Health.SetBlockDirection(Attack.attackDirection);
                 Health.StartBlocking();
             }
             else if (Health.blocking && attackStateChange[1] != AttackState.Blocking)
