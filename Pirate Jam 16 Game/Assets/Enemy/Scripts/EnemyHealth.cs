@@ -6,6 +6,9 @@ using UnityEngine.Events;
 public class EnemyHealth : Health
 {
     [Header("")]
+    [SerializeField] bool destroySelfAndChildren = true;
+
+    [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
     private void Start()
@@ -17,6 +20,9 @@ public class EnemyHealth : Health
     {
         base.OnDie();
 
-        Destroy(gameObject);
+        if (destroySelfAndChildren)
+        {
+            DestroyObject();
+        }
     }
 }
