@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class EnemyAttack : Attack
 {
+    [Header("")]
+    [SerializeField] private bool damagePlayers = true;
+    [SerializeField] private bool damageEnemies = false;
+
     private void Start() { } // Ensures component toggle in inspector
     
-    public void StartAttack()
+    protected override List<System.Type> GetDetectableTypes()
     {
-        List<DetectedComponent<Health>> players;
-        SetAttackDirection(GetAttackDirection(out players));
+        List<System.Type> types = base.GetDetectableTypes();
 
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} in StartAttack()");
-            Debug.Log($"players = {players}");
-            Debug.Log($"players count = {players.Count}");
-        }
+        if (damagePlayers)
+            types.Add(typeof(PlayerHealth));
 
-        if (players == null || players.Count == 0)
-        {
-            return;
-        }
+        if (damageEnemies)
+            types.Add(typeof(EnemyHealth));
 
-        transform.position += new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
-
-        base.PerformAttack(players);
-    } 
+        return types;
+    }
 
     public override void StopAttack()
     {
@@ -40,28 +35,13 @@ public class EnemyAttack : Attack
         transform.position -= new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
     }
 
-    private Vector2 GetAttackDirection(out List<DetectedComponent<Health>> players)
+    public Vector2 GetAttackDirection<T>(List<DetectedComponent<T>> components) where T : Component
     {
-        var components = Detection.DetectComponentsInParents(
-            AttackCircle.transform.position, AttackCircle.GetRadius(),
-            1 << CollisionM.playerLayer, typeof(PlayerHealth));
+        Vector2 toFirst = components[0].Component.transform.position - transform.position;
 
-        players = new();
+        toFirst.y = 0f;
+        toFirst.Normalize();
 
-        foreach(var c in components)
-        {
-            players.Add(new DetectedComponent<Health>(c.Key as Health, c.Value));
-        }
-
-        if (players.Count == 0)
-        {
-            return new Vector2();
-        }
-
-        Vector2 firstPlayerDir = players[0].Component.transform.position - transform.position;
-        firstPlayerDir.y = 0f;
-        firstPlayerDir.Normalize();
-
-        return firstPlayerDir;
+        return toFirst;
     }
 }

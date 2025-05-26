@@ -1325,6 +1325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePlayers: 0
+  damageEnemies: 1
+  damageObjects: 1
+  hitInteractables: 1
   AttackCircle: {fileID: 7492755210599710390}
   directionCheckDistance: 1
   directionChecking: 1

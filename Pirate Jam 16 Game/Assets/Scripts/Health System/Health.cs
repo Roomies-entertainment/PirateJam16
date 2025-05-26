@@ -18,6 +18,10 @@ public abstract class Health : MonoBehaviour
     public bool dead { get { return health <= 0; } }
 
     [Header("")]
+    [SerializeField] protected bool blockDirectionChecking = true;
+    [SerializeField] protected float blockDirectionCheckDistance = -0.3f;
+
+    [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
     [SerializeField] protected Collider2D[] BlockDamageColliders;
 
@@ -30,6 +34,12 @@ public abstract class Health : MonoBehaviour
     [SerializeField] private UnityEvent onDie;
 
     public bool blocking { get; private set; }
+
+    private Vector2 blockDirection;
+    public void SetBlockDirection(Vector2 setTo)
+    {
+        blockDirection = setTo;
+    }
 
     public enum AttackResult
     {
@@ -112,7 +122,7 @@ public abstract class Health : MonoBehaviour
         bool blockColliderHit = BlockDamageColliderHit(data);
         bool damageColliderHit = TakeDamageColliderHit(data);
 
-        AttackResult attackResult = ProcessDamageFlags(blocking, blockColliderHit, damageColliderHit);
+        AttackResult attackResult = ProcessDamageFlags(blocking, blockColliderHit, damageColliderHit, data);
 
         switch (attackResult)
         {
@@ -157,9 +167,13 @@ public abstract class Health : MonoBehaviour
         return false;
     }
 
-    protected virtual AttackResult ProcessDamageFlags(bool blocking, bool blockColliderHit, bool damageColliderHit)
+    protected virtual AttackResult ProcessDamageFlags(
+        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
     {
-        if (blocking || blockColliderHit)
+        if (( blocking || blockColliderHit ) &&
+            !blockDirectionChecking || Detection.DirectionCheck(
+                blockDirection, transform.position, data.DetectorComponent.Component.transform.position,
+                blockDirectionCheckDistance))
         {
             return AttackResult.Block;
         }

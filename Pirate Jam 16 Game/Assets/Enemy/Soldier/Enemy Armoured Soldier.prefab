@@ -1028,9 +1028,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageObjects: 0
+  hitInteractables: 0
   AttackCircle: {fileID: 1768076276932094734}
-  directionCheckDistance: 1
   directionChecking: 1
+  directionCheckDistance: 1
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1083,6 +1085,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  damagePlayers: 1
+  damageEnemies: 0
 --- !u!114 &3618339497995387731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,6 +1101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   maxHealth: 3
+  destroyObjectDelay: 0.8
+  blockDirectionChecking: 1
+  blockDirectionCheckDistance: -0.3
   TakeDamageColliders:
   - {fileID: 373344704044645056}
   BlockDamageColliders: []

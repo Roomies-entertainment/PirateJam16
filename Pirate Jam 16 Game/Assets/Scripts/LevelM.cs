@@ -16,7 +16,7 @@ public class LevelM : MonoBehaviour
 
         audioPlayer.clip = audioClip;
 
-        difficultyLoad = GameObject.FindGameObjectWithTag("difficulty");
+        difficultyLoad = GameObjectM.FindGameObjectWithTag(Tags.TagType.Difficulty);
         difficultyLoad.GetComponent<DifficultySetting>().SetTheDifficulty();
     }
 
