@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float stopTimer { get; private set; }
     
     [Header("")]
-    public float hopSpeed = 3.5f;
+    public float hopVerticalSpeed = 3.5f;
     public float hopDelay = 0.15f;
     public float hopTimer { get; private set; }
 

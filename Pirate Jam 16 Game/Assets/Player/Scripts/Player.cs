@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             {
                 Movement.OnWalkHop();
                 
-                Physics.SetVerticalSpeed(Movement.hopSpeed);
+                Physics.SetVerticalSpeed(Movement.hopVerticalSpeed);
             }
         }
 
