@@ -114,6 +114,7 @@
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Sound\Scripts\RandomizedSound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\Effects\FadingBackground.cs" />
     <Compile Include="Assets\Sound\Scripts\AudioPlaylist.cs" />
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
     <Compile Include="Assets\Enemy\Scripts\Behaviours\DumbSoldierBehaviour.cs" />
