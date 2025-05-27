@@ -19,23 +19,31 @@ public class EventChain : MonoBehaviour
     public new bool enabled
     {
         get { return _enabled; }
-        set { if (!_enabled && value) { OnEnable(); } _enabled = value; }
-    }
-
-    private void Awake()
-    {
-        _enabled = base.enabled;
+        set { if (!_enabled && value) { DoOnEnable(); } else if (_enabled && !value) { DoOnDisable(); } }
     }
 
     private void OnEnable()
     {
+        if (!_enabled)
+        {
+            DoOnEnable();
+        }
+    }
+
+    private void DoOnEnable()
+    {
         _enabled = true;
+        base.enabled = true;
 
         index = 0;
 
         SetDelay();
-
         timer = 0f;
+    }
+
+    private void DoOnDisable()
+    {
+        _enabled = false;
     }
 
     private void Update()
@@ -50,10 +58,24 @@ public class EventChain : MonoBehaviour
             currentEvent = events[index];
             currentEvent.Event?.Invoke();
 
-            index = (enabled && loop) ? (index + 1) % events.Count : index + 1;
+            if (enabled && loop)
+            {
+                index = (index + 1) % events.Count;
+            }
+            else
+            {
+                index = index + 1;
 
-            SetDelay();
-            timer = 0f;
+                if (index < events.Count)
+                {
+                    SetDelay();
+                    timer = 0f;
+                }
+                else
+                {
+                    base.enabled = false;
+                }
+            }
         }
 
         timer += Time.deltaTime;
@@ -64,6 +86,6 @@ public class EventChain : MonoBehaviour
         if (index >= events.Count)
             return;
 
-        delay = RandomM.Range(events[index].delayMin, events[index].delayMax);
+        delay = events[index].GetDelay();
     }
 }

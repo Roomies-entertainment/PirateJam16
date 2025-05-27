@@ -8,8 +8,17 @@ using UnityEngine.Events;
 public class EventData
 {
     public UnityEvent Event;
-    public float delayMin;
-    public float delayMax;
+    public float minDelay;
+    public float maxDelay;
+
+    [Space()]
+    [Tooltip("Randomization Toggle")]
+    public bool useMaxDelay = false;
+
+    public float GetDelay()
+    {
+        return useMaxDelay ? RandomM.Range(minDelay, maxDelay) : minDelay;
+    }
 }
 
 public class Event : MonoBehaviour
