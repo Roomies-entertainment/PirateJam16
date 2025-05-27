@@ -12,7 +12,8 @@ public class LevelM : MonoBehaviour
 
     GameObject difficultyLoad;
 
-    void Start(){
+    void Start()
+    {
 
         audioPlayer.clip = audioClip;
 
@@ -20,17 +21,24 @@ public class LevelM : MonoBehaviour
         difficultyLoad.GetComponent<DifficultySetting>().SetTheDifficulty();
     }
 
-    public void LoadNextLevel(){
+    public void LoadNextLevel()
+    {
         audioInterval = audioClip.length;
         StartCoroutine(StartNextLevel());
 
     }
 
-    IEnumerator StartNextLevel(){
+    IEnumerator StartNextLevel()
+    {
         audioPlayer.enabled = true;
         yield return new WaitForSeconds(audioInterval + 0.2f);
 
         int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextLevel);
+    }
+    
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

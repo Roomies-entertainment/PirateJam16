@@ -5,20 +5,27 @@ using UnityEngine.Events;
 
 public abstract class Health : MonoBehaviour, IProcessExplosion
 {
-    [SerializeField] [Tooltip("Object starts dead if this is 0")]
+    [SerializeField]
+    [Tooltip("Object starts dead if this is 0")]
     protected int startingHealth = 1;
 
     [SerializeField]
     protected int maxHealth = 1;
-    
+
     [Header("")]
-    [SerializeField][Tooltip("Used for DestroyObject()")]
+    [SerializeField]
+    [Tooltip("Used for DestroyObject()")]
     protected float destroyObjectDelay = 0.8f;
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
 
+    [SerializeField]
+    protected float explosionDamageDelay = 0f;
+
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
+
+    [Header("")]
     [SerializeField] protected bool blockDirectionChecking = true;
     [SerializeField] protected float blockDirectionCheckDistance = -0.3f;
 
@@ -59,7 +66,13 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     protected virtual void Start() { } // Gives it enabled checkbox
 
-    public void IncrementHealth(int increment)
+    public void ProcessExplosion()
+    {
+        if (damagedByExplosions)
+            Invoke(nameof(IncrementHealth), explosionDamageDelay);
+    }
+
+    public void IncrementHealth(int increment = -1)
     {
         if (!enabled)
         {
@@ -67,12 +80,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         }
 
         IncrementHealth(increment, null);
-    }
-
-    public void ProcessExplosion()
-    {
-        if (damagedByExplosions)
-            IncrementHealth(-1);
     }
 
     protected virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
@@ -110,12 +117,12 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     }
 
     public new void DestroyObject(Object objOverride = null)
-    { 
+    {
         Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay);
     }
-    
+
     public void DestroyObjectNoDelay(Object objOverride = null)
-    { 
+    {
         Destroy(objOverride != null ? objOverride : gameObject);
     }
 
@@ -150,34 +157,34 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     protected bool BlockDamageColliderHit(DetectionData<Health, Attack> data)
     {
-        foreach(var c in BlockDamageColliders)
+        foreach (var c in BlockDamageColliders)
         {
             if (data.DetectedComponent.Colliders.Contains(c))
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     protected bool TakeDamageColliderHit(DetectionData<Health, Attack> data)
     {
-        foreach(var c in TakeDamageColliders)
+        foreach (var c in TakeDamageColliders)
         {
             if (data.DetectedComponent.Colliders.Contains(c))
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     protected virtual AttackResult ProcessDamageFlags(
         bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
     {
-        if (( blocking || blockColliderHit ) &&
+        if ((blocking || blockColliderHit) &&
             !blockDirectionChecking || Detection.DirectionCheck(
                 blockDirection, transform.position, data.DetectorComponent.Component.transform.position,
                 blockDirectionCheckDistance))
@@ -189,7 +196,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         {
             return AttackResult.Hit;
         }
-        
+
         return AttackResult.Miss;
     }
 
@@ -225,5 +232,10 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         blocking = false;
 
         onStopBlocking?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 }
