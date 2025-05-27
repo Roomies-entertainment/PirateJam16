@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour, IProcessExplosion
 {
     [SerializeField] [Tooltip("Object starts dead if this is 0")]
     protected int startingHealth = 1;
@@ -18,6 +18,7 @@ public abstract class Health : MonoBehaviour
     public bool dead { get { return health <= 0; } }
 
     [Header("")]
+    [SerializeField] protected bool damagedByExplosions = true;
     [SerializeField] protected bool blockDirectionChecking = true;
     [SerializeField] protected float blockDirectionCheckDistance = -0.3f;
 
@@ -67,7 +68,13 @@ public abstract class Health : MonoBehaviour
 
         IncrementHealth(increment, null);
     }
-    
+
+    public void ProcessExplosion()
+    {
+        if (damagedByExplosions)
+            IncrementHealth(-1);
+    }
+
     protected virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
     {
         bool deadStore = dead;

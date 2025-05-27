@@ -12,7 +12,7 @@ public class EventData
     public float maxDelay;
 
     [Space()]
-    [Tooltip("Randomization Toggle")]
+    [Tooltip("Randomized delay toggle")]
     public bool useMaxDelay = false;
 
     public float GetDelay()

@@ -11,7 +11,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerHealth))]
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IProcessExplosion
 {
     [SerializeField] private bool enableBlocking;
 
@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private PlayerAttack Attack;
     private PlayerAnimation Animation;
     private PlayerHealth Health;
+
+    public void ProcessExplosion() { Physics.SyncForces(); Physics.ScaleSpeed(1.3f); }
 
     private void Awake()
     {
@@ -41,32 +43,40 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        bool onGround = Collision.GroundDetector.surfaceDetected;
+        bool groundHit = Collision.GroundDetector.gotHit;
+
+        HandleMovement(onGround, groundHit);
+
+        Animation.FaceDirection(Inputs.horizontalInput);
 
         Collision.IncrementTimers(Time.fixedDeltaTime);
         Movement.IncrementGroundedTimers();
     }
 
-    private void HandleMovement()
+    private void HandleMovement(bool onGround, bool groundHit)
     {
-        bool farHit = Collision.GroundDetector.gotHit;
-        bool onGround = Collision.GroundDetector.surfaceDetected;
+        Physics.SyncForces();
 
-        if ((onGround || farHit && Physics.speedY > 0f) && Inputs.jumpFlag)
+        if (onGround)
         {
-            Physics.SetVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
-        
-            Movement.OnJump();
+            Physics.AddForce(Vector2.up * Physics2D.gravity.y * Movement.downGravityScale);
+            Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
 
-            Inputs.ClearJumpFlag();
+            if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
+            {
+                Movement.OnWalkHop();
+
+                Physics.EnforceVerticalSpeed(Movement.hopVerticalSpeed);
+            }
         }
-
-        if (!onGround)
+        else
         {
-            Physics.SetHorizontalSpeed( Inputs.horizontalInput * Movement.moveSpeed );
+            Physics.EnforceHorizontalSpeed(Inputs.horizontalInput * Movement.moveSpeed);
+
             Physics.AddForce(Physics2D.gravity * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
-            
+
             if (Collision.GetOnWall(out ContactPoint2D contactPoint))
             {
                 Physics.SlideAlongSurface(contactPoint.normal);
@@ -74,24 +84,17 @@ public class Player : MonoBehaviour
 
             Movement.ResetGroundedTimers();
         }
-        else
+
+        if ((onGround || groundHit && Physics.speedY > 0f) && Inputs.jumpFlag)
         {
-            Physics.SetHorizontalSpeed( Physics.speedX * ( 1f - Mathf.Clamp01(Movement.stopTimer / Movement.stopDuration) ) ); // Stop moving
+            Physics.EnforceVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
 
-            Physics.AddForce(Vector2.up * Physics2D.gravity.y * Movement.downGravityScale);
-            Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
+            Movement.OnJump();
 
-            if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
-            {
-                Movement.OnWalkHop();
-                
-                Physics.SetVerticalSpeed(Movement.hopVerticalSpeed);
-            }
+            Inputs.ClearJumpFlag();
         }
 
         Physics.MovePlayer();
-
-        Animation.FaceDirection(Inputs.horizontalInput);
     }
 
     private void Update()
@@ -124,7 +127,7 @@ public class Player : MonoBehaviour
             Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration)
         {
             Collision.StartPhasingThroughPlatforms(contactPoint.collider, 0.1f);
-            Physics.SetVerticalSpeed(-Movement.fallThroughPlatformSpeed);
+            Physics.EnforceVerticalSpeed(-Movement.fallThroughPlatformSpeed);
         }
         else if (Inputs.attackFlag)
         {
@@ -132,7 +135,7 @@ public class Player : MonoBehaviour
             {
                 Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
             }
-            
+
             Attack.FindComponents(out var healthComponents, out var interactables);
             var damage = CalculateAttackDamage();
 

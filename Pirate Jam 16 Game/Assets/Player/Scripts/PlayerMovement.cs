@@ -5,8 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 3.5f;
     public float jumpSpeed = 9.5f;
-    public float stopDuration = 0.15f;
-    public float stopTimer { get; private set; }
+    public float slowSpeed = 0.1f;
     
     [Header("")]
     public float hopVerticalSpeed = 3.5f;
@@ -30,13 +29,11 @@ public class PlayerMovement : MonoBehaviour
     public void IncrementGroundedTimers()
     {
         hopTimer += Time.fixedDeltaTime;
-        stopTimer += Time.fixedDeltaTime;
     }
 
     public void ResetGroundedTimers()
     {
         hopTimer = 0f;
-        stopTimer = 0f;
     }
 
     public void IncrementJumpTimers()
