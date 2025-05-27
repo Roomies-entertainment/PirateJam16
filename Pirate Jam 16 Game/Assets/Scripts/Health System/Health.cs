@@ -19,11 +19,9 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
 
-    [SerializeField]
-    protected float explosionDamageDelay = 0f;
-
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
+    [SerializeField] protected float explosionDamageDelay = 0f;
 
     [Header("")]
     [SerializeField] protected bool blockDirectionChecking = true;

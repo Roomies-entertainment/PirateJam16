@@ -8,16 +8,23 @@ using UnityEngine.Events;
 public class EventData
 {
     public UnityEvent Event;
-    public float minDelay;
-    public float maxDelay;
+    public float delay;
+    public float delayAlt;
 
-    [Space()]
-    [Tooltip("Randomized delay toggle")]
-    public bool useMaxDelay = false;
+    [Space()] [Tooltip("Range (random value from delay to delayAlt)\n\nSwitch (50% delay, 50% delayAlt)")]
+    public RandomM.RandomType delayRandomType;
 
     public float GetDelay()
     {
-        return useMaxDelay ? RandomM.Range(minDelay, maxDelay) : minDelay;
+        switch (delayRandomType)
+        {
+            case RandomM.RandomType.Range:
+                return RandomM.Range(delay, delayAlt);
+            case RandomM.RandomType.Switch:
+                return RandomM.Float0To1() <= 0.5f ? delay : delayAlt;
+            default:
+                return delay;
+        }
     }
 }
 

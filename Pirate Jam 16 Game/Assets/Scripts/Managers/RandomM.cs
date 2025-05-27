@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class RandomM
 {
+    public enum RandomType
+    {
+        None,
+        Range,
+        Switch
+    } 
+
     public static System.Random RandomSeedless { get; private set; } = new();
 
     public static float Float0To1(System.Random random = null)
