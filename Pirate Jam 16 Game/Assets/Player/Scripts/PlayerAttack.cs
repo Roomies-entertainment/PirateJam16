@@ -5,10 +5,6 @@ using UnityEngine;
 public class PlayerAttack : Attack
 {
     [Header("")]
-    [SerializeField] private bool damagePlayers = false;
-    [SerializeField] private bool damageEnemies = true;
-
-    [Header("")]
     [Range(0, 1)] public float fallingThreshold = 0.24f;
     public int fallingExtraDamage = 1;
 
@@ -23,25 +19,66 @@ public class PlayerAttack : Attack
         attackTimer += Time.deltaTime;
     }
 
-    protected override List<System.Type> GetDetectableTypes()
+    public void FindComponents(
+        out List<DetectedComponent<Health>> healthComponents,
+        out List<DetectedComponent<Interactable>> interactables)
     {
-        List<System.Type> types = base.GetDetectableTypes();
+        var components = Detection.DetectComponentsInParents(
+            AttackCircle.transform.position, AttackCircle.GetRadius(),
+            ~(1 << CollisionM.playerLayer),
+            typeof(EnemyHealth), typeof(ObjectHealth), typeof(Interactable));
+            
+        healthComponents = new List<DetectedComponent<Health>>();
+        interactables = new List<DetectedComponent<Interactable>>();
 
-        if (damagePlayers)
-            types.Add(typeof(PlayerHealth));
+        foreach (var c in components)
+        {
+            var health = c.Key as Health;
+            var interactable = c.Key as Interactable;
 
-        if (damageEnemies)
-            types.Add(typeof(EnemyHealth));
-
-        return types;
+            if (health && CanHitObject(health.gameObject))
+            {
+                healthComponents.Add(new DetectedComponent<Health>(health, c.Value));
+            }
+            else if (interactable && CanHitObject(interactable.gameObject))
+            {
+                interactables.Add(new DetectedComponent<Interactable>(interactable));
+            }
+        }
+        
     }
 
-    protected override bool CanHitObject(GameObject obj)
+    public void PerformInteractions(List<DetectedComponent<Interactable>> detectedInteractableComponents)
+    {
+        foreach (var c in detectedInteractableComponents)
+        {
+            var interactable = c.Component;
+
+            interactable.Interact();
+
+            OnHitObject(interactable.gameObject);
+        }
+    }
+
+    private bool CanHitObject(GameObject obj)
     {
         if (hitObjects.Contains(obj))
             return false;
+            
+        if (!AttackDirectionHit(obj.transform.position))
+            return false;
+        
+        return true;
+    }
 
-        return base.CanHitObject(obj);
+    private bool AttackDirectionHit(Vector2 objPosition)
+    {
+        return
+            !directionChecking ||
+            attackDirection.sqrMagnitude == 0 ||
+            Vector2.Dot(
+                (objPosition - new Vector2(transform.position.x, transform.position.y)).normalized,
+                attackDirection.normalized) > -directionCheckDistance;
     }
 
     protected override void OnStartAttack(Vector2 direction)

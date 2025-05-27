@@ -49,58 +49,37 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
     private void SetAttackState(AttackState setTo)
     {
-        if (setTo == AttackState.Attack || setTo == AttackState.Block)
-        {
-            Attack.StopAttack();
-        }
-
         switch (setTo)
-            {
-                case AttackState.Attack:
+        {
+            case AttackState.Attack:
 
-                    RandomizeAttackDelay();
+                RandomizeAttackDelay();
 
-                    break;
+                break;
 
-                case AttackState.Attacking:
+            case AttackState.Attacking:
 
-                    RandomizeAttackDuration();
-                    Attack.FindComponents(out var healthComponents, out var interactables);
+                RandomizeAttackDuration();
+                Attack.StartAttack();
 
-                    if (healthComponents.Count > 0)
-                    {
-                        Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
+                break;
 
-                        Attack.PerformAttack(healthComponents);
+            case AttackState.Block:
 
-                        transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
-                    }
-                    else if (interactables.Count > 0)
-                    {
-                        Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
+                RandomizeBlockDelay();
 
-                        Attack.PerformInteractions(interactables);
-                    }
+                break;
 
-                    break;
+            case AttackState.Blocking:
 
-                case AttackState.Block:
+                RandomizeBlockDuration();
 
-                    RandomizeBlockDelay();
-
-                    break;
-
-                case AttackState.Blocking:
-
-                    RandomizeBlockDuration();
-
-                    break;
-            }
+                break;
+        }
 
         attackStateChange[0] = attackState;
         attackStateChange[1] = setTo;
 
-        attackState = setTo;
 
         attackLoopTimer = 0f;
     }
@@ -120,7 +99,6 @@ public class DumbSoldierBehaviour : MonoBehaviour
     private void Start()
     {
         SetAttackState(AttackState.Attack);
-        Debug.Log(attackState);
     }
 
     private void FixedUpdate()
@@ -164,7 +142,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
             UpdateJumpMovement();
 
         if (Attack.enabled)
-            UpdateAttackState();
+            UpdateAttack();
 
         if (Health.enabled)
             UpdateHealth();
@@ -216,7 +194,7 @@ public class DumbSoldierBehaviour : MonoBehaviour
         }
     }
 
-    private void UpdateAttackState()
+    private void UpdateAttack()
     {
         switch (attackState)
         {
@@ -231,6 +209,8 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
                 if (attackLoopTimer > attackDuration)
                 {
+                    Attack.StopAttack();
+
                     if (DetectionComponents.PlayerCheck.check)
                         SetAttackState(AttackState.Block);
                     else
@@ -263,7 +243,6 @@ public class DumbSoldierBehaviour : MonoBehaviour
         {
             if (!Health.blocking && attackStateChange[1] == AttackState.Blocking)
             {
-                Health.SetBlockDirection(Attack.attackDirection);
                 Health.StartBlocking();
             }
             else if (Health.blocking && attackStateChange[1] != AttackState.Blocking)

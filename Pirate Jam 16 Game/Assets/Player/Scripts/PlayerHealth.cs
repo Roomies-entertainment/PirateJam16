@@ -8,15 +8,12 @@ public class PlayerHealth : Health
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
-    protected new void Start()
+    private void Start()
     {
-        base.Start();
-        
         onStart?.Invoke((float) health / maxHealth, null);
     }
 
-    protected override AttackResult ProcessDamageFlags(
-        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
+    protected override AttackResult ProcessDamageFlags(bool blocking, bool blockColliderHit, bool damageColliderHit)
     {
         if (blocking || blockColliderHit)
         {

@@ -14,9 +14,9 @@ public class AudioPlaylist : MonoBehaviour
 
     void Awake(){
         DontDestroyOnLoad(this.gameObject);
-        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.Music);
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("music");
 
-        if (objs.Count > 1){
+        if (objs.Length > 1){
             Destroy(this.gameObject);
 
         }

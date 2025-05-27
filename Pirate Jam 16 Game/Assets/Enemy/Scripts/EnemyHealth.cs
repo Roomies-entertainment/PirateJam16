@@ -8,10 +8,8 @@ public class EnemyHealth : Health
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
         onStart?.Invoke(health / maxHealth, null);
     }
 }
