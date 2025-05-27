@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\health system\\health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\health system\\health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\explosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\explosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\health system\\objecthealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\health system\\objecthealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\health system\\health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\health system\\health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\LevelManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -54,32 +54,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Health.cs",
               "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Health System\\Health.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Health System\\Health.cs",
               "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Health System\\Health.cs",
               "RelativeToolTip": "Assets\\Scripts\\Health System\\Health.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAuwFgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAcwGUAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:07:17.963Z",
+              "WhenOpened": "2025-05-27T10:52:34.078Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ObjectHealth.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Health System\\ObjectHealth.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Health System\\ObjectHealth.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Health System\\ObjectHealth.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Health System\\ObjectHealth.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Explosion.cs",
+              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Explosion.cs",
+              "RelativeDocumentMoniker": "Assets\\Explosion.cs",
+              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Explosion.cs",
+              "RelativeToolTip": "Assets\\Explosion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:48.6Z",
+              "WhenOpened": "2025-05-27T10:25:25.698Z",
               "EditorCaption": ""
             },
             {

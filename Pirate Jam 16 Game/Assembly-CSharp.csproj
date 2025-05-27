@@ -150,6 +150,7 @@
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />
     <Compile Include="Assets\UI\Scripts\VolumeSettings.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\Explosion.cs" />
     <Compile Include="Assets\Scripts\Health System\Attack.cs" />
     <Compile Include="Assets\UI\Scripts\ToggleSettings.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\Movement2D.cs" />
