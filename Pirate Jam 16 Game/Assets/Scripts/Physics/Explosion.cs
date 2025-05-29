@@ -2,12 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystemSpawn))]
+[RequireComponent(typeof(RandomizedSound))]
 public class Explosion : MonoBehaviour
 {
+    ParticleSystemSpawn ParticleSystemSpawn;
+    RandomizedSound RandomizedSound;
+
     public float fieldofImpact;
 
     public float minForce = 8f;
     public float maxForce = 12f;
+
+    [Header("")]
+    public bool destroySelf = true;
+
+
+    private void Awake()
+    {
+        ParticleSystemSpawn = GetComponent<ParticleSystemSpawn>();
+        RandomizedSound = GetComponent<RandomizedSound>();
+    }
 
     public void Explode()
     {
@@ -24,6 +39,14 @@ public class Explosion : MonoBehaviour
 
             foreach (IProcessExplosion pE in rb.GetComponentsInChildren<IProcessExplosion>())
                 pE.ProcessExplosion(this);
+        }
+
+        ParticleSystemSpawn.SpawnAndPlayParticles();
+        RandomizedSound.PlaySound();
+
+        if (destroySelf)
+        {
+            Destroy(gameObject);
         }
     }
 
