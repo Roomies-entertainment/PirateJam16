@@ -124,9 +124,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   maxHealth: 1
-  onDieDelay: 0
-  explosionOnDieDelay: 0.4
-  destroyObjectDelay: 0
+  onDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  explosionOnDieDelay:
+    _delay: 0.6
+    _delayAlt: 1
+    delayRandomType: 1
+  destroyObjectDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
   damagedByExplosions: 1
   blockDirectionChecking: 1
   blockDirection: {x: 0, y: 0}
