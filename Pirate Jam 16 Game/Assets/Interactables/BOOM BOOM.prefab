@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 3256926932890864015}
   - component: {fileID: 363342930978516901}
   - component: {fileID: 5114190602473433248}
-  - component: {fileID: 7897972344050173073}
-  - component: {fileID: 1297561379362185308}
-  - component: {fileID: 4268798043266358691}
   m_Layer: 3
   m_Name: BOOM BOOM
   m_TagString: Untagged
@@ -36,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7326527966964286134}
+  - {fileID: 8949348329909293494}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3256926932890864015
@@ -155,7 +153,7 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7897972344050173073}
+      - m_Target: {fileID: 8942620522620221015}
         m_TargetAssemblyTypeName: Explosion, Assembly-CSharp
         m_MethodName: Explode
         m_Mode: 1
@@ -167,14 +165,60 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5114190602473433248}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: DestroyObjectNoDelay
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   debug: 0
---- !u!114 &7897972344050173073
+--- !u!1 &3587376832144046722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8949348329909293494}
+  - component: {fileID: 8942620522620221015}
+  - component: {fileID: 3823287857531194226}
+  - component: {fileID: 7231610419518182005}
+  m_Layer: 3
+  m_Name: Explosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8949348329909293494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3587376832144046722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3019194476982940133}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8942620522620221015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520968090005640207}
+  m_GameObject: {fileID: 3587376832144046722}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1a920fe9015ce748a5829133a243a79, type: 3}
@@ -184,13 +228,13 @@ MonoBehaviour:
   minForce: 8
   maxForce: 12
   destroySelf: 1
---- !u!114 &1297561379362185308
+--- !u!114 &3823287857531194226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520968090005640207}
+  m_GameObject: {fileID: 3587376832144046722}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bda6fee6c42a2b4cbef67426970d5fc, type: 3}
@@ -199,13 +243,13 @@ MonoBehaviour:
   particlePrefabs:
   - {fileID: 2138625240426279239, guid: 0cb5b59e8e4b6934e991db6da3cd3584, type: 3}
   - {fileID: 2138625240426279239, guid: dd55c6690c5898a4f97aaf10aab1c0f5, type: 3}
---- !u!114 &4268798043266358691
+--- !u!114 &7231610419518182005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520968090005640207}
+  m_GameObject: {fileID: 3587376832144046722}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2076f47584bc664481f82464255d225, type: 3}
