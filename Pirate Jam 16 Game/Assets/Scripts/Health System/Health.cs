@@ -13,18 +13,25 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     protected int maxHealth = 1;
 
     [Header("")]
-    [SerializeField]
-    [Tooltip("Used for DestroyObject()")]
-    protected float destroyObjectDelay = 0.8f;
+    [SerializeField] [Tooltip("Used for OnDie events assigned in inspector")]
+    protected float explosionOnDieDelay = 0f;
+    [SerializeField] [Tooltip("Used for OnDie events assigned in inspector")]
+    protected float onDieDelay = 0f;
+
+    [SerializeField] [Tooltip(  "Used any time this component's DestroyObject() method destroys itself or another object\n" +
+                                "Use DestroyObjectNoDelay to ignore")]
+    protected float destroyObjectDelay = 0f;
+    
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
 
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
-    [SerializeField] protected float explosionDamageDelay = 0f;
+    [SerializeField] protected bool blockDirectionChecking = true;
 
     [Header("")]
-    [SerializeField] protected bool blockDirectionChecking = true;
+    [SerializeField] private Vector2 blockDirection;
+    public void SetBlockDirection(Vector2 setTo) { blockDirection = setTo; }
     [SerializeField] protected float blockDirectionCheckDistance = -0.3f;
 
     [Header("")]
@@ -36,12 +43,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     [SerializeField] private UnityEvent<float, DetectionData> onHeal;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
     [SerializeField] private UnityEvent<DetectionData> onDie;
-
-    private Vector2 blockDirection;
-    public void SetBlockDirection(Vector2 setTo)
-    {
-        blockDirection = setTo;
-    }
 
     public enum AttackResult
     {
@@ -72,13 +73,8 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
             var data = new DetectionData(explosion.transform.position, this, explosion);
 
-            Invoke(nameof(TempExplosionDamageInterface), explosionDamageDelay);
+            IncrementHealth(-1, data);
         }
-    }
-
-    private void TempExplosionDamageInterface()
-    {
-        IncrementHealth(-1, null);
     }
 
     public virtual void IncrementHealth(int increment, DetectionData data)
@@ -112,7 +108,30 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         }
 
         if (!deadStore && dead)
-            OnDie(data);
+        {
+            if (explosionOnDieDelay > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
+            {
+                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay));
+            }
+            
+            else if (onDieDelay > 0)
+            {
+                StartCoroutine(OnDieDelayed(data, onDieDelay));
+            }
+
+            else
+            {
+                OnDie(data);
+            }
+        }
+            
+    }
+
+    private IEnumerator OnDieDelayed(DetectionData data, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        OnDie(data);
     }
 
     protected virtual void OnDie(DetectionData data)
@@ -217,6 +236,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     private void OnDisable()
     {
-        CancelInvoke();
+        StopAllCoroutines();
     }
 }

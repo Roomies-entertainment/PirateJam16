@@ -85,12 +85,12 @@ public static class Detection
         }
     }
 
-    public static bool DirectionCheck(Vector2 directiom, Vector2 originPosition, Vector2 checkPosition, float distance = 0f)
+    public static bool DirectionCheck(Vector2 direction, Vector2 originPosition, Vector2 checkPosition, float distance = 0f)
     {
         return
             Vector2.Dot(
                 (checkPosition - new Vector2(originPosition.x, originPosition.y)).normalized,
-                directiom.normalized) > -distance;
+                direction.normalized) > -distance;
     }
 }
 
