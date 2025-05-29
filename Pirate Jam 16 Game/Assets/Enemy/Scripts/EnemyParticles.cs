@@ -10,12 +10,12 @@ public class EnemyParticles : MonoBehaviour
 
     private void Start() { } // Ensures component toggle in inspector
     
-    public void OnTakeDamage(float damage, DetectionData<Health, Attack> data)
+    public void OnTakeDamage(float damage, DetectionData data)
     {
-        ParticleM.SpawnParticle(bloodParticlePrefab, data.Point, data.DetectorComponent.Component.transform, true, 0.15f);
+        ParticleM.SpawnParticle(bloodParticlePrefab, data.Point, data.DetectorComponent.transform, true, 0.15f);
     }
 
-    public void OnBlockDamage(float damage, DetectionData<Health, Attack> data)
+    public void OnBlockDamage(float damage, DetectionData data)
     {
         ParticleM.SpawnParticle(blockParticlePrefab, data.Point);
     }

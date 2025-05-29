@@ -20,26 +20,11 @@ public class PlayerCollision : MonoBehaviour
     }
 
     private ContactPoint2D phasableContactPoint;
-    public bool GetOnPhasablePlatform()
-    {
-        if (ContactPointNull(phasableContactPoint))
-        {
-            return false;
-        }
-        
-        return true;
-    }
-
     public bool GetOnPhasablePlatform(out ContactPoint2D contactPoint)
     {
         contactPoint = phasableContactPoint;
 
-        if (ContactPointNull(phasableContactPoint))
-        {
-            return false;
-        }
-        
-        return true;
+        return !ContactPointNull(phasableContactPoint);
     }
 
     public enum PlatformPhaseState
@@ -57,33 +42,17 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] [Range(0, 1)] [Tooltip("0 = Nothings a wall | 1 = Everythings a wall\nGets ignored when touching PlatformEffector components")]
     private float wallSensitivity = 0.3f;
     private ContactPoint2D wallContactPoint;
-    public bool GetOnWall()
-    {
-        if (ContactPointNull(wallContactPoint))
-        {
-            return false;
-        }
-        
-        return true;
-    }
     public bool GetOnWall(out ContactPoint2D contactPoint)
     {
         contactPoint = wallContactPoint;
 
-        if (ContactPointNull(wallContactPoint))
-            return false;
-        
-        return true;
+        return !ContactPointNull(wallContactPoint);
     }
+
+    private bool ContactPointNull(ContactPoint2D contactPoint) { return contactPoint.normal.sqrMagnitude == 0; }
 
     [Header("")]
     [SerializeField] private bool debug = false;
-
-    private bool ContactPointNull(ContactPoint2D contactPoint)
-    {
-        return contactPoint.normal.sqrMagnitude == 0;
-    }
-
 
     private void OnCollisionStay2D(Collision2D collision)
     {

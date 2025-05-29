@@ -13,11 +13,12 @@ public class CreditsScroll : MonoBehaviour
     public float speed;
 
     public float scrollStopDelay = 110;
- 
+
     // Update is called once per frame
     void Update()
     {
-        if (isMoving == true){
+        if (isMoving == true)
+        {
             transform.Translate(Vector2.up * speed * Time.deltaTime);
         }
     }
@@ -32,5 +33,10 @@ public class CreditsScroll : MonoBehaviour
         yield return new WaitForSecondsRealtime(scrollStopDelay);
 
         isMoving = false;
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

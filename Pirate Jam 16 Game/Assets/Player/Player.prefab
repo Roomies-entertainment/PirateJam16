@@ -1275,10 +1275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276ea2da493d7014da8407ffb8c18ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3.5
+  moveSpeed: 3.65
   jumpSpeed: 9.5
   stopDuration: 0.15
-  hopSpeed: 3.5
+  hopVerticalSpeed: 3.5
   hopDelay: 0.15
   upGravityScale: 1.7
   downGravityScale: 1.7

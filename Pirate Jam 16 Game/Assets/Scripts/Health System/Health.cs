@@ -3,22 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour, IProcessExplosion
 {
-    [SerializeField] [Tooltip("Object starts dead if this is 0")]
+    [SerializeField]
+    [Tooltip("Object starts dead if this is 0")]
     protected int startingHealth = 1;
 
     [SerializeField]
     protected int maxHealth = 1;
-    
+
     [Header("")]
-    [SerializeField][Tooltip("Used for DestroyObject()")]
-    protected float destroyObjectDelay = 0.8f;
+    [SerializeField] [Tooltip("Used for OnDie events assigned in inspector")]
+    protected float explosionOnDieDelay = 0f;
+    [SerializeField] [Tooltip("Used for OnDie events assigned in inspector")]
+    protected float onDieDelay = 0f;
+
+    [SerializeField] [Tooltip(  "Used any time this component's DestroyObject() method destroys itself or another object\n" +
+                                "Use DestroyObjectNoDelay to ignore")]
+    protected float destroyObjectDelay = 0f;
+    
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
 
     [Header("")]
+    [SerializeField] protected bool damagedByExplosions = true;
     [SerializeField] protected bool blockDirectionChecking = true;
+
+    [Header("")]
+    [SerializeField] private Vector2 blockDirection;
+    public void SetBlockDirection(Vector2 setTo) { blockDirection = setTo; }
     [SerializeField] protected float blockDirectionCheckDistance = -0.3f;
 
     [Header("")]
@@ -26,20 +39,10 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected Collider2D[] BlockDamageColliders;
 
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onTakeDamage;
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onHeal;
-    [SerializeField] private UnityEvent onStartBlocking;
-    [SerializeField] private UnityEvent onStopBlocking;
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onBlockDamage;
-    [SerializeField] private UnityEvent onDie;
-
-    public bool blocking { get; private set; }
-
-    private Vector2 blockDirection;
-    public void SetBlockDirection(Vector2 setTo)
-    {
-        blockDirection = setTo;
-    }
+    [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
+    [SerializeField] private UnityEvent<float, DetectionData> onHeal;
+    [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
+    [SerializeField] private UnityEvent<DetectionData> onDie;
 
     public enum AttackResult
     {
@@ -58,18 +61,29 @@ public abstract class Health : MonoBehaviour
 
     protected virtual void Start() { } // Gives it enabled checkbox
 
-    public void IncrementHealth(int increment)
+
+    public void ProcessExplosion(Explosion explosion)
+    {
+        if (damagedByExplosions)
+        {
+            if (debug)
+            {
+                Debug.Log($"{gameObject.name} taking explosion damage");
+            }
+
+            var data = new DetectionData(explosion.transform.position, this, explosion);
+
+            IncrementHealth(-1, data);
+        }
+    }
+
+    public virtual void IncrementHealth(int increment, DetectionData data)
     {
         if (!enabled)
         {
             return;
         }
 
-        IncrementHealth(increment, null);
-    }
-    
-    protected virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
-    {
         bool deadStore = dead;
 
         health = Mathf.Clamp(health + increment, 0, maxHealth);
@@ -94,35 +108,58 @@ public abstract class Health : MonoBehaviour
         }
 
         if (!deadStore && dead)
-            OnDie();
+        {
+            if (explosionOnDieDelay > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
+            {
+                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay));
+            }
+            
+            else if (onDieDelay > 0)
+            {
+                StartCoroutine(OnDieDelayed(data, onDieDelay));
+            }
+
+            else
+            {
+                OnDie(data);
+            }
+        }
+            
     }
 
-    protected virtual void OnDie()
+    private IEnumerator OnDieDelayed(DetectionData data, float delay)
     {
-        onDie?.Invoke();
+        yield return new WaitForSeconds(delay);
+
+        OnDie(data);
+    }
+
+    protected virtual void OnDie(DetectionData data)
+    {
+        onDie?.Invoke(data);
     }
 
     public new void DestroyObject(Object objOverride = null)
-    { 
+    {
         Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay);
     }
-    
+
     public void DestroyObjectNoDelay(Object objOverride = null)
-    { 
+    {
         Destroy(objOverride != null ? objOverride : gameObject);
     }
 
-    public virtual AttackResult ProcessAttack(int damage, DetectionData<Health, Attack> data)
+    public virtual AttackResult ProcessAttack(int damage, DetectionData data)
     {
         if (!enabled)
         {
             return AttackResult.Miss;
         }
 
-        bool blockColliderHit = BlockDamageColliderHit(data);
-        bool damageColliderHit = TakeDamageColliderHit(data);
-
-        AttackResult attackResult = ProcessDamageFlags(blocking, blockColliderHit, damageColliderHit, data);
+        AttackResult attackResult = ProcessDamageFlags(
+            BlockDamageColliderHit(data),
+            TakeDamageColliderHit(data),
+            data);
 
         switch (attackResult)
         {
@@ -141,39 +178,40 @@ public abstract class Health : MonoBehaviour
         return attackResult;
     }
 
-    protected bool BlockDamageColliderHit(DetectionData<Health, Attack> data)
+    protected bool BlockDamageColliderHit(DetectionData data)
     {
-        foreach(var c in BlockDamageColliders)
+        foreach (var c in BlockDamageColliders)
         {
-            if (data.DetectedComponent.Colliders.Contains(c))
+            if (data.detectedColliders.Contains(c))
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
-    protected bool TakeDamageColliderHit(DetectionData<Health, Attack> data)
+    protected bool TakeDamageColliderHit(DetectionData data)
     {
-        foreach(var c in TakeDamageColliders)
+        foreach (var c in TakeDamageColliders)
         {
-            if (data.DetectedComponent.Colliders.Contains(c))
+            if (data.detectedColliders.Contains(c))
             {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     protected virtual AttackResult ProcessDamageFlags(
-        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
+        bool blockColliderHit, bool damageColliderHit, DetectionData data)
+       
     {
-        if (( blocking || blockColliderHit ) &&
+        if (blockColliderHit && (
             !blockDirectionChecking || Detection.DirectionCheck(
-                blockDirection, transform.position, data.DetectorComponent.Component.transform.position,
-                blockDirectionCheckDistance))
+                blockDirection, transform.position, data.DetectorComponent.transform.position,
+                blockDirectionCheckDistance)))
         {
             return AttackResult.Block;
         }
@@ -182,11 +220,11 @@ public abstract class Health : MonoBehaviour
         {
             return AttackResult.Hit;
         }
-        
+
         return AttackResult.Miss;
     }
 
-    protected virtual void BlockDamage(int damage, DetectionData<Health, Attack> data)
+    protected virtual void BlockDamage(int damage, DetectionData data)
     {
         if (debug)
         {
@@ -196,27 +234,8 @@ public abstract class Health : MonoBehaviour
         onBlockDamage?.Invoke(damage, data);
     }
 
-    public virtual void StartBlocking()
+    private void OnDisable()
     {
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} is blocking");
-        }
-
-        blocking = true;
-
-        onStartBlocking?.Invoke();
-    }
-
-    public virtual void StopBlocking()
-    {
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} stopped blocking");
-        }
-
-        blocking = false;
-
-        onStopBlocking?.Invoke();
+        StopAllCoroutines();
     }
 }

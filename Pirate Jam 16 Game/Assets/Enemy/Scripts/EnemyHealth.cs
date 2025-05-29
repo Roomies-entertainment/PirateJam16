@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyHealth : Health
+public class EnemyHealth : CharacterHealth
 {
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
+    [SerializeField] private UnityEvent<float, DetectionData> onStart;
 
     protected override void Start()
     {

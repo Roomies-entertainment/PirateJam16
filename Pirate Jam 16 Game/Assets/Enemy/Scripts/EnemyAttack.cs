@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyAttack : Attack
@@ -35,9 +36,10 @@ public class EnemyAttack : Attack
         transform.position -= new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
     }
 
-    public Vector2 GetAttackDirection<T>(List<DetectedComponent<T>> components) where T : Component
+    public Vector2 GetAttackDirection<ComponentType>(Dictionary<ComponentType, List<Collider2D>> components)
+    where ComponentType : Component
     {
-        Vector2 toFirst = components[0].Component.transform.position - transform.position;
+        Vector2 toFirst = components.Keys.First().transform.position - transform.position;
 
         toFirst.y = 0f;
         toFirst.Normalize();

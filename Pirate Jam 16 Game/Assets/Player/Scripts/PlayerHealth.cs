@@ -3,32 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealth : Health
+public class PlayerHealth : CharacterHealth
 {
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
+    [SerializeField] private UnityEvent<float, DetectionData> onStart;
 
     protected new void Start()
     {
         base.Start();
         
         onStart?.Invoke((float) health / maxHealth, null);
-    }
-
-    protected override AttackResult ProcessDamageFlags(
-        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
-    {
-        if (blocking || blockColliderHit)
-        {
-            return AttackResult.Block;
-        }
-
-        if (damageColliderHit)
-        {
-            return AttackResult.Hit;
-        }
-        
-        return AttackResult.Block;
     }
 
     public void DifficultySet(int hp){

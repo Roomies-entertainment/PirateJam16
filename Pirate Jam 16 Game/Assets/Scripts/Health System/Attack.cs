@@ -45,8 +45,8 @@ public abstract class Attack : MonoBehaviour
     }
 
     public void FindComponents(
-        out List<DetectedComponent<Health>> healthComponents,
-        out List<DetectedComponent<Interactable>> interactables)
+        out Dictionary<Health, List<Collider2D>> healthComponents,
+        out Dictionary<Interactable, List<Collider2D>> interactables)
     {
 
         var components = Detection.DetectComponentsInParents(
@@ -54,8 +54,8 @@ public abstract class Attack : MonoBehaviour
             default,
             GetDetectableTypes().ToArray());
 
-        healthComponents = new List<DetectedComponent<Health>>();
-        interactables = new List<DetectedComponent<Interactable>>();
+        healthComponents = new();
+        interactables = new();
 
         foreach (var c in components)
         {
@@ -64,11 +64,12 @@ public abstract class Attack : MonoBehaviour
 
             if (health && CanHitObject(health.gameObject))
             {
-                healthComponents.Add(new DetectedComponent<Health>(health, c.Value));
+                healthComponents[health] = new List<Collider2D>(c.Value);
+                
             }
             else if (interactable && CanHitObject(interactable.gameObject))
             {
-                interactables.Add(new DetectedComponent<Interactable>(interactable));
+                interactables[interactable] = new List<Collider2D>(c.Value);
             }
         }
     }
@@ -81,7 +82,7 @@ public abstract class Attack : MonoBehaviour
         return true;
     }
 
-    public void PerformAttack(List<DetectedComponent<Health>> detectedHealthComponents, int damage = BaseDamage)
+    public void PerformAttack(Dictionary<Health, List<Collider2D>> healthComponents, int damage = BaseDamage)
     {
         if (!attacking)
         {
@@ -93,11 +94,11 @@ public abstract class Attack : MonoBehaviour
             OnStartAttack(attackDirection);
         }
 
-        foreach (var detectedHC in detectedHealthComponents)
+        foreach (var hc in healthComponents)
         {
-            var health = detectedHC.Component;
+            var health = hc.Key;
             var result = health.ProcessAttack(
-                damage, new DetectionData<Health, Attack>(health.transform.position, detectedHC, new DetectedComponent<Attack>(this)));
+                damage, new DetectionData(hc.Key.transform.position, hc.Key, this, hc.Value));
 
             switch (result)
             {
@@ -113,11 +114,11 @@ public abstract class Attack : MonoBehaviour
         }
     }
 
-    public void PerformInteractions(List<DetectedComponent<Interactable>> detectedInteractableComponents)
+    public void PerformInteractions(Dictionary<Interactable, List<Collider2D>> interactables)
     {
-        foreach (var c in detectedInteractableComponents)
+        foreach (var c in interactables)
         {
-            var interactable = c.Component;
+            var interactable = c.Key;
 
             interactable.Interact();
 
