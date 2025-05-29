@@ -4,3 +4,5 @@
 /Pirate Jam 16 Game/UserSettings/Layouts
 /Pirate Jam 16 Game/obj
 Assembly-CSharp.csproj
+*.cache
+*.meta
