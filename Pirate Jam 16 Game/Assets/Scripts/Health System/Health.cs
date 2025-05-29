@@ -34,12 +34,8 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     [Header("")]
     [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
     [SerializeField] private UnityEvent<float, DetectionData> onHeal;
-    [SerializeField] private UnityEvent onStartBlocking;
-    [SerializeField] private UnityEvent onStopBlocking;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
     [SerializeField] private UnityEvent<DetectionData> onDie;
-
-    public bool blocking { get; private set; }
 
     private Vector2 blockDirection;
     public void SetBlockDirection(Vector2 setTo)
@@ -142,7 +138,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         }
 
         AttackResult attackResult = ProcessDamageFlags(
-            blocking,
             BlockDamageColliderHit(data),
             TakeDamageColliderHit(data),
             data);
@@ -191,13 +186,13 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     }
 
     protected virtual AttackResult ProcessDamageFlags(
-        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData data)
+        bool blockColliderHit, bool damageColliderHit, DetectionData data)
        
     {
-        if ((blocking || blockColliderHit) &&
+        if (blockColliderHit && (
             !blockDirectionChecking || Detection.DirectionCheck(
                 blockDirection, transform.position, data.DetectorComponent.transform.position,
-                blockDirectionCheckDistance))
+                blockDirectionCheckDistance)))
         {
             return AttackResult.Block;
         }
@@ -218,30 +213,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         }
 
         onBlockDamage?.Invoke(damage, data);
-    }
-
-    public virtual void StartBlocking()
-    {
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} is blocking");
-        }
-
-        blocking = true;
-
-        onStartBlocking?.Invoke();
-    }
-
-    public virtual void StopBlocking()
-    {
-        if (debug)
-        {
-            Debug.Log($"{gameObject.name} stopped blocking");
-        }
-
-        blocking = false;
-
-        onStopBlocking?.Invoke();
     }
 
     private void OnDisable()
