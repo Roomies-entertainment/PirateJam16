@@ -32,12 +32,12 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     [SerializeField] protected Collider2D[] BlockDamageColliders;
 
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onTakeDamage;
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onHeal;
+    [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
+    [SerializeField] private UnityEvent<float, DetectionData> onHeal;
     [SerializeField] private UnityEvent onStartBlocking;
     [SerializeField] private UnityEvent onStopBlocking;
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onBlockDamage;
-    [SerializeField] private UnityEvent onDie;
+    [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
+    [SerializeField] private UnityEvent<DetectionData> onDie;
 
     public bool blocking { get; private set; }
 
@@ -64,24 +64,34 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     protected virtual void Start() { } // Gives it enabled checkbox
 
-    public void ProcessExplosion()
+
+    public void ProcessExplosion(Explosion explosion)
     {
         if (damagedByExplosions)
-            Invoke(nameof(IncrementHealth), explosionDamageDelay);
+        {
+            if (debug)
+            {
+                Debug.Log($"{gameObject.name} taking explosion damage");
+            }
+
+            var data = new DetectionData(explosion.transform.position, this, explosion);
+
+            Invoke(nameof(TempExplosionDamageInterface), explosionDamageDelay);
+        }
     }
 
-    public void IncrementHealth(int increment = -1)
+    private void TempExplosionDamageInterface()
+    {
+        IncrementHealth(-1, null);
+    }
+
+    public virtual void IncrementHealth(int increment, DetectionData data)
     {
         if (!enabled)
         {
             return;
         }
 
-        IncrementHealth(increment, null);
-    }
-
-    protected virtual void IncrementHealth(int increment, DetectionData<Health, Attack> data)
-    {
         bool deadStore = dead;
 
         health = Mathf.Clamp(health + increment, 0, maxHealth);
@@ -106,12 +116,12 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         }
 
         if (!deadStore && dead)
-            OnDie();
+            OnDie(data);
     }
 
-    protected virtual void OnDie()
+    protected virtual void OnDie(DetectionData data)
     {
-        onDie?.Invoke();
+        onDie?.Invoke(data);
     }
 
     public new void DestroyObject(Object objOverride = null)
@@ -124,17 +134,18 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         Destroy(objOverride != null ? objOverride : gameObject);
     }
 
-    public virtual AttackResult ProcessAttack(int damage, DetectionData<Health, Attack> data)
+    public virtual AttackResult ProcessAttack(int damage, DetectionData data)
     {
         if (!enabled)
         {
             return AttackResult.Miss;
         }
 
-        bool blockColliderHit = BlockDamageColliderHit(data);
-        bool damageColliderHit = TakeDamageColliderHit(data);
-
-        AttackResult attackResult = ProcessDamageFlags(blocking, blockColliderHit, damageColliderHit, data);
+        AttackResult attackResult = ProcessDamageFlags(
+            blocking,
+            BlockDamageColliderHit(data),
+            TakeDamageColliderHit(data),
+            data);
 
         switch (attackResult)
         {
@@ -153,11 +164,11 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         return attackResult;
     }
 
-    protected bool BlockDamageColliderHit(DetectionData<Health, Attack> data)
+    protected bool BlockDamageColliderHit(DetectionData data)
     {
         foreach (var c in BlockDamageColliders)
         {
-            if (data.DetectedComponent.Colliders.Contains(c))
+            if (data.detectedColliders.Contains(c))
             {
                 return true;
             }
@@ -166,11 +177,11 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         return false;
     }
 
-    protected bool TakeDamageColliderHit(DetectionData<Health, Attack> data)
+    protected bool TakeDamageColliderHit(DetectionData data)
     {
         foreach (var c in TakeDamageColliders)
         {
-            if (data.DetectedComponent.Colliders.Contains(c))
+            if (data.detectedColliders.Contains(c))
             {
                 return true;
             }
@@ -180,11 +191,12 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     }
 
     protected virtual AttackResult ProcessDamageFlags(
-        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
+        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData data)
+       
     {
         if ((blocking || blockColliderHit) &&
             !blockDirectionChecking || Detection.DirectionCheck(
-                blockDirection, transform.position, data.DetectorComponent.Component.transform.position,
+                blockDirection, transform.position, data.DetectorComponent.transform.position,
                 blockDirectionCheckDistance))
         {
             return AttackResult.Block;
@@ -198,7 +210,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
         return AttackResult.Miss;
     }
 
-    protected virtual void BlockDamage(int damage, DetectionData<Health, Attack> data)
+    protected virtual void BlockDamage(int damage, DetectionData data)
     {
         if (debug)
         {

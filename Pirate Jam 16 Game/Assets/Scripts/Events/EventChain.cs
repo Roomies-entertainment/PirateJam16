@@ -15,35 +15,42 @@ public class EventChain : MonoBehaviour
     private float delay;
     private float timer;
 
-    private bool _enabled;
-    public new bool enabled
+    private new bool enabled;
+    public bool GetEnabled() { return enabled; }
+    public void SetEnabled(bool setTo)
     {
-        get { return _enabled; }
-        set { if (!_enabled && value) { DoOnEnable(); } else if (_enabled && !value) { DoOnDisable(); } }
+        if (!enabled && setTo)
+        {
+            enabled = true;
+            base.enabled = true;
+
+            index = 0;
+
+            SetDelay();
+            timer = 0f;
+        }
+        else if (enabled && !setTo)
+        {
+            enabled = false;
+        }
     }
 
     private void OnEnable()
     {
-        if (!_enabled)
+        SetEnabled(true);
+    }
+
+    private void OnDisable()
+    {
+        if (!enabled)
         {
-            DoOnEnable();
+            return;
         }
-    }
 
-    private void DoOnEnable()
-    {
-        _enabled = true;
+        //Debug.Log($"{this} - Disabling queued");
+
         base.enabled = true;
-
-        index = 0;
-
-        SetDelay();
-        timer = 0f;
-    }
-
-    private void DoOnDisable()
-    {
-        _enabled = false;
+        SetEnabled(false);
     }
 
     private void Update()
@@ -73,7 +80,7 @@ public class EventChain : MonoBehaviour
                 }
                 else
                 {
-                    base.enabled = false;
+                    enabled = false;
                 }
             }
         }

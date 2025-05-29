@@ -23,7 +23,7 @@ public class Player : MonoBehaviour, IProcessExplosion
     private PlayerAnimation Animation;
     private PlayerHealth Health;
 
-    public void ProcessExplosion() { Physics.SyncForces(); Physics.ScaleSpeed(1.3f); }
+    public void ProcessExplosion(Explosion explosion) { Physics.SyncForces(); Physics.ScaleSpeed(1.3f); }
 
     private void Awake()
     {

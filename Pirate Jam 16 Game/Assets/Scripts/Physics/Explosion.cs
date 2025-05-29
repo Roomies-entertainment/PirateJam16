@@ -10,23 +10,18 @@ public class Explosion : MonoBehaviour
 
     public void Explode()
     {
-        Collider2D[] objects = Physics2D.OverlapCircleAll(transform.position, fieldofImpact);
+        Detection.DetectComponentInParents<Rigidbody2D>(transform.position, fieldofImpact, out var rbs);
 
-        foreach (Collider2D obj in objects)
+        foreach (Rigidbody2D rb in rbs)
         {
-            Rigidbody2D rb = obj.GetComponentInParent<Rigidbody2D>();
+            //print(rb);
 
-            print(rb);
-
-            if (rb == null)
-                continue;
-
-            Vector2 direction = obj.transform.position - transform.position;
+            Vector2 direction = rb.transform.position - transform.position;
 
             rb.AddForce(direction * force, ForceMode2D.Impulse);
 
-            foreach(IProcessExplosion pE in rb.GetComponentsInChildren<IProcessExplosion>())
-                pE.ProcessExplosion();
+            foreach (IProcessExplosion pE in rb.GetComponentsInChildren<IProcessExplosion>())
+                pE.ProcessExplosion(this);
         }
     }
 

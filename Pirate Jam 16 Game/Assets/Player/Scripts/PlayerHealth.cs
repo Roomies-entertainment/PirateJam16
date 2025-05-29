@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayerHealth : Health
 {
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
+    [SerializeField] private UnityEvent<float, DetectionData> onStart;
 
     protected new void Start()
     {
@@ -16,7 +16,7 @@ public class PlayerHealth : Health
     }
 
     protected override AttackResult ProcessDamageFlags(
-        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData<Health, Attack> data)
+        bool blocking, bool blockColliderHit, bool damageColliderHit, DetectionData data)
     {
         if (blocking || blockColliderHit)
         {

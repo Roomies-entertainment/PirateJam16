@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class EnemyHealth : Health
 {
     [Header("")]
-    [SerializeField] private UnityEvent<float, DetectionData<Health, Attack>> onStart;
+    [SerializeField] private UnityEvent<float, DetectionData> onStart;
 
     protected override void Start()
     {

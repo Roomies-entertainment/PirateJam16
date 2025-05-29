@@ -1,4 +1,4 @@
 public interface IProcessExplosion
 {
-    void ProcessExplosion();
+    void ProcessExplosion(Explosion explosion);
 }
