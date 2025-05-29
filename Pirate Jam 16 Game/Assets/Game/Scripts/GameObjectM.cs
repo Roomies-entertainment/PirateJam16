@@ -13,7 +13,7 @@ public static class GameObjectM
 
         var tagComponent = GameObject.FindObjectOfType<Tags>();
 
-        if (tagComponent.CheckTag(type))
+        if (tagComponent && tagComponent.CheckTag(type))
             return tagComponent.gameObject;
 
         return null;

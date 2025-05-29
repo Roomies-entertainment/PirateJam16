@@ -93,6 +93,6 @@ public class EventChain : MonoBehaviour
         if (index >= events.Count)
             return;
 
-        delay = events[index].GetDelay();
+        delay = events[index].delay.GetDelay();
     }
 }

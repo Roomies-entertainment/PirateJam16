@@ -14,13 +14,13 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     [Header("")]
     [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector")]
-    protected float onDieDelay = 0f;
+    protected DelayRandomized onDieDelay = new();
     [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector when dying from explosion")]
-    protected float explosionOnDieDelay = 0f;
+    protected DelayRandomized explosionOnDieDelay = new();
 
     [SerializeField] [Tooltip(  "Used any time this component's DestroyObject() method destroys itself or another object\n" +
                                 "Use DestroyObjectNoDelay to ignore")]
-    protected float destroyObjectDelay = 0f;
+    protected DelayRandomized destroyObjectDelay = new();
     
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
@@ -109,14 +109,14 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
         if (!deadStore && dead)
         {
-            if (explosionOnDieDelay > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
+            if (explosionOnDieDelay.GetDelay() > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
             {
-                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay));
+                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay.GetDelay()));
             }
-            
-            else if (onDieDelay > 0)
+
+            else if (onDieDelay.GetDelay() > 0)
             {
-                StartCoroutine(OnDieDelayed(data, onDieDelay));
+                StartCoroutine(OnDieDelayed(data, onDieDelay.GetDelay()));
             }
 
             else
@@ -141,7 +141,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     public new void DestroyObject(Object objOverride = null)
     {
-        Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay);
+        Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay.GetDelay());
     }
 
     public void DestroyObjectNoDelay(Object objOverride = null)
