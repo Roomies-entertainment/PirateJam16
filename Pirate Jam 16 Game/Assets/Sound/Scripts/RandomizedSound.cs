@@ -7,7 +7,7 @@ using UnityEngine;
 public class RandomizedSound : MonoBehaviour
 {
     [SerializeField] private float volume = 1f;
-    [SerializeField] private float pitchMin = 1f;
+    [SerializeField] private float pitchMin = 0.9f;
     [SerializeField] private float pitchMax = 1f;
     [SerializeField] private bool loop = false;
 
