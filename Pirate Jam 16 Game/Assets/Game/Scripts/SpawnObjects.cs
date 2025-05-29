@@ -15,11 +15,11 @@ public class SpawnObjects : MonoBehaviour
 
     [Header("")]
     [SerializeField] private int amount = 1;
-    [SerializeField] [Tooltip("Used when applying random offset to multiple objects spawned at same point")] private float spawnPointRadius = 1f;  
+    [SerializeField][Tooltip("Used when applying random offset to multiple objects spawned at same point")] private float spawnPointRadius = 1f;
 
     [Header("")]
     [SerializeField] private GameObject[] objectsToSpawn;
-    [SerializeField] [Tooltip("Just uses this game object if none are assigned")] private GameObject[] spawnPoints;
+    [SerializeField][Tooltip("Just uses this game object if none are assigned")] private GameObject[] spawnPoints;
 
     private void OnValidate()
     {
@@ -61,7 +61,7 @@ public class SpawnObjects : MonoBehaviour
 
         //Debug.Log($"spawn time: {spawnInterval}");
 
-        Invoke("SpawnInvoked", spawnInterval);
+        Invoke(nameof(SpawnInvoked), spawnInterval);
     }
 
     private void SpawnInvoked()
@@ -90,5 +90,10 @@ public class SpawnObjects : MonoBehaviour
         {
             Spawn();
         }
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke();
     }
 }

@@ -12,11 +12,13 @@ public class AudioPlaylist : MonoBehaviour
 
     private float audioInterval;
 
-    void Awake(){
+    void Awake()
+    {
         DontDestroyOnLoad(this.gameObject);
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("music");
+        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.Music);
 
-        if (objs.Length > 1){
+        if (objs.Count > 1)
+        {
             Destroy(this.gameObject);
 
         }
@@ -31,18 +33,21 @@ public class AudioPlaylist : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0)){
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+        {
             Destroy(this.gameObject);
         }
     }
 
 
-    private void Start(){
-        
+    private void Start()
+    {
+
     }
 
-    IEnumerator AudioPlaylistCycle(){
-        
+    IEnumerator AudioPlaylistCycle()
+    {
+
         for (int i = 0; i < audioClips.Length + 1; i = i)
         {
             Debug.Log($"Audio Time: {audioInterval}");
@@ -53,5 +58,10 @@ public class AudioPlaylist : MonoBehaviour
             audioPlayer.Play();
             audioInterval = currentClip.length;
         }
+    }
+    
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

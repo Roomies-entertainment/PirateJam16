@@ -5,15 +5,18 @@ using UnityEngine.Events;
 
 public abstract class Attack : MonoBehaviour
 {
+    [SerializeField] protected bool damageObjects = false;
+    [SerializeField] protected bool hitInteractables = false;
+
     [Header("")]
     [SerializeField] protected CircleGizmo AttackCircle;
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] protected float directionCheckDistance = 1f;
     [SerializeField] protected bool directionChecking = true;
+    [SerializeField] protected float directionCheckDistance = 1f;
 
-    protected Vector2 attackDirection;
+    public Vector2 attackDirection { get; private set; }
     public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
 
     public bool attacking { get; private set; }
@@ -28,7 +31,58 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] private UnityEvent<GameObject> onMissObject;
     [SerializeField] private UnityEvent onStopAttack;
 
-    public void PerformAttack(List<DetectedComponent<Health>> detectedHealthComponents, int damage = BaseDamage)
+    protected virtual List<System.Type> GetDetectableTypes()
+    {
+        List<System.Type> types = new();
+
+        if (damageObjects)
+            types.Add(typeof(ObjectHealth));
+            
+        if (hitInteractables)
+            types.Add(typeof(Interactable));
+
+        return types;
+    }
+
+    public void FindComponents(
+        out Dictionary<Health, List<Collider2D>> healthComponents,
+        out Dictionary<Interactable, List<Collider2D>> interactables)
+    {
+
+        var components = Detection.DetectComponentsInParents(
+            AttackCircle.transform.position, AttackCircle.GetRadius(),
+            default,
+            GetDetectableTypes().ToArray());
+
+        healthComponents = new();
+        interactables = new();
+
+        foreach (var c in components)
+        {
+            var health = c.Key as Health;
+            var interactable = c.Key as Interactable;
+
+            if (health && CanHitObject(health.gameObject))
+            {
+                healthComponents[health] = new List<Collider2D>(c.Value);
+                
+            }
+            else if (interactable && CanHitObject(interactable.gameObject))
+            {
+                interactables[interactable] = new List<Collider2D>(c.Value);
+            }
+        }
+    }
+
+    protected virtual bool CanHitObject(GameObject obj)
+    {
+        if (!AttackDirectionHit(obj.transform.position))
+            return false;
+        
+        return true;
+    }
+
+    public void PerformAttack(Dictionary<Health, List<Collider2D>> healthComponents, int damage = BaseDamage)
     {
         if (!attacking)
         {
@@ -40,13 +94,13 @@ public abstract class Attack : MonoBehaviour
             OnStartAttack(attackDirection);
         }
 
-        foreach (var detectedHC in detectedHealthComponents)
+        foreach (var hc in healthComponents)
         {
-            var health = detectedHC.Component;
+            var health = hc.Key;
             var result = health.ProcessAttack(
-                damage, new DetectionData<Health, Attack>(health.transform.position, detectedHC, new DetectedComponent<Attack>(this)));
-            
-            switch(result)
+                damage, new DetectionData(hc.Key.transform.position, hc.Key, this, hc.Value));
+
+            switch (result)
             {
                 case Health.AttackResult.Hit:
                     OnHitObject(health.gameObject); break;
@@ -57,6 +111,18 @@ public abstract class Attack : MonoBehaviour
                 case Health.AttackResult.Miss:
                     OnMissObject(health.gameObject); break;
             }
+        }
+    }
+
+    public void PerformInteractions(Dictionary<Interactable, List<Collider2D>> interactables)
+    {
+        foreach (var c in interactables)
+        {
+            var interactable = c.Key;
+
+            interactable.Interact();
+
+            OnHitObject(interactable.gameObject);
         }
     }
 
@@ -122,5 +188,13 @@ public abstract class Attack : MonoBehaviour
         attacking = false;
 
         onStopAttack?.Invoke();
+    }
+    
+    protected bool AttackDirectionHit(Vector2 objPosition)
+    {
+        return
+            !directionChecking ||
+            attackDirection.sqrMagnitude == 0 ||
+            Detection.DirectionCheck(attackDirection, transform.position, objPosition, directionCheckDistance);
     }
 }

@@ -10,7 +10,7 @@ public class ParticleSystemStop : MonoBehaviour
 
     void Start()
     {
-        Invoke("Stop", stopDelay);
+        Invoke(nameof(Stop), stopDelay);
     }
 
     private void Stop()
@@ -23,5 +23,10 @@ public class ParticleSystemStop : MonoBehaviour
         }
 
         system.Stop();
+    }
+
+    private void OnDestroy()
+    {
+        CancelInvoke();
     }
 }

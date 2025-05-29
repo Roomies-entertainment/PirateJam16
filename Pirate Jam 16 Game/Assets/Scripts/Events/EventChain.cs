@@ -15,27 +15,42 @@ public class EventChain : MonoBehaviour
     private float delay;
     private float timer;
 
-    private bool _enabled;
-    public new bool enabled
+    private new bool enabled;
+    public bool GetEnabled() { return enabled; }
+    public void SetEnabled(bool setTo)
     {
-        get { return _enabled; }
-        set { if (!_enabled && value) { OnEnable(); } _enabled = value; }
-    }
+        if (!enabled && setTo)
+        {
+            enabled = true;
+            base.enabled = true;
 
-    private void Awake()
-    {
-        _enabled = base.enabled;
+            index = 0;
+
+            SetDelay();
+            timer = 0f;
+        }
+        else if (enabled && !setTo)
+        {
+            enabled = false;
+        }
     }
 
     private void OnEnable()
     {
-        _enabled = true;
+        SetEnabled(true);
+    }
 
-        index = 0;
+    private void OnDisable()
+    {
+        if (!enabled)
+        {
+            return;
+        }
 
-        SetDelay();
+        //Debug.Log($"{this} - Disabling queued");
 
-        timer = 0f;
+        base.enabled = true;
+        SetEnabled(false);
     }
 
     private void Update()
@@ -50,10 +65,24 @@ public class EventChain : MonoBehaviour
             currentEvent = events[index];
             currentEvent.Event?.Invoke();
 
-            index = (enabled && loop) ? (index + 1) % events.Count : index + 1;
+            if (enabled && loop)
+            {
+                index = (index + 1) % events.Count;
+            }
+            else
+            {
+                index = index + 1;
 
-            SetDelay();
-            timer = 0f;
+                if (index < events.Count)
+                {
+                    SetDelay();
+                    timer = 0f;
+                }
+                else
+                {
+                    enabled = false;
+                }
+            }
         }
 
         timer += Time.deltaTime;
@@ -64,6 +93,6 @@ public class EventChain : MonoBehaviour
         if (index >= events.Count)
             return;
 
-        delay = RandomM.Range(events[index].delayMin, events[index].delayMax);
+        delay = events[index].GetDelay();
     }
 }

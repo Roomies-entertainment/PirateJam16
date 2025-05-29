@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider;
 
-    public void SetHealth(float health01, DetectionData<Health, Attack> data)
+    public void SetHealth(float health01, DetectionData data)
     {
         slider.value = health01;
     }

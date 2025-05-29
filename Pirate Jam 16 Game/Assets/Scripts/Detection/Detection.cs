@@ -2,50 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectionData<DetectedType, DetectorType>
-{
-    public Vector2 Point { get; private set; }
-    public DetectedComponent<DetectedType> DetectedComponent { get; private set; }
-    public DetectedComponent<DetectorType> DetectorComponent { get; private set; }
-    
-
-    public DetectionData(
-        Vector2 point, DetectedComponent<DetectedType> detectedComponentData, DetectedComponent<DetectorType> detectorComponentData)
-    {
-        Point = point;
-        DetectedComponent = detectedComponentData;
-        DetectorComponent = detectorComponentData;
-    }
-}
-
-public class DetectedComponent<T>
-{
-    public T Component { get; private set; }
-    public readonly List<Collider2D> Colliders = new List<Collider2D>();
-
-    public DetectedComponent(T component, List<Collider2D> colliders)
-    {
-        Component = component;
-
-        if (colliders != null)
-        {
-            foreach (Collider2D collider in colliders)
-                Colliders.Add(collider);
-        }
-    }
-
-    public DetectedComponent(T component, params Collider2D[] colliders)
-    {
-        Component = component;
-
-        if (colliders != null)
-        {
-            foreach (Collider2D collider in colliders)
-                Colliders.Add(collider);
-        }
-    }
-}
-
 public static class Detection
 {
     public enum CastType2D
@@ -105,7 +61,7 @@ public static class Detection
         return components;
     }
 
-    public static void DetectComponentInParent<Type>(
+    public static void DetectComponentInParents<Type>(
         Vector2 pos, float radius, out List<Type> components, LayerMask layerMask = default) where Type : Component
     {
         if (layerMask.value == 0)
@@ -126,6 +82,47 @@ public static class Detection
             }
 
             components.Add(component);
+        }
+    }
+
+    public static bool DirectionCheck(Vector2 direction, Vector2 originPosition, Vector2 checkPosition, float distance = 0f)
+    {
+        return
+            Vector2.Dot(
+                (checkPosition - new Vector2(originPosition.x, originPosition.y)).normalized,
+                direction.normalized) > -distance;
+    }
+}
+
+public class DetectionData
+{
+    public Vector2 Point { get; private set; }
+    public Component DetectedComponent { get; private set; }
+    public Component DetectorComponent { get; private set; }
+
+    public readonly List<Collider2D> detectedColliders = new();
+    public readonly List<Collider2D> detectorColliders = new();
+
+
+    public DetectionData(
+        Vector2 point,
+        Component detectedComponent,
+        Component detectorComponent,
+        List<Collider2D> detectedColliders = null,
+        List<Collider2D> detectorColliders = null)
+    {
+        Point = point;
+        DetectedComponent = detectedComponent;
+        DetectorComponent = detectorComponent;
+
+        if (detectedColliders != null)
+        {
+            this.detectedColliders.AddRange(detectedColliders);
+        }
+
+        if (detectorColliders != null)
+        {
+            this.detectorColliders.AddRange(detectorColliders);
         }
     }
 }
