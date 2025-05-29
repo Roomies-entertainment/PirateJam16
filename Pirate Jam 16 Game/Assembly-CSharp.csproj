@@ -68,6 +68,7 @@
     <Compile Include="Assets\UI\Scripts\SliderGradient.cs" />
     <Compile Include="Assets\Scripts\Events\ChanceEvent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\Scripts\Health System\CharacterHealth.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\UI\Scripts\Hint.cs" />
     <Compile Include="Assets\Scripts\Triggers\TriggerObjectDestroyer.cs" />

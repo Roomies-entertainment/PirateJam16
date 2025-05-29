@@ -13,10 +13,10 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     protected int maxHealth = 1;
 
     [Header("")]
-    [SerializeField] [Tooltip("Used for OnDie events assigned in inspector")]
-    protected float explosionOnDieDelay = 0f;
-    [SerializeField] [Tooltip("Used for OnDie events assigned in inspector")]
+    [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector")]
     protected float onDieDelay = 0f;
+    [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector when dying from explosion")]
+    protected float explosionOnDieDelay = 0f;
 
     [SerializeField] [Tooltip(  "Used any time this component's DestroyObject() method destroys itself or another object\n" +
                                 "Use DestroyObjectNoDelay to ignore")]

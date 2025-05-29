@@ -6,7 +6,8 @@ public class Explosion : MonoBehaviour
 {
     public float fieldofImpact;
 
-    public float force;
+    public float minForce = 8f;
+    public float maxForce = 12f;
 
     public void Explode()
     {
@@ -16,9 +17,10 @@ public class Explosion : MonoBehaviour
         {
             //print(rb);
 
-            Vector2 direction = rb.transform.position - transform.position;
+            Vector2 toObject = rb.transform.position - transform.position;
+            Vector2 force = toObject.normalized * Mathf.Lerp(minForce, maxForce, toObject.magnitude / fieldofImpact);
 
-            rb.AddForce(direction * force, ForceMode2D.Impulse);
+            rb.AddForce(force, ForceMode2D.Impulse);
 
             foreach (IProcessExplosion pE in rb.GetComponentsInChildren<IProcessExplosion>())
                 pE.ProcessExplosion(this);

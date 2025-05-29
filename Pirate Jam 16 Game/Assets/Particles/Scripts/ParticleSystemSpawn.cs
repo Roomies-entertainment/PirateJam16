@@ -1,23 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleSystemSpawn : MonoBehaviour
 {
-    [SerializeField] private GameObject particlePrefab;
+    [SerializeField] private List<GameObject> particlePrefabs = new();
+
+    public void SpawnParticles()
+    {
+        SpawnParticles(false);
+    }
 
     public void SpawnAndPlayParticles()
     {
-        SpawnParticles().Play();
+        SpawnParticles(true);
     }
 
-    public ParticleSystem SpawnParticles()
+    private void SpawnParticles(bool play)
     {
-        var particleSystem = Instantiate(particlePrefab, transform.position, transform.rotation).GetComponentInChildren<ParticleSystem>();
-        
-        if (particleSystem == null)
-            return null;
+        foreach (var prefab in particlePrefabs)
+        {
+            var obj = Instantiate(prefab, transform.position, transform.rotation);
+            var p = GetComponentInChildren<ParticleSystem>();
 
-        return particleSystem;
+            if (p != null)
+                if (play)
+                    p.Play();
+                else
+                    Destroy(obj);
+        }
     }
 }

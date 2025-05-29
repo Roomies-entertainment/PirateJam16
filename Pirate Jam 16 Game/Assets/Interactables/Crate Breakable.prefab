@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 8466280529872135160, guid: 3084e7755a0af36418c68fbac2c3d899, type: 3}
+  particlePrefabs:
+  - {fileID: 8466280529872135160, guid: 3084e7755a0af36418c68fbac2c3d899, type: 3}
 --- !u!1 &3833462083933254254
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +298,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   maxHealth: 1
+  onDieDelay: 0
+  explosionOnDieDelay: 0
+  destroyObjectDelay: 0
+  damagedByExplosions: 1
+  blockDirectionChecking: 1
+  blockDirection: {x: 0, y: 0}
+  blockDirectionCheckDistance: -0.3
   TakeDamageColliders:
   - {fileID: 3417955917289440966}
   BlockDamageColliders: []
@@ -303,12 +312,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onHeal:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartBlocking:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopBlocking:
     m_PersistentCalls:
       m_Calls: []
   onBlockDamage:
