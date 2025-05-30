@@ -73,7 +73,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
             var data = new DetectionData(explosion.transform.position, this, explosion);
 
-            IncrementHealth(-1, data);
+            IncrementHealth(-explosion.damage, data);
         }
     }
 

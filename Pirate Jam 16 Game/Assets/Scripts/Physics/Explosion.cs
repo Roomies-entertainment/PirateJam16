@@ -10,6 +10,8 @@ public class Explosion : MonoBehaviour
     RandomizedSound RandomizedSound;
 
     public float fieldofImpact;
+    private const float foiToDamage = 0.5f;
+    public int damage { get { return (int)Mathf.Round(fieldofImpact * foiToDamage); } }
 
     public float minForce = 8f;
     public float maxForce = 12f;
