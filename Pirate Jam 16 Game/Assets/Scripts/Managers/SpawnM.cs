@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnM : MonoBehaviour
 {
-    [Tooltip(   "Its children are used as respawn points\n" +
-                "If unassigned, it will be set to object tagged \"Respawn\" automatically")]
+    [Tooltip(   "Children are used as respawn points\n" +
+                "If unassigned, will be set to anything tagged \"Respawn\" automatically")]
     [SerializeField] private GameObject respawnPointParent;
 
     private void OnValidate()

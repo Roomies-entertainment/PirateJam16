@@ -41,12 +41,18 @@ public class Player : MonoBehaviour, IProcessExplosion
         Physics.InitializeRigidbody();
     }
 
+    #region Fixed Update
     private void FixedUpdate()
     {
-        bool onGround = Collision.GroundDetector.surfaceDetected;
-        bool groundHit = Collision.GroundDetector.gotHit;
+        bool onGroundFlag = Collision.GroundDetector.surfaceDetected;
+        bool groundHitFlag = Collision.GroundDetector.gotHit;
+        bool onWallFlag = Collision.GetOnWall(out ContactPoint2D wallContact);
+        bool hopFlag = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
+        bool jumpFlag = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
-        HandleMovement(onGround, groundHit);
+        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
+        FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
+        FixedUpdateInputs(jumpFlag);
 
         Animation.FaceDirection(Inputs.horizontalInput);
 
@@ -54,110 +60,177 @@ public class Player : MonoBehaviour, IProcessExplosion
         Movement.IncrementGroundedTimers();
     }
 
-    private void HandleMovement(bool onGround, bool groundHit)
+    private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
     {
+        if (!Physics.enabled)
+        {
+            return;
+        }
+
         Physics.SyncForces();
 
-        if (onGround)
+        if (onGroundFlag)
         {
             Physics.AddForce(Vector2.up * Physics2D.gravity.y * Movement.downGravityScale);
             Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
 
-            if (Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay)
+            if (hopFlag)
             {
-                Movement.OnWalkHop();
-
                 Physics.EnforceVerticalSpeed(Movement.hopVerticalSpeed);
             }
         }
         else
         {
             Physics.EnforceHorizontalSpeed(Inputs.horizontalInput * Movement.moveSpeed);
-
             Physics.AddForce(Physics2D.gravity * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
-            if (Collision.GetOnWall(out ContactPoint2D contactPoint))
+            if (onWallFlag)
             {
-                Physics.SlideAlongSurface(contactPoint.normal);
+                Physics.SlideAlongSurface(wallContact.normal);
             }
-
-            Movement.ResetGroundedTimers();
         }
 
-        if ((onGround || groundHit && Physics.speedY > 0f) && Inputs.jumpFlag)
+        if (jumpFlag)
         {
             Physics.EnforceVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
-
-            Movement.OnJump();
-
-            Inputs.ClearJumpFlag();
         }
 
         Physics.MovePlayer();
     }
 
-    private void Update()
+    private void FixedUpdateMovement(bool onGroundFlag, bool hopFlag, bool jumpFlag)
     {
-        Inputs.UpdateTimers();
+        if (!Movement.enabled)
+        {
+            return;
+        }
+
+        if (onGroundFlag)
+        {
+            if (hopFlag)
+            {
+                Movement.OnWalkHop();
+            }
+        }
+        else
+        {
+            Movement.ResetGroundedTimers();
+        }
+
+        if (jumpFlag)
+        {
+            Movement.OnJump();
+        }
     }
 
+    private void FixedUpdateInputs(bool jumpFlag)
+    {
+        if (!Inputs.enabled)
+        {
+            return;
+        }
+
+        if (jumpFlag)
+        {
+            Inputs.ClearJumpFlag();
+        }
+    }
+    #endregion
+
+    #region Update
+    private void Update()
+    {
+        UpdateInputs();
+    }
+
+    private void UpdateInputs()
+    {
+        if (!Inputs.enabled)
+        {
+            return;
+        }
+
+        Inputs.UpdateTimers();
+    }
+    #endregion
+
+    #region Late Update
     private void LateUpdate()
     {
-        ReadInputs();
+        bool platformPhaseFlag = (
+            Collision.GetOnPhasablePlatform(out ContactPoint2D phasableContact) &&
+            Collision.platformPhaseState == PlayerCollision.PlatformPhaseState.None &&
+            Inputs.verticalInput < -0.35f &&
+            Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration);
+
+        LateUpdatePhysics(platformPhaseFlag);
+        LateUpdateCollision(platformPhaseFlag, phasableContact);
+        LateUpdateHealth();
+        LateUpdateMovement();
+        LateUpdateAttack();
+        LateUpdateInputs();
 
         Movement.IncrementJumpTimers();
     }
 
-    private void ReadInputs()
+    private void LateUpdatePhysics(bool platformPhaseFlag)
     {
-        if (Inputs.verticalInput >= 0f)
-            Collision.ResetPhaseTimers();
-        else
+        if (!Physics.enabled)
         {
+            return;
+        }
+
+
+        if (platformPhaseFlag)
+        {
+            Physics.EnforceVerticalSpeed(-Movement.fallThroughPlatformSpeed);
+        }
+    }
+
+    private void LateUpdateCollision(bool platformPhaseFlag, ContactPoint2D phasableContact)
+    {
+        if (!Collision.enabled)
+        {
+            return;
+        }
+
+
+        if (Inputs.verticalInput >= 0f)
+        {
+            Collision.ResetPhaseTimers();
+
             if (Collision.platformPhaseState > PlayerCollision.PlatformPhaseState.ForcePhasing)
             {
                 Collision.StopPhasingThroughPlatforms();
             }
         }
-
-        if (Collision.GetOnPhasablePlatform(out ContactPoint2D contactPoint) &&
-            Collision.platformPhaseState == PlayerCollision.PlatformPhaseState.None &&
-            Inputs.verticalInput < -0.35f &&
-            Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration)
+        else
         {
-            Collision.StartPhasingThroughPlatforms(contactPoint.collider, 0.1f);
-            Physics.EnforceVerticalSpeed(-Movement.fallThroughPlatformSpeed);
-        }
-        else if (Inputs.attackFlag)
-        {
-            if (!Attack.attacking)
+            if (platformPhaseFlag)
             {
-                Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
+                Collision.StartPhasingThroughPlatforms(phasableContact.collider, 0.1f);
             }
+        }
+    }
 
-            Attack.FindComponents(out var healthComponents, out var interactables);
-            var damage = CalculateAttackDamage();
+    private void LateUpdateHealth()
+    {
+        if (!Health.enabled)
+        {
+            return;
+        }
 
-            Attack.PerformAttack(healthComponents, damage);
-            Attack.PerformInteractions(interactables);
 
-            Inputs.ClearBlockFlag();
-
+        if (Inputs.attackFlag)
+        {
             if (Health.blocking)
             {
                 Health.StopBlocking();
             }
-
-            Movement.ResetJumpTimers();
         }
         else if (Attack.attackTimer > Attack.AttackDuration)
         {
-            if (Attack.attacking)
-            {
-                Attack.StopAttack();
-            }
-
             if (enableBlocking && Inputs.blockFlag)
             {
                 Health.StartBlocking();
@@ -168,6 +241,62 @@ public class Player : MonoBehaviour, IProcessExplosion
             }
         }
     }
+
+    private void LateUpdateMovement()
+    {
+        if (!Inputs.enabled)
+        {
+            return;
+        }
+
+
+        if (Inputs.attackFlag)
+        {
+            Movement.ResetJumpTimers();
+        }
+    }
+
+    private void LateUpdateAttack()
+    {
+        if (!Attack.enabled)
+        {
+            return;
+        }
+        
+
+        if (Inputs.attackFlag)
+        {
+            if (!Attack.attacking)
+            {
+                Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
+            }
+
+            Attack.FindComponents(out var healthComponents, out var interactables);
+            Attack.PerformAttack(healthComponents, CalculateAttackDamage());
+            Attack.PerformInteractions(interactables);
+        }
+        else if (Attack.attackTimer > Attack.AttackDuration)
+        {
+            if (Attack.attacking)
+            {
+                Attack.StopAttack();
+            }
+        }
+    }
+
+    private void LateUpdateInputs()
+    {
+        if (!Inputs.enabled)
+        {
+            return;
+        }
+
+        if (Inputs.attackFlag)
+        {
+            Inputs.ClearBlockFlag();
+        }
+    }
+    #endregion
 
     private int CalculateAttackDamage()
     {
