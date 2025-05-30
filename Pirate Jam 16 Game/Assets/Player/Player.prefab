@@ -1263,6 +1263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4709282171187345005}
   physicsMaterial: {fileID: 6200000, guid: ee458159d3aa1b149a4bf51560aa0409, type: 2}
+  explosionDuration: 1
 --- !u!114 &6328531377824871612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,8 +1277,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.65
-  jumpSpeed: 9.5
-  stopDuration: 0.15
+  jumpSpeed: 10
+  slowSpeed: 0
   hopVerticalSpeed: 3.5
   hopDelay: 0.15
   upGravityScale: 1.7
@@ -1325,13 +1326,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePlayers: 0
-  damageEnemies: 1
   damageObjects: 1
   hitInteractables: 1
   AttackCircle: {fileID: 7492755210599710390}
-  directionCheckDistance: 1
   directionChecking: 1
+  directionCheckDistance: 1
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1432,6 +1431,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  damagePlayers: 0
+  damageEnemies: 1
   fallingThreshold: 0.24
   fallingExtraDamage: 1
   AttackDuration: 0.3
@@ -1449,7 +1450,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 6
   maxHealth: 6
-  destroyObjectDelay: 0.8
+  onDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  explosionOnDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  destroyObjectDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  damagedByExplosions: 1
+  blockDirectionChecking: 1
+  blockDirection: {x: 0, y: 0}
+  blockDirectionCheckDistance: -0.3
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
   BlockDamageColliders: []
@@ -1507,12 +1523,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onStartBlocking:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopBlocking:
-    m_PersistentCalls:
-      m_Calls: []
   onBlockDamage:
     m_PersistentCalls:
       m_Calls:
@@ -1568,6 +1578,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   debug: 0
+  onStartBlocking:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopBlocking:
+    m_PersistentCalls:
+      m_Calls: []
   onStart:
     m_PersistentCalls:
       m_Calls:

@@ -42,6 +42,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] [Range(0, 1)] [Tooltip("0 = Nothings a wall | 1 = Everythings a wall\nGets ignored when touching PlatformEffector components")]
     private float wallSensitivity = 0.3f;
     private ContactPoint2D wallContactPoint;
+    //public ContactPoint2D GetWallContact() { return wallContactPoint; }
     public bool GetOnWall(out ContactPoint2D contactPoint)
     {
         contactPoint = wallContactPoint;

@@ -24,14 +24,26 @@ public class PlayerPhysics : MonoBehaviour
         speedX = rb.velocity.x;
         speedY = rb.velocity.y;
     }
+    /* 
+        public void AddForce(Vector2 force)
+        {
+            force *= Time.fixedDeltaTime;
 
-    public void AddForce(Vector2 force)
+            speedX += force.x;
+            speedY += force.y;
+        }
+     */
+ 
+    public void AddHorizontalSpeed(float speed)
     {
-        force *= Time.fixedDeltaTime;
-
-        speedX += force.x;
-        speedY += force.y;
+        speedX += speed;
     }
+
+    public void AddVerticalSpeed(float speed)
+    {
+        speedY += speed;
+    }
+
 
     public void EnforceHorizontalSpeed(float enforced)
     {

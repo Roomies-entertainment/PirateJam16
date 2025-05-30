@@ -55,47 +55,47 @@ public class DumbSoldierBehaviour : MonoBehaviour
         }
 
         switch (setTo)
-            {
-                case AttackState.Attack:
+        {
+            case AttackState.Attack:
 
-                    RandomizeAttackDelay();
+                RandomizeAttackDelay();
 
-                    break;
+                break;
 
-                case AttackState.Attacking:
+            case AttackState.Attacking:
 
-                    RandomizeAttackDuration();
-                    Attack.FindComponents(out var healthComponents, out var interactables);
+                RandomizeAttackDuration();
+                Attack.FindComponents(out var healthComponents, out var interactables);
 
-                    if (healthComponents.Count > 0)
-                    {
-                        Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
+                if (healthComponents.Count > 0)
+                {
+                    Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
 
-                        Attack.PerformAttack(healthComponents);
+                    Attack.PerformAttack(healthComponents);
 
-                        transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
-                    }
-                    else if (interactables.Count > 0)
-                    {
-                        Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
+                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
+                }
+                else if (interactables.Count > 0)
+                {
+                    Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
 
-                        Attack.PerformInteractions(interactables);
-                    }
+                    Attack.PerformInteractions(interactables);
+                }
 
-                    break;
+                break;
 
-                case AttackState.Block:
+            case AttackState.Block:
 
-                    RandomizeBlockDelay();
+                RandomizeBlockDelay();
 
-                    break;
+                break;
 
-                case AttackState.Blocking:
+            case AttackState.Blocking:
 
-                    RandomizeBlockDuration();
+                RandomizeBlockDuration();
 
-                    break;
-            }
+                break;
+        }
 
         attackStateChange[0] = attackState;
         attackStateChange[1] = setTo;
@@ -120,7 +120,6 @@ public class DumbSoldierBehaviour : MonoBehaviour
     private void Start()
     {
         SetAttackState(AttackState.Attack);
-        Debug.Log(attackState);
     }
 
     private void FixedUpdate()
@@ -273,15 +272,8 @@ public class DumbSoldierBehaviour : MonoBehaviour
         }
     }
 
-    private void UpdateAnimation()
-    {
-
-    }
-
-    private void UpdateParticles()
-    {
-
-    }
+    private void UpdateAnimation() { }
+    private void UpdateParticles() { }
 
     private void UpdateStepChecks()
     {
