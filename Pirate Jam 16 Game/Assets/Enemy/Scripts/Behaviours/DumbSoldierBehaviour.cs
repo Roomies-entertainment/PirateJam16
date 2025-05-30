@@ -120,7 +120,6 @@ public class DumbSoldierBehaviour : MonoBehaviour
     private void Start()
     {
         SetAttackState(AttackState.Attack);
-        Debug.Log(attackState);
     }
 
     private void FixedUpdate()

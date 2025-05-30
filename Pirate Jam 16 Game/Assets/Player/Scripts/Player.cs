@@ -71,7 +71,7 @@ public class Player : MonoBehaviour, IProcessExplosion
 
         if (onGroundFlag)
         {
-            Physics.AddForce(Vector2.up * Physics2D.gravity.y * Movement.downGravityScale);
+            Physics.AddVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale * Time.fixedDeltaTime);
             Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
 
             if (hopFlag)
@@ -82,7 +82,13 @@ public class Player : MonoBehaviour, IProcessExplosion
         else
         {
             Physics.EnforceHorizontalSpeed(Inputs.horizontalInput * Movement.moveSpeed);
-            Physics.AddForce(Physics2D.gravity * (
+
+            if (Inputs.horizontalInput == 0f)
+            {
+                Physics.AddHorizontalSpeed(-Physics.speedX * Movement.slowSpeed * Time.fixedDeltaTime);
+            }
+
+            Physics.AddVerticalSpeed(Physics2D.gravity.y  * Time.fixedDeltaTime * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
             if (onWallFlag)
