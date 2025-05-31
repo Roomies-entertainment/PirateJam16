@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpDampTimer { get; private set; }
     public const float JumpDampDuration = 0.1f;
 
+    private void Start() { } // Ensures component toggle in inspector
+
     public void IncrementGroundedTimers()
     {
         hopTimer += Time.fixedDeltaTime;

@@ -22,6 +22,8 @@ public class PlayerUI : MonoBehaviour
         counterText.text = deathCounter.ToString();
     }
 
+    private void Start() { } // Ensures component toggle in inspector
+
     public void DeathCounter(){
         deathCounter++;
         counterText.text = deathCounter.ToString();
