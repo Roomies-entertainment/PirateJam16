@@ -12,6 +12,8 @@ public class PlayerPhysics : MonoBehaviour
     public float speedX { get; private set; }
     public float speedY { get; private set; }
 
+    private void Start() { } // Ensures component toggle in inspector
+
     public void InitializeRigidbody()
     {
         rb.gravityScale = 0;
