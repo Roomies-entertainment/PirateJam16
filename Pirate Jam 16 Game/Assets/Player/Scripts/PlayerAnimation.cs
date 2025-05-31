@@ -4,6 +4,8 @@ public class PlayerAnimation : MonoBehaviour
 {
     public Animator Animator;
 
+    private void Start() { } // Ensures component toggle in inspector
+
     public void FaceDirection(float movementInput)
     {
         var scale = transform.localScale;
