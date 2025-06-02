@@ -1031,8 +1031,10 @@ MonoBehaviour:
   damageObjects: 0
   hitInteractables: 0
   AttackCircle: {fileID: 1768076276932094734}
-  directionChecking: 1
-  directionCheckDistance: 1
+  behindCheck: 1
+  beneathDirCheck: 1
+  behindCheckLeniance: 0
+  beneathDirCheckLeniance: 0
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1114,9 +1116,8 @@ MonoBehaviour:
     _delayAlt: 0
     delayRandomType: 0
   damagedByExplosions: 1
-  blockDirectionChecking: 1
-  blockDirection: {x: 0, y: 0}
-  blockDirectionCheckDistance: -0.3
+  blockBehindCheck: 1
+  blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
   - {fileID: 373344704044645056}
   BlockDamageColliders: []
@@ -1589,7 +1590,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!1001 &8422590845368845324
 PrefabInstance:
   m_ObjectHideFlags: 0

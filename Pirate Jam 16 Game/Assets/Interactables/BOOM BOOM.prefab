@@ -135,9 +135,8 @@ MonoBehaviour:
     _delayAlt: 0
     delayRandomType: 0
   damagedByExplosions: 1
-  blockDirectionChecking: 1
-  blockDirection: {x: 0, y: 0}
-  blockDirectionCheckDistance: -0.3
+  blockBehindCheck: 1
+  blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
   - {fileID: 3256926932890864015}
   BlockDamageColliders: []

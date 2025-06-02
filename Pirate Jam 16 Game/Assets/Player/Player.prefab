@@ -1329,8 +1329,10 @@ MonoBehaviour:
   damageObjects: 1
   hitInteractables: 1
   AttackCircle: {fileID: 7492755210599710390}
-  directionChecking: 1
-  directionCheckDistance: 1
+  behindCheck: 1
+  beneathDirCheck: 1
+  behindCheckLeniance: 0.3
+  beneathDirCheckLeniance: 0
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1463,9 +1465,8 @@ MonoBehaviour:
     _delayAlt: 0
     delayRandomType: 0
   damagedByExplosions: 1
-  blockDirectionChecking: 1
-  blockDirection: {x: 0, y: 0}
-  blockDirectionCheckDistance: -0.3
+  blockBehindCheck: 1
+  blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
   - {fileID: 7520021747304940393}
   BlockDamageColliders: []

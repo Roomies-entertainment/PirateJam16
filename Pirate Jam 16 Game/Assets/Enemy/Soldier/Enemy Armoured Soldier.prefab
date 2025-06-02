@@ -1031,8 +1031,10 @@ MonoBehaviour:
   damageObjects: 0
   hitInteractables: 0
   AttackCircle: {fileID: 1768076276932094734}
-  directionChecking: 1
-  directionCheckDistance: 1
+  behindCheck: 1
+  beneathDirCheck: 1
+  behindCheckLeniance: -0.3
+  beneathDirCheckLeniance: 0.5
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1101,9 +1103,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   maxHealth: 3
-  destroyObjectDelay: 0.8
-  blockDirectionChecking: 1
-  blockDirectionCheckDistance: -0.3
+  onDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  explosionOnDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  destroyObjectDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  damagedByExplosions: 1
+  blockBehindCheck: 1
+  blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
   - {fileID: 373344704044645056}
   BlockDamageColliders: []
@@ -1149,36 +1163,6 @@ MonoBehaviour:
   onHeal:
     m_PersistentCalls:
       m_Calls: []
-  onStartBlocking:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4195419917755599458}
-        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
-        m_MethodName: OnStartBlocking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onStopBlocking:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4195419917755599458}
-        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
-        m_MethodName: OnStopBlocking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onBlockDamage:
     m_PersistentCalls:
       m_Calls:
@@ -1234,6 +1218,36 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   debug: 0
+  onStartBlocking:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4195419917755599458}
+        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
+        m_MethodName: OnStartBlocking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStopBlocking:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4195419917755599458}
+        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
+        m_MethodName: OnStopBlocking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1393,7 +1407,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.171, z: 0}
-  m_LocalScale: {x: 1.0066009, y: 1.0066009, z: 1.0066009}
+  m_LocalScale: {x: 1.4781934, y: 1.4781934, z: 1.4781934}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6900282181118926586}

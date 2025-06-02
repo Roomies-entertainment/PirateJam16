@@ -33,9 +33,17 @@ public class CircleGizmo : MonoBehaviour
         Color colorStore = Gizmos.color;
         Gizmos.color = color;
 
-        if (Selection.Contains(gameObject))
+        Transform parentSearch = transform;
+
+        while (parentSearch != null)
         {
-            Gizmos.DrawWireSphere(transform.position, GetRadius());
+            if (Selection.Contains(parentSearch.gameObject))
+            {
+                Gizmos.DrawWireSphere(transform.position, GetRadius());
+                break;
+            }
+
+            parentSearch = parentSearch.parent;
         }
 
         Gizmos.color = colorStore;

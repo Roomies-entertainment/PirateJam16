@@ -27,12 +27,13 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
-    [SerializeField] protected bool blockDirectionChecking = true;
+    [Tooltip("Don't block attacks from behind")]
+    [SerializeField] protected bool blockBehindCheck = true;
 
     [Header("")]
-    [SerializeField] private Vector2 blockDirection;
+    private Vector2 blockDirection;
     public void SetBlockDirection(Vector2 setTo) { blockDirection = setTo; }
-    [SerializeField] protected float blockDirectionCheckDistance = -0.3f;
+    [SerializeField] protected float blockBehindCheckLeniance = -0.3f;
 
     [Header("")]
     [SerializeField] protected Collider2D[] TakeDamageColliders;
@@ -209,9 +210,9 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
        
     {
         if (blockColliderHit && (
-            !blockDirectionChecking || Detection.DirectionCheck(
+            !blockBehindCheck || Detection.DirectionCheck(
                 blockDirection, transform.position, data.DetectorComponent.transform.position,
-                blockDirectionCheckDistance)))
+                false, blockBehindCheckLeniance)))
         {
             return AttackResult.Block;
         }

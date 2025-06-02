@@ -13,8 +13,13 @@ public abstract class Attack : MonoBehaviour
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] protected bool directionChecking = true;
-    [SerializeField] protected float directionCheckDistance = 1f;
+    [Tooltip("Don't hit objects behind")]
+    [SerializeField] protected bool behindCheck = true;
+    [Tooltip("Don't hit objects beneath")]
+    [SerializeField] protected bool beneathDirCheck = true;
+    [SerializeField] protected float behindCheckLeniance = -0.3f;
+    [Range(-1, 1)]
+    [SerializeField] protected float beneathDirCheckLeniance = 0.5f;
 
     public Vector2 attackDirection { get; private set; }
     public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
@@ -193,8 +198,7 @@ public abstract class Attack : MonoBehaviour
     protected bool AttackDirectionHit(Vector2 objPosition)
     {
         return
-            !directionChecking ||
-            attackDirection.sqrMagnitude == 0 ||
-            Detection.DirectionCheck(attackDirection, transform.position, objPosition, directionCheckDistance);
+            (!beneathDirCheck || Detection.DirectionCheck(Vector2.up, transform.position, objPosition, true, beneathDirCheckLeniance)) &&
+            (!behindCheck || attackDirection.sqrMagnitude == 0 || Detection.DirectionCheck(attackDirection, transform.position, objPosition, false, behindCheckLeniance));
     }
 }
