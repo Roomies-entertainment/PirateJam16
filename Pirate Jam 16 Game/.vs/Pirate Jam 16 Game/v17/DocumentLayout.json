@@ -3,48 +3,16 @@
   "WorkspaceRootPath": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\explosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\explosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialoguepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialoguepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\health system\\health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\health system\\health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\LevelManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\assets\\game\\credits\\creditsscroll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\game\\credits\\creditsscroll.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\assets\\scripts\\pausegame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\pausegame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\assets\\player\\scripts\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\scripts\\playerhealth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\PlayerUI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\DeathScreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\TriggerObjectDestroyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\RandomizedSound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\AudioPlaylist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\DifficultySetting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\Health.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialoguem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialoguem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,144 +26,48 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Health.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Health System\\Health.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Health System\\Health.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Health System\\Health.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Health System\\Health.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAcwGUAAAAYAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "DialogueM.cs",
+              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialogueM.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Dialogue System\\DialogueM.cs",
+              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialogueM.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Dialogue System\\DialogueM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T10:52:34.078Z",
+              "WhenOpened": "2025-06-02T10:36:09.56Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Explosion.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Explosion.cs",
-              "RelativeDocumentMoniker": "Assets\\Explosion.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Explosion.cs",
-              "RelativeToolTip": "Assets\\Explosion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA0AAAAAAAAAA==",
+              "Title": "DialoguePanel.cs",
+              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
+              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwC4AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T10:25:25.698Z",
+              "WhenOpened": "2025-06-02T10:37:01.873Z",
               "EditorCaption": ""
-            },
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PlayerUI.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\PlayerUI.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\PlayerUI.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAXAAAA",
+              "DocumentIndex": 1,
+              "Title": "Dialogue.cs",
+              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\Dialogue.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Dialogue System\\Dialogue.cs",
+              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\Dialogue.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Dialogue System\\Dialogue.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.558Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CreditsScroll.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Game\\Credits\\CreditsScroll.cs",
-              "RelativeDocumentMoniker": "Assets\\Game\\Credits\\CreditsScroll.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Game\\Credits\\CreditsScroll.cs",
-              "RelativeToolTip": "Assets\\Game\\Credits\\CreditsScroll.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAZAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEASURBVDhP7Y8xSwJxGMZ/5/GPkAM/QTiccI5xUG65ieAUgv4dXMTBLxFEtTm4CC1RRPUtHFvERW7I5RqyIZBuEG5S5G0o/4hER7u/6YHn4XmfF3YYxm9jad43xbvyxL1wpXHXkLUXzSPJXeZkWwNYAME0kPpjncJBgdZxi8x\u002Bhslsgj7SVjSPxO/567xB2YrwLLQAaD\u002B1pXJdkTiOTfMmfy1IAYzeR5S8Eo7jfDf\u002BgxTAYrVA2Wrbg5\u002BLfs9nuVqSPc8avbmC2m1NqjfVX\u002BeT8IIFMHwdin7QlPNl9KFG2YrgI6Bz0kl8yQQGLwPpP/cJP0PSe2mKbpHuaTexYAd8AREpdKtYXY\u002BXAAAAAElFTkSuQmCC",
-              "WhenOpened": "2025-05-25T04:06:47.69Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DeathScreen.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\DeathScreen.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\DeathScreen.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.695Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TriggerObjectDestroyer.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\TriggerObjectDestroyer.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\TriggerObjectDestroyer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.697Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "RandomizedSound.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\RandomizedSound.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\RandomizedSound.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.702Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PauseGame.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\PauseGame.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\PauseGame.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\PauseGame.cs",
-              "RelativeToolTip": "Assets\\Scripts\\PauseGame.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAAEEAAAAnAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEASURBVDhP7Y8xSwJxGMZ/5/GPkAM/QTiccI5xUG65ieAUgv4dXMTBLxFEtTm4CC1RRPUtHFvERW7I5RqyIZBuEG5S5G0o/4hER7u/6YHn4XmfF3YYxm9jad43xbvyxL1wpXHXkLUXzSPJXeZkWwNYAME0kPpjncJBgdZxi8x\u002Bhslsgj7SVjSPxO/567xB2YrwLLQAaD\u002B1pXJdkTiOTfMmfy1IAYzeR5S8Eo7jfDf\u002BgxTAYrVA2Wrbg5\u002BLfs9nuVqSPc8avbmC2m1NqjfVX\u002BeT8IIFMHwdin7QlPNl9KFG2YrgI6Bz0kl8yQQGLwPpP/cJP0PSe2mKbpHuaTexYAd8AREpdKtYXY\u002BXAAAAAElFTkSuQmCC",
-              "WhenOpened": "2025-05-25T04:06:47.704Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LevelManager.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\LevelManager.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\LevelManager.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.706Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AudioPlaylist.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\AudioPlaylist.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\AudioPlaylist.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAADIAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.71Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DifficultySetting.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\DifficultySetting.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\DifficultySetting.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.713Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PlayerHealth.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Player\\Scripts\\PlayerHealth.cs",
-              "RelativeDocumentMoniker": "Assets\\Player\\Scripts\\PlayerHealth.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Player\\Scripts\\PlayerHealth.cs",
-              "RelativeToolTip": "Assets\\Player\\Scripts\\PlayerHealth.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAgAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEASURBVDhP7Y8xSwJxGMZ/5/GPkAM/QTiccI5xUG65ieAUgv4dXMTBLxFEtTm4CC1RRPUtHFvERW7I5RqyIZBuEG5S5G0o/4hER7u/6YHn4XmfF3YYxm9jad43xbvyxL1wpXHXkLUXzSPJXeZkWwNYAME0kPpjncJBgdZxi8x\u002Bhslsgj7SVjSPxO/567xB2YrwLLQAaD\u002B1pXJdkTiOTfMmfy1IAYzeR5S8Eo7jfDf\u002BgxTAYrVA2Wrbg5\u002BLfs9nuVqSPc8avbmC2m1NqjfVX\u002BeT8IIFMHwdin7QlPNl9KFG2YrgI6Bz0kl8yQQGLwPpP/cJP0PSe2mKbpHuaTexYAd8AREpdKtYXY\u002BXAAAAAElFTkSuQmCC",
-              "WhenOpened": "2025-05-25T04:06:47.714Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Health.cs",
-              "DocumentMoniker": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\Health.cs",
-              "ToolTip": "I:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Components\\Health.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T04:06:47.716Z"
+              "WhenOpened": "2025-06-02T09:58:14.547Z",
+              "EditorCaption": ""
             }
           ]
         }
