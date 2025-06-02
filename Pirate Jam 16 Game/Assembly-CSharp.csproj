@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\Events\EventChain.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleM.cs" />
     <Compile Include="Assets\Enemy\Scripts\GroundedEnemyDetection.cs" />
+    <Compile Include="Assets\Player\Scripts\PlayerUI.cs" />
     <Compile Include="Assets\Scripts\Detection\OverlapCheck.cs" />
     <Compile Include="Assets\Scripts\Health System\Health.cs" />
     <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Assets\UI\Scripts\DeathScreen.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueManager.cs" />
     <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueCharacter.cs" />
+    <Compile Include="Assets\Scripts\Managers\SpawnM.cs" />
     <Compile Include="Assets\Scripts\Movement\ClimbMovement.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
@@ -158,7 +160,7 @@
     <Compile Include="Assets\Scripts\SpawnObjects.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
-    <Compile Include="Assets\UI\Scripts\PlayerUI.cs" />
+    <Compile Include="Assets\Scripts\DelayRandomized.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyAnimation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerPhysics.cs" />
