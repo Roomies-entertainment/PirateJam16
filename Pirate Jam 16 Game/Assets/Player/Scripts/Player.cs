@@ -277,9 +277,8 @@ public class Player : MonoBehaviour, IProcessExplosion
                 Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
             }
 
-            Attack.FindComponents(out var healthComponents, out var interactables);
-            Attack.PerformAttack(healthComponents, CalculateAttackDamage());
-            Attack.PerformInteractions(interactables);
+            Attack.FindComponents();
+            Attack.AttackAndInteract();
         }
         else if (Attack.attackTimer > Attack.AttackDuration)
         {

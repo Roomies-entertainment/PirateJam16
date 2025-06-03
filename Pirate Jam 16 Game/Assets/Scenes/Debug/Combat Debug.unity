@@ -449,10 +449,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4037619237355257030, guid: 919ea7ddb27ff8349b56a51db24bbd5a, type: 3}
-      propertyPath: beneathDirCheckLeniance
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: 919ea7ddb27ff8349b56a51db24bbd5a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.64
@@ -496,10 +492,6 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: 919ea7ddb27ff8349b56a51db24bbd5a, type: 3}
       propertyPath: m_Name
       value: Enemy Slater Bug
-      objectReference: {fileID: 0}
-    - target: {fileID: 9092179470456444528, guid: 919ea7ddb27ff8349b56a51db24bbd5a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -807,10 +799,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4037619237355257030, guid: 97c6ab307fc9bc543bfa54d75dbc3e48, type: 3}
-      propertyPath: beneathDirCheckLeniance
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: 97c6ab307fc9bc543bfa54d75dbc3e48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.17
@@ -854,10 +842,6 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: 97c6ab307fc9bc543bfa54d75dbc3e48, type: 3}
       propertyPath: m_Name
       value: Enemy Slime
-      objectReference: {fileID: 0}
-    - target: {fileID: 9092179470456444528, guid: 97c6ab307fc9bc543bfa54d75dbc3e48, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1006,17 +990,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4037619237355257030, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
-      propertyPath: behindCheck
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0000014305115
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9999988
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1028,15 +1008,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1053,10 +1033,6 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
       propertyPath: m_Name
       value: Enemy Ranger
-      objectReference: {fileID: 0}
-    - target: {fileID: 9092179470456444528, guid: f9618b04d64139f4397f9002918a7c30, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1394,7 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1963951806}
   m_Layer: 7
-  m_Name: Ground Enemies
+  m_Name: Melee Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1434,10 +1410,6 @@ PrefabInstance:
     - target: {fileID: 1459041612279822761, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037619237355257030, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
-      propertyPath: beneathDirCheckLeniance
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1482,10 +1454,6 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
       propertyPath: m_Name
       value: Enemy Wasp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9092179470456444528, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

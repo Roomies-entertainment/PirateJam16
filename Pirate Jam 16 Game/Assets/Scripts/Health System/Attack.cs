@@ -36,47 +36,39 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] private UnityEvent<GameObject> onMissObject;
     [SerializeField] private UnityEvent onStopAttack;
 
+    protected Dictionary<Component, List<Collider2D>> foundComps = new();
+
+    public bool FindComponents()
+    {
+        var components = Detection.DetectComponentsInParents(
+            AttackCircle.transform.position, AttackCircle.GetRadius(),
+            default,
+            GetDetectableTypes().ToArray());
+
+        foundComps.Clear();
+
+        foreach (var c in components)
+        {
+            if (CanHitObject(c.Key.gameObject))
+            {
+                foundComps.Add(c.Key, c.Value);
+            }
+        }
+
+        return foundComps.Count > 0;
+    }
+
     protected virtual List<System.Type> GetDetectableTypes()
     {
         List<System.Type> types = new();
 
         if (damageObjects)
             types.Add(typeof(ObjectHealth));
-            
+
         if (hitInteractables)
             types.Add(typeof(Interactable));
 
         return types;
-    }
-
-    public void FindComponents(
-        out Dictionary<Health, List<Collider2D>> healthComponents,
-        out Dictionary<Interactable, List<Collider2D>> interactables)
-    {
-
-        var components = Detection.DetectComponentsInParents(
-            AttackCircle.transform.position, AttackCircle.GetRadius(),
-            default,
-            GetDetectableTypes().ToArray());
-
-        healthComponents = new();
-        interactables = new();
-
-        foreach (var c in components)
-        {
-            var health = c.Key as Health;
-            var interactable = c.Key as Interactable;
-
-            if (health && CanHitObject(health.gameObject))
-            {
-                healthComponents[health] = new List<Collider2D>(c.Value);
-                
-            }
-            else if (interactable && CanHitObject(interactable.gameObject))
-            {
-                interactables[interactable] = new List<Collider2D>(c.Value);
-            }
-        }
     }
 
     protected virtual bool CanHitObject(GameObject obj)
@@ -87,7 +79,7 @@ public abstract class Attack : MonoBehaviour
         return true;
     }
 
-    public void PerformAttack(Dictionary<Health, List<Collider2D>> healthComponents, int damage = BaseDamage)
+    public void AttackAndInteract(int damage = BaseDamage)
     {
         if (!attacking)
         {
@@ -99,35 +91,35 @@ public abstract class Attack : MonoBehaviour
             OnStartAttack(attackDirection);
         }
 
-        foreach (var hc in healthComponents)
+        foreach (var c in foundComps)
         {
-            var health = hc.Key;
-            var result = health.ProcessAttack(
-                damage, new DetectionData(hc.Key.transform.position, hc.Key, this, hc.Value));
+            Health health = c.Key as Health;
+            Interactable interactable = c.Key as Interactable;
 
-            switch (result)
+            if (health)
             {
-                case Health.AttackResult.Hit:
-                    OnHitObject(health.gameObject); break;
+                var result = health.ProcessAttack(
+                    damage, new DetectionData(health.transform.position, health, this, c.Value));
 
-                case Health.AttackResult.Block:
-                    OnHitBlocked(health.gameObject); break;
+                switch (result)
+                {
+                    case Health.AttackResult.Hit:
+                        OnHitObject(health.gameObject); break;
 
-                case Health.AttackResult.Miss:
-                    OnMissObject(health.gameObject); break;
+                    case Health.AttackResult.Block:
+                        OnHitBlocked(health.gameObject); break;
+
+                    case Health.AttackResult.Miss:
+                        OnMissObject(health.gameObject); break;
+                }
             }
-        }
-    }
 
-    public void PerformInteractions(Dictionary<Interactable, List<Collider2D>> interactables)
-    {
-        foreach (var c in interactables)
-        {
-            var interactable = c.Key;
+            if (interactable)
+            {
+                interactable.Interact();
 
-            interactable.Interact();
-
-            OnHitObject(interactable.gameObject);
+                OnInteractObject(interactable.gameObject);
+            }
         }
     }
 
@@ -138,34 +130,42 @@ public abstract class Attack : MonoBehaviour
         onStartAttack?.Invoke(direction);
     }
 
-    protected virtual void OnHitObject(GameObject attackedObj)
+    protected virtual void OnHitObject(GameObject obj)
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} hit {attackedObj.name}");
+            Debug.Log($"{gameObject.name} hit {obj.name}");
         }
 
-        onHitObject?.Invoke(attackedObj);
+        onHitObject?.Invoke(obj);
     }
 
-    protected virtual void OnHitBlocked(GameObject attackedObj)
+    protected virtual void OnHitBlocked(GameObject obj)
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} blocked by {attackedObj.name}");
+            Debug.Log($"{gameObject.name} blocked by {obj.name}");
         }
 
-        onHitBlocked?.Invoke(attackedObj);
+        onHitBlocked?.Invoke(obj);
     }
 
-    protected virtual void OnMissObject(GameObject attackedObj)
+    protected virtual void OnMissObject(GameObject obj)
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} missed {attackedObj.name}");
+            Debug.Log($"{gameObject.name} missed {obj.name}");
         }
 
-        onMissObject?.Invoke(attackedObj);
+        onMissObject?.Invoke(obj);
+    }
+
+    protected virtual void OnInteractObject(GameObject obj)
+    {
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} interacted with {obj.name}");
+        }
     }
 
     public virtual void StopAttack()
@@ -187,6 +187,7 @@ public abstract class Attack : MonoBehaviour
 
         OnStopAttack();
     }
+
 
     protected virtual void OnStopAttack()
     {

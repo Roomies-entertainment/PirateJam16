@@ -7,7 +7,7 @@ using UnityEditor;
 public class CircleGizmo : MonoBehaviour
 {
     [SerializeField] private int visibileSelectDepth = 1;
-    [SerializeField] private Color color = Color.white;
+    public Color color = Color.white;
 
     public float GetRadius()
     {

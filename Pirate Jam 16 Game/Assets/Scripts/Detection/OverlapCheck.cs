@@ -1,11 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+using UpdateMode = Enums.UpdateMode;
 
 [RequireComponent(typeof(CircleGizmo))]
 public class OverlapCheck : MonoBehaviour
 {
+    [Tooltip(Constants.FlagUpdateModeTTStr)]
+    public FlagUpdateMode flagUpdateMode;
+
     [Header("")]
     [SerializeField] private LayerMask includeLayers = ~0;
 
@@ -15,20 +18,69 @@ public class OverlapCheck : MonoBehaviour
     [SerializeField] protected UnityEvent<OverlapCheck> onCheckExit;
 
     public bool check { get; private set; }
+    public bool enterFlag, stayFlag, exitFlag;
 
     private CircleGizmo circle;
 
     private void Awake()
     {
         circle = GetComponent<CircleGizmo>();
+
+        onCheckEnter.AddListener(GreenGizmo);
+        onCheckExit.AddListener(RedGizmo);
     }
+    private void Start() { RedGizmo(this); }
+    public void GreenGizmo(OverlapCheck check) { circle.color = new Color(0, 0.43f, 0.28f, 1f); }
+    public void RedGizmo(OverlapCheck check) { circle.color = Color.red * 0.7f; }
+
 
     private void FixedUpdate()
     {
-        PerformCheck();
+        if (flagUpdateMode.clearMode == UpdateMode.FixedUpdate)
+        {
+            DoClearUpdate();
+        }
+
+        if (flagUpdateMode.setMode == UpdateMode.FixedUpdate)
+        {
+            DoSetUpdate();
+        }
     }
 
-    public void PerformCheck()
+    private void Update()
+    {
+        if (flagUpdateMode.clearMode == UpdateMode.Update)
+        {
+            DoClearUpdate();
+        }
+
+        if (flagUpdateMode.setMode == UpdateMode.Update)
+        {
+            DoSetUpdate();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (flagUpdateMode.clearMode == UpdateMode.LateUpdate)
+        {
+            DoClearUpdate();
+        }
+
+        if (flagUpdateMode.setMode == UpdateMode.LateUpdate)
+        {
+            DoSetUpdate();
+        }
+    }
+
+    public void DoClearUpdate()
+    {
+        enterFlag = false;
+        stayFlag = false;
+        exitFlag = false;
+    }
+
+    public void DoSetUpdate()
     {
         bool checkStore = check;
 
@@ -36,15 +88,24 @@ public class OverlapCheck : MonoBehaviour
 
         if (!checkStore && check)
         {
+            enterFlag = true;
             onCheckEnter?.Invoke(this);
         }
         else if (checkStore && check)
         {
+            stayFlag = true;
             onCheckStay?.Invoke(this);
         }
         else if (checkStore && !check)
         {
+            exitFlag = true;
             onCheckExit?.Invoke(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        onCheckEnter.RemoveListener(GreenGizmo);
+        onCheckExit.RemoveListener(RedGizmo);
     }
 }

@@ -1,10 +1,8 @@
 using UnityEngine;
 
-public class RangerBahaviour : MonoBehaviour
+public class RangerBahaviour : Behaviour
 {
-    [SerializeField] private GameObject Components;
-    [SerializeField] private GroundedEnemyDetection DetectionComponents;
-
+    private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
     private JumpMovement JumpMovement;
     private EnemyAttack Attack;
@@ -23,19 +21,11 @@ public class RangerBahaviour : MonoBehaviour
     [Space]
     [SerializeField] private Vector2 attackDelayRange = new Vector2(0.4f, 0.8f);
     [SerializeField] private Vector2 attackDurationRange = new Vector2(0.3f, 0.4f);
-    /* 
-        [SerializeField] private Vector2 blockDelayRange = new Vector2(0.3f, 0.4f);
-        [SerializeField] private Vector2 blockDurationRange = new Vector2(1f, 1.5f);
-
-     */
-    private float attackDelay, attackDuration;//, blockDelay, blockDuration;
+    private float attackDelay, attackDuration;
 
     private void RandomizeAttackDelay() { attackDelay = RandomM.Range(attackDelayRange.x, attackDelayRange.y); }
     private void RandomizeAttackDuration() { attackDuration = RandomM.Range(attackDurationRange.x, attackDurationRange.y); }
-/* 
-    private void RandomizeBlockDelay() { blockDelay = RandomM.Range(blockDelayRange.x, blockDelayRange.y); }
-    private void RandomizeBlockDuration() { blockDuration = RandomM.Range(blockDurationRange.x, blockDurationRange.y); }
- */
+
     private float attackLoopTimer;
 
     private enum AttackState
@@ -43,18 +33,14 @@ public class RangerBahaviour : MonoBehaviour
         Null,
         None,
         Attack,
-        Attacking,
-/*         
-        Block,
-        Blocking
- */
+        Attacking
     }
 
     private AttackState attackState;
 
     private void SetAttackState(AttackState setTo)
     {
-        if (setTo == AttackState.Attack)// || setTo == AttackState.Block)
+        if (setTo == AttackState.Attack)
         {
             Attack.StopAttack();
         }
@@ -70,38 +56,12 @@ public class RangerBahaviour : MonoBehaviour
             case AttackState.Attacking:
 
                 RandomizeAttackDuration();
-                Attack.FindComponents(out var healthComponents, out var interactables);
-
-                if (healthComponents.Count > 0)
-                {
-                    Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
-
-                    Attack.PerformAttack(healthComponents);
-
-                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
-                }
-                else if (interactables.Count > 0)
-                {
-                    Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
-
-                    Attack.PerformInteractions(interactables);
-                }
+                Attack.SetAttackDirection(Attack.GetAttackDirection());
+                Attack.AttackAndInteract();
+                transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
 
                 break;
 
-/* 
-            case AttackState.Block:
-
-                RandomizeBlockDelay();
-
-                break;
-
-            case AttackState.Blocking:
-
-                RandomizeBlockDuration();
-
-                break;
- */
         }
 
         attackStateChange[0] = attackState;
@@ -116,6 +76,7 @@ public class RangerBahaviour : MonoBehaviour
 
     private void Awake()
     {
+        GroundDetection = Components.GetComponentInChildren<GroundDetection>();
         HorizontalMovement = Components.GetComponentInChildren<HorizontalMovement>();
         JumpMovement = Components.GetComponentInChildren<JumpMovement>();
         Attack = Components.GetComponentInChildren<EnemyAttack>();
@@ -133,21 +94,6 @@ public class RangerBahaviour : MonoBehaviour
     {
         if (HorizontalMovement.enabled)
             FixedUpdateHorizontalMovement();
-
-        if (JumpMovement.enabled)
-            FixedUpdateJumpMovement();
-
-        if (Attack.enabled)
-            FixedUpdateAttack();
-
-        if (Health.enabled)
-            FixedUpdateHealth();
-
-        if (Animation.enabled)
-            FixedUpdateAnimation();
-
-        if (Particles.enabled)
-            FixedUpdateParticles();
     }
 
     private void FixedUpdateHorizontalMovement()
@@ -155,33 +101,19 @@ public class RangerBahaviour : MonoBehaviour
         HorizontalMovement.MoveHorizontally();
     }
 
-    private void FixedUpdateJumpMovement() { }
-    private void FixedUpdateAttack() { }
-    private void FixedUpdateHealth() { }
-    private void FixedUpdateAnimation() { }
-    private void FixedUpdateParticles() { }
-
     private void Update()
     {
         if (HorizontalMovement.enabled)
             UpdateHorizontalMovement();
+
+        if (GroundDetection.enabled)
+            UpdateEnemyDetection();
 
         if (JumpMovement.enabled)
             UpdateJumpMovement();
 
         if (Attack.enabled)
             UpdateAttackState();
-
-        if (Health.enabled)
-            UpdateHealth();
-
-        if (Animation.enabled)
-            UpdateAnimation();
-
-        if (Particles.enabled)
-            UpdateParticles();
-
-        UpdateStepChecks();
 
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
@@ -200,22 +132,37 @@ public class RangerBahaviour : MonoBehaviour
         }
         else
         {
-            if (moveTimer > moveDuration)
+            if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
             {
                 HorizontalMovement.StopMoving();
-
                 moveTimer = 0.0f;
             }
+        }
+
+        if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
+        {
+            HorizontalMovement.MoveAwayFromCurrentDirection();
         }
 
         moveTimer += Time.deltaTime;
     }
 
+    private void UpdateEnemyDetection()
+    {
+        if (HorizontalMovement.startMovingFlag)
+        {
+            Vector2 moveDir = HorizontalMovement.moveDirection;
+
+            GroundDetection.StepChecks.SetCheckDir(moveDir);
+            GroundDetection.StepClearanceChecks.SetCheckDir(moveDir);
+        }
+    }
+
     private void UpdateJumpMovement()
     {
-        if (DetectionComponents.GroundCheck.check &&
-            DetectionComponents.StepChecks.enterFlag &&
-            (DetectionComponents.StepClearanceChecks.checkCount == 0) &&
+        if (GroundDetection.GroundCheck.check &&
+            GroundDetection.StepChecks.enterFlag &&
+            (GroundDetection.StepClearanceChecks.checkCount == 0) &&
             HorizontalMovement.currentSpeed != 0)
         {
             JumpMovement.Jump();
@@ -228,7 +175,7 @@ public class RangerBahaviour : MonoBehaviour
         {
             case AttackState.Attack:
 
-                if (attackLoopTimer > attackDelay)
+                if (Attack.FindComponents() && attackLoopTimer > attackDelay)
                     SetAttackState(AttackState.Attacking);
 
                 break;
@@ -237,66 +184,12 @@ public class RangerBahaviour : MonoBehaviour
 
                 if (attackLoopTimer > attackDuration)
                 {
-/*                     
-                    if (DetectionComponents.PlayerCheck.check)
-                        SetAttackState(AttackState.Block);
-                    else
- */
-                        SetAttackState(AttackState.Attack);
+                    SetAttackState(AttackState.Attack);
                 }
 
                 break;
-                
-/* 
-                case AttackState.Block:
-
-                    if (attackLoopTimer > blockDelay)
-                        SetAttackState(AttackState.Blocking);
-
-                    break;
-
-                case AttackState.Blocking:
-
-                    if (attackLoopTimer > blockDuration)
-                        SetAttackState(AttackState.Attack);
-
-                    break;
-*/
         }
 
         attackLoopTimer += Time.deltaTime;
-    }
-
-    private void UpdateHealth()
-    {
-/*         
-        if (attackStateChange[0] != attackStateChange[1])
-        {
-            if (!Health.blocking && attackStateChange[1] == AttackState.Blocking)
-            {
-                Health.SetBlockDirection(Attack.attackDirection);
-                Health.StartBlocking();
-            }
-            else if (Health.blocking && attackStateChange[1] != AttackState.Blocking)
-            {
-                Health.StopBlocking();
-            }
-        }
- */
-    }
-
-    private void UpdateAnimation() { }
-    private void UpdateParticles() { }
-
-    private void UpdateStepChecks()
-    {
-        if (HorizontalMovement.startMovingFlag)
-        {
-            Vector2 moveDir = HorizontalMovement.moveDirection;
-
-            DetectionComponents.StepChecks.SetChecks(moveDir);
-            DetectionComponents.StepClearanceChecks.SetChecks(moveDir);
-        }
-
     }
 }

@@ -36,10 +36,9 @@ public class EnemyAttack : Attack
         transform.position -= new Vector3(attackDirection.x, attackDirection.y, 0f) * 0.25f;
     }
 
-    public Vector2 GetAttackDirection<ComponentType>(Dictionary<ComponentType, List<Collider2D>> components)
-    where ComponentType : Component
+    public Vector2 GetAttackDirection()
     {
-        Vector2 toFirst = components.Keys.First().transform.position - transform.position;
+        Vector2 toFirst = foundComps.Keys.First().transform.position - transform.position;
 
         toFirst.y = 0f;
         toFirst.Normalize();
