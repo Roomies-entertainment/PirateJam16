@@ -6,6 +6,7 @@ using UnityEditor;
 [ExecuteAlways]
 public class CircleGizmo : MonoBehaviour
 {
+    [SerializeField] private int visibileSelectDepth = 1;
     [SerializeField] private Color color = Color.white;
 
     public float GetRadius()
@@ -34,8 +35,9 @@ public class CircleGizmo : MonoBehaviour
         Gizmos.color = color;
 
         Transform parentSearch = transform;
+        int i = 0;
 
-        while (parentSearch != null)
+        while (parentSearch != null && i < (visibileSelectDepth + 1))
         {
             if (Selection.Contains(parentSearch.gameObject))
             {
@@ -44,6 +46,8 @@ public class CircleGizmo : MonoBehaviour
             }
 
             parentSearch = parentSearch.parent;
+
+            i++;
         }
 
         Gizmos.color = colorStore;
