@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class DialoguePanel : MonoBehaviour
 {
@@ -12,14 +13,18 @@ public class DialoguePanel : MonoBehaviour
 
     public GameObject continueTextLine;
 
+    public AudioSource dialogueSauce;
+
+    public Image characterImage;
+
     private int index;
-    float textSpeed;
-    List <string> textLines = new List <string>();
+    List<DialogueData> dialogueText = new List<DialogueData>();
 
     private void Awake()
     {
         DialogueM.dialoguePanel = this;
         dialogueBox.SetActive(false);
+        characterImage.enabled = false;
     }
 
     void Start()
@@ -35,7 +40,7 @@ public class DialoguePanel : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (textComponent.text == textLines[index])
+            if (textComponent.text == dialogueText[index].dialogueText)
             {
                 NextLine();
                 continueTextLine.SetActive(false);
@@ -43,28 +48,44 @@ public class DialoguePanel : MonoBehaviour
             else
             {
                 StopAllCoroutines();
-                textComponent.text = textLines[index];
+                dialogueSauce.Stop();
+                textComponent.text = dialogueText[index].dialogueText;
                 continueTextLine.SetActive(true);
             }
         }
 
     }
-    public void StartDialogue(string[] textLines, float textSpeed)
+    public void StartDialogue(List<DialogueData> _dialogue)
     {
 
         index = 0;
-        this.textSpeed = Mathf.Lerp(0.3f, 0.0f, textSpeed * 0.1f);
-        this.textLines = new(textLines);
+        this.dialogueText = new(_dialogue);
         dialogueBox.SetActive(true);
+        AudioImage();
         StartCoroutine(TypeLine());
+    }
+
+    void CharacterImagePosition()
+    {
+        if (dialogueText[index].isLeft == true)
+        {
+            //Placement is on the left of the screen
+            characterImage.rectTransform.anchoredPosition = new Vector3(-500, characterImage.rectTransform.anchoredPosition.y, 0);
+            characterImage.rectTransform.rotation = Quaternion.LookRotation(Vector3.back);
+        } else
+        {
+            //Placement is on the right of the screen
+            characterImage.rectTransform.localPosition = new Vector3(500, characterImage.rectTransform.anchoredPosition.y, 0);
+            characterImage.rectTransform.rotation = Quaternion.LookRotation(Vector3.forward);
+        }
     }
 
     IEnumerator TypeLine()
     {
-        foreach (char c in textLines[index].ToCharArray())
+        foreach (char c in dialogueText[index].dialogueText.ToCharArray())
         {
             textComponent.text += c;
-            yield return new WaitForSeconds(textSpeed);
+            yield return new WaitForSeconds(dialogueText[index].GetTextSpeed());
         }
 
         continueTextLine.SetActive(true);
@@ -72,10 +93,11 @@ public class DialoguePanel : MonoBehaviour
 
     void NextLine()
     {
-        if (index < textLines.Count - 1)
+        if (index < dialogueText.Count - 1)
         {
             index++;
             textComponent.text = string.Empty;
+            AudioImage();
             StartCoroutine(TypeLine());
         } else
         {
@@ -83,4 +105,25 @@ public class DialoguePanel : MonoBehaviour
         }
     }
 
+    void AudioImage()
+    {
+        CharacterImagePosition();
+
+        if (dialogueText[index].characterAudio != null)
+            dialogueSauce.clip = dialogueText[index].characterAudio;
+
+        if (dialogueText[index].characterImage != null)
+        {
+            characterImage.enabled = true;
+            characterImage.sprite = dialogueText[index].characterImage;
+        }
+        else
+        {
+            characterImage.enabled = false;
+        }
+
+        dialogueSauce.Play();
+    }
+
 }
+

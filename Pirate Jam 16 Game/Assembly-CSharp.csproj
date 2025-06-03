@@ -119,7 +119,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Game\Scripts\GameObjectM.cs" />
     <Compile Include="Assets\Scripts\Managers\CollisionM.cs" />
-    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Sound\Scripts\RandomizedSound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\Detection\LROverlapChecks.cs" />
@@ -128,7 +127,6 @@
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
     <Compile Include="Assets\Enemy\Scripts\Behaviours\DumbSoldierBehaviour.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
-    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
@@ -136,15 +134,12 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Interactables\Scripts\Interactable.cs" />
     <Compile Include="Assets\UI\Scripts\DeathScreen.cs" />
-    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueManager.cs" />
-    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\DialogueCharacter.cs" />
     <Compile Include="Assets\Scripts\Managers\SpawnM.cs" />
     <Compile Include="Assets\Scripts\Movement\ClimbMovement.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemStop.cs" />
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
-    <Compile Include="Assets\Scripts\Health System\Block.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Game Objects\GameObjectExtensions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
@@ -160,7 +155,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Health System\Attack.cs" />
     <Compile Include="Assets\UI\Scripts\ToggleSettings.cs" />
-    <Compile Include="Assets\HeneGames\Dialogue System\Scripts\Movement2D.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyParticles.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
