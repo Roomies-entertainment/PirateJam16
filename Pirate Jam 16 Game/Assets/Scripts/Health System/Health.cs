@@ -110,14 +110,14 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
         if (!deadStore && dead)
         {
-            if (explosionOnDieDelay.GetDelay() > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
+            if (explosionOnDieDelay.GetDelay(true) > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
             {
-                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay.GetDelay()));
+                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay.GetDelay(false)));
             }
 
-            else if (onDieDelay.GetDelay() > 0)
+            else if (onDieDelay.GetDelay(true) > 0)
             {
-                StartCoroutine(OnDieDelayed(data, onDieDelay.GetDelay()));
+                StartCoroutine(OnDieDelayed(data, onDieDelay.GetDelay(false)));
             }
 
             else
@@ -142,7 +142,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     public new void DestroyObject(Object objOverride = null)
     {
-        Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay.GetDelay());
+        Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay.GetDelay(true));
     }
 
     public void DestroyObjectNoDelay(Object objOverride = null)

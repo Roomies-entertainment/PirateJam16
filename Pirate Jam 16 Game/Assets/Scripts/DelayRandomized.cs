@@ -14,20 +14,20 @@ public class DelayRandomized
     [Tooltip("Range (random value from delay to delayAlt)\n\nSwitch (50% delay, 50% delayAlt)")]
     [SerializeField] protected RandomM.RandomType delayRandomType;
 
-//    private bool calculate = true;
+    /* 
+        private bool calculate = true;
 
-/* 
-    public void QueueCalculateDelay()
-    {
-        calculate = true;
-    }
- */
-    public float GetDelay()
-    {
-/*         
-        if (calculate)
+        public void QueueCalculateDelay()
         {
- */
+            calculate = true;
+        }
+     */
+ 
+    public float GetDelay(bool reCalculate)
+    {
+        if (reCalculate)
+        {
+
             switch (delayRandomType)
             {
                 case RandomM.RandomType.Range:
@@ -37,10 +37,8 @@ public class DelayRandomized
                 default:
                     delay = _delay; break;
             }
-/* 
-            calculate = false;
         }
-*/
-            return delay;
-        }
+
+        return delay;
+    }
 }

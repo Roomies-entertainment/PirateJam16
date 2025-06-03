@@ -30,6 +30,7 @@ public class Event : MonoBehaviour
         if (timer >= delay)
         {
             _event.Event?.Invoke();
+            delay = _event.delay.GetDelay(true);
             timer = 0f;
         }
 
