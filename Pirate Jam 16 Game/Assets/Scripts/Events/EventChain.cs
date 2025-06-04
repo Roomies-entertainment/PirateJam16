@@ -12,8 +12,6 @@ public class EventChain : MonoBehaviour
      
     private EventData currentEvent;
     private int index = 0;
-    private float delay;
-    private float timer;
 
     private new bool enabled;
     public bool GetEnabled() { return enabled; }
@@ -25,9 +23,6 @@ public class EventChain : MonoBehaviour
             base.enabled = true;
 
             index = 0;
-
-            SetDelay();
-            timer = 0f;
         }
         else if (enabled && !setTo)
         {
@@ -60,39 +55,24 @@ public class EventChain : MonoBehaviour
             return;
         }
 
-        if (timer >= delay)
+        currentEvent.UpdateEvent(out bool eventCalled);
+
+        if (eventCalled)
         {
             currentEvent = events[index];
-            currentEvent.Event?.Invoke();
+            currentEvent.StartEvent();
 
             if (enabled && loop)
             {
                 index = (index + 1) % events.Count;
             }
-            else
+        }
+        else
+        {
+            if (index >= events.Count)
             {
-                index = index + 1;
-
-                if (index < events.Count)
-                {
-                    SetDelay();
-                    timer = 0f;
-                }
-                else
-                {
-                    enabled = false;
-                }
+                enabled = false;
             }
         }
-
-        timer += Time.deltaTime;
-    }
-
-    private void SetDelay()
-    {
-        if (index >= events.Count)
-            return;
-
-        delay = events[index].delay.GetDelay(true);
     }
 }

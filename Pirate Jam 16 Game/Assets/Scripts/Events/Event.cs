@@ -7,9 +7,9 @@ using UnityEngine.Events;
 [Serializable]
 public class EventData
 {
-    public UnityEvent Event;
-    private DelayRandomized delayComponent;
-    public float timer;
+    [SerializeField] private UnityEvent Event;
+    [SerializeField] private DelayRandomized delayComponent;
+    private float timer;
     private float currentDelay;
 
     public void StartEvent()
@@ -54,13 +54,16 @@ public class Event : MonoBehaviour
     {
         _event.UpdateEvent(out bool eventCalled);
 
-        if (!loop)
+        if (eventCalled)
         {
-            enabled = false;
-        }
-        else
-        {
-            _event.StartEvent();
+            if (!loop)
+            {
+                enabled = false;
+            }
+            else
+            {
+                _event.StartEvent();
+            }
         }
     }
 }
