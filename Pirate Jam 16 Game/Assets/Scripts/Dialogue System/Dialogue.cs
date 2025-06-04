@@ -27,6 +27,9 @@ public class DialogueData
     public AudioClip characterAudio;
 
     public bool isLeft = true;
+
+
+    public EventData _event;
 }
 
 public class Dialogue : MonoBehaviour
@@ -38,4 +41,6 @@ public class Dialogue : MonoBehaviour
     {
         DialogueM.dialoguePanel.StartDialogue(_dialogue);
     }
+
+
 }

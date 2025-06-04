@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialoguepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialoguepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\events\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\events\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialoguepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialoguepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\assets\\scripts\\dialogue system\\dialoguem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialoguem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\events\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\events\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|f:\\roomiesentertainment\\piratejam16\\pirate jam 16 game\\assets\\scripts\\dialogue system\\dialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2B9C1C0-ED26-2E2F-997A-0FEBD688251A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialogue system\\dialogue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,35 +36,22 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Dialogue System\\DialogueM.cs",
               "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialogueM.cs",
               "RelativeToolTip": "Assets\\Scripts\\Dialogue System\\DialogueM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-02T10:36:09.56Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "DialoguePanel.cs",
               "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
               "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
               "RelativeToolTip": "Assets\\Scripts\\Dialogue System\\DialoguePanel.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwD4AAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAcwD8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-02T10:37:01.873Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Event.cs",
-              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Events\\Event.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Events\\Event.cs",
-              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Events\\Event.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Events\\Event.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T09:19:29.917Z",
               "EditorCaption": ""
             }
           ]
@@ -75,13 +62,26 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "Event.cs",
+              "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Events\\Event.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Events\\Event.cs",
+              "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Events\\Event.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Events\\Event.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T07:31:21.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Dialogue.cs",
               "DocumentMoniker": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\Dialogue.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Dialogue System\\Dialogue.cs",
               "ToolTip": "F:\\RoomiesEntertainment\\PirateJam16\\Pirate Jam 16 Game\\Assets\\Scripts\\Dialogue System\\Dialogue.cs",
               "RelativeToolTip": "Assets\\Scripts\\Dialogue System\\Dialogue.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-02T09:58:14.547Z",
               "EditorCaption": ""
