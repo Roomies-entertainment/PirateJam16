@@ -59,16 +59,14 @@ public class EventChain : MonoBehaviour
 
         if (eventCalled)
         {
-            events[index].StartEvent();
+            index += 1;
 
             if (enabled && loop)
             {
-                index = (index + 1) % events.Count;
+                index %= events.Count;
+                events[index].StartEvent();
             }
-        }
-        else
-        {
-            if (index >= events.Count)
+            else
             {
                 enabled = false;
             }

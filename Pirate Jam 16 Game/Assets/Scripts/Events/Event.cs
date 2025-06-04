@@ -56,13 +56,13 @@ public class Event : MonoBehaviour
 
         if (eventCalled)
         {
-            if (!loop)
+            if (loop)
             {
-                enabled = false;
+                _event.StartEvent();
             }
             else
             {
-                _event.StartEvent();
+                enabled = false;
             }
         }
     }
