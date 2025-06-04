@@ -22,6 +22,12 @@ public class Event : MonoBehaviour
 
     private void OnEnable()
     {
+        Init();
+    }
+
+    private void Init()
+    {
+        delay = _event.delay.GetDelay(true);
         timer = 0f;
     }
 
@@ -30,8 +36,11 @@ public class Event : MonoBehaviour
         if (timer >= delay)
         {
             _event.Event?.Invoke();
-            delay = _event.delay.GetDelay(true);
-            timer = 0f;
+
+            if (!loop)
+                enabled = false;
+            else
+                Init();
         }
 
         timer += Time.deltaTime;
