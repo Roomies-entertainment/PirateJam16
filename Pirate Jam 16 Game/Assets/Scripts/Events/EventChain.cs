@@ -9,8 +9,7 @@ public class EventChain : MonoBehaviour
 
     [Header("Events")]
     [SerializeField] private List<EventData> events;
-     
-    private EventData currentEvent;
+    public EventData currentEvent { get { return events[index]; } }
     private int index = 0;
 
     private new bool enabled;
@@ -23,6 +22,7 @@ public class EventChain : MonoBehaviour
             base.enabled = true;
 
             index = 0;
+            events[index].StartEvent();
         }
         else if (enabled && !setTo)
         {
@@ -55,12 +55,11 @@ public class EventChain : MonoBehaviour
             return;
         }
 
-        currentEvent.UpdateEvent(out bool eventCalled);
+        events[index].UpdateEvent(out bool eventCalled);
 
         if (eventCalled)
         {
-            currentEvent = events[index];
-            currentEvent.StartEvent();
+            events[index].StartEvent();
 
             if (enabled && loop)
             {
