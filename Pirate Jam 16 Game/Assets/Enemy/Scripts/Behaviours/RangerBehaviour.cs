@@ -5,10 +5,7 @@ public class RangerBahaviour : Behaviour
     private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
     private JumpMovement JumpMovement;
-    private EnemyAttack Attack;
-    private EnemyHealth Health;
-    private EnemyAnimation Animation;
-    private EnemyParticles Particles;
+    private EnemyRangedAttack Attack;
 
     [Header("Movement Loop")]
     [SerializeField] private float moveSpeed = 1.0f;
@@ -56,9 +53,6 @@ public class RangerBahaviour : Behaviour
             case AttackState.Attacking:
 
                 RandomizeAttackDuration();
-                Attack.SetAttackDirection(Attack.GetAttackDirection());
-                Attack.AttackAndInteract();
-                transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
 
                 break;
 
@@ -79,10 +73,7 @@ public class RangerBahaviour : Behaviour
         GroundDetection = Components.GetComponentInChildren<GroundDetection>();
         HorizontalMovement = Components.GetComponentInChildren<HorizontalMovement>();
         JumpMovement = Components.GetComponentInChildren<JumpMovement>();
-        Attack = Components.GetComponentInChildren<EnemyAttack>();
-        Health = Components.GetComponentInChildren<EnemyHealth>();
-        Animation = Components.GetComponentInChildren<EnemyAnimation>();
-        Particles = Components.GetComponentInChildren<EnemyParticles>();
+        Attack = Components.GetComponentInChildren<EnemyRangedAttack>();
     }
 
     private void Start()
@@ -103,20 +94,22 @@ public class RangerBahaviour : Behaviour
 
     private void Update()
     {
+        if (GroundDetection.enabled)
+            UpdateGroundDetection();
+
+        if (Attack.enabled)
+            UpdateAttack();
+
         if (HorizontalMovement.enabled)
             UpdateHorizontalMovement();
-
-        if (GroundDetection.enabled)
-            UpdateEnemyDetection();
 
         if (JumpMovement.enabled)
             UpdateJumpMovement();
 
-        if (Attack.enabled)
-            UpdateAttackState();
-
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
+
+        moveTimer += Time.deltaTime;
     }
 
     private void UpdateHorizontalMovement()
@@ -125,6 +118,7 @@ public class RangerBahaviour : Behaviour
         {
             if (moveTimer > moveDelay)
             {
+                HorizontalMovement.SetFaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
                 HorizontalMovement.StartMoving(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
 
                 moveTimer = 0.0f;
@@ -132,6 +126,11 @@ public class RangerBahaviour : Behaviour
         }
         else
         {
+            if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
+            {
+                HorizontalMovement.MoveAwayFromCurrentDirection();
+            }
+            
             if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
             {
                 HorizontalMovement.StopMoving();
@@ -139,15 +138,13 @@ public class RangerBahaviour : Behaviour
             }
         }
 
-        if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
+        if (Attack.startAttackFlag)
         {
-            HorizontalMovement.MoveAwayFromCurrentDirection();
-        }
-
-        moveTimer += Time.deltaTime;
+            HorizontalMovement.SetFaceDirection(Attack.attackDirection);
+        } 
     }
 
-    private void UpdateEnemyDetection()
+    private void UpdateGroundDetection()
     {
         if (HorizontalMovement.startMovingFlag)
         {
@@ -169,14 +166,20 @@ public class RangerBahaviour : Behaviour
         }
     }
 
-    private void UpdateAttackState()
+    private void UpdateAttack()
     {
         switch (attackState)
         {
             case AttackState.Attack:
 
                 if (Attack.FindComponents() && attackLoopTimer > attackDelay)
+                {
                     SetAttackState(AttackState.Attacking);
+
+                    Attack.SetAttackDirection(Attack.GetAttackDirection());
+                    Attack.PerformAttack();
+                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
+                }
 
                 break;
 

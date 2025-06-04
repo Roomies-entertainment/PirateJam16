@@ -18,7 +18,9 @@ public class OverlapCheck : MonoBehaviour
     [SerializeField] protected UnityEvent<OverlapCheck> onCheckExit;
 
     public bool check { get; private set; }
-    public bool enterFlag, stayFlag, exitFlag;
+    public bool enterFlag  { get; private set; }
+    public bool stayFlag { get; private set; }
+    public bool exitFlag { get; private set; }
 
     private CircleGizmo circle;
 

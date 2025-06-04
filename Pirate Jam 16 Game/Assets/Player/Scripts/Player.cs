@@ -272,17 +272,17 @@ public class Player : MonoBehaviour, IProcessExplosion
 
         if (Inputs.attackFlag)
         {
-            if (!Attack.attacking)
+            if (!Attack.attackFlag)
             {
                 Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
             }
 
             Attack.FindComponents();
-            Attack.AttackAndInteract();
+            Attack.PerformAttack();
         }
         else if (Attack.attackTimer > Attack.AttackDuration)
         {
-            if (Attack.attacking)
+            if (Attack.attackFlag)
             {
                 Attack.StopAttack();
             }

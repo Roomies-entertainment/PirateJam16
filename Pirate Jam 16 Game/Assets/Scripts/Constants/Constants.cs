@@ -8,7 +8,7 @@ public static class Constants
         "These allow you to have onEnter set to true in fixed update\n" +
         "and it'll stay true until update, if you want");
 
-    public const string FlatUpdateMoveOverrideTTStr = (
+    public const string FlagUpdateMoveOverrideTTipStr = (
         "Checks - This script will set their update modes to manual\n" +
         "and updates their flags itself");
 }

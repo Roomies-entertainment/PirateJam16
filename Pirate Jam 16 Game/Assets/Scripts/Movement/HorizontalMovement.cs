@@ -35,8 +35,6 @@ public class HorizontalMovement : MonoBehaviour
     {
         currentSpeed = speed;
 
-        FaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
-
         startMovingFlag = true;
 
         onStartMoving?.Invoke((faceDirection * currentSpeed).normalized);
@@ -68,7 +66,7 @@ public class HorizontalMovement : MonoBehaviour
         }
     }
 
-    public void FaceDirection(Vector2 direction)
+    public void SetFaceDirection(Vector2 direction)
     {
         faceDirection = direction;
 

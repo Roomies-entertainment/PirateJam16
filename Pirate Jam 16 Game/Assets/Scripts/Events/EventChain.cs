@@ -52,6 +52,8 @@ public class EventChain : MonoBehaviour
     {
         if (index >= events.Count)
         {
+            enabled = false;
+            
             return;
         }
 

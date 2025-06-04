@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Physics2DMove : MonoBehaviour
 {
-    [SerializeField] private Vector2 movement;
+    public Vector2 movement;
+    public bool allowGravity;
+
     private Rigidbody2D rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = gameObject.EnforceComponentInParent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        rb.velocity = movement;
+        rb.velocity = new Vector3(
+            movement.x,
+            allowGravity ? rb.velocity.y + movement.y : movement.y,
+            0f);
     }
 }

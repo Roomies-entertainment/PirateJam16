@@ -5,7 +5,7 @@ public class DumbSoldierBehaviour : Behaviour
     private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
     private JumpMovement JumpMovement;
-    private EnemyAttack Attack;
+    private EnemyMeleeAttack Attack;
     private EnemyHealth Health;
     private EnemyAnimation Animation;
     private EnemyParticles Particles;
@@ -24,10 +24,10 @@ public class DumbSoldierBehaviour : Behaviour
     [SerializeField] private Vector2 blockDelayRange = new Vector2(0.3f, 0.4f);
     [SerializeField] private Vector2 blockDurationRange = new Vector2(1f, 1.5f);
     [SerializeField][Range(0, 1)] private float blockChance = 0.5f;
-/* 
-        [Header("")]
-        [SerializeField] private bool debug;
-     */
+    /* 
+            [Header("")]
+            [SerializeField] private bool debug;
+         */
     private float attackDelay, attackDuration, blockDelay, blockDuration;
 
     private void RandomizeAttackDelay() { attackDelay = RandomM.Range(attackDelayRange.x, attackDelayRange.y); }
@@ -67,9 +67,6 @@ public class DumbSoldierBehaviour : Behaviour
             case AttackState.Attacking:
 
                 RandomizeAttackDuration();
-                Attack.SetAttackDirection(Attack.GetAttackDirection());
-                Attack.AttackAndInteract();
-                transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
 
                 break;
 
@@ -101,7 +98,7 @@ public class DumbSoldierBehaviour : Behaviour
         GroundDetection = Components.GetComponentInChildren<GroundDetection>();
         HorizontalMovement = Components.GetComponentInChildren<HorizontalMovement>();
         JumpMovement = Components.GetComponentInChildren<JumpMovement>();
-        Attack = Components.GetComponentInChildren<EnemyAttack>();
+        Attack = Components.GetComponentInChildren<EnemyMeleeAttack>();
         Health = Components.GetComponentInChildren<EnemyHealth>();
         Animation = Components.GetComponentInChildren<EnemyAnimation>();
         Particles = Components.GetComponentInChildren<EnemyParticles>();
@@ -128,23 +125,25 @@ public class DumbSoldierBehaviour : Behaviour
     #region Update
     private void Update()
     {
+        if (GroundDetection.enabled)
+            UpdateGroundDetection();
+
+        if (Attack.enabled)
+            UpdateAttack();
+
         if (HorizontalMovement.enabled)
             UpdateHorizontalMovement();
 
-        if (GroundDetection.enabled)
-            UpdateEnemyDetection();
-
         if (JumpMovement.enabled)
             UpdateJumpMovement();
-
-        if (Attack.enabled)
-            UpdateAttackState();
 
         if (Health.enabled)
             UpdateHealth();
 
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
+
+        moveTimer += Time.deltaTime;
     }
 
     private void UpdateHorizontalMovement()
@@ -153,6 +152,7 @@ public class DumbSoldierBehaviour : Behaviour
         {
             if (moveTimer > moveDelay)
             {
+                HorizontalMovement.SetFaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
                 HorizontalMovement.StartMoving(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
 
                 moveTimer = 0.0f;
@@ -160,6 +160,11 @@ public class DumbSoldierBehaviour : Behaviour
         }
         else
         {
+            if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
+            {
+                HorizontalMovement.MoveAwayFromCurrentDirection();
+            }
+
             if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
             {
                 HorizontalMovement.StopMoving();
@@ -167,15 +172,13 @@ public class DumbSoldierBehaviour : Behaviour
             }
         }
 
-        if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
+        if (Attack.startAttackFlag)
         {
-            HorizontalMovement.MoveAwayFromCurrentDirection();
+            HorizontalMovement.SetFaceDirection(Attack.attackDirection);
         }
-
-        moveTimer += Time.deltaTime;
     }
 
-    private void UpdateEnemyDetection()
+    private void UpdateGroundDetection()
     {
         if (HorizontalMovement.startMovingFlag)
         {
@@ -197,14 +200,20 @@ public class DumbSoldierBehaviour : Behaviour
         }
     }
 
-    private void UpdateAttackState()
+    private void UpdateAttack()
     {
         switch (attackState)
         {
             case AttackState.Attack:
 
                 if (Attack.FindComponents() && attackLoopTimer > attackDelay)
+                {
                     SetAttackState(AttackState.Attacking);
+
+                    Attack.SetAttackDirection(Attack.GetAttackDirection());
+                    Attack.PerformAttack();
+                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
+                }
 
                 break;
 
