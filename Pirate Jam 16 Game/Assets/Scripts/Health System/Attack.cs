@@ -196,7 +196,6 @@ public abstract class Attack : MonoBehaviour
     private void LateUpdate()
     {
         startAttackFlag = false;
-        attackFlag = false;
         stopAttackFlag = false;
     }
 }
