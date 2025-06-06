@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
+
 public class DialoguePanel : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
@@ -25,7 +26,7 @@ public class DialoguePanel : MonoBehaviour
 
     private void Awake()
     {
-        DialogueM.dialoguePanel = this;
+        StaticReferences.dialoguePanel = this;
         dialogueBox.SetActive(false);
         characterImage.enabled = false;
     }
@@ -72,9 +73,8 @@ public class DialoguePanel : MonoBehaviour
         dialogueBox.SetActive(true);
         DialogueEffects();
         StopAllCoroutines();
+        StaticReferences.playerReference.TogglePlayer();
         StartCoroutine(TypeLine());
-
-
     }
 
     void CharacterImagePosition()
@@ -118,7 +118,9 @@ public class DialoguePanel : MonoBehaviour
             StartCoroutine(TypeLine());
         } else
         {
+            //This is where the script finishes Ben please dont hurt it, its but a weee bo
             dialogueBox.SetActive(false);
+            StaticReferences.playerReference.TogglePlayer();
         }
     }
 

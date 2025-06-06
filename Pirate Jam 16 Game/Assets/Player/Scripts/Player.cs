@@ -23,6 +23,12 @@ public class Player : MonoBehaviour, IProcessExplosion
     private PlayerAnimation Animation;
     private PlayerHealth Health;
 
+    public void TogglePlayer()
+    {
+        Attack.enabled = !Attack.enabled;
+        Movement.enabled = !Movement.enabled;
+    }
+
     public void ProcessExplosion(Explosion explosion) { Physics.SyncForces(); Physics.ScaleSpeed(1.3f); }
 
     private void Awake()
@@ -34,6 +40,7 @@ public class Player : MonoBehaviour, IProcessExplosion
         Attack = GetComponent<PlayerAttack>();
         Animation = GetComponent<PlayerAnimation>();
         Health = GetComponent<PlayerHealth>();
+        StaticReferences.playerReference = this;
     }
 
     private void Start()
@@ -250,7 +257,7 @@ public class Player : MonoBehaviour, IProcessExplosion
 
     private void LateUpdateMovement()
     {
-        if (!Inputs.enabled)
+        if (!Movement.enabled)
         {
             return;
         }

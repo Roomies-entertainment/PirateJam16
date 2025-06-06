@@ -94,7 +94,6 @@
     <Compile Include="Assets\Scripts\Dialogue System\Dialogue.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerParticles.cs" />
     <Compile Include="Assets\Scripts\Detection\Detection.cs" />
-    <Compile Include="Assets\Scripts\Dialogue System\DialogueM.cs" />
     <Compile Include="Assets\Scripts\Triggers\TriggerEvent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="Assets\Enemy\Scripts\GroundDetection.cs" />
     <Compile Include="Assets\Sound\Scripts\AudioPlaylist.cs" />
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
+    <Compile Include="Assets\Scripts\Dialogue System\StaticReferences.cs" />
     <Compile Include="Assets\Enemy\Scripts\Behaviours\DumbSoldierBehaviour.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
     <Compile Include="Assets\Scripts\Definitions\Enums.cs" />
