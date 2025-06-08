@@ -32,6 +32,7 @@ public class DialogueData
     public EventData _event;
 }
 
+
 public class Dialogue : MonoBehaviour
 {
 
@@ -39,7 +40,7 @@ public class Dialogue : MonoBehaviour
 
     public void DialogueAwake()
     {
-        DialogueM.dialoguePanel.StartDialogue(_dialogue);
+        StaticReferences.dialoguePanel.StartDialogue(_dialogue);
     }
 
 
