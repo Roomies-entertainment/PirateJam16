@@ -2,12 +2,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class PlayerAttack : Attack
+public class PlayerAttack : MeleeAttack
 {
-    [Header("")]
-    [SerializeField] private bool damagePlayers = false;
-    [SerializeField] private bool damageEnemies = true;
-
     [Header("")]
     [Range(0, 1)] public float fallingThreshold = 0.24f;
     public int fallingExtraDamage = 1;
@@ -21,19 +17,6 @@ public class PlayerAttack : Attack
     private void Update()
     {
         attackTimer += Time.deltaTime;
-    }
-
-    protected override List<System.Type> GetDetectableTypes()
-    {
-        List<System.Type> types = base.GetDetectableTypes();
-
-        if (damagePlayers)
-            types.Add(typeof(PlayerHealth));
-
-        if (damageEnemies)
-            types.Add(typeof(EnemyHealth));
-
-        return types;
     }
 
     protected override bool CanHitObject(GameObject obj)

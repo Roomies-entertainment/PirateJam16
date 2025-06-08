@@ -621,7 +621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.99
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1237,6 +1237,8 @@ GameObject:
   - component: {fileID: 1971259058}
   - component: {fileID: 1971259057}
   - component: {fileID: 1971259056}
+  - component: {fileID: 1971259059}
+  - component: {fileID: 1971259060}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
@@ -1356,6 +1358,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1971259059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971259055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d8bd2d12348b80429b27a07dd488ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 0
+  _event:
+    Event:
+      m_PersistentCalls:
+        m_Calls: []
+    delayComponent:
+      _delay: 0
+      _delayAlt: 0
+      delayRandomType: 0
+--- !u!114 &1971259060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971259055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610717d34bf5d944894ca083169293a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 0
+  events:
+  - Event:
+      m_PersistentCalls:
+        m_Calls: []
+    delayComponent:
+      _delay: 0
+      _delayAlt: 0
+      delayRandomType: 0
 --- !u!1 &2108420788
 GameObject:
   m_ObjectHideFlags: 0

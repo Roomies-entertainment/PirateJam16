@@ -10,19 +10,19 @@ public class GroundDetection : MonoBehaviour
     public LROverlapChecks EdgeChecks;
 
     [Header("Sets the checks in Detection Components to these - won't allow manual update")]
-    public FlagUpdateMode detectionUpdateMode = new FlagUpdateMode(
+    public FlagUpdateMode checkUpdateMode = new FlagUpdateMode(
         Enums.UpdateMode.FixedUpdate, Enums.UpdateMode.LateUpdate);
 
     private void OnValidate()
     {
-        if (detectionUpdateMode.setMode == Enums.UpdateMode.Manual)
+        if (checkUpdateMode.setMode == Enums.UpdateMode.Manual)
         {
-            detectionUpdateMode.setMode = Enums.UpdateMode.FixedUpdate;
+            checkUpdateMode.setMode = Enums.UpdateMode.FixedUpdate;
         }
 
-        if (detectionUpdateMode.clearMode == Enums.UpdateMode.Manual)
+        if (checkUpdateMode.clearMode == Enums.UpdateMode.Manual)
         {
-            detectionUpdateMode.clearMode = Enums.UpdateMode.LateUpdate;
+            checkUpdateMode.clearMode = Enums.UpdateMode.LateUpdate;
         }
     }
 
@@ -33,10 +33,10 @@ public class GroundDetection : MonoBehaviour
 
     public void InitCheckUpdateModes()
     {
-        GroundCheck.flagUpdateMode = detectionUpdateMode;
-        StepChecks.flagUpdateMode = detectionUpdateMode;
-        StepClearanceChecks.flagUpdateMode = detectionUpdateMode;
-        EdgeChecks.flagUpdateMode = detectionUpdateMode;
+        GroundCheck.flagUpdateMode = checkUpdateMode;
+        StepChecks.flagUpdateMode = checkUpdateMode;
+        StepClearanceChecks.flagUpdateMode = checkUpdateMode;
+        EdgeChecks.flagUpdateMode = checkUpdateMode;
     }
 
     private void Start() { } // Ensures component toggle in inspector

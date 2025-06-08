@@ -5,12 +5,12 @@ using UpdateMode = Enums.UpdateMode;
 
 public class LROverlapChecks : MonoBehaviour
 {
-    [Tooltip(Constants.FlagUpdateModeTTStr)]
-    public FlagUpdateMode flagUpdateMode;
-
-    [Header(Constants.FlatUpdateMoveOverrideTTStr)]
+    [Header(Constants.FlagUpdateMoveOverrideTTipStr)]
     [SerializeField] private OverlapCheck leftCheck;
     [SerializeField] private OverlapCheck rightCheck;
+
+    [Tooltip(Constants.FlagUpdateModeTTStr)]
+    public FlagUpdateMode flagUpdateMode;
 
     [Header("If min amount is above 1\nboth checks need to be in an onEnter state etc.")]
     [Space]
