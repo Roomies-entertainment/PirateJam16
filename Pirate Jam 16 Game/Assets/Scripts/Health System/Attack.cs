@@ -19,11 +19,6 @@ public abstract class Attack : MonoBehaviour
     [Header("")]
     [Tooltip("Don't hit objects behind")]
     [SerializeField] protected bool behindCheck = true;
-    [Range(-1, 1)]
-    [SerializeField] protected float beneathDirCheckLeniance = 0.5f;
-
-    [Tooltip("Don't hit objects beneath")]
-    [SerializeField] protected bool beneathDirCheck = true;
     [SerializeField] protected float behindCheckLeniance = -0.3f;
 
     [Header("")]
@@ -60,18 +55,25 @@ public abstract class Attack : MonoBehaviour
 
     public virtual bool FindComponents()
     {
-        var components = Detection.DetectComponentsInParents(
+        var types = GetDetectableTypes().ToArray();
+        var detectedTypes = Detection.DetectComponentsInParents(
             AttackCircle.transform.position, AttackCircle.GetRadius(),
             default,
-            GetDetectableTypes().ToArray());
+            types);
 
         foundComps.Clear();
 
-        foreach (var c in components)
+        foreach (var type in detectedTypes)
         {
-            if (CanHitObject(c.Key.gameObject))
+            foreach (var detected in type.Value)
             {
-                foundComps.Add(c.Key, c.Value);
+                var comp = (Component)detected.Key;
+                var colliders = detected.Value;
+
+                if (CanHitObject(comp.gameObject))
+                {
+                    foundComps.Add(comp, colliders);
+                }
             }
         }
 
@@ -114,8 +116,7 @@ public abstract class Attack : MonoBehaviour
     protected virtual bool AttackDirectionHit(Vector2 objPosition)
     {
         return
-            (!beneathDirCheck || Detection.DirectionCheck(Vector2.up, transform.position, objPosition, true, beneathDirCheckLeniance)) &&
-            (!behindCheck || attackDirection.sqrMagnitude == 0 || Detection.DirectionCheck(attackDirection, transform.position, objPosition, false, behindCheckLeniance));
+            !behindCheck || attackDirection.sqrMagnitude == 0 || Detection.DirectionCheck(attackDirection, transform.position, objPosition, false, behindCheckLeniance);
     }
 
     protected virtual void OnStartAttack(Vector2 direction)

@@ -11,7 +11,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerHealth))]
 
-public class Player : MonoBehaviour, IProcessExplosion//, IProcessProjectile
+public class Player : MonoBehaviour
 {
     [SerializeField] private bool enableBlocking;
 
@@ -28,8 +28,7 @@ public class Player : MonoBehaviour, IProcessExplosion//, IProcessProjectile
         Attack.enabled = !Attack.enabled;
         Movement.enabled = !Movement.enabled;
     }
-
-    public void ProcessExplosion(Explosion explosion) { Physics.SyncForces(); Physics.ScaleSpeed(1.3f); }
+    public void ProcessProjectile(Projectile projectile) {  }
 
     private void Awake()
     {

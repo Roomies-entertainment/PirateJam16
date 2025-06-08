@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Health : MonoBehaviour, IProcessExplosion
+public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProjectile
 {
     [SerializeField]
     [Tooltip("Object starts dead if this is 0")]
@@ -27,6 +27,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
 
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
+    [SerializeField] protected bool damagedByProjectiles = true;
     [Tooltip("Don't block attacks from behind")]
     [SerializeField] protected bool blockBehindCheck = true;
 
@@ -63,19 +64,36 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
     protected virtual void Start() { } // Gives it enabled checkbox
 
 
-    public void ProcessExplosion(Explosion explosion)
+    public void ProcessExplosion(Explosion e)
     {
-        if (damagedByExplosions)
+        if (!enabled || !damagedByExplosions)
         {
-            if (debug)
-            {
-                Debug.Log($"{gameObject.name} taking explosion damage");
-            }
-
-            var data = new DetectionData(explosion.transform.position, this, explosion);
-
-            IncrementHealth(-explosion.damage, data);
+            return;
         }
+
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} taking explosion damage");
+        }
+
+        var data = new DetectionData(e.transform.position, this, e);
+        IncrementHealth(-e.damage, data);
+    }
+
+    public void ProcessProjectile(Projectile p)
+    {
+        if (!enabled || !damagedByProjectiles)
+        {
+            return;
+        }
+
+        if (debug)
+        {
+            Debug.Log($"{gameObject.name} taking projectile damage");
+        }
+
+        var data = new DetectionData(p.transform.position, this, p);
+        IncrementHealth(-p.damage, data);
     }
 
     public virtual void IncrementHealth(int increment, DetectionData data)
@@ -125,7 +143,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion
                 OnDie(data);
             }
         }
-            
+
     }
 
     private IEnumerator OnDieDelayed(DetectionData data, float delay)

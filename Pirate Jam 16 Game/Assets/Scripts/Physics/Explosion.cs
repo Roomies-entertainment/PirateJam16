@@ -28,12 +28,12 @@ public class Explosion : MonoBehaviour
 
     public void Explode()
     {
-        Detection.DetectComponentInParents<Rigidbody2D>(transform.position, fieldofImpact, out var rbs);
+        var components = Detection.DetectComponentsInParents(
+            transform.position, fieldofImpact, default, typeof(Rigidbody2D), typeof(IProcessExplosion));
 
-        foreach (Rigidbody2D rb in rbs)
+        foreach (var component in components[typeof(Rigidbody2D)])
         {
-            //print(rb);
-
+            Rigidbody2D rb = (Rigidbody2D)component.Key;
             Vector2 toObject = rb.transform.position - transform.position;
             Vector2 force = toObject.normalized * Mathf.Lerp(minForce, maxForce, toObject.magnitude / fieldofImpact);
 

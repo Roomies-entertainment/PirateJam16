@@ -334,8 +334,8 @@ Transform:
   m_GameObject: {fileID: 3103703231456722805}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
-  m_LocalScale: {x: 1.4014313, y: 2.025, z: 1.0884904}
+  m_LocalPosition: {x: 0, y: 0.459, z: 0}
+  m_LocalScale: {x: 1.4014313, y: 2.17728, z: 1.0884904}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1622704684545824213}
@@ -1055,8 +1055,6 @@ MonoBehaviour:
   hitInteractables: 0
   AttackCircle: {fileID: 5442672519204558986}
   behindCheck: 0
-  beneathDirCheckLeniance: 0.4
-  beneathDirCheck: 1
   behindCheckLeniance: -0.3
   debug: 0
   onStartAttack:
@@ -1098,7 +1096,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  ProjectileSpawn: {fileID: 1287442764200855494}
+  beneathDirCheck: 1
+  beneathDirCheckLeniance: 0.4
+  ProjectileSpawnComponent: {fileID: 1287442764200855494}
 --- !u!114 &1287442764200855494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,8 +1114,8 @@ MonoBehaviour:
   angle: 0
   direction: {x: 0, y: 1}
   speed:
-    default: 7
-    alt: 9
+    default: 15
+    alt: 18
     randomType: 0
   delay:
     default: 0

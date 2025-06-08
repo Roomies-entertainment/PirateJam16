@@ -1334,7 +1334,7 @@ MonoBehaviour:
   AttackCircle: {fileID: 7492755210599710390}
   behindCheck: 1
   beneathDirCheckLeniance: 0
-  beneathDirCheck: 1
+  beneathDirCheck: 0
   behindCheckLeniance: 0.3
   debug: 0
   onStartAttack:

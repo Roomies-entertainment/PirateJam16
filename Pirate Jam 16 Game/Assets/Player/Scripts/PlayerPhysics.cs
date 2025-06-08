@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerPhysics : MonoBehaviour
+public class PlayerPhysics : MonoBehaviour, IProcessExplosion
 {
     //public Rigidbody2D rb { get; private set; }
     [SerializeField] private Rigidbody2D rb;
@@ -36,6 +36,8 @@ public class PlayerPhysics : MonoBehaviour
         }
      */
  
+    public void ProcessExplosion(Explosion explosion) { if (!enabled) return; SyncForces(); ScaleSpeed(1.3f); }
+
     public void AddHorizontalSpeed(float speed)
     {
         speedX += speed;

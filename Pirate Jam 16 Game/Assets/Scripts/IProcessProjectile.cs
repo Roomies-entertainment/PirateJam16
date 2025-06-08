@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IProcessProjectile
 {
-    void ProcessExplosion(Projectile projectile);
+    void ProcessProjectile(Projectile projectile);
 }

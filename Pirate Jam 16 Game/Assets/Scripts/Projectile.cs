@@ -12,11 +12,19 @@ public class Projectile : MonoBehaviour
 
     [Space]
     public float mass = 0.01f;
+    public int damage = 1;
+
+    [Header("Behaviour for objects that already been hit")]
+    [SerializeField] private bool phaseHitObjects = false;
+    [SerializeField] private bool phaseDamagedObjects = true;
 
     private Rigidbody2D rb;
     private Collider2D col;
     private FaceDirection FaceDirection;
     private DestroyObject DestroyObjComp;
+
+    private Vector2 lastVelocity;
+
 
     private void Awake()
     {
@@ -48,7 +56,8 @@ public class Projectile : MonoBehaviour
 
     public void Initialize(
         float speed, Vector2 direction, bool maintainSpeed = false,
-        float startLifetime = -0.1f, float collisionLifetime = -0.1f, float mass = -0.1f) {
+        float startLifetime = -0.1f, float collisionLifetime = -0.1f, float mass = -0.1f)
+    {
 
         this.speed = speed;
         this.direction = direction;
@@ -60,6 +69,20 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Rigidbody2D rb = collision.rigidbody;
+        Transform searchFrom = rb != null ? rb.transform : collision.collider.transform;
+
+        var pPs = searchFrom.GetComponentsInChildren<IProcessProjectile>();
+
+        if (-Vector3.Dot(lastVelocity, collision.GetContact(0).normal) > 11)
+        {
+            foreach (IProcessProjectile p in pPs)
+                p.ProcessProjectile(this);
+        }
+
+        if (phaseHitObjects || phaseDamagedObjects && pPs.Length > 0)
+            Physics2D.IgnoreCollision(col, collision.collider);
+
         if (collisionLifetime > 0f)
         {
             DestroyObjComp.enabled = true;
@@ -73,6 +96,8 @@ public class Projectile : MonoBehaviour
         {
             SetForce();
         }
+
+        lastVelocity = rb.velocity;
     }
 
     private void SetForce()

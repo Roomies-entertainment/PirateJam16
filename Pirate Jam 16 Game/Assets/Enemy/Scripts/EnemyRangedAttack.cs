@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class EnemyRangedAttack : Attack
 {
+    [Tooltip("Don't hit objects beneath")]
+    [SerializeField] protected bool beneathDirCheck = false;
+    [Range(-1, 1)]
+    [SerializeField] protected float beneathDirCheckLeniance = 0.5f;
 
-    [SerializeField] private SpawnProjectile ProjectileSpawn;
+    [Header("")]
+    [SerializeField] private SpawnProjectile ProjectileSpawnComponent;
 
     protected override bool CanHitObject(GameObject obj)
     {
@@ -15,9 +20,14 @@ public class EnemyRangedAttack : Attack
         return true;
     }
 
+    protected override bool AttackDirectionHit(Vector2 objPosition)
+    {
+        return (!beneathDirCheck || Detection.DirectionCheck(Vector2.up, transform.position, objPosition, true, beneathDirCheckLeniance)) &&
+                base.AttackDirectionHit(objPosition);
+    }
     protected override void AttackAndInteract(int damage = BaseDamage)
     {
-        Vector2 pos = ProjectileSpawn.spawnPoint.position + new Vector3(attackDirection.x, 0f, 0f);
-        ProjectileSpawn.Spawn(pos.x, pos.y, attackDirection);
+        Vector2 pos = ProjectileSpawnComponent.spawnPoint.position + new Vector3(attackDirection.x, 0f, 0f);
+        ProjectileSpawnComponent.Spawn(pos.x, pos.y, attackDirection);
     }
 }
