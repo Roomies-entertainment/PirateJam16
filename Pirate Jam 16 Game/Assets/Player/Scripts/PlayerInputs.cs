@@ -10,13 +10,16 @@ public class PlayerInputs : MonoBehaviour
     public float verticalInput { get; private set; }
 
     private bool _jumpFlag;
-    public bool jumpFlag { get { return _jumpFlag; } }      public void ClearJumpFlag() { _jumpFlag = false; }
+    public bool jumpFlag { get { return _jumpFlag; } }
+    public void ClearJumpFlag() { _jumpFlag = false; }
 
     private bool _attackFlag;
-    public bool attackFlag { get { return _attackFlag; } }  public void ClearAttackFlag() { _attackFlag = false; }
-    
+    public bool attackFlag { get { return _attackFlag; } }
+    public void ClearAttackFlag() { _attackFlag = false; }
+
     private bool _blockFlag;
-    public bool blockFlag { get { return _blockFlag; } }    public void ClearBlockFlag() { _blockFlag = false;}
+    public bool blockFlag { get { return _blockFlag; } }
+    public void ClearBlockFlag() { _blockFlag = false; }
 
     [SerializeField] private const float JumpTimeout = 0.35f;
 
@@ -69,7 +72,7 @@ public class PlayerInputs : MonoBehaviour
             flag = true;
             timer = 0f;
         }
-        
+
         if (flag && timer > timeout)
         {
             flag = false;
@@ -79,5 +82,10 @@ public class PlayerInputs : MonoBehaviour
     public void UpdateTimers()
     {
         jumpTimer += Time.deltaTime;
+    }
+
+    public void ResetTimers()
+    {
+        jumpTimer = 0f;
     }
 }

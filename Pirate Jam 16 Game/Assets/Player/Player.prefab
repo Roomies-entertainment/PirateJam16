@@ -1315,6 +1315,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  speedX: 0
+  speedY: 0
 --- !u!114 &3130445153889366091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,8 +1335,6 @@ MonoBehaviour:
   hitInteractables: 1
   AttackCircle: {fileID: 7492755210599710390}
   behindCheck: 1
-  beneathDirCheckLeniance: 0
-  beneathDirCheck: 0
   behindCheckLeniance: 0.3
   debug: 0
   onStartAttack:
@@ -1466,6 +1466,7 @@ MonoBehaviour:
     _delayAlt: 0
     delayRandomType: 0
   damagedByExplosions: 1
+  damagedByProjectiles: 1
   blockBehindCheck: 1
   blockBehindCheckLeniance: -0.3
   TakeDamageColliders:

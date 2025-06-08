@@ -56,14 +56,11 @@ public class Player : MonoBehaviour
         bool hopFlag = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
         bool jumpFlag = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
-        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
         FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
+        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
         FixedUpdateInputs(jumpFlag);
-
-        Animation.FaceDirection(Inputs.horizontalInput);
-
-        Collision.IncrementTimers(Time.fixedDeltaTime);
-        Movement.IncrementGroundedTimers();
+        FixedUpdateAnimation();
+        FixedUpdateCollision();
     }
 
     private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
@@ -87,7 +84,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Physics.EnforceHorizontalSpeed(Inputs.horizontalInput * Movement.moveSpeed);
+            Physics.EnforceHorizontalSpeed(Movement.speedX);
 
             if (Inputs.horizontalInput == 0f)
             {
@@ -105,7 +102,7 @@ public class Player : MonoBehaviour
 
         if (jumpFlag)
         {
-            Physics.EnforceVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
+            Physics.EnforceVerticalSpeed(Movement.speedY);
         }
 
         Physics.MovePlayer();
@@ -117,6 +114,16 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        float speedX = Inputs.horizontalInput * Movement.moveSpeed;
+        float speedY;
+
+        if (jumpFlag)
+            speedY = Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed;
+        else
+            speedY = Physics.speedY;
+
+        Movement.SetSpeeds(speedX, speedY);
 
         if (onGroundFlag)
         {
@@ -134,6 +141,8 @@ public class Player : MonoBehaviour
         {
             Movement.OnJump();
         }
+
+        Movement.IncrementGroundedTimers();
     }
 
     private void FixedUpdateInputs(bool jumpFlag)
@@ -148,6 +157,26 @@ public class Player : MonoBehaviour
             Inputs.ClearJumpFlag();
         }
     }
+
+    private void FixedUpdateAnimation()
+    {
+        if (!Animation.enabled)
+        {
+            return;
+        }
+
+        Animation.FaceDirection(Physics.speedX);
+    }
+
+    private void FixedUpdateCollision()
+    {
+        if (!Collision.enabled)
+        {
+            return;
+        }
+
+        Collision.IncrementTimers(Time.fixedDeltaTime);
+    }
     #endregion
 
     #region Update
@@ -160,6 +189,8 @@ public class Player : MonoBehaviour
     {
         if (!Inputs.enabled)
         {
+            Inputs.ResetTimers();
+
             return;
         }
 
@@ -176,12 +207,33 @@ public class Player : MonoBehaviour
             Inputs.verticalInput < -0.35f &&
             Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration);
 
+        LateUpdateMovement(platformPhaseFlag);
         LateUpdatePhysics(platformPhaseFlag);
         LateUpdateCollision(platformPhaseFlag, phasableContact);
         LateUpdateHealth();
-        LateUpdateMovement();
         LateUpdateAttack();
         LateUpdateInputs();
+    }
+
+    private void LateUpdateMovement(bool platformPhaseFlag)
+    {
+        if (!Movement.enabled)
+        {
+            Movement.ResetGroundedTimers();
+            Movement.ResetJumpTimers();
+            
+            return;
+        }
+
+        if (platformPhaseFlag)
+        {
+            Movement.speedY = -Movement.fallThroughPlatformSpeed;
+        }
+
+        if (Inputs.attackFlag)
+        {
+            Movement.ResetJumpTimers();
+        }
 
         Movement.IncrementJumpTimers();
     }
@@ -193,10 +245,9 @@ public class Player : MonoBehaviour
             return;
         }
 
-
         if (platformPhaseFlag)
         {
-            Physics.EnforceVerticalSpeed(-Movement.fallThroughPlatformSpeed);
+            Physics.EnforceVerticalSpeed(Movement.speedY);
         }
     }
 
@@ -204,9 +255,10 @@ public class Player : MonoBehaviour
     {
         if (!Collision.enabled)
         {
+            Collision.ResetPhaseTimers();
+
             return;
         }
-
 
         if (Inputs.verticalInput >= 0f)
         {
@@ -217,12 +269,9 @@ public class Player : MonoBehaviour
                 Collision.StopPhasingThroughPlatforms();
             }
         }
-        else
+        else if (Movement.speedY < 0 && platformPhaseFlag)
         {
-            if (platformPhaseFlag)
-            {
-                Collision.StartPhasingThroughPlatforms(phasableContact.collider, 0.1f);
-            }
+            Collision.StartPhasingThroughPlatforms(phasableContact.collider, 0.1f);
         }
     }
 
@@ -251,20 +300,6 @@ public class Player : MonoBehaviour
             {
                 Health.StopBlocking();
             }
-        }
-    }
-
-    private void LateUpdateMovement()
-    {
-        if (!Movement.enabled)
-        {
-            return;
-        }
-
-
-        if (Inputs.attackFlag)
-        {
-            Movement.ResetJumpTimers();
         }
     }
 
