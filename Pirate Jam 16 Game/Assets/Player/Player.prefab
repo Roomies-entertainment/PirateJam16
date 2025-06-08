@@ -864,6 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visibileSelectDepth: 1
   color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7898100762804299592
 GameObject:
@@ -1110,7 +1111,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -1326,13 +1327,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9b061087491e48a915dd33c9add90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePlayers: 0
+  damageEnemies: 1
   damageObjects: 1
   hitInteractables: 1
   AttackCircle: {fileID: 7492755210599710390}
   behindCheck: 1
+  beneathDirCheckLeniance: 0
   beneathDirCheck: 1
   behindCheckLeniance: 0.3
-  beneathDirCheckLeniance: 0
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1433,8 +1436,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  damagePlayers: 0
-  damageEnemies: 1
   fallingThreshold: 0.24
   fallingExtraDamage: 1
   AttackDuration: 0.3

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyRangedAttack : Attack
 {
 
-    [SerializeField] private ProjectileSpawn ProjectileSpawn;
+    [SerializeField] private SpawnProjectile ProjectileSpawn;
 
     protected override bool CanHitObject(GameObject obj)
     {
@@ -17,8 +17,7 @@ public class EnemyRangedAttack : Attack
 
     protected override void AttackAndInteract(int damage = BaseDamage)
     {
-        ProjectileSpawn.SpawnProjectile(
-            ProjectileSpawn.spawnPoint.position + new Vector3(attackDirection.x, 0f, 0f),
-            attackDirection);
+        Vector2 pos = ProjectileSpawn.spawnPoint.position + new Vector3(attackDirection.x, 0f, 0f);
+        ProjectileSpawn.Spawn(pos.x, pos.y, attackDirection);
     }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FaceDirection : MonoBehaviour
 {
+    [Tooltip("Sets direction")]
     public float angle;
-    [SerializeField] private Vector2 _directionDisplay;
+    public Vector2 direction;
 
     [Header("")]
     public float speedCutoff = 0.1f;
@@ -27,12 +28,10 @@ public class FaceDirection : MonoBehaviour
             TrackTransform.updateMode = Enums.UpdateMode.Manual;
         }
 
-        Vector3 d = Quaternion.AngleAxis(-angle, Vector3.forward) * Vector3.up;
-
-        _directionDisplay = new Vector2(
-            Mathf.Floor(d.x*10)/10,
-            Mathf.Floor(d.y*10)/10
-        );
+        if (Application.isEditor)
+        {
+            direction = Vector2L.FromAngle(angle);
+        }
     }
 
     void Start()

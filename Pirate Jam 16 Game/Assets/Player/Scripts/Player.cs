@@ -11,7 +11,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerHealth))]
 
-public class Player : MonoBehaviour, IProcessExplosion
+public class Player : MonoBehaviour, IProcessExplosion//, IProcessProjectile
 {
     [SerializeField] private bool enableBlocking;
 
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour, IProcessExplosion
         }
 
         Physics.SyncForces();
-
+        
         if (onGroundFlag)
         {
             Physics.AddVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale * Time.fixedDeltaTime);
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour, IProcessExplosion
                 Physics.AddHorizontalSpeed(-Physics.speedX * Movement.slowSpeed * Time.fixedDeltaTime);
             }
 
-            Physics.AddVerticalSpeed(Physics2D.gravity.y  * Time.fixedDeltaTime * (
+            Physics.AddVerticalSpeed(Physics2D.gravity.y * Time.fixedDeltaTime * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
             if (onWallFlag)

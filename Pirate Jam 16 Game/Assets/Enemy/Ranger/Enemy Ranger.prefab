@@ -934,7 +934,7 @@ Transform:
   m_GameObject: {fileID: 6671308400160840112}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.27999997, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -945,7 +945,7 @@ Transform:
   - {fileID: 6619904889587005800}
   - {fileID: 7572539799092860165}
   - {fileID: 9120428744301237589}
-  m_Father: {fileID: 5586226289939561141}
+  m_Father: {fileID: 4079875813400938342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1770304103107045689
 MonoBehaviour:
@@ -963,8 +963,8 @@ MonoBehaviour:
   StepChecks: {fileID: 7072432904906358810}
   StepClearanceChecks: {fileID: 3151779006220913311}
   EdgeChecks: {fileID: 9211609609233528901}
-  detectionUpdateMode:
-    setMode: 0
+  checkUpdateMode:
+    setMode: 1
     clearMode: 2
 --- !u!114 &7642743467955784027
 MonoBehaviour:
@@ -1111,8 +1111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc77276441d509543a77aa1ce9c77dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 2464728581529442187}
-  direction: {x: 1, y: 0}
+  angle: 0
+  direction: {x: 0, y: 1}
   speed:
     default: 7
     alt: 9
@@ -1121,12 +1121,14 @@ MonoBehaviour:
     default: 0
     alt: 0
     randomType: 0
-  lifetime: 10
+  maintainSpeed: 0
   loop: 0
-  flipProjSpriteX: 1
+  mass: 0.01
+  startLifetime: 10
+  collisionLifetime: 10
+  spawnPoint: {fileID: 2464728581529442187}
   projectileSprite: {fileID: 21300000, guid: ee5d77a9c76a8bc4481cb741e0fdfff0, type: 3}
-  ignoreColliders:
-  - {fileID: 1479379598218347203}
+  flipProjSpriteX: 1
 --- !u!114 &3618339497995387731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,8 +1547,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.27999997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6900282181118926586}
+  m_Children: []
   m_Father: {fileID: 4079875813400938342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2031575578958518223
@@ -1630,6 +1631,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5586226289939561141}
+  - {fileID: 6900282181118926586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6133872198208598422
