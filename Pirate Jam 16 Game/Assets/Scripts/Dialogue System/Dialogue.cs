@@ -26,9 +26,11 @@ public class DialogueData
     public Sprite characterImage;
     public AudioClip characterAudio;
 
+    [Header("What side do you want the character to be?")]
     public bool isLeft = true;
 
-
+    [Header("Do you want the event to come first or last?")]
+    public bool lateEventCall = false;
     public EventData _event;
 }
 

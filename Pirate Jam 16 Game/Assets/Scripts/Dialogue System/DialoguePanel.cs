@@ -56,6 +56,7 @@ public class DialoguePanel : MonoBehaviour
                 dialogueSauce.Stop();
                 textComponent.text = dialogueData[index].dialogueText;
                 continueTextLine.SetActive(true);
+                    
             }
         }
 
@@ -69,7 +70,7 @@ public class DialoguePanel : MonoBehaviour
     public void StartDialogue(List<DialogueData> _dialogue)
     {
 
-        index = 0;
+         index = 0;
         this.dialogueData = new(_dialogue);
         dialogueBox.SetActive(true);
         DialogueEffects();
@@ -78,7 +79,7 @@ public class DialoguePanel : MonoBehaviour
         StartCoroutine(TypeLine());
     }
 
-    void CharacterImagePosition()
+    void CharacterImagePosition() //this will need to be adjusted based on the images, all images need to be the same resolution and directional facing for this to work.
     {
         if (dialogueData[index].isLeft == true)
         {
@@ -103,8 +104,11 @@ public class DialoguePanel : MonoBehaviour
             DialogueEffects();
 
             eventFinished = false;
-            dialogueData[index]._event.StartEvent();
 
+            if (dialogueData[index].lateEventCall == true) // this is delayed event calling, It calles the event once the text line has finished. rather than at the start of the new line.
+            {
+                dialogueData[index]._event.StartEvent();
+            }
 
             StartCoroutine(TypeLine());
         }
@@ -113,7 +117,7 @@ public class DialoguePanel : MonoBehaviour
             EndDialogue();
         }
     }
-    
+
     IEnumerator TypeLine()
     {
         foreach (char c in dialogueData[index].dialogueText.ToCharArray())
@@ -123,6 +127,7 @@ public class DialoguePanel : MonoBehaviour
         }
 
         continueTextLine.SetActive(true);
+        
     }
 
     void DialogueEffects()
@@ -143,13 +148,23 @@ public class DialoguePanel : MonoBehaviour
         }
 
         dialogueSauce.Play();
+
+        if (dialogueData[index].lateEventCall == false) //Insted of delaying the event this instead calls the event at the same time as everything.
+            {
+               dialogueData[index]._event.StartEvent();
+            }
     }
 
     void EndDialogue()
     {
         dialogueBox.SetActive(false);
-        //Debug.Log("End of dialogue scene is being called");
+        Debug.Log("End of dialogue scene is being called");
         StaticReferences.playerReference.TogglePlayer();
+
+        if (dialogueData[index].lateEventCall == true) // this is delayed event calling, It calles the event once the text line has finished. rather than at the start of the new line.
+            {
+               dialogueData[index]._event.StartEvent();
+            }
 
         //Setting this to -1 at the end of the dialogue fixes the issue of the player components randomly disabling. 
         index = -1;

@@ -135,6 +135,7 @@ MonoBehaviour:
     _delayAlt: 0
     delayRandomType: 0
   damagedByExplosions: 1
+  damagedByProjectiles: 1
   blockBehindCheck: 1
   blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
@@ -333,7 +334,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8b0ff767c036e1a488fe63bf1087749e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91975ad68d8c6164b8f1f0f648bc3337, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
