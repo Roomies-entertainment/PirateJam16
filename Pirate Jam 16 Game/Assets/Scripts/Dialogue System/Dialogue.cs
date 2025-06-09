@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 
-
 [Serializable]
 public class DialogueData
 {
@@ -30,7 +29,10 @@ public class DialogueData
     public bool isLeft = true;
 
     [Header("Do you want the event to come first or last?")]
-    public bool lateEventCall = false;
+    public bool eventAtEnd = false;
+    [Header("Should the dialogue panel wait for the event to finish before moving to next?")]
+    public bool waitForEvent = false;
+    [Space]
     public EventData _event;
 }
 

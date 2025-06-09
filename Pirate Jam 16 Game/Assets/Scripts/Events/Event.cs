@@ -12,9 +12,11 @@ public class EventData
     private float timer;
     private float currentDelay;
 
-    public void StartEvent()
+    public EventData StartEvent()
     {
         Reset();
+
+        return this;
     }
 
     public void UpdateEvent(out bool eventCalled)

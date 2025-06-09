@@ -7,6 +7,17 @@ using UnityEditor;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
+public class DialogueEvent
+{
+    public EventData eventData;
+    public bool waitForCompletion;
+
+    public DialogueEvent(EventData eventData, bool waitForCompletion)
+    {
+        this.eventData = eventData;
+        this.waitForCompletion = waitForCompletion;
+    }
+}
 
 public class DialoguePanel : MonoBehaviour
 {
@@ -19,11 +30,14 @@ public class DialoguePanel : MonoBehaviour
 
     public Image characterImage;
 
-    
-    private int index = -1; //this needs to be -1 becuase of the Update Input.GetMouse causing errors. Remove the 'index >= 0' to see the error
-    List<DialogueData> dialogueData = new List<DialogueData>();
 
-    private bool eventFinished = true;
+    private int lineIndex = -1;
+
+    List<DialogueData> dialogueData = new();
+    List<DialogueEvent> dialogueEvents = new();
+
+    private bool waitingOnEvent = false;
+    private bool lineComplete = false;
 
     private void Awake()
     {
@@ -41,47 +55,142 @@ public class DialoguePanel : MonoBehaviour
         textComponent.text = string.Empty;
     }
 
+    public void StartDialogue(List<DialogueData> dataList)
+    {
+        dialogueData = new(dataList);
+        dialogueBox.SetActive(true);
+        StaticReferences.playerReference.SetGameplayEnabled(false);
+
+        StopAllCoroutines();
+        NextLine(true);
+    }
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && index >= 0)
+        if (Input.GetMouseButtonDown(0) && lineIndex >= 0)
         {
-            if (textComponent.text == dialogueData[index].dialogueText)
+            // If line not complete - Set true so that TypeLine() coroutine skips to end
+            if (!lineComplete)
             {
+                lineComplete = true;
+            }
+            else if (lineComplete)
+            {
+                if (dialogueData[lineIndex].eventAtEnd == true)
+                {
+                    StartEvent();
+                }
+
                 NextLine();
-                continueTextLine.SetActive(false);
+            }
+        }
+
+        UpdateEvents(out waitingOnEvent);
+    }
+
+    void UpdateEvents(out bool waitingOnEvent)
+    {
+        waitingOnEvent = false;
+        
+        for (int i = dialogueEvents.Count - 1; i > 0; i--)
+        {
+            DialogueEvent e = dialogueEvents[i];
+
+            e.eventData.UpdateEvent(out bool finished);
+
+            if (finished)
+            {
+                dialogueEvents.RemoveAt(i);
+            }
+            else if (e.waitForCompletion)
+            {
+                waitingOnEvent = true;
+            }
+        }
+    }
+
+    void NextLine(bool firstLine = false)
+    {
+        if (firstLine)
+            lineIndex = 0;
+        else
+            lineIndex++;
+
+        lineComplete = false;
+        continueTextLine.SetActive(false);
+
+        if (lineIndex < dialogueData.Count)
+        {
+            StartCoroutine(TypeLine());
+            DialogueEffects();
+
+            if (dialogueData[lineIndex].eventAtEnd == false)
+            {
+                StartEvent();
+            }
+        }
+        else
+        {
+            EndDialogue();
+        }
+    }
+
+    void StartEvent()
+    {
+        dialogueData[lineIndex]._event.StartEvent();
+
+        dialogueEvents.Add(
+            new DialogueEvent(
+                dialogueData[lineIndex]._event,
+                dialogueData[lineIndex].waitForEvent));
+    }
+
+    IEnumerator TypeLine()
+    {
+        textComponent.text = string.Empty;
+
+        foreach (char c in dialogueData[lineIndex].dialogueText.ToCharArray())
+        {
+            if (!lineComplete)
+            {
+                textComponent.text += c;
+                yield return new WaitForSeconds(dialogueData[lineIndex].GetTextSpeed());
             }
             else
             {
-                StopAllCoroutines();
-                dialogueSauce.Stop();
-                textComponent.text = dialogueData[index].dialogueText;
-                continueTextLine.SetActive(true);
-                    
+                break;
             }
         }
 
+        dialogueSauce.Stop();
+        textComponent.text = dialogueData[lineIndex].dialogueText;
 
-        if (!eventFinished)
+        continueTextLine.SetActive(true);
+    }
+
+    void DialogueEffects()
+    {
+        CharacterImagePosition();
+
+        if (dialogueData[lineIndex].characterAudio != null)
+            dialogueSauce.clip = dialogueData[lineIndex].characterAudio;
+
+        if (dialogueData[lineIndex].characterImage != null)
         {
-            dialogueData[index]._event.UpdateEvent(out eventFinished);
+            characterImage.enabled = true;
+            characterImage.sprite = dialogueData[lineIndex].characterImage;
+        }
+        else
+        {
+            characterImage.enabled = false;
         }
 
-    }
-    public void StartDialogue(List<DialogueData> _dialogue)
-    {
-
-         index = 0;
-        this.dialogueData = new(_dialogue);
-        dialogueBox.SetActive(true);
-        DialogueEffects();
-        StopAllCoroutines();
-        StaticReferences.playerReference.TogglePlayer();
-        StartCoroutine(TypeLine());
+        dialogueSauce.Play();
     }
 
     void CharacterImagePosition() //this will need to be adjusted based on the images, all images need to be the same resolution and directional facing for this to work.
     {
-        if (dialogueData[index].isLeft == true)
+        if (dialogueData[lineIndex].isLeft == true)
         {
             //Placement is on the left of the screen
             characterImage.rectTransform.anchoredPosition = new Vector3(-500, characterImage.rectTransform.anchoredPosition.y, 0);
@@ -95,80 +204,12 @@ public class DialoguePanel : MonoBehaviour
         }
     }
 
-    void NextLine()
-    {
-        if (index < dialogueData.Count - 1)
-        {
-            index++;
-            textComponent.text = string.Empty;
-            DialogueEffects();
-
-            eventFinished = false;
-
-            if (dialogueData[index].lateEventCall == true) // this is delayed event calling, It calles the event once the text line has finished. rather than at the start of the new line.
-            {
-                dialogueData[index]._event.StartEvent();
-            }
-
-            StartCoroutine(TypeLine());
-        }
-        else
-        {
-            EndDialogue();
-        }
-    }
-
-    IEnumerator TypeLine()
-    {
-        foreach (char c in dialogueData[index].dialogueText.ToCharArray())
-        {
-            textComponent.text += c;
-            yield return new WaitForSeconds(dialogueData[index].GetTextSpeed());
-        }
-
-        continueTextLine.SetActive(true);
-        
-    }
-
-    void DialogueEffects()
-    {
-        CharacterImagePosition();
-
-        if (dialogueData[index].characterAudio != null)
-            dialogueSauce.clip = dialogueData[index].characterAudio;
-
-        if (dialogueData[index].characterImage != null)
-        {
-            characterImage.enabled = true;
-            characterImage.sprite = dialogueData[index].characterImage;
-        }
-        else
-        {
-            characterImage.enabled = false;
-        }
-
-        dialogueSauce.Play();
-
-        if (dialogueData[index].lateEventCall == false) //Insted of delaying the event this instead calls the event at the same time as everything.
-            {
-               dialogueData[index]._event.StartEvent();
-            }
-    }
-
     void EndDialogue()
     {
         dialogueBox.SetActive(false);
         Debug.Log("End of dialogue scene is being called");
-        StaticReferences.playerReference.TogglePlayer();
+        StaticReferences.playerReference.SetGameplayEnabled(true);
 
-        if (dialogueData[index].lateEventCall == true) // this is delayed event calling, It calles the event once the text line has finished. rather than at the start of the new line.
-            {
-               dialogueData[index]._event.StartEvent();
-            }
-
-        //Setting this to -1 at the end of the dialogue fixes the issue of the player components randomly disabling. 
-        index = -1;
+        lineIndex = -1;
     }
-
 }
-

@@ -23,12 +23,13 @@ public class Player : MonoBehaviour
     private PlayerAnimation Animation;
     private PlayerHealth Health;
 
-    public void TogglePlayer()
+    public void SetGameplayEnabled(bool setTo)
     {
-        Attack.enabled = !Attack.enabled;
-        Movement.enabled = !Movement.enabled;
+        Attack.enabled = setTo;
+        Movement.enabled = setTo;
     }
-    public void ProcessProjectile(Projectile projectile) {  }
+
+    public void ProcessProjectile(Projectile projectile) { }
 
     private void Awake()
     {
