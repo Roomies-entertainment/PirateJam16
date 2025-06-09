@@ -62,6 +62,8 @@ public class SpawnProjectile : MonoBehaviour
         float speed = -1f, int maintainSpeed = -1,
         float startLifetime = -1f, float collisionLifetime = -1f, float mass = -1f)
     {
+        if (posX == Mathf.NegativeInfinity) { posX = spawnPoint.position.x; }
+        if (posY == Mathf.NegativeInfinity) { posY = spawnPoint.position.y; }
         if (direction.sqrMagnitude == 0)    { direction = this.direction; }
         if (speed < 0)                      { speed = this.speed.GetValue(true); }
         if (maintainSpeed < 0)              { maintainSpeed = this.maintainSpeed ? 1 : 0; }
@@ -69,7 +71,7 @@ public class SpawnProjectile : MonoBehaviour
         if (collisionLifetime < 0f)         { collisionLifetime = this.collisionLifetime; }
         if (mass < 0f)                      { mass = this.mass; }
 
-        return Spawn(spawnPoint.position, direction, speed, maintainSpeed == 1, startLifetime, collisionLifetime, mass);
+        return Spawn(new Vector2(posX, posY), direction, speed, maintainSpeed == 1, startLifetime, collisionLifetime, mass);
     }
     
     private GameObject Spawn(
