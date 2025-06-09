@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [ExecuteAlways]
-public class CircleGizmo : MonoBehaviour
+public class CircleGizmo : Gizmo
 {
-    [SerializeField] private int visibileSelectDepth = 1;
     public Color color = Color.white;
 
     public float GetRadius()
@@ -29,27 +25,16 @@ public class CircleGizmo : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
-        Color colorStore = Gizmos.color;
-        Gizmos.color = color;
-
-        Transform parentSearch = transform;
-        int i = 0;
-
-        while (parentSearch != null && i < (visibileSelectDepth + 1))
+        if (!IsSelected())
         {
-            if (Selection.Contains(parentSearch.gameObject))
-            {
-                Gizmos.DrawWireSphere(transform.position, GetRadius());
-                break;
-            }
-
-            parentSearch = parentSearch.parent;
-
-            i++;
+            return;
         }
 
+        Color colorStore = Gizmos.color;
+        Gizmos.color = color;
+        Gizmos.DrawWireSphere(transform.position, GetRadius());
         Gizmos.color = colorStore;
     }
 }
