@@ -81,6 +81,7 @@ MonoBehaviour:
   Colliders: {fileID: 5868378279259282056}
   UprightConfiguration: {fileID: 2946247872128472664}
   FlatConfiguration: {fileID: 7897055745916102908}
+  configChangeDuration: 0.1
 --- !u!1 &2116065138166253276
 GameObject:
   m_ObjectHideFlags: 0

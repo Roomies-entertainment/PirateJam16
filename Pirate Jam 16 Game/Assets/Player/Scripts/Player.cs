@@ -166,7 +166,10 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Animation.FaceDirection(Physics.speedX);
+        if (Mathf.Abs(Physics.speedX) > 0.1f)
+        {
+            Animation.FaceDirection(Physics.speedX);
+        }
     }
 
     private void FixedUpdateCollision()
