@@ -19,7 +19,8 @@ public class DialoguePanel : MonoBehaviour
 
     public Image characterImage;
 
-    private int index;
+    
+    private int index = -1; //this needs to be -1 becuase of the Update Input.GetMouse causing errors. Remove the 'index >= 0' to see the error
     List<DialogueData> dialogueData = new List<DialogueData>();
 
     private bool eventFinished = true;
@@ -42,7 +43,7 @@ public class DialoguePanel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && index >= 0)
         {
             if (textComponent.text == dialogueData[index].dialogueText)
             {
@@ -84,23 +85,13 @@ public class DialoguePanel : MonoBehaviour
             //Placement is on the left of the screen
             characterImage.rectTransform.anchoredPosition = new Vector3(-500, characterImage.rectTransform.anchoredPosition.y, 0);
             characterImage.rectTransform.rotation = Quaternion.LookRotation(Vector3.back);
-        } else
+        }
+        else
         {
             //Placement is on the right of the screen
             characterImage.rectTransform.localPosition = new Vector3(500, characterImage.rectTransform.anchoredPosition.y, 0);
             characterImage.rectTransform.rotation = Quaternion.LookRotation(Vector3.forward);
         }
-    }
-
-    IEnumerator TypeLine()
-    {
-        foreach (char c in dialogueData[index].dialogueText.ToCharArray())
-        {
-            textComponent.text += c;
-            yield return new WaitForSeconds(dialogueData[index].GetTextSpeed());
-        }
-
-        continueTextLine.SetActive(true);
     }
 
     void NextLine()
@@ -116,12 +107,22 @@ public class DialoguePanel : MonoBehaviour
 
 
             StartCoroutine(TypeLine());
-        } else
-        {
-            //This is where the script finishes Ben please dont hurt it, its but a weee bo
-            dialogueBox.SetActive(false);
-            StaticReferences.playerReference.TogglePlayer();
         }
+        else
+        {
+            EndDialogue();
+        }
+    }
+    
+    IEnumerator TypeLine()
+    {
+        foreach (char c in dialogueData[index].dialogueText.ToCharArray())
+        {
+            textComponent.text += c;
+            yield return new WaitForSeconds(dialogueData[index].GetTextSpeed());
+        }
+
+        continueTextLine.SetActive(true);
     }
 
     void DialogueEffects()
@@ -142,6 +143,16 @@ public class DialoguePanel : MonoBehaviour
         }
 
         dialogueSauce.Play();
+    }
+
+    void EndDialogue()
+    {
+        dialogueBox.SetActive(false);
+        //Debug.Log("End of dialogue scene is being called");
+        StaticReferences.playerReference.TogglePlayer();
+
+        //Setting this to -1 at the end of the dialogue fixes the issue of the player components randomly disabling. 
+        index = -1;
     }
 
 }
