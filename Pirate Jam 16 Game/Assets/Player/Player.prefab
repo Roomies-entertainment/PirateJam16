@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castShape: 1
-  castShapeWidth: 0.2
+  castShapeWidth: 0.25
   castShapeLength: 0
   castShapeAngle: 0
   capsuleDirection: 0

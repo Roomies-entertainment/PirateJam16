@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Physics.SyncForces();
+        //Physics.SyncForces();
         
         if (onGroundFlag)
         {
