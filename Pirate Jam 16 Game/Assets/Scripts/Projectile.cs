@@ -104,4 +104,14 @@ public class Projectile : MonoBehaviour
     {
         rb.velocity = direction * speed;
     }
+
+    public void Deflect()
+    {
+        direction = RandomM.RandomDirection();
+        direction = new Vector2(direction.x, 0.35f + direction.y * 0.75f);
+        SetForce();
+        rb.angularVelocity = 300f;
+
+        FaceDirection.enabled = false;
+    }
 }

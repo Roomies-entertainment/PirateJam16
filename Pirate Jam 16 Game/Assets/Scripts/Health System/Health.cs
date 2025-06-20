@@ -80,7 +80,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         IncrementHealth(-e.damage, data);
     }
 
-    public void ProcessProjectile(Projectile p)
+    public virtual void ProcessProjectile(Projectile p)
     {
         if (!enabled || !damagedByProjectiles)
         {

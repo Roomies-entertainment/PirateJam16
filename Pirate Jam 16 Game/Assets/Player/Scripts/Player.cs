@@ -8,8 +8,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerPhysics))]
 [RequireComponent(typeof(PlayerAttack))]
-[RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(PlayerAnimation))]
+[RequireComponent(typeof(PlayerParticles))]
 
 public class Player : MonoBehaviour
 {
@@ -20,8 +21,9 @@ public class Player : MonoBehaviour
     private PlayerMovement Movement;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
-    private PlayerAnimation Animation;
     private PlayerHealth Health;
+    private PlayerAnimation Animation;
+    private PlayerParticles Particles;
 
     public void SetGameplayEnabled(bool setTo)
     {
@@ -38,8 +40,10 @@ public class Player : MonoBehaviour
         Movement = GetComponent<PlayerMovement>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
-        Animation = GetComponent<PlayerAnimation>();
         Health = GetComponent<PlayerHealth>();
+        Animation = GetComponent<PlayerAnimation>();
+        Particles = GetComponent<PlayerParticles>();
+
         StaticReferences.playerReference = this;
     }
 
@@ -214,9 +218,10 @@ public class Player : MonoBehaviour
         LateUpdateMovement(platformPhaseFlag);
         LateUpdatePhysics(platformPhaseFlag);
         LateUpdateCollision(platformPhaseFlag, phasableContact);
-        LateUpdateHealth();
         LateUpdateAttack();
+        LateUpdateHealth();
         LateUpdateInputs();
+        LateUpdateParticles();
     }
 
     private void LateUpdateMovement(bool platformPhaseFlag)
@@ -286,25 +291,36 @@ public class Player : MonoBehaviour
             return;
         }
 
-
-        if (Inputs.attackFlag)
+        if (Attack.startAttackFlag)
         {
             if (Health.blocking)
             {
                 Health.StopBlocking();
             }
+
+            Health.deflectProjectiles = true;
         }
-        else if (Attack.attackTimer > Attack.AttackDuration)
+        else
         {
-            if (enableBlocking && Inputs.blockFlag)
+            if (Attack.timeSinceAttack > Attack.AttackDuration)
             {
-                Health.StartBlocking();
+                if (enableBlocking && Inputs.blockFlag)
+                {
+                    Health.StartBlocking();
+                }
+                else if (Health.blocking)
+                {
+                    Health.StopBlocking();
+                }
             }
-            else if (Health.blocking)
+
+            if (Health.deflectProjectiles && Attack.timeSinceAttack > Health.deflectionWindow)
             {
-                Health.StopBlocking();
+                Health.deflectProjectiles = false;
             }
         }
+
+        print(Health.deflectProjectiles);
     }
 
     private void LateUpdateAttack()
@@ -325,7 +341,7 @@ public class Player : MonoBehaviour
             Attack.FindComponents();
             Attack.PerformAttack();
         }
-        else if (Attack.attackTimer > Attack.AttackDuration)
+        else if (Attack.timeSinceAttack > Attack.AttackDuration)
         {
             if (Attack.attackFlag)
             {
@@ -344,6 +360,19 @@ public class Player : MonoBehaviour
         if (Inputs.attackFlag)
         {
             Inputs.ClearBlockFlag();
+        }
+    }
+
+    private void LateUpdateParticles()
+    {
+        if (Attack.startAttackFlag)
+        {
+            Particles.MoveEffectParticles(
+                Vector2.up * -0.2f + Attack.attackDirection * -0.4f/*idk why it's reversed*/, new Vector3(0f, 0f, 90f));
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            Particles.MoveEffectParticles(Vector2.zero, Vector3.zero);
         }
     }
     #endregion

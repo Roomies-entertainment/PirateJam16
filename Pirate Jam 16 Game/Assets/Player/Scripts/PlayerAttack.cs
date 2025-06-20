@@ -10,13 +10,13 @@ public class PlayerAttack : MeleeAttack
 
     [Header("")]
     public float AttackDuration = 0f;
-    public float attackTimer {get; private set; } = 0.0f;
+    public float timeSinceAttack {get; private set; } = 0.0f;
 
     public List<GameObject> hitObjects { get; private set; } = new List<GameObject>();
 
     private void Update()
     {
-        attackTimer += Time.deltaTime;
+        timeSinceAttack += Time.deltaTime;
     }
 
     protected override bool CanHitObject(GameObject obj)
@@ -31,7 +31,7 @@ public class PlayerAttack : MeleeAttack
     {
         base.OnStartAttack(direction);
 
-        attackTimer = 0.0f;
+        timeSinceAttack = 0.0f;
     }
 
     protected override void OnHitObject(GameObject obj)
