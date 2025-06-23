@@ -26,16 +26,7 @@ public class PlayerPhysics : MonoBehaviour, IProcessExplosion
         speedX = rb.velocity.x;
         speedY = rb.velocity.y;
     }
-    /* 
-        public void AddForce(Vector2 force)
-        {
-            force *= Time.fixedDeltaTime;
 
-            speedX += force.x;
-            speedY += force.y;
-        }
-     */
- 
     public void ProcessExplosion(Explosion explosion) { if (!enabled) return; SyncForces(); ScaleSpeed(1.3f); }
 
     public void AddHorizontalSpeed(float speed)

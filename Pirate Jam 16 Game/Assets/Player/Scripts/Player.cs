@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     #region Fixed Update
     private void FixedUpdate()
     {
-        bool onGroundFlag = Collision.GroundDetector.surfaceDetected;
+        bool onGroundFlag = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
         bool groundHitFlag = Collision.GroundDetector.gotHit;
         bool onWallFlag = Collision.GetOnWall(out ContactPoint2D wallContact);
         bool hopFlag = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
@@ -74,11 +74,11 @@ public class Player : MonoBehaviour
         {
             return;
         }
-
-        //Physics.SyncForces();
         
         if (onGroundFlag)
         {
+            Physics.SyncForces();
+            
             Physics.AddVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale * Time.fixedDeltaTime);
             Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
 
@@ -319,8 +319,6 @@ public class Player : MonoBehaviour
                 Health.deflectProjectiles = false;
             }
         }
-
-        print(Health.deflectProjectiles);
     }
 
     private void LateUpdateAttack()
@@ -365,15 +363,18 @@ public class Player : MonoBehaviour
 
     private void LateUpdateParticles()
     {
+        
         if (Attack.startAttackFlag)
         {
             Particles.MoveEffectParticles(
-                Vector2.up * -0.2f + Attack.attackDirection * -0.4f/*idk why it's reversed*/, new Vector3(0f, 0f, 90f));
+                new Vector2(0f, -0.2f),
+                new Vector3(0f, 0f, -90f));
         }
         else if (Attack.stopAttackFlag)
         {
             Particles.MoveEffectParticles(Vector2.zero, Vector3.zero);
         }
+
     }
     #endregion
 
