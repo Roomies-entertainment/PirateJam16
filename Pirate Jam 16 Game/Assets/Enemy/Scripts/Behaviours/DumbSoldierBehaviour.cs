@@ -118,7 +118,7 @@ public class DumbSoldierBehaviour : Behaviour
 
     private void FixedUpdateHorizontalMovement()
     {
-        HorizontalMovement.MoveHorizontally();
+        HorizontalMovement.ApplyMovement();
     }
     #endregion
 
@@ -152,8 +152,8 @@ public class DumbSoldierBehaviour : Behaviour
         {
             if (moveTimer > moveDelay)
             {
-                HorizontalMovement.SetFaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
-                HorizontalMovement.StartMoving(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
+                HorizontalMovement.FaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
+                HorizontalMovement.SetSpeed(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
 
                 moveTimer = 0.0f;
             }
@@ -167,14 +167,15 @@ public class DumbSoldierBehaviour : Behaviour
 
             if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
             {
-                HorizontalMovement.StopMoving();
+                HorizontalMovement.SetSpeed(0f);
                 moveTimer = 0.0f;
             }
         }
 
         if (Attack.startAttackFlag)
         {
-            HorizontalMovement.SetFaceDirection(Attack.attackDirection);
+            HorizontalMovement.FaceDirection(Attack.attackDirection);
+            HorizontalMovement.Move(Attack.attackDirection * 0.25f);
         }
     }
 
@@ -212,7 +213,6 @@ public class DumbSoldierBehaviour : Behaviour
 
                     Attack.SetAttackDirection(Attack.GetAttackDirection());
                     Attack.PerformAttack();
-                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
                 }
 
                 break;

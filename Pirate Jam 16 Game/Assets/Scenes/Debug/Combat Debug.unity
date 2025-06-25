@@ -322,7 +322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1565820138221136609, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.96
       objectReference: {fileID: 0}
     - target: {fileID: 1565820138221136609, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -492,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: 919ea7ddb27ff8349b56a51db24bbd5a, type: 3}
       propertyPath: m_Name
       value: Enemy Slater Bug
+      objectReference: {fileID: 0}
+    - target: {fileID: 9092179470456444528, guid: 919ea7ddb27ff8349b56a51db24bbd5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -848,6 +852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 9092179470456444528, guid: 97c6ab307fc9bc543bfa54d75dbc3e48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -930,6 +938,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3089018260053700509, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8
@@ -976,7 +988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9092179470456444528, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1156,7 +1168,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 868922612935429444, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.96000004
       objectReference: {fileID: 0}
     - target: {fileID: 868922612935429444, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1380,7 +1392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1963951806
 Transform:
   m_ObjectHideFlags: 0
@@ -1459,6 +1471,10 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
       propertyPath: m_Name
       value: Enemy Wasp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9092179470456444528, guid: f1f8e8aa03a79f940aa21e61f6083c8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

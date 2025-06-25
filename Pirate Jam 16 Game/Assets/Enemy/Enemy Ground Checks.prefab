@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1233797824303727047}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.41, y: -0.47800004, z: 0}
+  m_LocalPosition: {x: 0.41, y: -0.73800004, z: 0}
   m_LocalScale: {x: 0.22895314, y: 0.22895314, z: 0.22895314}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -60,9 +60,6 @@ MonoBehaviour:
   onCheckExit:
     m_PersistentCalls:
       m_Calls: []
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &3102874556636677636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb533e16824cd7d4aa1607e21f7ab456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftCheck: {fileID: 2224668238709215017}
+  rightCheck: {fileID: 4216322617101216862}
   flagUpdateMode:
     setMode: 0
     clearMode: 0
-  leftCheck: {fileID: 2224668238709215017}
-  rightCheck: {fileID: 4216322617101216862}
   minEnterAmount: 1
   maxEnterAmount: 2
   minStayAmount: 1
@@ -169,7 +166,7 @@ Transform:
   m_GameObject: {fileID: 2603214261625070441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -189,11 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb533e16824cd7d4aa1607e21f7ab456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftCheck: {fileID: 3529852681121732626}
+  rightCheck: {fileID: 8268436940458613008}
   flagUpdateMode:
     setMode: 0
     clearMode: 0
-  leftCheck: {fileID: 3529852681121732626}
-  rightCheck: {fileID: 8268436940458613008}
   minEnterAmount: 1
   maxEnterAmount: 2
   minStayAmount: 1
@@ -236,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 3569139743608733228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.228, z: 0}
+  m_LocalPosition: {x: 0, y: -0.03199999, z: 0}
   m_LocalScale: {x: 0.8894513, y: 0.8894513, z: 0.8894513}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -283,9 +280,6 @@ MonoBehaviour:
   onCheckExit:
     m_PersistentCalls:
       m_Calls: []
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!1 &4276710612617124612
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 4276710612617124612}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.64, y: -0.018000036, z: 0}
+  m_LocalPosition: {x: 0.64, y: -0.27800003, z: 0}
   m_LocalScale: {x: 0.15430185, y: 0.15430185, z: 0.15430185}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -346,9 +340,6 @@ MonoBehaviour:
   onCheckExit:
     m_PersistentCalls:
       m_Calls: []
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &6391871250543122294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,9 +426,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &6470459236321835919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,9 +471,9 @@ Transform:
   m_Children:
   - {fileID: 3070707161958113565}
   - {fileID: 8288642373733919457}
+  - {fileID: 1731752015037074862}
   - {fileID: 5015628894354438076}
   - {fileID: 3942132413663864555}
-  - {fileID: 1731752015037074862}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6885709017855723935
@@ -515,7 +503,7 @@ Transform:
   m_GameObject: {fileID: 6885709017855723935}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.64, y: -0.018000036, z: 0}
+  m_LocalPosition: {x: -0.64, y: -0.27800003, z: 0}
   m_LocalScale: {x: 0.15430185, y: 0.15430185, z: 0.15430185}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -548,9 +536,6 @@ MonoBehaviour:
   onCheckExit:
     m_PersistentCalls:
       m_Calls: []
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &2216778763973610883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,9 +622,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &5439441456628768250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 7333584762480248356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.41, y: -0.47800004, z: 0}
+  m_LocalPosition: {x: -0.41, y: -0.73800004, z: 0}
   m_LocalScale: {x: 0.22895314, y: 0.22895314, z: 0.22895314}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -714,9 +696,6 @@ MonoBehaviour:
   onCheckExit:
     m_PersistentCalls:
       m_Calls: []
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &3313779158624903831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,11 +756,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb533e16824cd7d4aa1607e21f7ab456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftCheck: {fileID: 3479461275327006774}
+  rightCheck: {fileID: 4446637862938399550}
   flagUpdateMode:
     setMode: 0
     clearMode: 0
-  leftCheck: {fileID: 3479461275327006774}
-  rightCheck: {fileID: 4446637862938399550}
   minEnterAmount: 1
   maxEnterAmount: 1
   minStayAmount: 1
@@ -824,7 +803,7 @@ Transform:
   m_GameObject: {fileID: 9045666046288433237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.62700003, z: 0}
+  m_LocalPosition: {x: 0, y: -0.887, z: 0}
   m_LocalScale: {x: 0.29075766, y: 0.29075766, z: 0.29075766}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -881,9 +860,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enterFlag: 0
-  stayFlag: 0
-  exitFlag: 0
 --- !u!114 &5274661556506959293
 MonoBehaviour:
   m_ObjectHideFlags: 0

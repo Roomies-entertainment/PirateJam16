@@ -89,7 +89,7 @@ public class RangerBahaviour : Behaviour
 
     private void FixedUpdateHorizontalMovement()
     {
-        HorizontalMovement.MoveHorizontally();
+        HorizontalMovement.ApplyMovement();
     }
 
     private void Update()
@@ -118,8 +118,8 @@ public class RangerBahaviour : Behaviour
         {
             if (moveTimer > moveDelay)
             {
-                HorizontalMovement.SetFaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
-                HorizontalMovement.StartMoving(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
+                HorizontalMovement.FaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
+                HorizontalMovement.SetSpeed(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
 
                 moveTimer = 0.0f;
             }
@@ -133,14 +133,14 @@ public class RangerBahaviour : Behaviour
             
             if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
             {
-                HorizontalMovement.StopMoving();
+                HorizontalMovement.SetSpeed(0f);
                 moveTimer = 0.0f;
             }
         }
 
         if (Attack.startAttackFlag)
         {
-            HorizontalMovement.SetFaceDirection(Attack.attackDirection);
+            HorizontalMovement.FaceDirection(Attack.attackDirection);
         } 
     }
 

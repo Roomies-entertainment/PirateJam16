@@ -434,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 3695221956092369019}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.27300012, z: 0}
+  m_LocalPosition: {x: 0, y: 0.215, z: 0}
   m_LocalScale: {x: 0.82537436, y: 2.0143456, z: 1.1149}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -958,13 +958,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267217d9bfd47ff479f2efda58305d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCheck: {fileID: 6299424180126632091}
   GroundCheck: {fileID: 418154755736156566}
   StepChecks: {fileID: 7072432904906358810}
   StepClearanceChecks: {fileID: 3151779006220913311}
   EdgeChecks: {fileID: 9211609609233528901}
-  detectionUpdateMode:
-    setMode: 0
+  checkUpdateMode:
+    setMode: 1
     clearMode: 2
 --- !u!114 &7642743467955784027
 MonoBehaviour:
@@ -1049,13 +1048,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePlayers: 1
+  damageEnemies: 0
   damageObjects: 0
   hitInteractables: 0
   AttackCircle: {fileID: 1768076276932094734}
   behindCheck: 1
-  beneathDirCheck: 1
   behindCheckLeniance: -0.3
-  beneathDirCheckLeniance: 0.5
   debug: 0
   onStartAttack:
     m_PersistentCalls:
@@ -1064,18 +1063,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
         m_MethodName: OnPerformAttack
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7642743467955784027}
-        m_TargetAssemblyTypeName: EnemyMovement, Assembly-CSharp
-        m_MethodName: FaceDirection
-        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1108,8 +1095,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  damagePlayers: 1
-  damageEnemies: 0
 --- !u!114 &3618339497995387731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1137,6 +1122,7 @@ MonoBehaviour:
     _delayAlt: 0
     delayRandomType: 0
   damagedByExplosions: 1
+  damagedByProjectiles: 1
   blockBehindCheck: 1
   blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
@@ -1552,6 +1538,7 @@ MonoBehaviour:
   attackDurationRange: {x: 0.3, y: 0.4}
   blockDelayRange: {x: 0.3, y: 0.4}
   blockDurationRange: {x: 1, y: 1.5}
+  blockChance: 0.5
 --- !u!1 &9092179470456444528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,17 +1683,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4022609448756628107, guid: f2f60120220bc854386fc135071d18f3, type: 3}
   m_PrefabInstance: {fileID: 8422590845368845324}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6299424180126632091 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2562268178711219351, guid: f2f60120220bc854386fc135071d18f3, type: 3}
-  m_PrefabInstance: {fileID: 8422590845368845324}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e4880d3bc9f2084e8a03e66716bb9c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7072432904906358810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1640816589656851478, guid: f2f60120220bc854386fc135071d18f3, type: 3}

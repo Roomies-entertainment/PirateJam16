@@ -19,7 +19,7 @@ public abstract class MeleeAttack : Attack
         {
             if (debug)
             {
-                Debug.Log($"{gameObject.name} attacking with {damage} damage");
+                Debug.Log($"{this} attacking with {damage} damage");
             }
         }
 

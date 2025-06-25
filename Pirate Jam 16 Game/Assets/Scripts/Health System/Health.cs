@@ -73,7 +73,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
         if (debug)
         {
-            Debug.Log($"{gameObject.name} taking explosion damage");
+            Debug.Log($"{this} taking explosion damage");
         }
 
         var data = new DetectionData(e.transform.position, this, e);
@@ -89,7 +89,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
         if (debug)
         {
-            Debug.Log($"{gameObject.name} taking projectile damage");
+            Debug.Log($"{this} taking projectile damage");
         }
 
         var data = new DetectionData(p.transform.position, this, p);
@@ -111,7 +111,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         {
             if (debug)
             {
-                Debug.Log($"{gameObject.name} took {-increment} damage");
+                Debug.Log($"{this} took {-increment} damage");
             }
 
             onTakeDamage?.Invoke((float)health / maxHealth, data);
@@ -120,7 +120,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         {
             if (debug)
             {
-                Debug.Log($"{gameObject.name} healed by {increment} points");
+                Debug.Log($"{this} healed by {increment} points");
             }
 
             onHeal?.Invoke((float)health / maxHealth, data);
@@ -247,7 +247,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} blocked {damage} damage");
+            Debug.Log($"{this} blocked {damage} damage");
         }
 
         onBlockDamage?.Invoke(damage, data);

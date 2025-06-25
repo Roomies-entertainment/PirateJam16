@@ -131,7 +131,7 @@ public abstract class Attack : MonoBehaviour
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} hit {obj.name}");
+            Debug.Log($"{this} hit {obj.name}");
         }
 
         onHitObject?.Invoke(obj);
@@ -141,7 +141,7 @@ public abstract class Attack : MonoBehaviour
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} blocked by {obj.name}");
+            Debug.Log($"{this} blocked by {obj.name}");
         }
 
         onHitBlocked?.Invoke(obj);
@@ -151,7 +151,7 @@ public abstract class Attack : MonoBehaviour
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} missed {obj.name}");
+            Debug.Log($"{this} missed {obj.name}");
         }
 
         onMissObject?.Invoke(obj);
@@ -161,7 +161,7 @@ public abstract class Attack : MonoBehaviour
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} interacted with {obj.name}");
+            Debug.Log($"{this} interacted with {obj.name}");
         }
     }
 
@@ -171,7 +171,7 @@ public abstract class Attack : MonoBehaviour
         {
             if (debug)
             {
-                Debug.Log($"{gameObject.name} in StopAttack() - not attacking");
+                Debug.Log($"{this} in StopAttack() - not attacking");
             }
 
             return;
@@ -179,7 +179,7 @@ public abstract class Attack : MonoBehaviour
 
         if (debug)
         {
-            Debug.Log($"{gameObject.name} attack complete");
+            Debug.Log($"{this} attack complete");
         }
 
         OnStopAttack();
