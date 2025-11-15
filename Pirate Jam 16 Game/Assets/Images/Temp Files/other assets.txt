@@ -1,0 +1,26 @@
+bomb
+gunpowder
+anvil
+sign
+
+
+fence
+
+pole with banner
+well
+
+wagon & parts
+
+hay bail
+
+hammer
+lute
+
+scarecrow
+
+monk
+villager
+rat
+chicken
+bard
+jester

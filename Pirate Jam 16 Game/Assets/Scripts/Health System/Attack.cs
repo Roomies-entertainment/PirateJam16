@@ -44,6 +44,7 @@ public abstract class Attack : MonoBehaviour
         return types;
     }
 
+
     public void FindComponents(
         out Dictionary<Health, List<Collider2D>> healthComponents,
         out Dictionary<Interactable, List<Collider2D>> interactables)
