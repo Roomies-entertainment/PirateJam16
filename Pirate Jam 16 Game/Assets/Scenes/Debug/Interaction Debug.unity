@@ -204,18 +204,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1878026990095829499, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.969653
-      objectReference: {fileID: 0}
-    - target: {fileID: 1878026990095829499, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 1878026990095829499, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -301,6 +289,14 @@ PrefabInstance:
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 879456028}
+    - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: attackableTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: attackableTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 456341600}
     - target: {fileID: 6552648384152973642, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Keyboard Mouse
@@ -318,6 +314,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+--- !u!114 &456341600 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6328531377824871612, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+  m_PrefabInstance: {fileID: 456341599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276ea2da493d7014da8407ffb8c18ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &476291299
 GameObject:
   m_ObjectHideFlags: 0

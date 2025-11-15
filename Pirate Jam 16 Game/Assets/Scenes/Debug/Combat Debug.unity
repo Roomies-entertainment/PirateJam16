@@ -360,18 +360,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1878026990095829499, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.969653
-      objectReference: {fileID: 0}
-    - target: {fileID: 1878026990095829499, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 1878026990095829499, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2761186359904595578, guid: 9e8035b19eb2d6c438b2dda5625330ad, type: 3}
       propertyPath: m_Enabled
       value: 1
