@@ -25,9 +25,9 @@ public class PlayerInputs : MonoBehaviour
 
     private float jumpTimer;
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue inputValue)
     {
-        Vector2 value = context.ReadValue<Vector2>();
+        Vector2 value = inputValue.Get<Vector2>();
 
         horizontalInput = value.x;
         verticalInput = value.y;
@@ -36,19 +36,19 @@ public class PlayerInputs : MonoBehaviour
             movementInputActive = horizontalInput;
     }
 
-    public void OnJump(InputAction.CallbackContext context)
+    public void OnJump(InputValue inputValue)
     {
-        HandleTimedFlag(ref _jumpFlag, context.ReadValue<float>() == 1f, ref jumpTimer, JumpTimeout);
+        HandleTimedFlag(ref _jumpFlag, inputValue.Get<float>() == 1f, ref jumpTimer, JumpTimeout);
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnAttack(InputValue inputValue)
     {
-        HandleHoldFlag(ref _attackFlag, context.ReadValue<float>() == 1f);
+        HandleHoldFlag(ref _attackFlag, inputValue.Get<float>() == 1f);
     }
 
-    public void OnBlock(InputAction.CallbackContext context)
+    public void OnBlock(InputValue inputValue)
     {
-        HandleHoldFlag(ref _blockFlag, context.ReadValue<float>() == 1f);
+        HandleHoldFlag(ref _blockFlag, inputValue.Get<float>() == 1f);
     }
 
     private void HandleHoldFlag(ref bool flag, bool isPressed)

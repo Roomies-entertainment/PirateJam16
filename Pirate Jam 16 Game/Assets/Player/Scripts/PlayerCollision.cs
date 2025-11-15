@@ -165,6 +165,11 @@ public class PlayerCollision : MonoBehaviour
         platformPhaseHoldTimer = 0.0f;
     }
 
+    private void OnDisable()
+    {
+        ResetPhaseTimers();
+    }
+
     private void OnDestroy()
     {
         StopAllCoroutines();

@@ -72,4 +72,10 @@ public class PlayerMovement : MonoBehaviour
 
         hopTimer = 0f;
     }
+
+    private void OnDisable()
+    {
+        ResetGroundedTimers();
+        ResetJumpTimers();
+    }
 }

@@ -98,21 +98,12 @@ public class RangerBehaviour : Behaviour
 
     private void Update()
     {
-        if (GroundDetection.enabled)
-            UpdateGroundDetection();
-
-        if (Attack.enabled)
-            UpdateAttack();
-
-        if (HorizontalMovement.enabled)
-            UpdateHorizontalMovement();
-
-        if (JumpMovement.enabled)
-            UpdateJumpMovement();
-
-        if (Animation.enabled)
-            UpdateAnimation();
-
+        if (GroundDetection.enabled)    UpdateGroundDetection();
+        if (Attack.enabled)             UpdateAttack();
+        if (HorizontalMovement.enabled) UpdateHorizontalMovement();
+        if (JumpMovement.enabled)       UpdateJumpMovement();
+        if (Animation.enabled)          UpdateAnimation();
+        
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
 
