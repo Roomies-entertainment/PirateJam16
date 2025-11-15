@@ -3,29 +3,31 @@ using UnityEngine;
 public class PlayerSurfaceDetector : SurfaceDetector
 {
     [Header("")]
-    [SerializeField] private Transform StartUprightConfiguration;
-    [SerializeField] private Transform EndUprightConfiguration;
-    [SerializeField] private Transform StartFlatConfiguration;
-    [SerializeField] private Transform EndFlatConfiguration;
+    [SerializeField] private Collider2D StartUpright;
+    [SerializeField] private Transform EndUpright;
+    
+    [Header("")]
+    [SerializeField] private Collider2D StartFlat;
+    [SerializeField] private Transform EndFlat;
 
     private void Start()
     {
-        UpdateConfiguration(StartUprightConfiguration, EndUprightConfiguration);
+        UpdateConfiguration(StartUpright, EndUpright);
     }
 
     public void OnPerformAttack()
     {
-        UpdateConfiguration(StartFlatConfiguration, EndFlatConfiguration);
+        UpdateConfiguration(StartFlat, EndFlat);
     }
 
     public void OnStopAttack()
     {
-        UpdateConfiguration(StartUprightConfiguration, EndUprightConfiguration);
+        UpdateConfiguration(StartUpright, EndUpright);
     }
 
-    private void UpdateConfiguration(Transform startConfiguration, Transform endConfiguration)
+    private void UpdateConfiguration(Collider2D start, Transform end)
     {
-        detectionStart.position = startConfiguration.position;
-        detectionEnd.position = endConfiguration.position;
+        castStart = start;
+        castEnd = end;
     }
 }

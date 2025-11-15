@@ -15,7 +15,7 @@ public abstract class CharacterHealth : Health
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} is blocking");
+            Debug.Log($"{this} is blocking");
         }
 
         blocking = true;
@@ -27,7 +27,7 @@ public abstract class CharacterHealth : Health
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} stopped blocking");
+            Debug.Log($"{this} stopped blocking");
         }
 
         blocking = false;

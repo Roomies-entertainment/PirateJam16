@@ -4,17 +4,8 @@ using UnityEngine.Events;
 
 public class SurfaceDetector : MonoBehaviour
 {
-    [SerializeField] private Detection.CastType2D castShape;
-
-    [Header("")]
-    [SerializeField] private float castShapeWidth;
-    [SerializeField] private float castShapeLength;
-    [SerializeField] private float castShapeAngle;
-    [SerializeField] private CapsuleDirection2D capsuleDirection;
-
-    [Header("")]
-    [SerializeField] protected Transform detectionStart;
-    [SerializeField] protected Transform detectionEnd;
+    [SerializeField] protected Collider2D castStart;
+    [SerializeField] protected Transform castEnd;
 
     [Header("")]
     [SerializeField] protected LayerMask layerMask;
@@ -42,53 +33,31 @@ public class SurfaceDetector : MonoBehaviour
     {
         bool surfaceDetectedStore = surfaceDetected;
 
-        Vector2 start = detectionStart.position;
-        Vector2 end = detectionEnd.position;
+        Vector2 start = castStart.transform.position;
+        Vector2 end = castEnd.position;
         Vector2 direction = (end - start).normalized;
 
         float contactDistanceMax = Vector2.Distance(start, end);
 
-        bool hitTriggerStore = Physics2D.queriesHitTriggers;
+        var contactFilter = new ContactFilter2D().NoFilter();
+        contactFilter.useLayerMask = true;
+        contactFilter.layerMask = layerMask;
+        contactFilter.useTriggers = detectTriggers;
 
-        if (detectTriggers)
-        {
-            Physics2D.queriesHitTriggers = true;
-        }
-
-        switch (castShape)
-        {
-            case Detection.CastType2D.Ray:
-                hit = Physics2D.Raycast(start, direction, contactDistanceMax + extraCastDistance, layerMask);
-                break;
-
-            case Detection.CastType2D.Circle:
-                hit = Physics2D.CircleCast(start, castShapeWidth * 0.5f, direction, contactDistanceMax + extraCastDistance, layerMask);
-                break;
-
-            case Detection.CastType2D.Box:
-                hit = Physics2D.BoxCast(start, new Vector2(castShapeWidth, castShapeLength), castShapeAngle, direction, contactDistanceMax + extraCastDistance, layerMask);
-                break;
-
-            case Detection.CastType2D.Capsule:
-                hit = Physics2D.CapsuleCast(
-                    start, new Vector2(castShapeWidth, castShapeLength), capsuleDirection, castShapeAngle, direction, contactDistanceMax + extraCastDistance, layerMask);
-                break;
-        }
-
-        if (detectTriggers)
-        {
-            Physics2D.queriesHitTriggers = hitTriggerStore;
-        }
-
-        gotHit = hit.transform != null;
-
+        var hits = new RaycastHit2D[10];
+        int hitCount = castStart.Cast(direction, contactFilter, hits, contactDistanceMax + extraCastDistance);
+        gotHit = hitCount > 0;
+        
         if (gotHit)
         {
-            hitDistance = Vector2.Dot(hit.point - start, direction);
+            hit = hits[0];
+
+            hitDistance = Vector2.Dot(hit.point - castStart.ClosestPoint(hit.point), direction);
             surfaceDetected = hitDistance <= contactDistanceMax;
         }
         else
         {
+            hit = new RaycastHit2D();
             hitDistance = 0f;
             surfaceDetected = false;
         }

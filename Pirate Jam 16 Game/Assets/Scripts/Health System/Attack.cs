@@ -1,11 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public abstract class Attack : MonoBehaviour
 {
-    [SerializeField] protected bool damageObjects = false;
+    [Header("")]
+    [SerializeField] private bool damagePlayers = true;
+    [SerializeField] private bool damageEnemies = true;
+    [SerializeField] protected bool damageObjects = true;
     [SerializeField] protected bool hitInteractables = false;
 
     [Header("")]
@@ -13,164 +17,161 @@ public abstract class Attack : MonoBehaviour
     public const int BaseDamage = 1;
 
     [Header("")]
-    [SerializeField] protected bool directionChecking = true;
-    [SerializeField] protected float directionCheckDistance = 1f;
-
-    public Vector2 attackDirection { get; private set; }
-    public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
-
-    public bool attacking { get; private set; }
+    [Tooltip("Don't hit objects behind")]
+    [SerializeField] protected bool behindCheck = true;
+    [SerializeField] protected float behindCheckLeniance = -0.3f;
 
     [Header("")]
     [SerializeField] protected bool debug;
 
     [Header("")]
-    [SerializeField] private UnityEvent<Vector2> onStartAttack;
-    [SerializeField] private UnityEvent<GameObject> onHitObject;
-    [SerializeField] private UnityEvent<GameObject> onHitBlocked;
-    [SerializeField] private UnityEvent<GameObject> onMissObject;
-    [SerializeField] private UnityEvent onStopAttack;
+    [SerializeField] protected UnityEvent<Vector2> onStartAttack;
+    [SerializeField] protected UnityEvent<GameObject> onHitObject;
+    [SerializeField] protected UnityEvent<GameObject> onHitBlocked;
+    [SerializeField] protected UnityEvent<GameObject> onMissObject;
+    [SerializeField] protected UnityEvent onStopAttack;
 
-    protected virtual List<System.Type> GetDetectableTypes()
+    protected void Start() { } // Ensures component toggle in inspector
+
+    protected List<System.Type> GetDetectableTypes()
     {
         List<System.Type> types = new();
 
         if (damageObjects)
             types.Add(typeof(ObjectHealth));
-            
+
         if (hitInteractables)
             types.Add(typeof(Interactable));
+
+        if (damagePlayers)
+            types.Add(typeof(PlayerHealth));
+
+        if (damageEnemies)
+            types.Add(typeof(EnemyHealth));
+
 
         return types;
     }
 
-
-    public void FindComponents(
-        out Dictionary<Health, List<Collider2D>> healthComponents,
-        out Dictionary<Interactable, List<Collider2D>> interactables)
+    public virtual bool FindComponents()
     {
-
-        var components = Detection.DetectComponentsInParents(
+        var types = GetDetectableTypes().ToArray();
+        var detectedTypes = Detection.DetectComponentsInParents(
             AttackCircle.transform.position, AttackCircle.GetRadius(),
             default,
-            GetDetectableTypes().ToArray());
+            types);
 
-        healthComponents = new();
-        interactables = new();
+        foundComps.Clear();
 
-        foreach (var c in components)
+        foreach (var type in detectedTypes)
         {
-            var health = c.Key as Health;
-            var interactable = c.Key as Interactable;
+            foreach (var detected in type.Value)
+            {
+                var comp = (Component)detected.Key;
+                var colliders = detected.Value;
 
-            if (health && CanHitObject(health.gameObject))
-            {
-                healthComponents[health] = new List<Collider2D>(c.Value);
-                
-            }
-            else if (interactable && CanHitObject(interactable.gameObject))
-            {
-                interactables[interactable] = new List<Collider2D>(c.Value);
+                if (CanHitObject(comp.gameObject))
+                {
+                    foundComps.Add(comp, colliders);
+                }
             }
         }
+
+        return foundComps.Count > 0;
     }
 
-    protected virtual bool CanHitObject(GameObject obj)
+    protected abstract bool CanHitObject(GameObject obj);
+
+    public bool startAttackFlag { get; protected set; }
+    public bool attackFlag { get; protected set; }
+    public bool stopAttackFlag { get; protected set; }
+
+    public Vector2 attackDirection { get; protected set; }
+    public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }
+
+    public Vector2 GetAttackDirection()
     {
-        if (!AttackDirectionHit(obj.transform.position))
-            return false;
-        
-        return true;
+        Vector2 toFirst = foundComps.Keys.First().transform.position - transform.position;
+
+        toFirst.y = 0f;
+        toFirst.Normalize();
+
+        return toFirst;
     }
 
-    public void PerformAttack(Dictionary<Health, List<Collider2D>> healthComponents, int damage = BaseDamage)
+    protected Dictionary<Component, List<Collider2D>> foundComps = new();
+
+
+    public void PerformAttack(int damage = BaseDamage)
     {
-        if (!attacking)
+        if (!attackFlag)
         {
-            if (debug)
-            {
-                Debug.Log($"{gameObject.name} attacking with {damage} damage");
-            }
-
             OnStartAttack(attackDirection);
         }
 
-        foreach (var hc in healthComponents)
-        {
-            var health = hc.Key;
-            var result = health.ProcessAttack(
-                damage, new DetectionData(hc.Key.transform.position, hc.Key, this, hc.Value));
-
-            switch (result)
-            {
-                case Health.AttackResult.Hit:
-                    OnHitObject(health.gameObject); break;
-
-                case Health.AttackResult.Block:
-                    OnHitBlocked(health.gameObject); break;
-
-                case Health.AttackResult.Miss:
-                    OnMissObject(health.gameObject); break;
-            }
-        }
+        AttackAndInteract(damage);
     }
+    protected abstract void AttackAndInteract(int damage);
 
-    public void PerformInteractions(Dictionary<Interactable, List<Collider2D>> interactables)
+    protected virtual bool AttackDirectionHit(Vector2 objPosition)
     {
-        foreach (var c in interactables)
-        {
-            var interactable = c.Key;
-
-            interactable.Interact();
-
-            OnHitObject(interactable.gameObject);
-        }
+        return
+            !behindCheck || attackDirection.sqrMagnitude == 0 || Detection.DirectionCheck(attackDirection, transform.position, objPosition, false, behindCheckLeniance);
     }
 
     protected virtual void OnStartAttack(Vector2 direction)
     {
-        attacking = true;
+        startAttackFlag = true;
+        attackFlag = true;
 
         onStartAttack?.Invoke(direction);
     }
 
-    protected virtual void OnHitObject(GameObject attackedObj)
+    protected virtual void OnHitObject(GameObject obj)
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} hit {attackedObj.name}");
+            Debug.Log($"{this} hit {obj.name}");
         }
 
-        onHitObject?.Invoke(attackedObj);
+        onHitObject?.Invoke(obj);
     }
 
-    protected virtual void OnHitBlocked(GameObject attackedObj)
+    protected virtual void OnHitBlocked(GameObject obj)
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} blocked by {attackedObj.name}");
+            Debug.Log($"{this} blocked by {obj.name}");
         }
 
-        onHitBlocked?.Invoke(attackedObj);
+        onHitBlocked?.Invoke(obj);
     }
 
-    protected virtual void OnMissObject(GameObject attackedObj)
+    protected virtual void OnMissObject(GameObject obj)
     {
         if (debug)
         {
-            Debug.Log($"{gameObject.name} missed {attackedObj.name}");
+            Debug.Log($"{this} missed {obj.name}");
         }
 
-        onMissObject?.Invoke(attackedObj);
+        onMissObject?.Invoke(obj);
+    }
+
+    protected virtual void OnInteractObject(GameObject obj)
+    {
+        if (debug)
+        {
+            Debug.Log($"{this} interacted with {obj.name}");
+        }
     }
 
     public virtual void StopAttack()
     {
-        if (!attacking)
+        if (!attackFlag)
         {
             if (debug)
             {
-                Debug.Log($"{gameObject.name} in StopAttack() - not attacking");
+                Debug.Log($"{this} in StopAttack() - not attacking");
             }
 
             return;
@@ -178,24 +179,24 @@ public abstract class Attack : MonoBehaviour
 
         if (debug)
         {
-            Debug.Log($"{gameObject.name} attack complete");
+            Debug.Log($"{this} attack complete");
         }
 
         OnStopAttack();
     }
 
+
     protected virtual void OnStopAttack()
     {
-        attacking = false;
+        stopAttackFlag = true;
+        attackFlag = false;
 
         onStopAttack?.Invoke();
     }
-    
-    protected bool AttackDirectionHit(Vector2 objPosition)
+
+    private void LateUpdate()
     {
-        return
-            !directionChecking ||
-            attackDirection.sqrMagnitude == 0 ||
-            Detection.DirectionCheck(attackDirection, transform.position, objPosition, directionCheckDistance);
+        startAttackFlag = false;
+        stopAttackFlag = false;
     }
 }

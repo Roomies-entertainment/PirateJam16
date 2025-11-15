@@ -7,32 +7,65 @@ using UnityEngine.Events;
 [Serializable]
 public class EventData
 {
-    public UnityEvent Event;
-    public DelayRandomized delay;
+    [SerializeField] private UnityEvent Event;
+    [SerializeField] private DelayRandomized delayComponent;
+    private float timer;
+    private float currentDelay;
+
+    public EventData StartEvent()
+    {
+        Reset();
+
+        return this;
+    }
+
+    public void UpdateEvent(out bool eventCalled)
+    {
+        if (timer >= currentDelay)
+        {
+            Event?.Invoke();
+            eventCalled = true;
+            Reset();
+        }
+        else
+        {
+            eventCalled = false;
+        }
+
+        timer += Time.deltaTime;
+    }
+
+    private void Reset()
+    {
+        currentDelay = delayComponent.GetDelay(true);
+        timer = 0f;
+    }
 }
 
 public class Event : MonoBehaviour
 {
-    [SerializeField] private bool loop;
-
+    public bool loop;
     [SerializeField] private EventData _event;
-    
-    private float delay;
-    private float timer;
 
     private void OnEnable()
     {
-        timer = 0f;
+        _event.StartEvent();
     }
 
     private void Update()
     {
-        if (timer >= delay)
-        {
-            _event.Event?.Invoke();
-            timer = 0f;
-        }
+        _event.UpdateEvent(out bool eventCalled);
 
-        timer += Time.deltaTime;
+        if (eventCalled)
+        {
+            if (loop)
+            {
+                _event.StartEvent();
+            }
+            else
+            {
+                enabled = false;
+            }
+        }
     }
 }

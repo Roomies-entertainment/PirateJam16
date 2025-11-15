@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [ExecuteAlways]
-public class CircleGizmo : MonoBehaviour
+public class CircleGizmo : Gizmo
 {
-    [SerializeField] private Color color = Color.white;
+    public Color color = Color.white;
 
     public float GetRadius()
     {
@@ -28,16 +25,16 @@ public class CircleGizmo : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
-        Color colorStore = Gizmos.color;
-        Gizmos.color = color;
-
-        if (Selection.Contains(gameObject))
+        if (!IsSelected())
         {
-            Gizmos.DrawWireSphere(transform.position, GetRadius());
+            return;
         }
 
+        Color colorStore = Gizmos.color;
+        Gizmos.color = color;
+        Gizmos.DrawWireSphere(transform.position, GetRadius());
         Gizmos.color = colorStore;
     }
 }

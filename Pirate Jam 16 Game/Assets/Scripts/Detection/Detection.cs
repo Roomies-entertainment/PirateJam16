@@ -1,98 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public static class Detection
-{
-    public enum CastType2D
-    {
-        Ray,
-        Circle,
-        Box,
-        Capsule
-    }
-
-    public static Dictionary<Component, List<Collider2D>> DetectComponentsInParents(
-        Vector2 pos, float radius, LayerMask layerMask = default, params System.Type[] types)
-    {
-        if (types.Length == 0)
-        {
-            throw new System.ArgumentException("At least one type must be provided.", nameof(types));
-        }
-
-        if (layerMask.value == 0)
-            layerMask = ~0;
-
-        bool triggerStore = Physics2D.queriesHitTriggers;
-        Physics2D.queriesHitTriggers = true;
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius, layerMask);
-
-        Physics2D.queriesHitTriggers = triggerStore;
-
-        var components = new Dictionary<Component, List<Collider2D>>();
-        HashSet<GameObject> objectsAdded = new();
-
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            foreach (var T in types)
-            {
-                if (!T.IsSubclassOf(typeof(Component)))
-                {
-                    continue;
-                }
-
-                var component = colliders[i].GetComponentInParent(T);
-
-                if (component == null)
-                {
-                    continue;
-                }
-
-                if (objectsAdded.Add(component.gameObject))
-                {
-                    components[component] = new();
-                }
-
-                components[component].Add(colliders[i]);
-            }
-        }
-
-        return components;
-    }
-
-    public static void DetectComponentInParents<Type>(
-        Vector2 pos, float radius, out List<Type> components, LayerMask layerMask = default) where Type : Component
-    {
-        if (layerMask.value == 0)
-            layerMask = ~0;
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius, layerMask);
-
-        components = new();
-        HashSet<Type> addedComponents = new();
-
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            var component = colliders[i].GetComponentInParent<Type>();
-
-            if (component == null || !addedComponents.Add(component))
-            {
-                continue;
-            }
-
-            components.Add(component);
-        }
-    }
-
-    public static bool DirectionCheck(Vector2 direction, Vector2 originPosition, Vector2 checkPosition, float distance = 0f)
-    {
-        return
-            Vector2.Dot(
-                (checkPosition - new Vector2(originPosition.x, originPosition.y)).normalized,
-                direction.normalized) > -distance;
-    }
-}
 
 public class DetectionData
 {
@@ -124,5 +33,75 @@ public class DetectionData
         {
             this.detectorColliders.AddRange(detectorColliders);
         }
+    }
+}
+
+public class KeyValueComponentThing
+{
+    public object component;
+    public List<Collider2D> colliders;
+}
+
+public static class Detection
+{
+    public enum CastType2D
+    {
+        Ray,
+        Circle,
+        Box,
+        Capsule
+    }
+
+    public static Dictionary<Type, Dictionary<object, List<Collider2D>>> DetectComponentsInParents(
+        Vector2 pos, float radius, LayerMask layerMask = default, params Type[] types)
+    {
+        if (types.Length == 0)
+        {
+            throw new System.ArgumentException("At least one type must be provided.", nameof(types));
+        }
+
+        Collider2D[] colliders = Physics2DL.OverlapCircleAll(pos, radius, true, layerMask);
+
+        Dictionary<
+            Type, Dictionary<
+                object, List<Collider2D>>> components = new();
+
+        HashSet<Collider2D> colsAdded = new();
+
+        for (int colI = 0; colI < colliders.Length; colI++)
+        {
+            Collider2D col = colliders[colI];
+
+            foreach (Type type in types)
+            {
+                Component component = col.GetComponentInParent(type);
+                if (component == null)
+                    continue;
+
+                if (!colsAdded.Add(col))
+                    continue;
+
+                if (!components.ContainsKey(type))
+                    components[type] = new();
+
+                if (!components[type].ContainsKey(component))
+                    components[type][component] = new();
+
+                components[type][component].Add(col);
+            }
+        }
+
+        return components;
+    }
+    
+    public static bool DirectionCheck(
+        Vector2 direction, Vector2 originPosition, Vector2 checkPosition, bool normalizeOffset, float leniance = 0f)
+    {
+        Vector2 offset = (
+            normalizeOffset ? (
+                checkPosition - new Vector2(originPosition.x, originPosition.y)).normalized :
+                checkPosition - new Vector2(originPosition.x, originPosition.y));
+
+        return Vector2.Dot(offset, direction.normalized) > -leniance;
     }
 }

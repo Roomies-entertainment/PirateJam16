@@ -788,6 +788,7 @@ GameObject:
   - component: {fileID: 1126635146}
   - component: {fileID: 1126635145}
   - component: {fileID: 1126635144}
+  - component: {fileID: 1126635147}
   m_Layer: 0
   m_Name: Hint Trigger
   m_TagString: Untagged
@@ -857,6 +858,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1126635147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126635143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610717d34bf5d944894ca083169293a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 0
+  events: []
 --- !u!1001 &1473367911
 PrefabInstance:
   m_ObjectHideFlags: 0

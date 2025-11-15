@@ -8,10 +8,11 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerPhysics))]
 [RequireComponent(typeof(PlayerAttack))]
-[RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerHealth))]
+[RequireComponent(typeof(PlayerAnimation))]
+[RequireComponent(typeof(PlayerParticles))]
 
-public class Player : MonoBehaviour, IProcessExplosion
+public class Player : MonoBehaviour
 {
     [SerializeField] private bool enableBlocking;
 
@@ -20,10 +21,17 @@ public class Player : MonoBehaviour, IProcessExplosion
     private PlayerMovement Movement;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
-    private PlayerAnimation Animation;
     private PlayerHealth Health;
+    private PlayerAnimation Animation;
+    private PlayerParticles Particles;
 
-    public void ProcessExplosion(Explosion explosion) { Physics.SyncForces(); Physics.ScaleSpeed(1.3f); }
+    public void SetGameplayEnabled(bool setTo)
+    {
+        Attack.enabled = setTo;
+        Movement.enabled = setTo;
+    }
+
+    public void ProcessProjectile(Projectile projectile) { }
 
     private void Awake()
     {
@@ -32,8 +40,11 @@ public class Player : MonoBehaviour, IProcessExplosion
         Movement = GetComponent<PlayerMovement>();
         Physics = GetComponent<PlayerPhysics>();
         Attack = GetComponent<PlayerAttack>();
-        Animation = GetComponent<PlayerAnimation>();
         Health = GetComponent<PlayerHealth>();
+        Animation = GetComponent<PlayerAnimation>();
+        Particles = GetComponent<PlayerParticles>();
+
+        StaticReferences.playerReference = this;
     }
 
     private void Start()
@@ -44,20 +55,17 @@ public class Player : MonoBehaviour, IProcessExplosion
     #region Fixed Update
     private void FixedUpdate()
     {
-        bool onGroundFlag = Collision.GroundDetector.surfaceDetected;
+        bool onGroundFlag = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
         bool groundHitFlag = Collision.GroundDetector.gotHit;
         bool onWallFlag = Collision.GetOnWall(out ContactPoint2D wallContact);
         bool hopFlag = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
         bool jumpFlag = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
-        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
         FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
+        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
         FixedUpdateInputs(jumpFlag);
-
-        Animation.FaceDirection(Inputs.horizontalInput);
-
-        Collision.IncrementTimers(Time.fixedDeltaTime);
-        Movement.IncrementGroundedTimers();
+        FixedUpdateAnimation();
+        FixedUpdateCollision();
     }
 
     private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
@@ -66,11 +74,11 @@ public class Player : MonoBehaviour, IProcessExplosion
         {
             return;
         }
-
-        Physics.SyncForces();
-
+        
         if (onGroundFlag)
         {
+            Physics.SyncForces();
+            
             Physics.AddVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale * Time.fixedDeltaTime);
             Physics.ClampVerticalSpeed(Physics2D.gravity.y * Movement.downGravityScale, Mathf.Infinity);
 
@@ -81,14 +89,14 @@ public class Player : MonoBehaviour, IProcessExplosion
         }
         else
         {
-            Physics.EnforceHorizontalSpeed(Inputs.horizontalInput * Movement.moveSpeed);
+            Physics.EnforceHorizontalSpeed(Movement.speedX);
 
             if (Inputs.horizontalInput == 0f)
             {
                 Physics.AddHorizontalSpeed(-Physics.speedX * Movement.slowSpeed * Time.fixedDeltaTime);
             }
 
-            Physics.AddVerticalSpeed(Physics2D.gravity.y  * Time.fixedDeltaTime * (
+            Physics.AddVerticalSpeed(Physics2D.gravity.y * Time.fixedDeltaTime * (
                 Physics.speedY > 0 ? Movement.upGravityScale : Movement.downGravityScale));
 
             if (onWallFlag)
@@ -99,7 +107,7 @@ public class Player : MonoBehaviour, IProcessExplosion
 
         if (jumpFlag)
         {
-            Physics.EnforceVerticalSpeed(Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed);
+            Physics.EnforceVerticalSpeed(Movement.speedY);
         }
 
         Physics.MovePlayer();
@@ -111,6 +119,16 @@ public class Player : MonoBehaviour, IProcessExplosion
         {
             return;
         }
+
+        float speedX = Inputs.horizontalInput * Movement.moveSpeed;
+        float speedY;
+
+        if (jumpFlag)
+            speedY = Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed;
+        else
+            speedY = Physics.speedY;
+
+        Movement.SetSpeeds(speedX, speedY);
 
         if (onGroundFlag)
         {
@@ -128,6 +146,8 @@ public class Player : MonoBehaviour, IProcessExplosion
         {
             Movement.OnJump();
         }
+
+        Movement.IncrementGroundedTimers();
     }
 
     private void FixedUpdateInputs(bool jumpFlag)
@@ -142,6 +162,29 @@ public class Player : MonoBehaviour, IProcessExplosion
             Inputs.ClearJumpFlag();
         }
     }
+
+    private void FixedUpdateAnimation()
+    {
+        if (!Animation.enabled)
+        {
+            return;
+        }
+
+        if (Mathf.Abs(Physics.speedX) > 0.1f)
+        {
+            Animation.FaceDirection(Physics.speedX);
+        }
+    }
+
+    private void FixedUpdateCollision()
+    {
+        if (!Collision.enabled)
+        {
+            return;
+        }
+
+        Collision.IncrementTimers(Time.fixedDeltaTime);
+    }
     #endregion
 
     #region Update
@@ -154,6 +197,8 @@ public class Player : MonoBehaviour, IProcessExplosion
     {
         if (!Inputs.enabled)
         {
+            Inputs.ResetTimers();
+
             return;
         }
 
@@ -170,12 +215,34 @@ public class Player : MonoBehaviour, IProcessExplosion
             Inputs.verticalInput < -0.35f &&
             Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration);
 
+        LateUpdateMovement(platformPhaseFlag);
         LateUpdatePhysics(platformPhaseFlag);
         LateUpdateCollision(platformPhaseFlag, phasableContact);
-        LateUpdateHealth();
-        LateUpdateMovement();
         LateUpdateAttack();
+        LateUpdateHealth();
         LateUpdateInputs();
+        LateUpdateParticles();
+    }
+
+    private void LateUpdateMovement(bool platformPhaseFlag)
+    {
+        if (!Movement.enabled)
+        {
+            Movement.ResetGroundedTimers();
+            Movement.ResetJumpTimers();
+            
+            return;
+        }
+
+        if (platformPhaseFlag)
+        {
+            Movement.speedY = -Movement.fallThroughPlatformSpeed;
+        }
+
+        if (Inputs.attackFlag)
+        {
+            Movement.ResetJumpTimers();
+        }
 
         Movement.IncrementJumpTimers();
     }
@@ -187,10 +254,9 @@ public class Player : MonoBehaviour, IProcessExplosion
             return;
         }
 
-
         if (platformPhaseFlag)
         {
-            Physics.EnforceVerticalSpeed(-Movement.fallThroughPlatformSpeed);
+            Physics.EnforceVerticalSpeed(Movement.speedY);
         }
     }
 
@@ -198,9 +264,10 @@ public class Player : MonoBehaviour, IProcessExplosion
     {
         if (!Collision.enabled)
         {
+            Collision.ResetPhaseTimers();
+
             return;
         }
-
 
         if (Inputs.verticalInput >= 0f)
         {
@@ -211,12 +278,9 @@ public class Player : MonoBehaviour, IProcessExplosion
                 Collision.StopPhasingThroughPlatforms();
             }
         }
-        else
+        else if (Movement.speedY < 0 && platformPhaseFlag)
         {
-            if (platformPhaseFlag)
-            {
-                Collision.StartPhasingThroughPlatforms(phasableContact.collider, 0.1f);
-            }
+            Collision.StartPhasingThroughPlatforms(phasableContact.collider, 0.1f);
         }
     }
 
@@ -227,38 +291,33 @@ public class Player : MonoBehaviour, IProcessExplosion
             return;
         }
 
-
-        if (Inputs.attackFlag)
+        if (Attack.startAttackFlag)
         {
             if (Health.blocking)
             {
                 Health.StopBlocking();
             }
+
+            Health.deflectProjectiles = true;
         }
-        else if (Attack.attackTimer > Attack.AttackDuration)
+        else
         {
-            if (enableBlocking && Inputs.blockFlag)
+            if (Attack.timeSinceAttack > Attack.AttackDuration)
             {
-                Health.StartBlocking();
+                if (enableBlocking && Inputs.blockFlag)
+                {
+                    Health.StartBlocking();
+                }
+                else if (Health.blocking)
+                {
+                    Health.StopBlocking();
+                }
             }
-            else if (Health.blocking)
+
+            if (Health.deflectProjectiles && Attack.timeSinceAttack > Health.deflectionWindow)
             {
-                Health.StopBlocking();
+                Health.deflectProjectiles = false;
             }
-        }
-    }
-
-    private void LateUpdateMovement()
-    {
-        if (!Inputs.enabled)
-        {
-            return;
-        }
-
-
-        if (Inputs.attackFlag)
-        {
-            Movement.ResetJumpTimers();
         }
     }
 
@@ -272,18 +331,17 @@ public class Player : MonoBehaviour, IProcessExplosion
 
         if (Inputs.attackFlag)
         {
-            if (!Attack.attacking)
+            if (!Attack.attackFlag)
             {
                 Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
             }
 
-            Attack.FindComponents(out var healthComponents, out var interactables);
-            Attack.PerformAttack(healthComponents, CalculateAttackDamage());
-            Attack.PerformInteractions(interactables);
+            Attack.FindComponents();
+            Attack.PerformAttack();
         }
-        else if (Attack.attackTimer > Attack.AttackDuration)
+        else if (Attack.timeSinceAttack > Attack.AttackDuration)
         {
-            if (Attack.attacking)
+            if (Attack.attackFlag)
             {
                 Attack.StopAttack();
             }
@@ -301,6 +359,22 @@ public class Player : MonoBehaviour, IProcessExplosion
         {
             Inputs.ClearBlockFlag();
         }
+    }
+
+    private void LateUpdateParticles()
+    {
+        
+        if (Attack.startAttackFlag)
+        {
+            Particles.MoveEffectParticles(
+                new Vector2(0f, -0.2f),
+                new Vector3(0f, 0f, -90f));
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            Particles.MoveEffectParticles(Vector2.zero, Vector3.zero);
+        }
+
     }
     #endregion
 

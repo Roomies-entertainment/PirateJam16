@@ -1,13 +1,11 @@
 using UnityEngine;
 
-public class DumbSoldierBehaviour : MonoBehaviour
+public class DumbSoldierBehaviour : Behaviour
 {
-    [SerializeField] private GameObject Components;
-    [SerializeField] private GroundedEnemyDetection DetectionComponents;
-
+    private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
     private JumpMovement JumpMovement;
-    private EnemyAttack Attack;
+    private EnemyMeleeAttack Attack;
     private EnemyHealth Health;
     private EnemyAnimation Animation;
     private EnemyParticles Particles;
@@ -25,7 +23,11 @@ public class DumbSoldierBehaviour : MonoBehaviour
     [SerializeField] private Vector2 attackDurationRange = new Vector2(0.3f, 0.4f);
     [SerializeField] private Vector2 blockDelayRange = new Vector2(0.3f, 0.4f);
     [SerializeField] private Vector2 blockDurationRange = new Vector2(1f, 1.5f);
-
+    [SerializeField][Range(0, 1)] private float blockChance = 0.5f;
+    /* 
+            [Header("")]
+            [SerializeField] private bool debug;
+         */
     private float attackDelay, attackDuration, blockDelay, blockDuration;
 
     private void RandomizeAttackDelay() { attackDelay = RandomM.Range(attackDelayRange.x, attackDelayRange.y); }
@@ -65,22 +67,6 @@ public class DumbSoldierBehaviour : MonoBehaviour
             case AttackState.Attacking:
 
                 RandomizeAttackDuration();
-                Attack.FindComponents(out var healthComponents, out var interactables);
-
-                if (healthComponents.Count > 0)
-                {
-                    Attack.SetAttackDirection(Attack.GetAttackDirection(healthComponents));
-
-                    Attack.PerformAttack(healthComponents);
-
-                    transform.position += new Vector3(Attack.attackDirection.x, Attack.attackDirection.y, 0f) * 0.25f;
-                }
-                else if (interactables.Count > 0)
-                {
-                    Attack.SetAttackDirection(Attack.GetAttackDirection(interactables));
-
-                    Attack.PerformInteractions(interactables);
-                }
 
                 break;
 
@@ -109,9 +95,10 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        GroundDetection = Components.GetComponentInChildren<GroundDetection>();
         HorizontalMovement = Components.GetComponentInChildren<HorizontalMovement>();
         JumpMovement = Components.GetComponentInChildren<JumpMovement>();
-        Attack = Components.GetComponentInChildren<EnemyAttack>();
+        Attack = Components.GetComponentInChildren<EnemyMeleeAttack>();
         Health = Components.GetComponentInChildren<EnemyHealth>();
         Animation = Components.GetComponentInChildren<EnemyAnimation>();
         Particles = Components.GetComponentInChildren<EnemyParticles>();
@@ -122,62 +109,41 @@ public class DumbSoldierBehaviour : MonoBehaviour
         SetAttackState(AttackState.Attack);
     }
 
+    #region FixedUpdate
     private void FixedUpdate()
     {
         if (HorizontalMovement.enabled)
             FixedUpdateHorizontalMovement();
-
-        if (JumpMovement.enabled)
-            FixedUpdateJumpMovement();
-
-        if (Attack.enabled)
-            FixedUpdateAttack();
-
-        if (Health.enabled)
-            FixedUpdateHealth();
-
-        if (Animation.enabled)
-            FixedUpdateAnimation();
-
-        if (Particles.enabled)
-            FixedUpdateParticles();
     }
 
     private void FixedUpdateHorizontalMovement()
     {
-        HorizontalMovement.MoveHorizontally();
+        HorizontalMovement.ApplyMovement();
     }
+    #endregion
 
-    private void FixedUpdateJumpMovement() { }
-    private void FixedUpdateAttack() { }
-    private void FixedUpdateHealth() { }
-    private void FixedUpdateAnimation() { }
-    private void FixedUpdateParticles() { }
-
+    #region Update
     private void Update()
     {
+        if (GroundDetection.enabled)
+            UpdateGroundDetection();
+
+        if (Attack.enabled)
+            UpdateAttack();
+
         if (HorizontalMovement.enabled)
             UpdateHorizontalMovement();
 
         if (JumpMovement.enabled)
             UpdateJumpMovement();
 
-        if (Attack.enabled)
-            UpdateAttackState();
-
         if (Health.enabled)
             UpdateHealth();
 
-        if (Animation.enabled)
-            UpdateAnimation();
-
-        if (Particles.enabled)
-            UpdateParticles();
-
-        UpdateStepChecks();
-
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
+
+        moveTimer += Time.deltaTime;
     }
 
     private void UpdateHorizontalMovement()
@@ -186,43 +152,68 @@ public class DumbSoldierBehaviour : MonoBehaviour
         {
             if (moveTimer > moveDelay)
             {
-                HorizontalMovement.StartMoving(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
+                HorizontalMovement.FaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
+                HorizontalMovement.SetSpeed(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
 
                 moveTimer = 0.0f;
             }
         }
         else
         {
-            if (moveTimer > moveDuration)
+            if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
             {
-                HorizontalMovement.StopMoving();
+                HorizontalMovement.MoveAwayFromCurrentDirection();
+            }
 
+            if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
+            {
+                HorizontalMovement.SetSpeed(0f);
                 moveTimer = 0.0f;
             }
         }
 
-        moveTimer += Time.deltaTime;
+        if (Attack.startAttackFlag)
+        {
+            HorizontalMovement.FaceDirection(Attack.attackDirection);
+            HorizontalMovement.Move(Attack.attackDirection * 0.25f);
+        }
+    }
+
+    private void UpdateGroundDetection()
+    {
+        if (HorizontalMovement.startMovingFlag)
+        {
+            Vector2 moveDir = HorizontalMovement.moveDirection;
+
+            GroundDetection.StepChecks.SetCheckDir(moveDir);
+            GroundDetection.StepClearanceChecks.SetCheckDir(moveDir);
+        }
     }
 
     private void UpdateJumpMovement()
     {
-        if (DetectionComponents.GroundCheck.check &&
-            DetectionComponents.StepChecks.enterFlag &&
-            (DetectionComponents.StepClearanceChecks.checkCount == 0) &&
+        if (GroundDetection.GroundCheck.check &&
+            GroundDetection.StepChecks.enterFlag &&
+            (GroundDetection.StepClearanceChecks.checkCount == 0) &&
             HorizontalMovement.currentSpeed != 0)
         {
             JumpMovement.Jump();
         }
     }
 
-    private void UpdateAttackState()
+    private void UpdateAttack()
     {
         switch (attackState)
         {
             case AttackState.Attack:
 
-                if (attackLoopTimer > attackDelay)
+                if (Attack.FindComponents() && attackLoopTimer > attackDelay)
+                {
                     SetAttackState(AttackState.Attacking);
+
+                    Attack.SetAttackDirection(Attack.GetAttackDirection());
+                    Attack.PerformAttack();
+                }
 
                 break;
 
@@ -230,10 +221,11 @@ public class DumbSoldierBehaviour : MonoBehaviour
 
                 if (attackLoopTimer > attackDuration)
                 {
-                    if (DetectionComponents.PlayerCheck.check)
-                        SetAttackState(AttackState.Block);
-                    else
+                    if (RandomM.Float0To1() < blockChance)
                         SetAttackState(AttackState.Attack);
+                    else
+                        SetAttackState(AttackState.Block);
+
                 }
 
                 break;
@@ -271,19 +263,5 @@ public class DumbSoldierBehaviour : MonoBehaviour
             }
         }
     }
-
-    private void UpdateAnimation() { }
-    private void UpdateParticles() { }
-
-    private void UpdateStepChecks()
-    {
-        if (HorizontalMovement.startMovingFlag)
-        {
-            Vector2 moveDir = HorizontalMovement.moveDirection;
-
-            DetectionComponents.StepChecks.SetChecks(moveDir);
-            DetectionComponents.StepClearanceChecks.SetChecks(moveDir);
-        }
-
-    }
+    #endregion
 }

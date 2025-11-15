@@ -1,62 +1,109 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Events;
 
+using UpdateMode = Enums.UpdateMode;
+
 public class LROverlapChecks : MonoBehaviour
 {
+    [Header(Constants.FlagUpdateMoveOverrideTTipStr)]
     [SerializeField] private OverlapCheck leftCheck;
     [SerializeField] private OverlapCheck rightCheck;
 
+    [Tooltip(Constants.FlagUpdateModeTTStr)]
+    public FlagUpdateMode flagUpdateMode;
+
     [Header("If min amount is above 1\nboth checks need to be in an onEnter state etc.")]
     [Space]
-    [SerializeField] [Range(1, 2)] private int minEnterAmount = 1;
-    [SerializeField] [Range(1, 2)] private int maxEnterAmount = 2;
+    [SerializeField][Range(1, 2)] private int minEnterAmount = 1;
+    [SerializeField][Range(1, 2)] private int maxEnterAmount = 2;
 
     [Space]
-    [SerializeField] [Range(1, 2)] private int minStayAmount = 1;
-    [SerializeField] [Range(1, 2)] private int maxStayAmount = 2;
+    [SerializeField][Range(1, 2)] private int minStayAmount = 1;
+    [SerializeField][Range(1, 2)] private int maxStayAmount = 2;
 
     [Space]
-    [SerializeField] [Range(1, 2)] private int minExitAmount = 1;
-    [SerializeField] [Range(1, 2)] private int maxExitAmount = 2;
+    [SerializeField][Range(1, 2)] private int minExitAmount = 1;
+    [SerializeField][Range(1, 2)] private int maxExitAmount = 2;
 
     [Header("")]
     [SerializeField] private UnityEvent onCheckEnter;
     [SerializeField] private UnityEvent onCheckStay;
     [SerializeField] private UnityEvent onCheckExit;
 
-    private bool enterFlagUV; public bool enterFlag { get; private set; }
-    private bool stayFlagUV; public bool stayFlag { get; private set; }
-    private bool exitFlagUV; public bool exitFlag { get; private set; }
+    public bool enterFlag { get; private set; }
+    public bool stayFlag { get; private set; }
+    public bool exitFlag { get; private set; }
 
     public int checkCount { get { return (leftCheck.check ? 1 : 0) + (rightCheck.check ? 1 : 0); } }
 
-    public void OnCheckEnter(OverlapCheck check)
+    private void Awake()
     {
-        enterFlagUV = true;
-    }
-
-    public void OnCheckStay(OverlapCheck check)
-    {
-        stayFlagUV = true;
-    }
-
-    public void OnCheckExit(OverlapCheck check)
-    {
-        exitFlagUV = true;
+        leftCheck.flagUpdateMode.setMode = UpdateMode.Manual;
+        rightCheck.flagUpdateMode.clearMode = UpdateMode.Manual;
     }
 
     private void FixedUpdate()
     {
-        enterFlag = enterFlagUV && RequiredAmount(minEnterAmount, maxEnterAmount, true);
-        stayFlag = stayFlagUV && RequiredAmount(minStayAmount, maxStayAmount, true);
-        exitFlag = exitFlagUV && RequiredAmount(minExitAmount, maxExitAmount, false);
+        if (flagUpdateMode.clearMode == UpdateMode.FixedUpdate)
+        {
+            DoClearUpdate();
+        }
+        
+        if (flagUpdateMode.setMode == UpdateMode.FixedUpdate)
+        {
+            DoSetUpdate();
+        }
+    }
 
-        enterFlagUV = false;
-        stayFlagUV = false;
-        exitFlagUV = false;
+    private void Update()
+    {
+        if (flagUpdateMode.clearMode == UpdateMode.Update)
+        {
+            DoClearUpdate();
+        }
+
+        if (flagUpdateMode.setMode == UpdateMode.Update)
+        {
+            DoSetUpdate();
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (flagUpdateMode.clearMode == UpdateMode.LateUpdate)
+        {
+            DoClearUpdate();
+        }
+
+        if (flagUpdateMode.setMode == UpdateMode.LateUpdate)
+        {
+            DoSetUpdate();
+        }
+    }
+
+    public void DoClearUpdate()
+    {
+        leftCheck.DoClearUpdate();
+        rightCheck.DoClearUpdate();
+
+        enterFlag = false;
+        stayFlag = false;
+        exitFlag = false;
+    }
+
+    public void DoSetUpdate()
+    {
+        leftCheck.DoSetUpdate();
+        rightCheck.DoSetUpdate();
+
+        enterFlag = CheckSetTo(
+            true, leftCheck.enterFlag, rightCheck.enterFlag, minEnterAmount, maxEnterAmount);
+
+        stayFlag = CheckSetTo(
+            true, leftCheck.stayFlag, rightCheck.stayFlag, minStayAmount, maxStayAmount);
+
+        exitFlag = CheckSetTo(
+            true, leftCheck.exitFlag, rightCheck.exitFlag, minExitAmount, maxExitAmount);
 
         if (enterFlag)
         {
@@ -69,19 +116,18 @@ public class LROverlapChecks : MonoBehaviour
         }
         if (exitFlag)
         {
-
             onCheckExit?.Invoke();
         }
     }
 
-    private bool RequiredAmount(int minAmount, int maxAmount, bool positive)
+    private bool CheckSetTo(bool setTo, bool leftFlag, bool rightFlag, int min, int max)
     {
-        int amount = (leftCheck.check == positive ? 1 : 0) + (rightCheck.check == positive ? 1 : 0);
+        int amount = (leftFlag == setTo ? 1 : 0) + (rightFlag == setTo ? 1 : 0);
 
-        return amount >= minAmount && amount <= maxAmount;
+        return amount >= min && amount <= max;
     }
-    
-    public void SetChecks(Vector2 direction)
+
+    public void SetCheckDir(Vector2 direction)
     {
         bool left = direction.x < 0;
 
