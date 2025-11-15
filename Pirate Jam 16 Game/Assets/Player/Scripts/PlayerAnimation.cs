@@ -16,7 +16,7 @@ public class PlayerAnimation : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void PlayAttackAnimation(Vector2 direction)
+    public void PlayAttackAnimation()
     {
         Animator.SetBool("Attack", true);
     }

@@ -6,23 +6,13 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Start() { } // Ensures component toggle in inspector
     
-    public void OnPerformAttack()
+    public void SetAnimatorAttack(bool setTo)
     {
-        Animator.SetBool("Attack", true);
+        Animator.SetBool("Attack", setTo);
     }
 
-    public void OnStartBlocking()
+    public void SetAnimatorBlock(bool setTo)
     {
-        Animator.SetBool("Block", true);
-    }
-
-    public void OnStopBlocking()
-    {
-        Animator.SetBool("Block", false);
-    }
-
-    public void OnStopAttack()
-    {
-        Animator.SetBool("Attack", false);
+        Animator.SetBool("Block", setTo);
     }
 }

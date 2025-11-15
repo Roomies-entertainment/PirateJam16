@@ -31,6 +31,10 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] protected UnityEvent<GameObject> onMissObject;
     [SerializeField] protected UnityEvent onStopAttack;
 
+    public bool startAttackFlag { get; protected set; }
+    public bool attackFlag { get; protected set; }
+    public bool stopAttackFlag { get; protected set; }
+
     protected void Start() { } // Ensures component toggle in inspector
 
     protected List<System.Type> GetDetectableTypes()
@@ -81,10 +85,6 @@ public abstract class Attack : MonoBehaviour
     }
 
     protected abstract bool CanHitObject(GameObject obj);
-
-    public bool startAttackFlag { get; protected set; }
-    public bool attackFlag { get; protected set; }
-    public bool stopAttackFlag { get; protected set; }
 
     public Vector2 attackDirection { get; protected set; }
     public void SetAttackDirection(Vector2 setTo) { attackDirection = setTo; }

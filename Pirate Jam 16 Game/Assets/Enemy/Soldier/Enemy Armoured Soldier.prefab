@@ -940,7 +940,6 @@ Transform:
   - {fileID: 4841405079576514183}
   - {fileID: 6196464216213570877}
   - {fileID: 1622704684545824213}
-  - {fileID: 5586226289939561141}
   - {fileID: 6619904889587005800}
   - {fileID: 7572539799092860165}
   - {fileID: 9120428744301237589}
@@ -1058,19 +1057,7 @@ MonoBehaviour:
   debug: 0
   onStartAttack:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4195419917755599458}
-        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
-        m_MethodName: OnPerformAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onHitObject:
     m_PersistentCalls:
       m_Calls: []
@@ -1082,19 +1069,7 @@ MonoBehaviour:
       m_Calls: []
   onStopAttack:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4195419917755599458}
-        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &3618339497995387731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1227,34 +1202,10 @@ MonoBehaviour:
   debug: 0
   onStartBlocking:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4195419917755599458}
-        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
-        m_MethodName: OnStartBlocking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onStopBlocking:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4195419917755599458}
-        m_TargetAssemblyTypeName: EnemyAnimation, Assembly-CSharp
-        m_MethodName: OnStopBlocking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -1515,7 +1466,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6900282181118926586}
+  m_Father: {fileID: 4079875813400938342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5620367807889538894
 MonoBehaviour:
@@ -1569,6 +1520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5586226289939561141}
   - {fileID: 6900282181118926586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

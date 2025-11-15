@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public class RangerBahaviour : Behaviour
+public class RangerBehaviour : Behaviour
 {
     private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
     private JumpMovement JumpMovement;
     private EnemyRangedAttack Attack;
+    private EnemyHealth Health;
+    private EnemyAnimation Animation;
 
     [Header("Movement Loop")]
     [SerializeField] private float moveSpeed = 1.0f;
@@ -70,10 +72,12 @@ public class RangerBahaviour : Behaviour
 
     private void Awake()
     {
-        GroundDetection = Components.GetComponentInChildren<GroundDetection>();
-        HorizontalMovement = Components.GetComponentInChildren<HorizontalMovement>();
-        JumpMovement = Components.GetComponentInChildren<JumpMovement>();
-        Attack = Components.GetComponentInChildren<EnemyRangedAttack>();
+        GroundDetection     = Components.GetComponentInChildren<GroundDetection>();
+        HorizontalMovement  = Components.GetComponentInChildren<HorizontalMovement>();
+        JumpMovement        = Components.GetComponentInChildren<JumpMovement>();
+        Attack              = Components.GetComponentInChildren<EnemyRangedAttack>();
+        Health              = Components.GetComponentInChildren<EnemyHealth>();
+        Animation           = Components.GetComponentInChildren<EnemyAnimation>();
     }
 
     private void Start()
@@ -105,6 +109,9 @@ public class RangerBahaviour : Behaviour
 
         if (JumpMovement.enabled)
             UpdateJumpMovement();
+
+        if (Animation.enabled)
+            UpdateAnimation();
 
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
@@ -163,6 +170,27 @@ public class RangerBahaviour : Behaviour
             HorizontalMovement.currentSpeed != 0)
         {
             JumpMovement.Jump();
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        if (Attack.startAttackFlag)
+        {
+            Animation.SetAnimatorAttack(true);
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            Animation.SetAnimatorAttack(false);
+        }
+
+        if (Health.startBlockFlag)
+        {
+            Animation.SetAnimatorBlock(true);
+        }
+        else if (Health.stopBlockFlag)
+        {
+            Animation.SetAnimatorBlock(false);
         }
     }
 

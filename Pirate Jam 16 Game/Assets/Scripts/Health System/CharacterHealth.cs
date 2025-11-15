@@ -5,7 +5,9 @@ using UnityEngine.Events;
 
 public abstract class CharacterHealth : Health
 {
-    public bool blocking { get; private set; }
+    public bool startBlockFlag { get; protected set; }
+    public bool blockFlag { get; protected set; }
+    public bool stopBlockFlag { get; protected set; }
 
     [Header("")]
     [SerializeField] private UnityEvent onStartBlocking;
@@ -15,10 +17,11 @@ public abstract class CharacterHealth : Health
     {
         if (debug)
         {
-            Debug.Log($"{this} is blocking");
+            Debug.Log($"{this} is blockFlag");
         }
 
-        blocking = true;
+        startBlockFlag = true;
+        blockFlag = true;
 
         onStartBlocking?.Invoke();
     }
@@ -27,10 +30,11 @@ public abstract class CharacterHealth : Health
     {
         if (debug)
         {
-            Debug.Log($"{this} stopped blocking");
+            Debug.Log($"{this} stopped blockFlag");
         }
 
-        blocking = false;
+        stopBlockFlag = true;
+        blockFlag = false;
 
         onStopBlocking?.Invoke();
     }
@@ -39,6 +43,12 @@ public abstract class CharacterHealth : Health
         bool blockColliderHit, bool damageColliderHit, DetectionData data)
        
     {
-        return base.ProcessDamageFlags(blockColliderHit || blocking, damageColliderHit, data);
+        return base.ProcessDamageFlags(blockColliderHit || blockFlag, damageColliderHit, data);
+    }
+
+    private void LateUpdate()
+    {
+        startBlockFlag = false;
+        stopBlockFlag = false;
     }
 }

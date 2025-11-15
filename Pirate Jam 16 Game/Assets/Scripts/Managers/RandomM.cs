@@ -26,7 +26,15 @@ public static class RandomM
         if (random == null)
             random = RandomSeedless;
 
-        return Mathf.Lerp(min, max, (float) random.NextDouble());
+        return Mathf.Lerp(min, max - 0.01f, (float) random.NextDouble());
+    }
+
+    public static int Range(int min, int max, System.Random random = null)
+    {
+        if (random == null)
+            random = RandomSeedless;
+
+        return Mathf.RoundToInt(Mathf.Lerp(min, max - 1, (float) random.NextDouble()));
     }
 
     public static Vector2 RandomDirection(System.Random random = null)

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class RandomizedSound : MonoBehaviour
 {
@@ -19,6 +15,6 @@ public class RandomizedSound : MonoBehaviour
         if (audioClips.Length == 0)
             return;
 
-        SoundM.PlaySoundNonSpatial(audioClips[Random.Range(0, audioClips.Length)], volume, RandomM.Range(pitchMin, pitchMax), loop);
+        SoundM.PlaySoundNonSpatial(audioClips[RandomM.Range(0, audioClips.Length)], volume, RandomM.Range(pitchMin, pitchMax), loop);
     }
 }

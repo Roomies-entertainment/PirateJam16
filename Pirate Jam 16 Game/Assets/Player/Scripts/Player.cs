@@ -35,14 +35,14 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Inputs = GetComponent<PlayerInputs>();
-        Collision = GetComponent<PlayerCollision>();
-        Movement = GetComponent<PlayerMovement>();
-        Physics = GetComponent<PlayerPhysics>();
-        Attack = GetComponent<PlayerAttack>();
-        Health = GetComponent<PlayerHealth>();
-        Animation = GetComponent<PlayerAnimation>();
-        Particles = GetComponent<PlayerParticles>();
+        Inputs      = GetComponent<PlayerInputs>();
+        Collision   = GetComponent<PlayerCollision>();
+        Movement    = GetComponent<PlayerMovement>();
+        Physics     = GetComponent<PlayerPhysics>();
+        Attack      = GetComponent<PlayerAttack>();
+        Health      = GetComponent<PlayerHealth>();
+        Animation   = GetComponent<PlayerAnimation>();
+        Particles   = GetComponent<PlayerParticles>();
 
         StaticReferences.playerReference = this;
     }
@@ -55,11 +55,11 @@ public class Player : MonoBehaviour
     #region Fixed Update
     private void FixedUpdate()
     {
-        bool onGroundFlag = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
-        bool groundHitFlag = Collision.GroundDetector.gotHit;
-        bool onWallFlag = Collision.GetOnWall(out ContactPoint2D wallContact);
-        bool hopFlag = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
-        bool jumpFlag = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
+        bool onGroundFlag   = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
+        bool groundHitFlag  = Collision.GroundDetector.gotHit;
+        bool onWallFlag     = Collision.GetOnWall(out ContactPoint2D wallContact);
+        bool hopFlag        = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
+        bool jumpFlag       = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
         FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
         FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
@@ -222,6 +222,7 @@ public class Player : MonoBehaviour
         LateUpdateHealth();
         LateUpdateInputs();
         LateUpdateParticles();
+        LateUpdateAnimation();
     }
 
     private void LateUpdateMovement(bool platformPhaseFlag)
@@ -293,7 +294,7 @@ public class Player : MonoBehaviour
 
         if (Attack.startAttackFlag)
         {
-            if (Health.blocking)
+            if (Health.blockFlag)
             {
                 Health.StopBlocking();
             }
@@ -308,7 +309,7 @@ public class Player : MonoBehaviour
                 {
                     Health.StartBlocking();
                 }
-                else if (Health.blocking)
+                else if (Health.blockFlag)
                 {
                     Health.StopBlocking();
                 }
@@ -375,6 +376,18 @@ public class Player : MonoBehaviour
             Particles.MoveEffectParticles(Vector2.zero, Vector3.zero);
         }
 
+    }
+
+    private void LateUpdateAnimation()
+    {
+        if (Attack.startAttackFlag)
+        {
+            Animation.PlayAttackAnimation();
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            Animation.StopAttackAnimation();
+        }
     }
     #endregion
 

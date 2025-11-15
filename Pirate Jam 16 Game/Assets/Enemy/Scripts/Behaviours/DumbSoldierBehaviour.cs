@@ -95,13 +95,13 @@ public class DumbSoldierBehaviour : Behaviour
 
     private void Awake()
     {
-        GroundDetection = Components.GetComponentInChildren<GroundDetection>();
-        HorizontalMovement = Components.GetComponentInChildren<HorizontalMovement>();
-        JumpMovement = Components.GetComponentInChildren<JumpMovement>();
-        Attack = Components.GetComponentInChildren<EnemyMeleeAttack>();
-        Health = Components.GetComponentInChildren<EnemyHealth>();
-        Animation = Components.GetComponentInChildren<EnemyAnimation>();
-        Particles = Components.GetComponentInChildren<EnemyParticles>();
+        GroundDetection     = Components.GetComponentInChildren<GroundDetection>();
+        HorizontalMovement  = Components.GetComponentInChildren<HorizontalMovement>();
+        JumpMovement        = Components.GetComponentInChildren<JumpMovement>();
+        Attack              = Components.GetComponentInChildren<EnemyMeleeAttack>();
+        Health              = Components.GetComponentInChildren<EnemyHealth>();
+        Animation           = Components.GetComponentInChildren<EnemyAnimation>();
+        Particles           = Components.GetComponentInChildren<EnemyParticles>();
     }
 
     private void Start()
@@ -125,20 +125,12 @@ public class DumbSoldierBehaviour : Behaviour
     #region Update
     private void Update()
     {
-        if (GroundDetection.enabled)
-            UpdateGroundDetection();
-
-        if (Attack.enabled)
-            UpdateAttack();
-
-        if (HorizontalMovement.enabled)
-            UpdateHorizontalMovement();
-
-        if (JumpMovement.enabled)
-            UpdateJumpMovement();
-
-        if (Health.enabled)
-            UpdateHealth();
+        if (GroundDetection.enabled)    UpdateGroundDetection();
+        if (Attack.enabled)             UpdateAttack();
+        if (HorizontalMovement.enabled) UpdateHorizontalMovement();
+        if (JumpMovement.enabled)       UpdateJumpMovement();
+        if (Health.enabled)             UpdateHealth();
+        if (Animation.enabled)          UpdateAnimation();
 
         attackStateChange[0] = AttackState.Null;
         attackStateChange[1] = AttackState.Null;
@@ -252,15 +244,36 @@ public class DumbSoldierBehaviour : Behaviour
     {
         if (attackStateChange[0] != attackStateChange[1])
         {
-            if (!Health.blocking && attackStateChange[1] == AttackState.Blocking)
+            if (!Health.blockFlag && attackStateChange[1] == AttackState.Blocking)
             {
                 Health.SetBlockDirection(Attack.attackDirection);
                 Health.StartBlocking();
             }
-            else if (Health.blocking && attackStateChange[1] != AttackState.Blocking)
+            else if (Health.blockFlag && attackStateChange[1] != AttackState.Blocking)
             {
                 Health.StopBlocking();
             }
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        if (Attack.startAttackFlag)
+        {
+            Animation.SetAnimatorAttack(true);
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            Animation.SetAnimatorAttack(false);
+        }
+
+        if (Health.startBlockFlag)
+        {
+            Animation.SetAnimatorBlock(true);
+        }
+        else if (Health.stopBlockFlag)
+        {
+            Animation.SetAnimatorBlock(false);
         }
     }
     #endregion
