@@ -1,21 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-
-[RequireComponent(typeof(PlayerInputs))]
-[RequireComponent(typeof(PlayerCollision))]
-[RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(PlayerPhysics))]
-[RequireComponent(typeof(PlayerAttack))]
-[RequireComponent(typeof(PlayerHealth))]
-[RequireComponent(typeof(PlayerAnimation))]
-[RequireComponent(typeof(PlayerParticles))]
-
-public class Player : MonoBehaviour
+public class Player : Behaviour
 {
-    [SerializeField] private bool enableBlocking;
-
     private PlayerInputs Inputs;
     private PlayerCollision Collision;
     private PlayerMovement Movement;
@@ -24,6 +10,9 @@ public class Player : MonoBehaviour
     private PlayerHealth Health;
     private PlayerAnimation Animation;
     private PlayerParticles Particles;
+
+    [SerializeField] // inspector assigned
+    private PlayerUI UI;
 
     public void SetGameplayEnabled(bool setTo)
     {
@@ -35,14 +24,14 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Inputs      = GetComponent<PlayerInputs>();
-        Collision   = GetComponent<PlayerCollision>();
-        Movement    = GetComponent<PlayerMovement>();
-        Physics     = GetComponent<PlayerPhysics>();
-        Attack      = GetComponent<PlayerAttack>();
-        Health      = GetComponent<PlayerHealth>();
-        Animation   = GetComponent<PlayerAnimation>();
-        Particles   = GetComponent<PlayerParticles>();
+        Inputs      = Components.GetComponent<PlayerInputs>();
+        Collision   = Components.GetComponent<PlayerCollision>();
+        Movement    = Components.GetComponent<PlayerMovement>();
+        Physics     = Components.GetComponent<PlayerPhysics>();
+        Attack      = Components.GetComponent<PlayerAttack>();
+        Health      = Components.GetComponent<PlayerHealth>();
+        Animation   = Components.GetComponent<PlayerAnimation>();
+        Particles   = Components.GetComponent<PlayerParticles>();
 
         StaticReferences.playerReference = this;
     }
@@ -50,31 +39,36 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Physics.InitializeRigidbody();
+
+        if (UI != null) StartUI();
     }
+
+    #region Start
+    private void StartUI()
+    {
+        UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
+        UI.counterText.text = UI.deathCounter.ToString();
+    }
+    #endregion
 
     #region Fixed Update
     private void FixedUpdate()
     {
-        bool onGroundFlag   = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
-        bool groundHitFlag  = Collision.GroundDetector.gotHit;
-        bool onWallFlag     = Collision.GetOnWall(out ContactPoint2D wallContact);
-        bool hopFlag        = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
-        bool jumpFlag       = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
+        bool onGroundFlag       = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
+        bool groundHitFlag      = Collision.GroundDetector.gotHit;
+        bool onWallFlag         = Collision.GetOnWall(out ContactPoint2D wallContact);
+        bool hopFlag            = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
+        bool jumpFlag           = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
-        FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
-        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
-        FixedUpdateInputs(jumpFlag);
-        FixedUpdateAnimation();
-        FixedUpdateCollision();
+        if (Movement.enabled)   FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
+        if (Physics.enabled)    FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
+        if (Inputs.enabled)     FixedUpdateInputs(jumpFlag);
+        if (Animation.enabled)  FixedUpdateAnimation();
+        if (Collision.enabled)  FixedUpdateCollision();
     }
 
     private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
-    {
-        if (!Physics.enabled)
-        {
-            return;
-        }
-        
+    {        
         if (onGroundFlag)
         {
             Physics.SyncForces();
@@ -115,11 +109,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdateMovement(bool onGroundFlag, bool hopFlag, bool jumpFlag)
     {
-        if (!Movement.enabled)
-        {
-            return;
-        }
-
         float speedX = Inputs.horizontalInput * Movement.moveSpeed;
         float speedY;
 
@@ -152,11 +141,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdateInputs(bool jumpFlag)
     {
-        if (!Inputs.enabled)
-        {
-            return;
-        }
-
         if (jumpFlag)
         {
             Inputs.ClearJumpFlag();
@@ -165,11 +149,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdateAnimation()
     {
-        if (!Animation.enabled)
-        {
-            return;
-        }
-
         if (Mathf.Abs(Physics.speedX) > 0.1f)
         {
             Animation.FaceDirection(Physics.speedX);
@@ -178,11 +157,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdateCollision()
     {
-        if (!Collision.enabled)
-        {
-            return;
-        }
-
         Collision.IncrementTimers(Time.fixedDeltaTime);
     }
     #endregion
@@ -215,26 +189,25 @@ public class Player : MonoBehaviour
             Inputs.verticalInput < -0.35f &&
             Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration);
 
-        LateUpdateMovement(platformPhaseFlag);
-        LateUpdatePhysics(platformPhaseFlag);
-        LateUpdateCollision(platformPhaseFlag, phasableContact);
-        LateUpdateAttack();
-        LateUpdateHealth();
-        LateUpdateInputs();
-        LateUpdateParticles();
-        LateUpdateAnimation();
+        if (Movement.enabled)   LateUpdateMovement(platformPhaseFlag);
+        if (Physics.enabled)    LateUpdatePhysics(platformPhaseFlag);
+        if (Collision.enabled)  LateUpdateCollision(platformPhaseFlag, phasableContact);
+        if (Attack.enabled)     LateUpdateAttack();
+        if (Health.enabled)     LateUpdateHealth();
+        if (Inputs.enabled)     LateUpdateInputs();
+        if (Particles.enabled)  LateUpdateParticles();
+        if (Animation.enabled)  LateUpdateAnimation();
+        if (UI != null &&
+            UI.enabled)         LateUpdateUI();
+
+        if (Health.dieFlag)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void LateUpdateMovement(bool platformPhaseFlag)
     {
-        if (!Movement.enabled)
-        {
-            Movement.ResetGroundedTimers();
-            Movement.ResetJumpTimers();
-            
-            return;
-        }
-
         if (platformPhaseFlag)
         {
             Movement.speedY = -Movement.fallThroughPlatformSpeed;
@@ -250,11 +223,6 @@ public class Player : MonoBehaviour
 
     private void LateUpdatePhysics(bool platformPhaseFlag)
     {
-        if (!Physics.enabled)
-        {
-            return;
-        }
-
         if (platformPhaseFlag)
         {
             Physics.EnforceVerticalSpeed(Movement.speedY);
@@ -263,13 +231,6 @@ public class Player : MonoBehaviour
 
     private void LateUpdateCollision(bool platformPhaseFlag, ContactPoint2D phasableContact)
     {
-        if (!Collision.enabled)
-        {
-            Collision.ResetPhaseTimers();
-
-            return;
-        }
-
         if (Inputs.verticalInput >= 0f)
         {
             Collision.ResetPhaseTimers();
@@ -287,11 +248,6 @@ public class Player : MonoBehaviour
 
     private void LateUpdateHealth()
     {
-        if (!Health.enabled)
-        {
-            return;
-        }
-
         if (Attack.startAttackFlag)
         {
             if (Health.blockFlag)
@@ -303,18 +259,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (Attack.timeSinceAttack > Attack.AttackDuration)
-            {
-                if (enableBlocking && Inputs.blockFlag)
-                {
-                    Health.StartBlocking();
-                }
-                else if (Health.blockFlag)
-                {
-                    Health.StopBlocking();
-                }
-            }
-
             if (Health.deflectProjectiles && Attack.timeSinceAttack > Health.deflectionWindow)
             {
                 Health.deflectProjectiles = false;
@@ -323,13 +267,7 @@ public class Player : MonoBehaviour
     }
 
     private void LateUpdateAttack()
-    {
-        if (!Attack.enabled)
-        {
-            return;
-        }
-        
-
+    {        
         if (Inputs.attackFlag)
         {
             if (!Attack.attackFlag)
@@ -351,11 +289,6 @@ public class Player : MonoBehaviour
 
     private void LateUpdateInputs()
     {
-        if (!Inputs.enabled)
-        {
-            return;
-        }
-
         if (Inputs.attackFlag)
         {
             Inputs.ClearBlockFlag();
@@ -387,6 +320,20 @@ public class Player : MonoBehaviour
         else if (Attack.stopAttackFlag)
         {
             Animation.StopAttackAnimation();
+        }
+    }
+    
+    private void LateUpdateUI()
+    {
+        if (Health.takeDamageFlag || Health.healFlag)
+        {
+            UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
+        }
+
+        if (Health.dieFlag)
+        {
+            UI.IncreaseDeathCounter();
+            UI.SetDeathScreenActive(true);
         }
     }
     #endregion

@@ -122,7 +122,7 @@ AudioSource:
   m_GameObject: {fileID: 227388072199067203}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8238493224987208781, guid: 4742b4dbfeab7434bbee1cf2ebf11ec8, type: 2}
   m_audioClip: {fileID: 8300000, guid: 4bc962bb27e5cbd49ab1ead74798853a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1820,6 +1820,7 @@ GameObject:
   - component: {fileID: 6224160255016242183}
   - component: {fileID: 4419979188828629790}
   - component: {fileID: 3119405021664002573}
+  - component: {fileID: 4122620745486264940}
   m_Layer: 5
   m_Name: Player UI
   m_TagString: Untagged
@@ -1913,6 +1914,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4122620745486264940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375109218675710013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBar: {fileID: 8259310288684739994}
+  counterText: {fileID: 2337516493862450350}
+  deathCounter: 0
+  deathScreen: {fileID: 227388072199067203}
 --- !u!1 &3773376598126666288
 GameObject:
   m_ObjectHideFlags: 0

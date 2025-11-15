@@ -14,15 +14,13 @@ public class DifficultySetting : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.Difficulty);
+        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.difficulty);
 
         if (objs.Count > 1)
         {
             Destroy(this.gameObject);
-
         }
     }
-
 
     public void SetTheDifficulty()
     {

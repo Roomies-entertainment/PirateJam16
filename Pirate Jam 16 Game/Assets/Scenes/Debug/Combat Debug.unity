@@ -180,6 +180,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3375109218675710013, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5571551095898074040, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -262,15 +266,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5739860267930095970, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Color.g
@@ -918,14 +922,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1963951806}
     m_Modifications:
-    - target: {fileID: 1459041612279822761, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1459041612279822761, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4079875813400938342, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8
@@ -969,10 +965,6 @@ PrefabInstance:
     - target: {fileID: 9092179470456444528, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
       propertyPath: m_Name
       value: Enemy Soldier
-      objectReference: {fileID: 0}
-    - target: {fileID: 9092179470456444528, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1202,6 +1194,18 @@ PrefabInstance:
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 252576450}
+    - target: {fileID: 4561228461459443089, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: HealthBar
+      value: 
+      objectReference: {fileID: 252576451}
+    - target: {fileID: 4561228461459443089, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: counterText
+      value: 
+      objectReference: {fileID: 252576449}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1706097131}
     - target: {fileID: 8565715148274485684, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1211,6 +1215,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+--- !u!114 &1706097131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4122620745486264940, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+  m_PrefabInstance: {fileID: 252576448}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1889367535
 GameObject:
   m_ObjectHideFlags: 0

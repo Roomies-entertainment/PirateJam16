@@ -74,7 +74,17 @@ public class HorizontalMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        ClearFlags();
+    }
+
+    public void ClearFlags()
+    {
         startMovingFlag = false;
         stopMovingFlag = false;
+    }
+
+    private void OnDisable()
+    {
+        ClearFlags();
     }
 }

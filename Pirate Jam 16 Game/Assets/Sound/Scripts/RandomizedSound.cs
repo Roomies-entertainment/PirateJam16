@@ -15,6 +15,6 @@ public class RandomizedSound : MonoBehaviour
         if (audioClips.Length == 0)
             return;
 
-        SoundM.PlaySoundNonSpatial(audioClips[RandomM.Range(0, audioClips.Length)], volume, RandomM.Range(pitchMin, pitchMax), loop);
+        SoundM.PlaySound(audioClips[RandomM.Range(0, audioClips.Length)], volume, RandomM.Range(pitchMin, pitchMax), loop);
     }
 }

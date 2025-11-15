@@ -9,8 +9,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     [Tooltip("Object starts dead if this is 0")]
     protected int startingHealth = 1;
 
-    [SerializeField]
-    protected int maxHealth = 1;
+    public int maxHealth = 1;
 
     [Header("")]
     [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector")]
@@ -24,6 +23,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     
     public int health { get; protected set; }
     public bool dead { get { return health <= 0; } }
+    public bool dieFlag { get; protected set; }
 
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
@@ -45,6 +45,9 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     [SerializeField] private UnityEvent<float, DetectionData> onHeal;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
     [SerializeField] private UnityEvent<DetectionData> onDie;
+
+    public bool takeDamageFlag { get; protected set; }
+    public bool healFlag { get; protected set; }
 
     public enum AttackResult
     {
@@ -114,6 +117,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
                 Debug.Log($"{this} took {-increment} damage");
             }
 
+            takeDamageFlag = true;
             onTakeDamage?.Invoke((float)health / maxHealth, data);
         }
         else if (increment > 0)
@@ -123,6 +127,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
                 Debug.Log($"{this} healed by {increment} points");
             }
 
+            healFlag = true;
             onHeal?.Invoke((float)health / maxHealth, data);
         }
 
@@ -155,6 +160,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     protected virtual void OnDie(DetectionData data)
     {
+        dieFlag = true;
         onDie?.Invoke(data);
     }
 
@@ -253,8 +259,21 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         onBlockDamage?.Invoke(damage, data);
     }
 
+    private void LateUpdate()
+    {
+        ClearFlags();
+    }
+
+    private void ClearFlags()
+    {
+        takeDamageFlag = false;
+        healFlag = false;
+        dieFlag = false;
+    }
+
     private void OnDisable()
     {
+        ClearFlags();
         StopAllCoroutines();
     }
 }

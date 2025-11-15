@@ -48,7 +48,17 @@ public abstract class CharacterHealth : Health
 
     private void LateUpdate()
     {
+        ClearFlags();
+    }
+
+    public void ClearFlags()
+    {
         startBlockFlag = false;
         stopBlockFlag = false;
+    }
+
+    private void OnDisable()
+    {
+        ClearFlags();
     }
 }

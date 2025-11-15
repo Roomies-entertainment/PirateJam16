@@ -7,8 +7,17 @@ public static class SoundM
 {
     public static ManagerReferences References;
 
-    public static void PlaySoundSpatial(AudioClip clip, Vector3 position, float volume = 1.0f, bool loop = false, float pitch = 1.0f, float spatialBlend = 0f)
-    {
+    public static void PlaySound(
+        AudioClip clip, Vector2 position,
+        float volume = 1.0f, bool loop = false, float pitch = 1.0f, float spatialBlend = 1.0f) {
+
+        if (References == null)
+        {
+            Debug.Log("SoundM References is null");
+
+            return;
+        }
+
         if (clip == null)
         {
             Debug.Log("Clip is null");
@@ -17,6 +26,7 @@ public static class SoundM
         }
 
         AudioSource source = new GameObject($"{clip.name} Sound Source").AddComponent<AudioSource>();
+        source.transform.position = new Vector3(position.x, position.y, 0.0f);
 
         source.playOnAwake = true;
         source.clip = clip;
@@ -30,21 +40,23 @@ public static class SoundM
         AudioSourceDestroyer destroyer = source.gameObject.AddComponent<AudioSourceDestroyer>();
 
         destroyer.source = source;
-        destroyer.destroyObjectOnCompletion = true;
         destroyer.QueueDestruction();
     }
 
-    public static void PlaySoundNonSpatial(AudioClip clip, float volume = 1.0f, float pitch = 1.0f, bool loop = false)
-    {
+    public static void PlaySound(
+        AudioClip clip, float volume = 1.0f, float pitch = 1.0f, bool loop = false) {
+
+        if (References == null)
+        {
+            Debug.Log("SoundM References is null");
+
+            return;
+        }
+
         if (clip == null)
         {
             Debug.Log("Clip is null");
             
-            return;
-        }
-
-        if (References == null)
-        {
             return;
         }
 
@@ -54,7 +66,7 @@ public static class SoundM
         source.clip = clip;
         source.volume = volume;
         source.pitch = pitch;
-        source.spatialBlend = 0f;
+        source.spatialBlend = 0.0f;
         source.loop = loop;
         source.outputAudioMixerGroup = References.sfxMixerGroup;
         source.Play();
