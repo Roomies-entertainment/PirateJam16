@@ -941,7 +941,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900874913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: EnterControlMenu
         m_Mode: 1
@@ -1514,67 +1514,6 @@ Transform:
   - {fileID: 1441379811}
   m_Father: {fileID: 45720973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &439344222
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2277248185227867336, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6280590567347397554, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_Name
-      value: Difficulty
-      objectReference: {fileID: 0}
-    - target: {fileID: 6280590567347397554, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-      propertyPath: m_TagString
-      value: difficulty
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
 --- !u!4 &453585089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 937906396305204947, guid: 3f05b0182268ab344885c34efc7964f6, type: 3}
@@ -1663,7 +1602,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900874913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: ControlToMenu
         m_Mode: 1
@@ -1858,7 +1797,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900874913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: StartTheGame
         m_Mode: 1
@@ -2367,7 +2306,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1907585380}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DifficultySetting, Assembly-CSharp
         m_MethodName: EasySetting
         m_Mode: 1
@@ -2828,7 +2767,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1907585380}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DifficultySetting, Assembly-CSharp
         m_MethodName: HardSetting
         m_Mode: 1
@@ -3176,17 +3115,6 @@ PrefabInstance:
       addedObject: {fileID: 1178795969}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 503dd1bddb672ab4aa6a5a12af3125ef, type: 3}
---- !u!114 &900874913 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5513136246396796955, guid: 503dd1bddb672ab4aa6a5a12af3125ef, type: 3}
-  m_PrefabInstance: {fileID: 900874912}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eac0e4bfd8898b04593d94cf43304c70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &900874915 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 733896656275763389, guid: 503dd1bddb672ab4aa6a5a12af3125ef, type: 3}
@@ -3275,7 +3203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900874913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: QuitTheGame
         m_Mode: 1
@@ -3413,7 +3341,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900874913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: NewGame
         m_Mode: 1
@@ -3737,7 +3665,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1907585380}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DifficultySetting, Assembly-CSharp
         m_MethodName: MediumSetting
         m_Mode: 1
@@ -5860,17 +5788,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8221b8fe88b25447b9ff08e919ded13, type: 3}
---- !u!114 &1907585380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2828603399877882919, guid: ad9fdd640f1d0c04eaab6993b1e4b210, type: 3}
-  m_PrefabInstance: {fileID: 439344222}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9f3777b0935e347b2f2428f657bdee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1912620343
 GameObject:
   m_ObjectHideFlags: 0
@@ -6509,7 +6426,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 900874913}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: ControlToMenu
         m_Mode: 1
@@ -6739,4 +6656,3 @@ SceneRoots:
   - {fileID: 45720973}
   - {fileID: 248939394}
   - {fileID: 900874912}
-  - {fileID: 439344222}

@@ -17,7 +17,7 @@ public abstract class Attack : MonoBehaviour
     public const int BaseDamage = 1;
 
     [Header("")]
-    [Tooltip("Don't hit objects behind")]
+    [Tooltip("This won't hit objects that are behind it")]
     [SerializeField] protected bool behindCheck = true;
     [SerializeField] protected float behindCheckLeniance = -0.3f;
 

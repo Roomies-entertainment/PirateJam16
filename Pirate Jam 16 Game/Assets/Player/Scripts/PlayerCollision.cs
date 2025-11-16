@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
+    [SerializeField] private Transform Colliders;
     [SerializeField] private Collider2D PhysicsCollider;
-    public SurfaceDetector GroundDetector;
+
+    [Header("")]
+    [SerializeField] private Transform UprightConfiguration;
+    [SerializeField] private Transform FlatConfiguration;
+    private Transform lastConfig;
+    private Transform currentConfig;
+
+    [Space]
+    [SerializeField] private float configChangeDuration = 0.2f;
+    private float configChangeTimer = 0.1f;
+    private bool configChangeFlag = false;
 
     public float platformPhaseHoldTimer { get; private set; }
     public const float PlatformPhaseHoldDuration = 0.2f;
