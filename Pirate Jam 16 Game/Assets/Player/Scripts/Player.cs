@@ -66,38 +66,12 @@ public class Player : Behaviour
         bool hopFlag                = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
         bool jumpFlag               = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
-        if (Collision.enabled)      FixedUpdateCollision();
-        if (GroundDetector.enabled) FixedUpdateGroundDetector();
         if (Movement.enabled)       FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
         if (Physics.enabled)        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
         if (Inputs.enabled)         FixedUpdateInputs(jumpFlag);
         if (Animation.enabled)      FixedUpdateAnimation();
         
         if (Collision.enabled)      LateFixedUpdateCollision();
-    }
-
-    private void FixedUpdateCollision()
-    {
-        if (Attack.startAttackFlag)
-        {
-            Colliders.SetFlatConfiguration();
-        }
-        else if (Attack.stopAttackFlag)
-        {
-            Colliders.SetUprightConfiguration();
-        }
-    }
-
-    private void FixedUpdateGroundDetector()
-    {
-        if (Attack.startAttackFlag)
-        {
-            GroundDetector.SetFlatConfiguration();
-        }
-        else if (Attack.stopAttackFlag)
-        {
-            GroundDetector.SetUprightConfiguration();
-        }
     }
 
     private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
@@ -197,19 +171,32 @@ public class Player : Behaviour
     #region Update
     private void Update()
     {
-        UpdateInputs();
+        if (Collision.enabled)      UpdateCollision();
+        if (GroundDetector.enabled) UpdateGroundDetector();
     }
 
-    private void UpdateInputs()
+    private void UpdateCollision()
     {
-        if (!Inputs.enabled)
+        if (Attack.startAttackFlag)
         {
-            Inputs.ResetTimers();
-
-            return;
+            Colliders.SetFlatConfiguration();
         }
+        else if (Attack.stopAttackFlag)
+        {
+            Colliders.SetUprightConfiguration();
+        }
+    }
 
-        Inputs.UpdateTimers();
+    private void UpdateGroundDetector()
+    {
+        if (Attack.startAttackFlag)
+        {
+            GroundDetector.SetFlatConfiguration();
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            GroundDetector.SetUprightConfiguration();
+        }
     }
     #endregion
 
@@ -322,6 +309,8 @@ public class Player : Behaviour
 
     private void LateUpdateInputs()
     {
+        Inputs.UpdateTimers();
+        
         if (Inputs.attackFlag)
         {
             Inputs.ClearBlockFlag();
