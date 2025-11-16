@@ -95,6 +95,8 @@ public class Player : Behaviour
 
             if (onWallFlag)
             {
+                Debug.Log("yep");
+                Debug.Log(wallContact.normal);
                 Physics.SlideAlongSurface(wallContact.normal);
             }
         }

@@ -56,7 +56,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private bool debug = false;
 
 
-    private void OnCollisionStay2D(Collision2D collision)
+    public void DoOnCollisionStay2D(Collision2D collision)
     {
         SetContactFlagsAndData(collision, out bool phasingThroughCollider);
 
@@ -66,7 +66,7 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    public void DoOnCollisionExit2D(Collision2D collision)
     {
         SetContactFlagsAndData(collision, out bool phasingThroughCollider);
     }
