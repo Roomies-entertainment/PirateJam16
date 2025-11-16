@@ -11,7 +11,7 @@ public static class DifficultySetting
 
     public static void SetTheDifficulty()
     {
-        player = GameObjectM.FindGameObjectWithTag(Tags.TagType.Player);
+        player = GameObject.FindGameObjectWithTag("Player");
 
         switch (difficulty){
             case 3:

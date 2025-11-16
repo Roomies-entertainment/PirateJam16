@@ -128,8 +128,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    delayMin: 0
-    delayMax: 0.2
+    delayComponent:
+      _delay: 0
+      _delayAlt: 0
+      delayRandomType: 0
   - Event:
       m_PersistentCalls:
         m_Calls:
@@ -145,8 +147,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    delayMin: 0.4
-    delayMax: 0.4
+    delayComponent:
+      _delay: 0
+      _delayAlt: 0
+      delayRandomType: 0
 --- !u!1 &966042604700755577
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visibileSelectDepth: 1
   color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3686658514506477869
 GameObject:
@@ -356,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56ca705640854b449dc5a3d617061de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
+  onEnterCooldown: 0
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -372,6 +377,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
   onTriggerExit:
     m_PersistentCalls:
       m_Calls:
@@ -622,6 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {x: -5, y: 0}
+  allowGravity: 0
 --- !u!95 &2078730757418907318
 Animator:
   serializedVersion: 5
@@ -657,6 +666,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   maxHealth: 1
+  onDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  explosionOnDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  destroyObjectDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  damagedByExplosions: 1
+  damagedByProjectiles: 1
+  blockBehindCheck: 1
+  blockBehindCheckLeniance: -0.3
   TakeDamageColliders:
   - {fileID: 1619706018419456607}
   BlockDamageColliders: []
@@ -664,12 +689,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onHeal:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartBlocking:
-    m_PersistentCalls:
-      m_Calls: []
-  onStopBlocking:
     m_PersistentCalls:
       m_Calls: []
   onBlockDamage:
@@ -703,6 +722,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   debug: 0
+  onStartBlocking:
+    m_PersistentCalls:
+      m_Calls: []
+  onStopBlocking:
+    m_PersistentCalls:
+      m_Calls: []
   onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -718,10 +743,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b567c1af70750b941866d44e1f5216c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePlayers: 1
+  damageEnemies: 1
+  damageObjects: 1
+  hitInteractables: 0
   AttackCircle: {fileID: 5673110662011044144}
-  directionCheckDistance: 1
-  directionChecking: 0
-  debug: 1
+  behindCheck: 1
+  behindCheckLeniance: -0.3
+  debug: 0
   onStartAttack:
     m_PersistentCalls:
       m_Calls: []

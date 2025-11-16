@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerColliders : MonoBehaviour
@@ -50,12 +48,12 @@ public class PlayerColliders : MonoBehaviour
         }
     }
 
-    public void OnPerformAttack()
+    public void SetFlatConfiguration()
     {
         UpdateConfiguration(FlatConfiguration);
     }
 
-    public void OnStopAttack()
+    public void SetUprightConfiguration()
     {
         UpdateConfiguration(UprightConfiguration);
     }

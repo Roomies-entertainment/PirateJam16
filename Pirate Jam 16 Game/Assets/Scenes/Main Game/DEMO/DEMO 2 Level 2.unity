@@ -11834,6 +11834,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1315452063}
     - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1709332499}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: UIComponent
       value: 
       objectReference: {fileID: 1709332499}

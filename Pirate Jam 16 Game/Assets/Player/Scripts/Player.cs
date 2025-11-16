@@ -4,6 +4,11 @@ public class Player : Behaviour
 {
     private PlayerInputs Inputs;
     private PlayerCollision Collision;
+
+    [SerializeField] // inspector assigned
+    private PlayerColliders Colliders;
+
+    private PlayerSurfaceDetector GroundDetector;
     private PlayerMovement Movement;
     private PlayerPhysics Physics;
     private PlayerAttack Attack;
@@ -12,7 +17,7 @@ public class Player : Behaviour
     private PlayerParticles Particles;
 
     [SerializeField] // inspector assigned
-    private PlayerUI UIComponent;
+    private PlayerUI UI;
 
     public void SetGameplayEnabled(bool setTo)
     {
@@ -24,14 +29,15 @@ public class Player : Behaviour
 
     private void Awake()
     {
-        Inputs      = Components.GetComponent<PlayerInputs>();
-        Collision   = Components.GetComponent<PlayerCollision>();
-        Movement    = Components.GetComponent<PlayerMovement>();
-        Physics     = Components.GetComponent<PlayerPhysics>();
-        Attack      = Components.GetComponent<PlayerAttack>();
-        Health      = Components.GetComponent<PlayerHealth>();
-        Animation   = Components.GetComponent<PlayerAnimation>();
-        Particles   = Components.GetComponent<PlayerParticles>();
+        Inputs          = Components.GetComponent<PlayerInputs>();
+        Collision       = Components.GetComponent<PlayerCollision>();
+        GroundDetector  = Components.GetComponent<PlayerSurfaceDetector>();
+        Movement        = Components.GetComponent<PlayerMovement>();
+        Physics         = Components.GetComponent<PlayerPhysics>();
+        Attack          = Components.GetComponent<PlayerAttack>();
+        Health          = Components.GetComponent<PlayerHealth>();
+        Animation       = Components.GetComponent<PlayerAnimation>();
+        Particles       = Components.GetComponent<PlayerParticles>();
 
         StaticReferences.playerReference = this;
     }
@@ -40,31 +46,32 @@ public class Player : Behaviour
     {
         Physics.InitializeRigidbody();
 
-        if (UIComponent != null) StartUI();
+        if (UI != null) StartUI();
     }
 
     #region Start
     private void StartUI()
     {
-        UIComponent.UpdateHealthBar((float) Health.health / Health.maxHealth);
-        UIComponent.counterText.text = UIComponent.deathCounter.ToString();
+        UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
+        UI.counterText.text = UI.deathCounter.ToString();
     }
     #endregion
 
     #region Fixed Update
     private void FixedUpdate()
     {
-        bool onGroundFlag       = Collision.GroundDetector.surfaceDetected && Physics.speedY <= 0;
-        bool groundHitFlag      = Collision.GroundDetector.gotHit;
-        bool onWallFlag         = Collision.GetOnWall(out ContactPoint2D wallContact);
-        bool hopFlag            = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
-        bool jumpFlag           = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
+        bool onGroundFlag           = GroundDetector.surfaceDetected && Physics.speedY <= 0;
+        bool groundHitFlag          = GroundDetector.gotHit;
+        bool onWallFlag             = Collision.GetOnWall(out ContactPoint2D wallContact);
+        bool hopFlag                = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
+        bool jumpFlag               = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
-        if (Movement.enabled)   FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
-        if (Physics.enabled)    FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
-        if (Inputs.enabled)     FixedUpdateInputs(jumpFlag);
-        if (Animation.enabled)  FixedUpdateAnimation();
-        if (Collision.enabled)  FixedUpdateCollision();
+        if (Movement.enabled)       FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
+        if (Physics.enabled)        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
+        if (Inputs.enabled)         FixedUpdateInputs(jumpFlag);
+        if (Animation.enabled)      FixedUpdateAnimation();
+        
+        if (Collision.enabled)      LateFixedUpdateCollision();
     }
 
     private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
@@ -155,7 +162,7 @@ public class Player : Behaviour
         }
     }
 
-    private void FixedUpdateCollision()
+    private void LateFixedUpdateCollision()
     {
         Collision.IncrementTimers(Time.fixedDeltaTime);
     }
@@ -164,19 +171,32 @@ public class Player : Behaviour
     #region Update
     private void Update()
     {
-        UpdateInputs();
+        if (Collision.enabled)      UpdateCollision();
+        if (GroundDetector.enabled) UpdateGroundDetector();
     }
 
-    private void UpdateInputs()
+    private void UpdateCollision()
     {
-        if (!Inputs.enabled)
+        if (Attack.startAttackFlag)
         {
-            Inputs.ResetTimers();
-
-            return;
+            Colliders.SetFlatConfiguration();
         }
+        else if (Attack.stopAttackFlag)
+        {
+            Colliders.SetUprightConfiguration();
+        }
+    }
 
-        Inputs.UpdateTimers();
+    private void UpdateGroundDetector()
+    {
+        if (Attack.startAttackFlag)
+        {
+            GroundDetector.SetFlatConfiguration();
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            GroundDetector.SetUprightConfiguration();
+        }
     }
     #endregion
 
@@ -197,8 +217,8 @@ public class Player : Behaviour
         if (Inputs.enabled)     LateUpdateInputs();
         if (Particles.enabled)  LateUpdateParticles();
         if (Animation.enabled)  LateUpdateAnimation();
-        if (UIComponent != null &&
-            UIComponent.enabled)         LateUpdateUI();
+        if (UI != null &&
+            UI.enabled)         LateUpdateUI();
 
         if (Health.dieFlag)
         {
@@ -289,6 +309,8 @@ public class Player : Behaviour
 
     private void LateUpdateInputs()
     {
+        Inputs.UpdateTimers();
+        
         if (Inputs.attackFlag)
         {
             Inputs.ClearBlockFlag();
@@ -327,13 +349,13 @@ public class Player : Behaviour
     {
         if (Health.takeDamageFlag || Health.healFlag)
         {
-            UIComponent.UpdateHealthBar((float) Health.health / Health.maxHealth);
+            UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
         }
 
         if (Health.dieFlag)
         {
-            UIComponent.IncreaseDeathCounter();
-            UIComponent.SetDeathScreenActive(true);
+            UI.IncreaseDeathCounter();
+            UI.SetDeathScreenActive(true);
         }
     }
     #endregion
@@ -341,7 +363,7 @@ public class Player : Behaviour
     private int CalculateAttackDamage()
     {
         return (
-            !Collision.GroundDetector.surfaceDetected &&
+            !GroundDetector.surfaceDetected &&
             Physics.speedY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
                 PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
                 PlayerAttack.BaseDamage);

@@ -15,12 +15,12 @@ public class PlayerSurfaceDetector : SurfaceDetector
         UpdateConfiguration(StartUpright, EndUpright);
     }
 
-    public void OnPerformAttack()
+    public void SetFlatConfiguration()
     {
         UpdateConfiguration(StartFlat, EndFlat);
     }
 
-    public void OnStopAttack()
+    public void SetUprightConfiguration()
     {
         UpdateConfiguration(StartUpright, EndUpright);
     }

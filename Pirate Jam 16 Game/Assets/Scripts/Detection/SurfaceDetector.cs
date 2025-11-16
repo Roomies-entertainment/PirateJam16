@@ -8,7 +8,7 @@ public class SurfaceDetector : MonoBehaviour
     [SerializeField] protected Transform castEnd;
 
     [Header("")]
-    [SerializeField] protected LayerMask layerMask;
+    [SerializeField] protected LayerMask layerMask = ~0;
     [SerializeField] protected float extraCastDistance = 0f;
 
     [Header("")]
@@ -36,16 +36,15 @@ public class SurfaceDetector : MonoBehaviour
         Vector2 start = castStart.transform.position;
         Vector2 end = castEnd.position;
         Vector2 direction = (end - start).normalized;
-
-        float contactDistanceMax = Vector2.Distance(start, end);
+        float contactDistance = Vector2.Distance(start, end);
 
         var contactFilter = new ContactFilter2D().NoFilter();
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
         contactFilter.useTriggers = detectTriggers;
 
-        var hits = new RaycastHit2D[10];
-        int hitCount = castStart.Cast(direction, contactFilter, hits, contactDistanceMax + extraCastDistance);
+        var hits = new RaycastHit2D[10]; // This is all weird and array based cause thats just how unity supports collider based sweeping/casting
+        int hitCount = castStart.Cast(direction, contactFilter, hits, contactDistance + extraCastDistance);
         gotHit = hitCount > 0;
         
         if (gotHit)
@@ -53,7 +52,7 @@ public class SurfaceDetector : MonoBehaviour
             hit = hits[0];
 
             hitDistance = Vector2.Dot(hit.point - castStart.ClosestPoint(hit.point), direction);
-            surfaceDetected = hitDistance <= contactDistanceMax;
+            surfaceDetected = hitDistance <= contactDistance;
         }
         else
         {

@@ -16170,6 +16170,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1937562526}
     - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1709332499}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: UIComponent
       value: 
       objectReference: {fileID: 1709332499}
@@ -21681,6 +21685,10 @@ PrefabInstance:
     - target: {fileID: 8800245194755690842, guid: d8af62658683ced4bb5762247a6a2cd2, type: 3}
       propertyPath: m_Name
       value: Cloud Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8800245194755690842, guid: d8af62658683ced4bb5762247a6a2cd2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9093371115377288029, guid: d8af62658683ced4bb5762247a6a2cd2, type: 3}
       propertyPath: m_LocalPosition.x

@@ -76,7 +76,7 @@ public class PauseGame : MonoBehaviour
     public void ReturnToMenu()
     {
         Time.timeScale = 1;
-        GameObject difficulty = GameObjectM.FindGameObjectWithTag(Tags.TagType.difficulty);
+        GameObject difficulty = GameObject.FindGameObjectWithTag("difficulty");
         Object.Destroy(difficulty);
         SceneManager.LoadScene("00 Menu");
     }
