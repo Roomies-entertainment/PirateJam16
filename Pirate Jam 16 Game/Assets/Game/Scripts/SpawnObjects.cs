@@ -20,6 +20,7 @@ public class SpawnObjects : MonoBehaviour
     [Header("")]
     [SerializeField] private GameObject[] objectsToSpawn;
     [SerializeField][Tooltip("Just uses this game object if none are assigned")] private GameObject[] spawnPoints;
+    private Transform spawnParent;
 
     private void OnValidate()
     {
@@ -35,6 +36,8 @@ public class SpawnObjects : MonoBehaviour
         {
             spawnPoints = new GameObject[] { gameObject };
         }
+
+        spawnParent = new GameObject($"{gameObject.name} - Spawned Objects").transform;
     }
 
     private void Start()
@@ -76,7 +79,7 @@ public class SpawnObjects : MonoBehaviour
                 objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
                 spawnPoints[spawnPointI].transform.position,
                 Quaternion.identity,
-                null);
+                spawnParent);
 
             spawnPointCounts[spawnPointI]++;
 
@@ -92,7 +95,7 @@ public class SpawnObjects : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         CancelInvoke();
     }
