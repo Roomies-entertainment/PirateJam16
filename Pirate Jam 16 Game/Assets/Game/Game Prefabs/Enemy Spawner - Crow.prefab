@@ -55,7 +55,6 @@ MonoBehaviour:
   - {fileID: 9092179470456444528, guid: 11c3da1c9c6583d4eadb14148b566c31, type: 3}
   spawnPoints:
   - {fileID: 2192717712863099916}
-  - {fileID: 0}
 --- !u!114 &934235864277464606
 MonoBehaviour:
   m_ObjectHideFlags: 0

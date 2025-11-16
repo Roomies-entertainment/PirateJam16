@@ -5495,7 +5495,6 @@ MonoBehaviour:
   slowSpeed: 0
   hopVerticalSpeed: 3.5
   hopDelay: 0.15
-  hopWhileLayingFlat: 1
   upGravityScale: 1.7
   downGravityScale: 1.7
   fallThroughPlatformSpeed: 5
@@ -6239,7 +6238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Components: {fileID: 5675214651829654101}
   Colliders: {fileID: 3543168907676297395}
-  UIComponent: {fileID: 0}
+  UI: {fileID: 0}
 --- !u!1 &8522072918228103913
 GameObject:
   m_ObjectHideFlags: 0

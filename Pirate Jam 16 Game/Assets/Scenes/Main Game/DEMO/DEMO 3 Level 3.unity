@@ -10086,6 +10086,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1709332501}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: UIComponent
       value: 
       objectReference: {fileID: 1709332501}
@@ -11865,7 +11869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6992552441252944898, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_Color.r
-      value: 0.0462761
+      value: 0.046276093
       objectReference: {fileID: 0}
     - target: {fileID: 8528142580326658706, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
       propertyPath: m_LocalScale.x
