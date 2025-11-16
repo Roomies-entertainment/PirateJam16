@@ -1,52 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class DifficultySetting : MonoBehaviour
+public static class DifficultySetting
 {
+    private static int difficulty;
+    public static void EasySetting()   { difficulty = 1; }
+    public static void MediumSetting() { difficulty = 2; }
+    public static void HardSetting()   { difficulty = 3; }
 
-    int difficulty;
+    private static GameObject player;
 
-    GameObject player;
-
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.difficulty);
-
-        if (objs.Count > 1)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-    public void SetTheDifficulty()
+    public static void SetTheDifficulty()
     {
         player = GameObjectM.FindGameObjectWithTag(Tags.TagType.Player);
-        SetDifficulty();
-    }
 
-    public void EasySetting(){
-
-        difficulty = 1;
-        
-    }
-
-    public void MediumSetting()
-    {
-        difficulty = 2;
-        
-    }
-
-    public void HardSetting(){
-        difficulty = 3;
-        
-
-    }
-
-    void SetDifficulty(){
         switch (difficulty){
             case 3:
                 if (player == null)
@@ -73,7 +39,7 @@ public class DifficultySetting : MonoBehaviour
                 break;
 
             default:
-                print("Invalid selection");
+                Debug.Log("Invalid selection");
 
                 break;
         }

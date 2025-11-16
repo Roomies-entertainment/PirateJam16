@@ -10,15 +10,9 @@ public class LevelM : MonoBehaviour
     [SerializeField] private AudioSource audioPlayer;
     [SerializeField] private AudioClip audioClip;
 
-    GameObject difficultyLoad;
-
     void Start()
     {
-
         audioPlayer.clip = audioClip;
-
-        difficultyLoad = GameObjectM.FindGameObjectWithTag(Tags.TagType.difficulty);
-        difficultyLoad.GetComponent<DifficultySetting>().SetTheDifficulty();
     }
 
     public void LoadNextLevel()
