@@ -11833,6 +11833,10 @@ PrefabInstance:
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1315452063}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UIComponent
+      value: 
+      objectReference: {fileID: 1709332499}
     - target: {fileID: 8565715148274485684, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_Name
       value: Player
@@ -12394,6 +12398,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1709332499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4122620745486264940, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+  m_PrefabInstance: {fileID: 1709332497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1719293061 stripped

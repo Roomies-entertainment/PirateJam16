@@ -12,7 +12,7 @@ public class Player : Behaviour
     private PlayerParticles Particles;
 
     [SerializeField] // inspector assigned
-    private PlayerUI UI;
+    private PlayerUI UIComponent;
 
     public void SetGameplayEnabled(bool setTo)
     {
@@ -40,14 +40,14 @@ public class Player : Behaviour
     {
         Physics.InitializeRigidbody();
 
-        if (UI != null) StartUI();
+        if (UIComponent != null) StartUI();
     }
 
     #region Start
     private void StartUI()
     {
-        UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
-        UI.counterText.text = UI.deathCounter.ToString();
+        UIComponent.UpdateHealthBar((float) Health.health / Health.maxHealth);
+        UIComponent.counterText.text = UIComponent.deathCounter.ToString();
     }
     #endregion
 
@@ -197,8 +197,8 @@ public class Player : Behaviour
         if (Inputs.enabled)     LateUpdateInputs();
         if (Particles.enabled)  LateUpdateParticles();
         if (Animation.enabled)  LateUpdateAnimation();
-        if (UI != null &&
-            UI.enabled)         LateUpdateUI();
+        if (UIComponent != null &&
+            UIComponent.enabled)         LateUpdateUI();
 
         if (Health.dieFlag)
         {
@@ -327,13 +327,13 @@ public class Player : Behaviour
     {
         if (Health.takeDamageFlag || Health.healFlag)
         {
-            UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
+            UIComponent.UpdateHealthBar((float) Health.health / Health.maxHealth);
         }
 
         if (Health.dieFlag)
         {
-            UI.IncreaseDeathCounter();
-            UI.SetDeathScreenActive(true);
+            UIComponent.IncreaseDeathCounter();
+            UIComponent.SetDeathScreenActive(true);
         }
     }
     #endregion

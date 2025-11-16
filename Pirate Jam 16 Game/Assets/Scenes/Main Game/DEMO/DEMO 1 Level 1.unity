@@ -16169,6 +16169,10 @@ PrefabInstance:
       propertyPath: onDie.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1937562526}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UIComponent
+      value: 
+      objectReference: {fileID: 1709332499}
     - target: {fileID: 8565715148274485684, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_Name
       value: Player
@@ -19191,12 +19195,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b2b20ee87440046b627b3972f21a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnOnStart: 1
+  loop: 1
+  minDelay: 4
+  maxDelay: 12
+  amount: 1
+  spawnPointRadius: 1
   objectsToSpawn:
   - {fileID: 9092179470456444528, guid: a93ba7133efb47c439e0b090b843fe54, type: 3}
   spawnPoints:
   - {fileID: 1704358799}
-  minDelay: 4
-  maxDelay: 12
 --- !u!4 &1704358802
 Transform:
   m_ObjectHideFlags: 0
@@ -19453,6 +19461,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1709332499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4122620745486264940, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+  m_PrefabInstance: {fileID: 1709332497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1713775396
