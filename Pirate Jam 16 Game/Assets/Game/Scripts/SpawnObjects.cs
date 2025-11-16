@@ -55,7 +55,7 @@ public class SpawnObjects : MonoBehaviour
             return;
         }
 
-        spawnInterval = Mathf.Max(Random.Range(minDelay, maxDelay));
+        spawnInterval = Mathf.Max(RandomM.Range(minDelay, maxDelay));
 
         if (loop && spawnInterval == 0f)
         {
@@ -73,10 +73,10 @@ public class SpawnObjects : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            int spawnPointI = Random.Range(0, spawnPoints.Length);
+            int spawnPointI = RandomM.Range(0, spawnPoints.Length);
 
             GameObject instance = Instantiate(
-                objectsToSpawn[Random.Range(0, objectsToSpawn.Length)],
+                objectsToSpawn[RandomM.Range(0, objectsToSpawn.Length)],
                 spawnPoints[spawnPointI].transform.position,
                 Quaternion.identity,
                 spawnParent);

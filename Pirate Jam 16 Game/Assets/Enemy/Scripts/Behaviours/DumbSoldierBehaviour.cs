@@ -144,7 +144,7 @@ public class DumbSoldierBehaviour : Behaviour
         {
             if (moveTimer > moveDelay)
             {
-                HorizontalMovement.FaceDirection(Random.value > 0.5f ? Vector2.left : Vector2.right);
+                HorizontalMovement.FaceDirection(RandomM.Float0To1() > 0.5f ? Vector2.left : Vector2.right);
                 HorizontalMovement.SetSpeed(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
 
                 moveTimer = 0.0f;
