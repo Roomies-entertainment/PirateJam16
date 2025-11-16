@@ -16,7 +16,7 @@ public class PlayerHealth : CharacterHealth
     {
         base.Start();
 
-        onStart?.Invoke((float)health / maxHealth, null);
+        onStart?.Invoke((float) health / maxHealth, null);
     }
 
     public override void ProcessProjectile(Projectile p)

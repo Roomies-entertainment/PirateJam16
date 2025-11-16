@@ -5246,7 +5246,6 @@ GameObject:
   - component: {fileID: 3169811110755153892}
   - component: {fileID: 7657315667752844899}
   - component: {fileID: 8430814960182838197}
-  - component: {fileID: 4561228461459443089}
   m_Layer: 6
   m_Name: Components
   m_TagString: Untagged
@@ -5531,18 +5530,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
-        m_MethodName: OnPerformAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 5898101182678172206}
         m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
         m_MethodName: PlaySound
@@ -5569,18 +5556,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3543168907676297395}
         m_TargetAssemblyTypeName: PlayerColliders, Assembly-CSharp
-        m_MethodName: OnStopAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerSurfaceDetector, Assembly-CSharp
         m_MethodName: OnStopAttack
         m_Mode: 1
         m_Arguments:
@@ -5654,48 +5629,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
-        m_MethodName: UpdateHealthBar
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onHeal:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
-        m_MethodName: UpdateHealthBar
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onBlockDamage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerParticles, Assembly-CSharp
-        m_MethodName: OnBlockDamage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2806331713786313904}
         m_TargetAssemblyTypeName: RandomizedSound, Assembly-CSharp
         m_MethodName: PlaySound
@@ -5710,31 +5649,7 @@ MonoBehaviour:
         m_CallState: 2
   onDie:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 8565715148274485684}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   debug: 0
   onStartBlocking:
     m_PersistentCalls:
@@ -5746,19 +5661,7 @@ MonoBehaviour:
   deflectionWindow: 0.3
   onStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
-        m_MethodName: UpdateHealthBar
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onDeflect:
     m_PersistentCalls:
       m_Calls: []
@@ -5789,20 +5692,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockParticlePrefab: {fileID: 2138625240426279239, guid: 247509540e4bd8045825d47668b9a448, type: 3}
   effectParticles: {fileID: 7359275554181069837}
---- !u!114 &4561228461459443089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5675214651829654101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HealthBar: {fileID: 0}
-  counterText: {fileID: 0}
 --- !u!1 &5820095062933961924
 GameObject:
   m_ObjectHideFlags: 0
@@ -6312,7 +6201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448380c194bfec9479ed9a4a9dcfcd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  components: {fileID: 5675214651829654101}
+  Components: {fileID: 5675214651829654101}
+  UI: {fileID: 0}
 --- !u!1 &8522072918228103913
 GameObject:
   m_ObjectHideFlags: 0
@@ -6375,6 +6265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868922612935429444}
   - component: {fileID: 4709282171187345005}
+  - component: {fileID: 8052328914139129045}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -6426,6 +6317,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &8052328914139129045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8565715148274485684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf0641588c91ed40ac5499c6942c1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Collision: {fileID: 8839170012772179860}
 --- !u!1 &8648987973096303490
 GameObject:
   m_ObjectHideFlags: 0

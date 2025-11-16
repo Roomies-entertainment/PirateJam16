@@ -11,6 +11,9 @@ public class Player : Behaviour
     private PlayerAnimation Animation;
     private PlayerParticles Particles;
 
+    [SerializeField] // inspector assigned
+    private PlayerUI UIComponent;
+
     public void SetGameplayEnabled(bool setTo)
     {
         Attack.enabled = setTo;
@@ -36,7 +39,17 @@ public class Player : Behaviour
     private void Start()
     {
         Physics.InitializeRigidbody();
+
+        if (UIComponent != null) StartUI();
     }
+
+    #region Start
+    private void StartUI()
+    {
+        UIComponent.UpdateHealthBar((float) Health.health / Health.maxHealth);
+        UIComponent.counterText.text = UIComponent.deathCounter.ToString();
+    }
+    #endregion
 
     #region Fixed Update
     private void FixedUpdate()
@@ -184,6 +197,13 @@ public class Player : Behaviour
         if (Inputs.enabled)     LateUpdateInputs();
         if (Particles.enabled)  LateUpdateParticles();
         if (Animation.enabled)  LateUpdateAnimation();
+        if (UIComponent != null &&
+            UIComponent.enabled)         LateUpdateUI();
+
+        if (Health.dieFlag)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void LateUpdateMovement(bool platformPhaseFlag)
@@ -300,6 +320,20 @@ public class Player : Behaviour
         else if (Attack.stopAttackFlag)
         {
             Animation.StopAttackAnimation();
+        }
+    }
+    
+    private void LateUpdateUI()
+    {
+        if (Health.takeDamageFlag || Health.healFlag)
+        {
+            UIComponent.UpdateHealthBar((float) Health.health / Health.maxHealth);
+        }
+
+        if (Health.dieFlag)
+        {
+            UIComponent.IncreaseDeathCounter();
+            UIComponent.SetDeathScreenActive(true);
         }
     }
     #endregion

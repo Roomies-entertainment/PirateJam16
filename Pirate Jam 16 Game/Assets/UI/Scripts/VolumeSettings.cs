@@ -8,38 +8,36 @@ public class VolumeSettings : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
-
-    private void Start()
-    {
-        if (PlayerPrefs.HasKey("musicVolume")){
-            LoadVolume();
-        } else {
-            SetMusicVolume();
-        }
-
+    private void Start() {
         
+        LoadVolume();
     }
 
-    public void SetMusicVolume(){
-        float volume = musicSlider.value;
-        myMixer.SetFloat("music", Mathf.Log10(volume)*20);
-        PlayerPrefs.SetFloat("musicVolume", volume);
+    private void LoadVolume() {
 
-    }
-
-    public void SetSFXVolume()
-    {
-        float volume = sfxSlider.value;
-        myMixer.SetFloat("sfx", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("SFXVolume", volume);
-
-    }
-
-    private void LoadVolume(){
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+        musicSlider.value = PlayerPrefM.GetFloat("musicVolume", 1.0f);
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
 
         SetMusicVolume();
         SetSFXVolume();
+    }
+
+    public void SetMusicVolume() {
+
+        float volume = musicSlider.value;
+        myMixer.SetFloat("music", LinearToMixer(volume));
+        PlayerPrefs.SetFloat("musicVolume", volume);
+    }
+
+    public void SetSFXVolume() {
+
+        float volume = sfxSlider.value;
+        myMixer.SetFloat("sfx", LinearToMixer(volume));
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
+
+    public static float LinearToMixer(float volume) {
+
+        return Mathf.Log10(volume) * 20f;
     }
 }

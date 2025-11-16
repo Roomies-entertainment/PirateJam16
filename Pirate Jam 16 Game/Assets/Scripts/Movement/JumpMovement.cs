@@ -18,14 +18,14 @@ public class JumpMovement : MonoBehaviour
         cooldownTimer += Time.deltaTime;
     }
 
-    public void Jump(float forceOverride = float.NaN)
+    public void Jump(float forceOverride = MathL.Invalid)
     {
         if (cooldownTimer < cooldown)
         {
             return;
         }
 
-        float force = float.IsNaN(forceOverride) ? this.force : forceOverride;
+        float force = MathL.IsValid(forceOverride) ? forceOverride : this.force;
 
         rigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
 

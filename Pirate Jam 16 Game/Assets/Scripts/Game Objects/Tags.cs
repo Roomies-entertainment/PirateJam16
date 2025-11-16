@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tags : MonoBehaviour
 {
-    public enum TagType { Player, MainCamera, Respawn, Finish, EditorOnly, GameController, Music, Difficulty }
+    public enum TagType { Player, MainCamera, Respawn, Finish, EditorOnly, GameController, music, difficulty }
 
     public bool Player;
     public bool MainCamera;
@@ -31,9 +31,9 @@ public class Tags : MonoBehaviour
                 return EditorOnly;
             case TagType.GameController:
                 return GameController;
-            case TagType.Music:
+            case TagType.music:
                 return Music;
-            case TagType.Difficulty:
+            case TagType.difficulty:
                 return Difficulty;
             default:
                 return false;

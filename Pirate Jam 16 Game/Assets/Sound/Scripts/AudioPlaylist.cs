@@ -15,7 +15,7 @@ public class AudioPlaylist : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.Music);
+        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.music);
 
         if (objs.Count > 1)
         {
@@ -50,7 +50,7 @@ public class AudioPlaylist : MonoBehaviour
 
         for (int i = 0; i < audioClips.Length + 1; i = i)
         {
-            Debug.Log($"Audio Time: {audioInterval}");
+            Debug.Log($"Audio Interval: {audioInterval}");
             yield return new WaitForSeconds(audioInterval);
             i = (i + 1) % audioClips.Length;
             currentClip = audioClips[i];

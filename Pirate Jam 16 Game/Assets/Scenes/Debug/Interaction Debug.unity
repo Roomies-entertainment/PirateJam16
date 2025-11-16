@@ -296,7 +296,11 @@ PrefabInstance:
     - target: {fileID: 3130445153889366091, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: attackableTypes.Array.data[0]
       value: 
-      objectReference: {fileID: 456341600}
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203360137100748386, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 879456032}
     - target: {fileID: 6552648384152973642, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Keyboard Mouse
@@ -314,17 +318,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
---- !u!114 &456341600 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6328531377824871612, guid: 61a6630b13ddc6e448bd81b5c36b6319, type: 3}
-  m_PrefabInstance: {fileID: 456341599}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 276ea2da493d7014da8407ffb8c18ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &476291299
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +765,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e283f1c6ee6ef4888e9d631d92f3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &879456032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4122620745486264940, guid: de7c39d1a058fd641adb47151ead2548, type: 3}
+  m_PrefabInstance: {fileID: 879456027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d37846a025512142b496c3ef6f0240c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &907142608 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7315523072878255739, guid: 43412d7c3505f0042b37dbb27bfbad04, type: 3}
@@ -808,6 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b360f9d24e840d647afcce048a18637e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visibileSelectDepth: 1
   color: {r: 0, g: 0.4245283, b: 0.052897513, a: 1}
 --- !u!114 &1126635145
 MonoBehaviour:

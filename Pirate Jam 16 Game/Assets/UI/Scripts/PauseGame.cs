@@ -12,6 +12,15 @@ public class PauseGame : MonoBehaviour
 
     public bool shouldShow = false;
 
+    void Awake() {
+        
+        if (controlMenu == null)
+            return;
+
+        controlMenu.SetActive(false);
+        pauseMenu.SetActive(true);
+    }
+
     void Update()
     {
         if (shouldShow == false)
@@ -26,14 +35,6 @@ public class PauseGame : MonoBehaviour
         {
             ResumeTheGame();
         }
-    }
-
-    void Awake(){
-        if (controlMenu == null)
-            return;
-
-        controlMenu.SetActive(false);
-        pauseMenu.SetActive(true);
     }
 
     void PauseTheGame()
@@ -75,7 +76,7 @@ public class PauseGame : MonoBehaviour
     public void ReturnToMenu()
     {
         Time.timeScale = 1;
-        GameObject difficulty = GameObjectM.FindGameObjectWithTag(Tags.TagType.Difficulty);
+        GameObject difficulty = GameObjectM.FindGameObjectWithTag(Tags.TagType.difficulty);
         Object.Destroy(difficulty);
         SceneManager.LoadScene("00 Menu");
     }
