@@ -64,7 +64,6 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.23f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Game Objects\Tags.cs" />
     <Compile Include="Assets\UI\Scripts\SliderGradient.cs" />
     <Compile Include="Assets\Scripts\Events\ChanceEvent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
@@ -129,7 +128,6 @@
     <Compile Include="Assets\Scripts\IProcessProjectile.cs" />
     <Compile Include="Assets\Camera\CameraFollow.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Game\Scripts\GameObjectM.cs" />
     <Compile Include="Assets\Scripts\Managers\CollisionM.cs" />
     <Compile Include="Assets\Scripts\Definitions\Classes.cs" />
     <Compile Include="Assets\Sound\Scripts\RandomizedSound.cs" />

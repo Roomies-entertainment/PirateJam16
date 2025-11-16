@@ -17,7 +17,7 @@ public class SpawnM : MonoBehaviour
     {
         if (respawnPointParent == null)
         {
-            respawnPointParent = GameObjectM.FindGameObjectWithTag(Tags.TagType.Respawn);
+            respawnPointParent = GameObject.FindGameObjectWithTag("Respawn");
         }
     }
 

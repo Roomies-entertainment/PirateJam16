@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +16,7 @@ public class AudioPlaylist : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        List<GameObject> objs = GameObjectM.FindGameObjectsWithTag(Tags.TagType.music);
+        List<GameObject> objs = GameObject.FindGameObjectsWithTag("music").ToList();
 
         if (objs.Count > 1)
         {
