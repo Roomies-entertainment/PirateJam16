@@ -44,9 +44,12 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     [SerializeField] private UnityEvent<float, DetectionData> onTakeDamage;
     [SerializeField] private UnityEvent<float, DetectionData> onHeal;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
+    // [SerializeField] private UnityEvent<float, DetectionData> onMissDamage;
     [SerializeField] private UnityEvent<DetectionData> onDie;
 
     public bool takeDamageFlag { get; protected set; }
+    public bool blockDamageFlag { get; protected set; }
+    // public bool missDamageFlag { get; protected set; }
     public bool healFlag { get; protected set; }
 
     public enum AttackResult
@@ -193,8 +196,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
                 break;
 
             case AttackResult.Miss:
-                break;
-
             case AttackResult.Block:
                 BlockDamage(damage, data);
                 break;
@@ -256,9 +257,22 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
             Debug.Log($"{this} blocked {damage} damage");
         }
 
+        blockDamageFlag = true;
         onBlockDamage?.Invoke(damage, data);
     }
 
+/*     protected virtual void MissDamage(int damage, DetectionData data)
+    {
+        if (debug)
+        {
+            Debug.Log($"{this} missed {damage} damage");
+        }
+
+        missDamageFlag = true;
+        onMissDamage?.Invoke(damage, data);
+    }
+ */
+    
     private void LateUpdate()
     {
         ClearFlags();

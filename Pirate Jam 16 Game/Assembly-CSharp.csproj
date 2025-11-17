@@ -92,8 +92,8 @@
     <Compile Include="Assets\Scripts\Health System\HealCollider.cs" />
     <Compile Include="Assets\Scripts\Gizmos\CircleGizmo.cs" />
     <Compile Include="Assets\Scripts\Gizmos\Gizmo.cs" />
-    <Compile Include="Assets\Scripts\Movement\JumpMovement.cs" />
     <Compile Include="Assets\Scripts\Libraries\Physics2DL.cs" />
+    <Compile Include="Assets\Scripts\Movement\JumpMovement.cs" />
     <Compile Include="Assets\Scripts\Managers\RandomM.cs" />
     <Compile Include="Assets\Game\Scripts\SpawnObjects.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
