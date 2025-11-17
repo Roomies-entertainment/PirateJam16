@@ -50,15 +50,22 @@ public class PlayerCollision : MonoBehaviour
 
 
     [Header("")]
-    [SerializeField] [Range(0, 1)] [Tooltip("0 = Nothings a wall | 1 = Everythings a wall\nGets ignored when touching PlatformEffector components")]
+    [SerializeField] [Range(0, 1)] [Tooltip("0 = Nothings a wall | 1 = Everythings a wall\nNot used when touching PlatformEffector components")]
     private float wallSensitivity = 0.3f;
     private ContactPoint2D wallContactPoint;
-    //public ContactPoint2D GetWallContact() { return wallContactPoint; }
     public bool GetOnWall(out ContactPoint2D contactPoint)
     {
         contactPoint = wallContactPoint;
 
         return !ContactPointNull(wallContactPoint);
+    }
+
+    private ContactPoint2D ceilingContactPoint;
+    public bool GetOnCeiling(out ContactPoint2D contactPoint)
+    {
+        contactPoint = ceilingContactPoint;
+
+        return !ContactPointNull(ceilingContactPoint);
     }
 
     private bool ContactPointNull(ContactPoint2D contactPoint) { return contactPoint.normal.sqrMagnitude == 0; }
@@ -92,8 +99,9 @@ public class PlayerCollision : MonoBehaviour
 
         ContactPoint2D firstContactPoint = exiting ? new ContactPoint2D() : collision.GetContact(0);
 
-        phasableContactPoint = firstContactPoint;
-        wallContactPoint = firstContactPoint;
+        phasableContactPoint = new ContactPoint2D();;
+        wallContactPoint = new ContactPoint2D();;
+        ceilingContactPoint = new ContactPoint2D();;
 
         phasingThroughCollider = true;
   
@@ -101,20 +109,23 @@ public class PlayerCollision : MonoBehaviour
         {
             var platformEffector = firstContactPoint.collider.GetComponent<PlatformEffector2D>();
 
-            if (platformEffector == null)
+            if (platformEffector != null)
             {
-                phasableContactPoint = new ContactPoint2D();
+                phasableContactPoint = firstContactPoint;
 
                 phasingThroughCollider = false;
             }
-
-            if (firstContactPoint.normal.y <= -maxNormalYAbs ||
-                firstContactPoint.normal.y >= maxNormalYAbs || (
-                    firstContactPoint.collider.usedByEffector &&
-                    firstContactPoint.normal.y < Mathf.Sin(platformEffector.sideArc * 0.5f * Mathf.Deg2Rad))
+            else if (firstContactPoint.normal.y > -maxNormalYAbs &&
+                firstContactPoint.normal.y < maxNormalYAbs && (
+                    !firstContactPoint.collider.usedByEffector ||
+                    firstContactPoint.normal.y >= Mathf.Sin(platformEffector.sideArc * 0.5f * Mathf.Deg2Rad))
                 )
             {
-                wallContactPoint = new ContactPoint2D();
+                wallContactPoint = firstContactPoint;
+            }
+            else if (firstContactPoint.normal.y < 0.0)
+            {
+                ceilingContactPoint = firstContactPoint;
             }
         }
     }

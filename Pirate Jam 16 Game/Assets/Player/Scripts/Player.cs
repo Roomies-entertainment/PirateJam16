@@ -63,18 +63,19 @@ public class Player : Behaviour
         bool onGroundFlag           = GroundDetector.surfaceDetected && Physics.speedY <= 0;
         bool groundHitFlag          = GroundDetector.gotHit;
         bool onWallFlag             = Collision.GetOnWall(out ContactPoint2D wallContact);
+        bool onCeilingFlag          = Collision.GetOnCeiling(out ContactPoint2D ceilingContact);
         bool hopFlag                = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
         bool jumpFlag               = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
 
         if (Movement.enabled)       FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
-        if (Physics.enabled)        FixedUpdatePhysics(onGroundFlag, onWallFlag, hopFlag, jumpFlag, wallContact);
+        if (Physics.enabled)        FixedUpdatePhysics(onGroundFlag, onWallFlag, onCeilingFlag, wallContact, ceilingContact, hopFlag, jumpFlag);
         if (Inputs.enabled)         FixedUpdateInputs(jumpFlag);
         if (Animation.enabled)      FixedUpdateAnimation();
         
         if (Collision.enabled)      LateFixedUpdateCollision();
     }
 
-    private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool hopFlag, bool jumpFlag, ContactPoint2D wallContact)
+    private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool onCeilingFlag, ContactPoint2D wallContact, ContactPoint2D ceilingContact, bool hopFlag, bool jumpFlag)
     {        
         if (onGroundFlag)
         {
@@ -103,6 +104,10 @@ public class Player : Behaviour
             if (onWallFlag)
             {
                 Physics.SlideAlongSurface(wallContact.normal);
+            }
+            else if (onCeilingFlag)
+            {
+                Physics.SlideAlongSurface(ceilingContact.normal);
             }
         }
 
