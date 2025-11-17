@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,7 +6,7 @@ using UnityEngine.Events;
 public class EventData
 {
     [SerializeField] private UnityEvent Event;
-    [SerializeField] private DelayRandomized delayComponent;
+    [SerializeField] private DelayRandomized Delay;
     private float timer;
     private float currentDelay;
 
@@ -37,7 +35,7 @@ public class EventData
 
     private void Reset()
     {
-        currentDelay = delayComponent.GetDelay(true);
+        currentDelay = Delay.GetDelay(true);
         timer = 0f;
     }
 }
