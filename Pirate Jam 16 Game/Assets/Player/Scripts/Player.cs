@@ -69,10 +69,41 @@ public class Player : Controller
 
         if (Movement.enabled)       FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
         if (Physics.enabled)        FixedUpdatePhysics(onGroundFlag, onWallFlag, onCeilingFlag, wallContact, ceilingContact, hopFlag, jumpFlag);
-        if (Inputs.enabled)         FixedUpdateInputs(jumpFlag);
         if (Animation.enabled)      FixedUpdateAnimation();
         
         if (Collision.enabled)      LateFixedUpdateCollision();
+    }
+
+    private void FixedUpdateMovement(bool onGroundFlag, bool hopFlag, bool jumpFlag)
+    {
+        float speedX = Inputs.horizontalInput * Movement.moveSpeed;
+        float speedY;
+
+        if (jumpFlag)
+            speedY = Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed;
+        else
+            speedY = Physics.speedY;
+
+        Movement.SetSpeeds(speedX, speedY);
+
+        if (onGroundFlag)
+        {
+            if (hopFlag)
+            {
+                Movement.OnWalkHop();
+            }
+        }
+        else
+        {
+            Movement.ResetGroundedTimers();
+        }
+
+        if (jumpFlag)
+        {
+            Movement.OnJump();
+        }
+
+        Movement.IncrementGroundedTimers();
     }
 
     private void FixedUpdatePhysics(bool onGroundFlag, bool onWallFlag, bool onCeilingFlag, ContactPoint2D wallContact, ContactPoint2D ceilingContact, bool hopFlag, bool jumpFlag)
@@ -117,46 +148,6 @@ public class Player : Controller
         }
 
         Physics.MovePlayer();
-    }
-
-    private void FixedUpdateMovement(bool onGroundFlag, bool hopFlag, bool jumpFlag)
-    {
-        float speedX = Inputs.horizontalInput * Movement.moveSpeed;
-        float speedY;
-
-        if (jumpFlag)
-            speedY = Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed;
-        else
-            speedY = Physics.speedY;
-
-        Movement.SetSpeeds(speedX, speedY);
-
-        if (onGroundFlag)
-        {
-            if (hopFlag)
-            {
-                Movement.OnWalkHop();
-            }
-        }
-        else
-        {
-            Movement.ResetGroundedTimers();
-        }
-
-        if (jumpFlag)
-        {
-            Movement.OnJump();
-        }
-
-        Movement.IncrementGroundedTimers();
-    }
-
-    private void FixedUpdateInputs(bool jumpFlag)
-    {
-        if (jumpFlag)
-        {
-            Inputs.ClearJumpFlag();
-        }
     }
 
     private void FixedUpdateAnimation()
@@ -313,11 +304,6 @@ public class Player : Controller
     private void LateUpdateInputs()
     {
         Inputs.UpdateTimers();
-        
-        if (Inputs.attackFlag)
-        {
-            Inputs.ClearBlockFlag();
-        }
     }
 
     private void LateUpdateParticles()

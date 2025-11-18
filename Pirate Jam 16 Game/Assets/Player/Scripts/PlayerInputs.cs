@@ -11,15 +11,12 @@ public class PlayerInputs : MonoBehaviour
 
     private bool _jumpFlag;
     public bool jumpFlag { get { return _jumpFlag; } }
-    public void ClearJumpFlag() { _jumpFlag = false; }
 
     private bool _attackFlag;
     public bool attackFlag { get { return _attackFlag; } }
-    public void ClearAttackFlag() { _attackFlag = false; }
 
     private bool _blockFlag;
     public bool blockFlag { get { return _blockFlag; } }
-    public void ClearBlockFlag() { _blockFlag = false; }
 
     [SerializeField] private const float JumpTimeout = 0.35f;
 
