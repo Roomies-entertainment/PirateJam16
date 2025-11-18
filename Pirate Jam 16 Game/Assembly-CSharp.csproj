@@ -118,7 +118,6 @@
     <Compile Include="Assets\Scripts\Events\EventChain.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleM.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerUI.cs" />
-    <Compile Include="Assets\Enemy\Scripts\Behaviours\Behaviour.cs" />
     <Compile Include="Assets\Scripts\Detection\OverlapCheck.cs" />
     <Compile Include="Assets\Scripts\Health System\Health.cs" />
     <Compile Include="Assets\Scripts\Effects\SpriteFlash.cs" />
@@ -158,6 +157,7 @@
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Scripts\Entity\Controller.cs" />
     <Compile Include="Assets\Scripts\Game Objects\DestroyObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Libraries\Vector2L.cs" />
@@ -168,6 +168,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerColliders.cs" />
+    <Compile Include="Assets\Scripts\Libraries\EntityControllerL.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />

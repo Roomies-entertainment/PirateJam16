@@ -72,19 +72,9 @@ public class HorizontalMovement : MonoBehaviour
             sprite.transform.localScale.z);
     }
 
-    private void LateUpdate()
-    {
-        ClearFlags();
-    }
-
-    public void ClearFlags()
+    public virtual void ClearFlags()
     {
         startMovingFlag = false;
         stopMovingFlag = false;
-    }
-
-    private void OnDisable()
-    {
-        ClearFlags();
     }
 }

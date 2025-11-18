@@ -6,40 +6,25 @@ using UnityEngine;
 public class DetectionData
 {
     public Vector2 Point { get; private set; }
-    public Component DetectedComponent { get; private set; }
-    public Component DetectorComponent { get; private set; }
 
-    public readonly List<Collider2D> detectedColliders = new();
-    public readonly List<Collider2D> detectorColliders = new();
-
+    public readonly List<Collider2D> detectedColliders;
+    public Component DetectedBy { get; private set; }
 
     public DetectionData(
         Vector2 point,
-        Component detectedComponent,
-        Component detectorComponent,
-        List<Collider2D> detectedColliders = null,
-        List<Collider2D> detectorColliders = null)
-    {
+        Component detectedBy,
+        List<Collider2D> detectedColliders = null
+    ) {
+
         Point = point;
-        DetectedComponent = detectedComponent;
-        DetectorComponent = detectorComponent;
+
+        this.detectedColliders = new();
 
         if (detectedColliders != null)
-        {
             this.detectedColliders.AddRange(detectedColliders);
-        }
 
-        if (detectorColliders != null)
-        {
-            this.detectorColliders.AddRange(detectorColliders);
-        }
+        DetectedBy = detectedBy;
     }
-}
-
-public class KeyValueComponentThing
-{
-    public object component;
-    public List<Collider2D> colliders;
 }
 
 public static class Detection

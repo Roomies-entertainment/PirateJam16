@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangerBehaviour : Behaviour
+public class RangerBehaviour : Controller
 {
     private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
@@ -214,4 +214,15 @@ public class RangerBehaviour : Behaviour
 
         attackLoopTimer += Time.deltaTime;
     }
+
+    #region Late Update
+    private void LateUpdate()
+    {
+        EntityControllerL.CharacterEntityLateUpdate(Attack, Health);
+        
+        EntityControllerL.ClearHorizontalMovementUpdate(HorizontalMovement);
+
+        EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);
+    }
+    #endregion
 }

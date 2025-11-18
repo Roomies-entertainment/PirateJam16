@@ -45,12 +45,15 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     [SerializeField] private UnityEvent<float, DetectionData> onHeal;
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
     // [SerializeField] private UnityEvent<float, DetectionData> onMissDamage;
-    [SerializeField] private UnityEvent<DetectionData> onDie;
 
-    public bool takeDamageFlag { get; protected set; }
-    public bool blockDamageFlag { get; protected set; }
-    // public bool missDamageFlag { get; protected set; }
-    public bool healFlag { get; protected set; }
+    public bool healthChangeFlag { get; private set; }
+    public bool explosionDamageFlag { get; private set; }
+
+    [SerializeField] private UnityEvent onDie;
+
+    public List<DamageEvent> damageEvents = new();
+    public List<DamageEvent> healEvents = new();
+    public void ClearHealthEvents() { damageEvents.Clear(); healEvents.Clear(); }
 
     public enum AttackResult
     {
@@ -69,7 +72,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     protected virtual void Start() { } // Gives it enabled checkbox
 
-
     public void ProcessExplosion(Explosion e)
     {
         if (!enabled || !damagedByExplosions)
@@ -82,8 +84,8 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
             Debug.Log($"{this} taking explosion damage");
         }
 
-        var data = new DetectionData(e.transform.position, this, e);
-        IncrementHealth(-e.damage, data);
+        var data = new DetectionData(e.transform.position, e);
+        damageEvents.Add(new DamageEvent(e.damage, data));
     }
 
     public virtual void ProcessProjectile(Projectile p)
@@ -98,18 +100,18 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
             Debug.Log($"{this} taking projectile damage");
         }
 
-        var data = new DetectionData(p.transform.position, this, p);
-        IncrementHealth(-p.damage, data);
+        var data = new DetectionData(p.transform.position, p);
+        damageEvents.Add(new DamageEvent(p.damage, data));
     }
+
+    
 
     public virtual void IncrementHealth(int increment, DetectionData data)
     {
-        if (!enabled)
+        if (!enabled || increment == 0)
         {
             return;
-        }
-
-        bool deadStore = dead;
+        }        
 
         health = Mathf.Clamp(health + increment, 0, maxHealth);
 
@@ -120,7 +122,9 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
                 Debug.Log($"{this} took {-increment} damage");
             }
 
-            takeDamageFlag = true;
+            if (!explosionDamageFlag)
+                explosionDamageFlag = data.DetectedBy.GetType().IsAssignableFrom(typeof(Explosion));
+                
             onTakeDamage?.Invoke((float)health / maxHealth, data);
         }
         else if (increment > 0)
@@ -130,41 +134,44 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
                 Debug.Log($"{this} healed by {increment} points");
             }
 
-            healFlag = true;
             onHeal?.Invoke((float)health / maxHealth, data);
         }
 
-        if (!deadStore && dead)
+        healthChangeFlag = true;
+    }
+
+    public virtual void CheckIsDead()
+    {
+        if (dead)
         {
-            if (explosionOnDieDelay.GetDelay(true) > 0 && data.DetectorComponent.GetType().IsAssignableFrom(typeof(Explosion)))
+            if (explosionOnDieDelay.GetDelay(true) > 0 && explosionDamageFlag)
             {
-                StartCoroutine(OnDieDelayed(data, explosionOnDieDelay.GetDelay(false)));
+                StartCoroutine(OnDieDelayed(explosionOnDieDelay.GetDelay(false)));
             }
 
             else if (onDieDelay.GetDelay(true) > 0)
             {
-                StartCoroutine(OnDieDelayed(data, onDieDelay.GetDelay(false)));
+                StartCoroutine(OnDieDelayed(onDieDelay.GetDelay(false)));
             }
 
             else
             {
-                OnDie(data);
+                OnDie();
             }
         }
-
     }
 
-    private IEnumerator OnDieDelayed(DetectionData data, float delay)
+    private IEnumerator OnDieDelayed(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        OnDie(data);
+        OnDie();
     }
 
-    protected virtual void OnDie(DetectionData data)
+    protected virtual void OnDie()
     {
         dieFlag = true;
-        onDie?.Invoke(data);
+        onDie?.Invoke();
     }
 
     public new void DestroyObject(Object objOverride = null)
@@ -177,7 +184,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         Destroy(objOverride != null ? objOverride : gameObject);
     }
 
-    public virtual AttackResult ProcessAttack(int damage, DetectionData data)
+    public virtual AttackResult ProcessDamage(int damage, DetectionData data)
     {
         if (!enabled)
         {
@@ -192,7 +199,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         switch (attackResult)
         {
             case AttackResult.Hit:
-                IncrementHealth(-damage, data);
+                damageEvents.Add(new DamageEvent(damage, data));
                 break;
 
             case AttackResult.Miss:
@@ -202,6 +209,11 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         }
 
         return attackResult;
+    }
+
+    public virtual void ProcessHeal(int amount, DetectionData data)
+    {
+        healEvents.Add(new HealEvent(amount, data));
     }
 
     protected bool BlockDamageColliderHit(DetectionData data)
@@ -236,7 +248,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     {
         if (blockColliderHit && (
             !blockBehindCheck || Detection.DirectionCheck(
-                blockDirection, transform.position, data.DetectorComponent.transform.position,
+                blockDirection, transform.position, data.DetectedBy.transform.position,
                 false, blockBehindCheckLeniance)))
         {
             return AttackResult.Block;
@@ -257,7 +269,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
             Debug.Log($"{this} blocked {damage} damage");
         }
 
-        blockDamageFlag = true;
         onBlockDamage?.Invoke(damage, data);
     }
 
@@ -272,22 +283,33 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         onMissDamage?.Invoke(damage, data);
     }
  */
-    
-    private void LateUpdate()
-    {
-        ClearFlags();
-    }
 
-    private void ClearFlags()
+    public virtual void ClearFlags()
     {
-        takeDamageFlag = false;
-        healFlag = false;
         dieFlag = false;
+        healthChangeFlag = false;
+        explosionDamageFlag = false;
     }
 
     private void OnDisable()
     {
-        ClearFlags();
         StopAllCoroutines();
     }
+}
+
+public class DamageEvent
+{
+    public int amount;
+    public DetectionData detectionData;
+
+    public DamageEvent(int amount, DetectionData detectionData)
+    {
+        this.amount = amount;
+        this.detectionData = detectionData;
+    }
+}
+
+public class HealEvent : DamageEvent
+{
+    public HealEvent(int amount, DetectionData detectionData) : base(amount, detectionData) { }
 }

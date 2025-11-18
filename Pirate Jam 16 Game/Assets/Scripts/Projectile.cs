@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     public float mass = 0.01f;
     public int damage = 1;
 
-    [Header("Behaviour for objects that already been hit")]
+    [Header("Controller for objects that already been hit")]
     [SerializeField] private bool phaseHitObjects = false;
     [SerializeField] private bool phaseDamagedObjects = true;
 

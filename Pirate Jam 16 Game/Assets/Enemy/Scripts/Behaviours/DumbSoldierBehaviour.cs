@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DumbSoldierBehaviour : Behaviour
+public class DumbSoldierBehaviour : Controller
 {
     private GroundDetection GroundDetection;
     private HorizontalMovement HorizontalMovement;
@@ -275,6 +275,17 @@ public class DumbSoldierBehaviour : Behaviour
         {
             Animation.SetAnimatorBlock(false);
         }
+    }
+    #endregion
+
+    #region Late Update
+    private void LateUpdate()
+    {
+        EntityControllerL.CharacterEntityLateUpdate(Attack, Health);
+        
+        EntityControllerL.ClearHorizontalMovementUpdate(HorizontalMovement);
+
+        EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);
     }
     #endregion
 }

@@ -194,20 +194,10 @@ public abstract class Attack : MonoBehaviour
         onStopAttack?.Invoke();
     }
 
-
-    private void LateUpdate()
-    {
-        ClearFlags();
-    }
-
-    public void ClearFlags()
+    public virtual void ClearFlags()
     {
         startAttackFlag = false;
         stopAttackFlag = false;
     }
 
-    private void OnDisable()
-    {
-        ClearFlags();
-    }
 }

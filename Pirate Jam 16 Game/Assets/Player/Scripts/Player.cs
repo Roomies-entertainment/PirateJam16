@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : Behaviour
+public class Player : Controller
 {
     private PlayerInputs Inputs;
     private PlayerCollision Collision;
@@ -222,15 +222,20 @@ public class Player : Behaviour
         if (Inputs.enabled)     LateUpdateInputs();
         if (Particles.enabled)  LateUpdateParticles();
         if (Animation.enabled)  LateUpdateAnimation();
+
+                                EntityControllerL.CharacterEntityLateUpdate(Attack, Health);
+
         if (UI != null &&
             UI.enabled)         LateUpdateUI();
+            
+
+                                EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);
 
         if (Health.dieFlag)
         {
             gameObject.SetActive(false);
         }
     }
-
     private void LateUpdateMovement(bool platformPhaseFlag)
     {
         if (platformPhaseFlag)
@@ -352,7 +357,7 @@ public class Player : Behaviour
     
     private void LateUpdateUI()
     {
-        if (Health.takeDamageFlag || Health.healFlag)
+        if (Health.healthChangeFlag)
         {
             UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
         }
@@ -364,13 +369,4 @@ public class Player : Behaviour
         }
     }
     #endregion
-
-    private int CalculateAttackDamage()
-    {
-        return (
-            !GroundDetector.surfaceDetected &&
-            Physics.speedY < Physics2D.gravity.y * Movement.downGravityScale * Attack.fallingThreshold ?
-                PlayerAttack.BaseDamage + Attack.fallingExtraDamage :
-                PlayerAttack.BaseDamage);
-    }
 }

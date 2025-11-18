@@ -54,4 +54,15 @@ public class PlayerAttack : MeleeAttack
 
         hitObjects.Clear();
     }
+
+    public int CalculateAttackDamage(
+        SurfaceDetector groundDetector,
+        float speedY, float downGravityScale, int fallingThreshold, int fallingExtraDamage)
+    {
+        return (
+            !groundDetector.surfaceDetected &&
+            speedY < Physics2D.gravity.y * downGravityScale * fallingThreshold ?
+                BaseDamage + fallingExtraDamage :
+                BaseDamage);
+    }
 }

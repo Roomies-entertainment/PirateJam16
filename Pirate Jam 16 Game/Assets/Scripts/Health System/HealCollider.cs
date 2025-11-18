@@ -12,7 +12,7 @@ public class HealCollider : MonoBehaviour
 
         if (health)
         {
-            health.IncrementHealth(healthGiven, new DetectionData(transform.position, health, this));
+            health.ProcessHeal(healthGiven, new DetectionData(transform.position, health));
         }
     }
 }

@@ -30,8 +30,8 @@ public abstract class MeleeAttack : Attack
 
             if (health)
             {
-                var result = health.ProcessAttack(
-                    damage, new DetectionData(health.transform.position, health, this, c.Value));
+                var result = health.ProcessDamage(
+                    damage, new DetectionData(health.transform.position, health, c.Value));
 
                 switch (result)
                 {
