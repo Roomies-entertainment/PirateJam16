@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagUpdateMode:
-    setMode: 0
-    clearMode: 0
+    setMode: 3
+    clearMode: 3
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -124,7 +124,7 @@ MonoBehaviour:
   rightCheck: {fileID: 4216322617101216862}
   flagUpdateMode:
     setMode: 0
-    clearMode: 0
+    clearMode: 2
   minEnterAmount: 1
   maxEnterAmount: 2
   minStayAmount: 1
@@ -190,7 +190,7 @@ MonoBehaviour:
   rightCheck: {fileID: 8268436940458613008}
   flagUpdateMode:
     setMode: 0
-    clearMode: 0
+    clearMode: 2
   minEnterAmount: 1
   maxEnterAmount: 2
   minStayAmount: 1
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flagUpdateMode:
     setMode: 0
-    clearMode: 0
+    clearMode: 2
   includeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -326,8 +326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagUpdateMode:
-    setMode: 0
-    clearMode: 0
+    setMode: 3
+    clearMode: 3
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -400,8 +400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagUpdateMode:
-    setMode: 0
-    clearMode: 0
+    setMode: 3
+    clearMode: 3
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -522,8 +522,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagUpdateMode:
-    setMode: 0
-    clearMode: 0
+    setMode: 3
+    clearMode: 3
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -596,8 +596,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagUpdateMode:
-    setMode: 0
-    clearMode: 0
+    setMode: 3
+    clearMode: 3
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -682,8 +682,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flagUpdateMode:
-    setMode: 0
-    clearMode: 0
+    setMode: 3
+    clearMode: 3
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -760,7 +760,7 @@ MonoBehaviour:
   rightCheck: {fileID: 4446637862938399550}
   flagUpdateMode:
     setMode: 0
-    clearMode: 0
+    clearMode: 2
   minEnterAmount: 1
   maxEnterAmount: 1
   minStayAmount: 1
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flagUpdateMode:
     setMode: 0
-    clearMode: 0
+    clearMode: 2
   includeLayers:
     serializedVersion: 2
     m_Bits: 1
