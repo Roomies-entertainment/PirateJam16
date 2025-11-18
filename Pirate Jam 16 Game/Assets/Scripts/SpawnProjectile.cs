@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnProjectile : MonoBehaviour
 {
+    private Transform spawnParent;
+
     [SerializeField] [Tooltip("Sets direction")] private float angle;
     public Vector2 direction;
 
@@ -33,6 +35,11 @@ public class SpawnProjectile : MonoBehaviour
         {
             direction = Vector2L.FromAngle(angle);
         }
+    }
+
+    private void Awake()
+    {
+        spawnParent = new GameObject($"{gameObject.name} - Spawned Objects").transform;
     }
 
     private void Update()
@@ -81,6 +88,7 @@ public class SpawnProjectile : MonoBehaviour
         direction.Normalize();
 
         GameObject obj = new GameObject($"{this} - Projectile");
+        obj.transform.SetParent(spawnParent);
         obj.transform.position = position;
         obj.transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0f, -90f, 0f);
         obj.layer = CollisionM.projectileLayer;

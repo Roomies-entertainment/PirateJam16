@@ -16,7 +16,7 @@ public class SpawnObjects : MonoBehaviour
 
     [Header("")]
     [SerializeField] private int amount = 1;
-    [SerializeField][Tooltip("Used when applying random offset to multiple objects spawned at same point")] private float spawnPointRadius = 1f;
+    [SerializeField][Tooltip("Used when applying random offset to multiple objects spawned at same point")] private float spawnPointRadius = 0.0f;
 
     [Header("")]
     [SerializeField] private GameObject[] objectsToSpawn;
@@ -27,8 +27,8 @@ public class SpawnObjects : MonoBehaviour
     {
         amount = Mathf.Max(1, amount);
 
-        minDelay = Mathf.Max(0.1f, minDelay);
-        maxDelay = Mathf.Max(0.1f, maxDelay);
+        minDelay = Mathf.Max(0.0f, minDelay);
+        maxDelay = Mathf.Max(0.0f, maxDelay);
     }
 
     private void Awake()
@@ -51,13 +51,13 @@ public class SpawnObjects : MonoBehaviour
 
     private void InvokeSpawn()
     {
-        spawnInterval = Mathf.Max(RandomM.Range(minDelay, maxDelay));
+        spawnInterval = maxDelay > 0.0 ? Mathf.Max(RandomM.Range(minDelay, maxDelay)) : 0.0f;
         //Debug.Log($"spawn inverval: {spawnInterval}");
 
         Invoke(nameof(Spawn), spawnInterval);
 
         if (loop)
-            Invoke(nameof(InvokeSpawn), spawnInterval);
+            Invoke(nameof(InvokeSpawn), Mathf.Max(0.1f, spawnInterval));
     }
 
     public void Spawn()
