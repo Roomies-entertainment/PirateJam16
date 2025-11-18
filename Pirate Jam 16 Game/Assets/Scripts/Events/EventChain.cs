@@ -22,7 +22,9 @@ public class EventChain : MonoBehaviour
             base.enabled = true;
 
             index = 0;
-            events[index].StartEvent();
+
+            if (events.Count > 0)
+                events[index].StartEvent();
         }
         else if (enabled && !setTo)
         {

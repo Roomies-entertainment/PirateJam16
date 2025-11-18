@@ -437,6 +437,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &650360785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7154906043831094116, guid: 2534af3a14aaa4e47bb1f4c6938bfa57, type: 3}
+  m_PrefabInstance: {fileID: 1778544214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &665369706
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +797,6 @@ GameObject:
   - component: {fileID: 1126635146}
   - component: {fileID: 1126635145}
   - component: {fileID: 1126635144}
-  - component: {fileID: 1126635147}
   m_Layer: 0
   m_Name: Hint Trigger
   m_TagString: Untagged
@@ -839,7 +843,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: You have found the hint
+          m_StringArgument: This is a triggered hint
           m_BoolArgument: 0
         m_CallState: 2
   onTriggerStay:
@@ -863,20 +867,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1126635147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126635143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610717d34bf5d944894ca083169293a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loop: 0
-  events: []
 --- !u!1001 &1473367911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1217,38 +1207,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 907142608}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 650360785}
+    - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
-      value: -1
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
-      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679531879077952659, guid: 342fc1b23d042c049a845488670fa43b, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1330,7 +1344,7 @@ SceneRoots:
   - {fileID: 456341599}
   - {fileID: 296081011}
   - {fileID: 7056882}
-  - {fileID: 1778544214}
   - {fileID: 4452888556151651202}
+  - {fileID: 1778544214}
   - {fileID: 7241326751962506648}
   - {fileID: 1126635146}

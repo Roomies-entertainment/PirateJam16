@@ -143,7 +143,7 @@ public class DumbSoldierBehaviour : Controller
         EntityControllerL.CharacterEntityHorizontalMovementUpdate(
             HorizontalMovement, GroundDetection,
             ref moveTimer, moveDelay, walkBackwardsChance, moveSpeed, moveDuration);
-            
+
         if (Attack.startAttackFlag)
         {
             HorizontalMovement.FaceDirection(Attack.attackDirection);
@@ -261,7 +261,9 @@ public class DumbSoldierBehaviour : Controller
     #region Late Update
     private void LateUpdate()
     {
-        EntityControllerL.CharacterEntityLateUpdate(Attack, Health);
+        EntityControllerL.CharacterEntityLateUpdate(Health);
+
+        if (Health.dieFlag) gameObject.SetActive(false);
         
         EntityControllerL.ClearHorizontalMovementUpdate(HorizontalMovement);
 

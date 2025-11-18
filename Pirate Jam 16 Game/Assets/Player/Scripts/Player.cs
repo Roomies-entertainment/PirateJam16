@@ -176,31 +176,23 @@ public class Player : Controller
     #region Update
     private void Update()
     {
-        if (Collision.enabled)      UpdateCollision();
-        if (GroundDetector.enabled) UpdateGroundDetector();
+        if (Attack.enabled)         UpdateAttack();
     }
 
-    private void UpdateCollision()
-    {
-        if (Attack.startAttackFlag)
+    private void UpdateAttack()
+    {        
+        if (Inputs.attackFlag)
         {
-            Colliders.SetFlatConfiguration();
+            Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
+            Attack.FindComponents();
+            Attack.PerformAttack();
         }
-        else if (Attack.stopAttackFlag)
+        else if (Attack.timeSinceAttack > Attack.AttackDuration)
         {
-            Colliders.SetUprightConfiguration();
-        }
-    }
-
-    private void UpdateGroundDetector()
-    {
-        if (Attack.startAttackFlag)
-        {
-            GroundDetector.SetFlatConfiguration();
-        }
-        else if (Attack.stopAttackFlag)
-        {
-            GroundDetector.SetUprightConfiguration();
+            if (Attack.attackFlag)
+            {
+                Attack.StopAttack();
+            }
         }
     }
     #endregion
@@ -214,27 +206,25 @@ public class Player : Controller
             Inputs.verticalInput < -0.35f &&
             Collision.platformPhaseHoldTimer >= PlayerCollision.PlatformPhaseHoldDuration);
 
-        if (Movement.enabled)   LateUpdateMovement(platformPhaseFlag);
-        if (Physics.enabled)    LateUpdatePhysics(platformPhaseFlag);
-        if (Collision.enabled)  LateUpdateCollision(platformPhaseFlag, phasableContact);
-        if (Attack.enabled)     LateUpdateAttack();
-        if (Health.enabled)     LateUpdateHealth();
-        if (Inputs.enabled)     LateUpdateInputs();
-        if (Particles.enabled)  LateUpdateParticles();
-        if (Animation.enabled)  LateUpdateAnimation();
+        if (Movement.enabled)       LateUpdateMovement(platformPhaseFlag);
+        if (Physics.enabled)        LateUpdatePhysics(platformPhaseFlag);
+        if (Collision.enabled)      LateUpdateCollision(platformPhaseFlag, phasableContact);
+        if (Collision.enabled)      LateUpdateCollision();
+        if (GroundDetector.enabled) LateUpdateGroundDetector();
+        if (Health.enabled)         LateUpdateHealth();
+        if (Inputs.enabled)         LateUpdateInputs();
+        if (Particles.enabled)      LateUpdateParticles();
+        if (Animation.enabled)      LateUpdateAnimation();
 
-                                EntityControllerL.CharacterEntityLateUpdate(Attack, Health);
+                                    EntityControllerL.CharacterEntityLateUpdate(Health);
 
         if (UI != null &&
-            UI.enabled)         LateUpdateUI();
+            UI.enabled)             LateUpdateUI();
             
 
-                                EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);
+                                    EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);
 
-        if (Health.dieFlag)
-        {
-            gameObject.SetActive(false);
-        }
+        if (Health.dieFlag)         gameObject.SetActive(false);
     }
     private void LateUpdateMovement(bool platformPhaseFlag)
     {
@@ -296,24 +286,27 @@ public class Player : Controller
         }
     }
 
-    private void LateUpdateAttack()
-    {        
-        if (Inputs.attackFlag)
+    private void LateUpdateCollision()
+    {
+        if (Attack.startAttackFlag)
         {
-            if (!Attack.attackFlag)
-            {
-                Attack.SetAttackDirection(Vector2.right * (Inputs.movementInputActive > 0f ? 1f : -1f));
-            }
-
-            Attack.FindComponents();
-            Attack.PerformAttack();
+            Colliders.SetFlatConfiguration();
         }
-        else if (Attack.timeSinceAttack > Attack.AttackDuration)
+        else if (Attack.stopAttackFlag)
         {
-            if (Attack.attackFlag)
-            {
-                Attack.StopAttack();
-            }
+            Colliders.SetUprightConfiguration();
+        }
+    }
+
+    private void LateUpdateGroundDetector()
+    {
+        if (Attack.startAttackFlag)
+        {
+            GroundDetector.SetFlatConfiguration();
+        }
+        else if (Attack.stopAttackFlag)
+        {
+            GroundDetector.SetUprightConfiguration();
         }
     }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class EntityControllerL
 {
-    public static void CharacterEntityLateUpdate(Attack attackComponent, Health healthComponent)
+    public static void CharacterEntityLateUpdate(Health healthComponent)
     {
         if (healthComponent.enabled) ProcessHealthEvents(healthComponent);
     }

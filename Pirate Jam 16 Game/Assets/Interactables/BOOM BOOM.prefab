@@ -136,8 +136,8 @@ MonoBehaviour:
     delayRandomType: 0
   damagedByExplosions: 1
   damagedByProjectiles: 1
-  blockBehindCheck: 1
-  blockBehindCheckLeniance: -0.3
+  blockBehindCheck: 0
+  blockBehindCheckLeniance: 0
   TakeDamageColliders:
   - {fileID: 3256926932890864015}
   BlockDamageColliders: []
@@ -157,18 +157,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Explosion, Assembly-CSharp
         m_MethodName: Explode
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5114190602473433248}
-        m_TargetAssemblyTypeName: Health, Assembly-CSharp
-        m_MethodName: DestroyObjectNoDelay
-        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

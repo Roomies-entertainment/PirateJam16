@@ -23,7 +23,7 @@ public class TriggerEvent : MonoBehaviour
         col = GetComponent<Collider2D>();
 
         if (col == null)
-            col = gameObject.AddComponent<Collider2D>();
+            col = gameObject.AddComponent<CircleCollider2D>();
 
         col.isTrigger = true;
     }

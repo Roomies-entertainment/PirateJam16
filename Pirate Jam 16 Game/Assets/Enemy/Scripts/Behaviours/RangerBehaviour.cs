@@ -198,8 +198,10 @@ public class RangerBehaviour : Controller
     #region Late Update
     private void LateUpdate()
     {
-        EntityControllerL.CharacterEntityLateUpdate(Attack, Health);
+        EntityControllerL.CharacterEntityLateUpdate(Health);
         
+        if (Health.dieFlag) gameObject.SetActive(false);
+
         EntityControllerL.ClearHorizontalMovementUpdate(HorizontalMovement);
 
         EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);

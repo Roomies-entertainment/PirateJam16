@@ -65,12 +65,57 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     [Header("")]
     [SerializeField] protected bool debug;
 
-    protected void Awake()
+    protected void OnEnable()
     {
         health = startingHealth;
     }
 
     protected virtual void Start() { } // Gives it enabled checkbox
+
+    public virtual AttackResult ProcessDamage(int damage, DetectionData data)
+    {
+        if (!enabled)
+        {
+            return AttackResult.Miss;
+        }
+
+        AttackResult attackResult = ProcessDamageFlags(
+            BlockDamageColliderHit(data),
+            TakeDamageColliderHit(data),
+            data);
+
+        switch (attackResult)
+        {
+            case AttackResult.Hit:
+                damageEvents.Add(new DamageEvent(damage, data));
+                break;
+
+            case AttackResult.Miss:
+            case AttackResult.Block:
+                BlockDamage(damage, data);
+                break;
+        }
+
+        return attackResult;
+    }
+
+    public virtual void ProcessHeal(int amount, DetectionData data)
+    {
+        healEvents.Add(new HealEvent(amount, data));
+    }
+
+    protected bool BlockDamageColliderHit(DetectionData data)
+    {
+        foreach (var c in BlockDamageColliders)
+        {
+            if (data.detectedColliders.Contains(c))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public void ProcessExplosion(Explosion e)
     {
@@ -182,51 +227,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     public void DestroyObjectNoDelay(Object objOverride = null)
     {
         Destroy(objOverride != null ? objOverride : gameObject);
-    }
-
-    public virtual AttackResult ProcessDamage(int damage, DetectionData data)
-    {
-        if (!enabled)
-        {
-            return AttackResult.Miss;
-        }
-
-        AttackResult attackResult = ProcessDamageFlags(
-            BlockDamageColliderHit(data),
-            TakeDamageColliderHit(data),
-            data);
-
-        switch (attackResult)
-        {
-            case AttackResult.Hit:
-                damageEvents.Add(new DamageEvent(damage, data));
-                break;
-
-            case AttackResult.Miss:
-            case AttackResult.Block:
-                BlockDamage(damage, data);
-                break;
-        }
-
-        return attackResult;
-    }
-
-    public virtual void ProcessHeal(int amount, DetectionData data)
-    {
-        healEvents.Add(new HealEvent(amount, data));
-    }
-
-    protected bool BlockDamageColliderHit(DetectionData data)
-    {
-        foreach (var c in BlockDamageColliders)
-        {
-            if (data.detectedColliders.Contains(c))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     protected bool TakeDamageColliderHit(DetectionData data)

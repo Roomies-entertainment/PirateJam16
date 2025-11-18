@@ -41,6 +41,13 @@ public class PlayerAttack : MeleeAttack
         base.OnHitObject(obj);
     }
 
+    protected override void OnInteractObject(GameObject obj)
+    {
+        hitObjects.Add(obj);
+        
+        base.OnInteractObject(obj);
+    }
+
     protected override void OnHitBlocked(GameObject obj)
     {
         hitObjects.Add(obj);

@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bda6fee6c42a2b4cbef67426970d5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 8466280529872135160, guid: 3084e7755a0af36418c68fbac2c3d899, type: 3}
   particlePrefabs:
   - {fileID: 8466280529872135160, guid: 3084e7755a0af36418c68fbac2c3d899, type: 3}
 --- !u!1 &3833462083933254254
@@ -298,13 +297,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   maxHealth: 1
-  onDieDelay: 0
-  explosionOnDieDelay: 0
-  destroyObjectDelay: 0
+  onDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  explosionOnDieDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
+  destroyObjectDelay:
+    _delay: 0
+    _delayAlt: 0
+    delayRandomType: 0
   damagedByExplosions: 1
-  blockDirectionChecking: 1
-  blockDirection: {x: 0, y: 0}
-  blockDirectionCheckDistance: -0.3
+  damagedByProjectiles: 1
+  blockBehindCheck: 0
+  blockBehindCheckLeniance: 0
   TakeDamageColliders:
   - {fileID: 3417955917289440966}
   BlockDamageColliders: []
@@ -343,17 +351,5 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 7154906043831094116}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
   debug: 0
