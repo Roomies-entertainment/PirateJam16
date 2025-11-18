@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 239001156}
   - component: {fileID: 239001155}
   - component: {fileID: 239001154}
+  - component: {fileID: 239001157}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -204,7 +205,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -257,8 +258,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1092046367
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
@@ -286,6 +287,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!251 &239001157
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239001153}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 50
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 130
 --- !u!1001 &277506383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -498,7 +518,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &493846228
 Transform:
@@ -553,9 +573,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: 205828287
+  m_SortingLayer: -2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b7359d502580a6438b480dd09e477ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -671,7 +691,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &665369707
 Transform:
@@ -726,9 +746,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: 205828287
+  m_SortingLayer: -2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b7359d502580a6438b480dd09e477ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -751,6 +771,7 @@ GameObject:
   - component: {fileID: 683935731}
   - component: {fileID: 683935730}
   - component: {fileID: 683935729}
+  - component: {fileID: 683935732}
   m_Layer: 0
   m_Name: Square (3)
   m_TagString: Untagged
@@ -788,7 +809,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -841,8 +862,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1092046367
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
@@ -870,6 +891,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!251 &683935732
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683935728}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 50
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 130
 --- !u!1 &804332410
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1063,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1643631800
 Transform:
@@ -1078,9 +1118,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: 205828287
+  m_SortingLayer: -2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b7359d502580a6438b480dd09e477ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1103,6 +1143,7 @@ GameObject:
   - component: {fileID: 1856079585}
   - component: {fileID: 1856079584}
   - component: {fileID: 1856079583}
+  - component: {fileID: 1856079586}
   m_Layer: 0
   m_Name: Square (2)
   m_TagString: Untagged
@@ -1140,7 +1181,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -1193,8 +1234,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1092046367
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
@@ -1222,6 +1263,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!251 &1856079586
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856079582}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 50
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 130
 --- !u!1 &1971259055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,6 +1295,7 @@ GameObject:
   - component: {fileID: 1971259056}
   - component: {fileID: 1971259059}
   - component: {fileID: 1971259060}
+  - component: {fileID: 1971259061}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Untagged
@@ -1272,7 +1333,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -1325,8 +1386,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1092046367
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
@@ -1371,7 +1432,7 @@ MonoBehaviour:
     Event:
       m_PersistentCalls:
         m_Calls: []
-    delayComponent:
+    Delay:
       _delay: 0
       _delayAlt: 0
       delayRandomType: 0
@@ -1392,10 +1453,29 @@ MonoBehaviour:
   - Event:
       m_PersistentCalls:
         m_Calls: []
-    delayComponent:
+    Delay:
       _delay: 0
       _delayAlt: 0
       delayRandomType: 0
+--- !u!251 &1971259061
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971259055}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 50
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 130
 --- !u!1 &2108420788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,7 +1491,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2108420789
 Transform:
@@ -1466,9 +1546,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: 205828287
+  m_SortingLayer: -2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b7359d502580a6438b480dd09e477ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

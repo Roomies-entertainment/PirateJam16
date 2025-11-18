@@ -17,7 +17,7 @@ public class OverlapCheck : MonoBehaviour
     [SerializeField] protected UnityEvent<OverlapCheck> onCheckStay;
     [SerializeField] protected UnityEvent<OverlapCheck> onCheckExit;
 
-    public bool check { get; private set; }
+    public bool checkTrue { get; private set; }
     public bool enterFlag  { get; private set; }
     public bool stayFlag { get; private set; }
     public bool exitFlag { get; private set; }
@@ -32,8 +32,8 @@ public class OverlapCheck : MonoBehaviour
         onCheckExit.AddListener(RedGizmo);
     }
     private void Start() { RedGizmo(this); }
-    public void GreenGizmo(OverlapCheck check) { circle.color = new Color(0, 0.43f, 0.28f, 1f); }
-    public void RedGizmo(OverlapCheck check) { circle.color = Color.red * 0.7f; }
+    public void GreenGizmo(OverlapCheck checkTrue) { circle.color = new Color(0, 0.43f, 0.28f, 1f); }
+    public void RedGizmo(OverlapCheck checkTrue) { circle.color = Color.red * 0.7f; }
 
 
     private void FixedUpdate()
@@ -84,21 +84,21 @@ public class OverlapCheck : MonoBehaviour
 
     public void DoSetUpdate()
     {
-        bool checkStore = check;
+        bool checkStore = checkTrue;
 
-        check = Physics2D.OverlapCircle(transform.position, circle.GetRadius(), includeLayers);
+        checkTrue = Physics2D.OverlapCircle(transform.position, circle.GetRadius(), includeLayers);
 
-        if (!checkStore && check)
+        if (!checkStore && checkTrue)
         {
             enterFlag = true;
             onCheckEnter?.Invoke(this);
         }
-        else if (checkStore && check)
+        else if (checkStore && checkTrue)
         {
             stayFlag = true;
             onCheckStay?.Invoke(this);
         }
-        else if (checkStore && !check)
+        else if (checkStore && !checkTrue)
         {
             exitFlag = true;
             onCheckExit?.Invoke(this);

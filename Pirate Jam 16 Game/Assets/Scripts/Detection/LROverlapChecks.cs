@@ -6,8 +6,8 @@ using UpdateMode = Enums.UpdateMode;
 public class LROverlapChecks : MonoBehaviour
 {
     [Header(Constants.FlagUpdateMoveOverrideTTipStr)]
-    [SerializeField] private OverlapCheck leftCheck;
-    [SerializeField] private OverlapCheck rightCheck;
+    public OverlapCheck leftCheck;
+    public OverlapCheck rightCheck;
 
     [Tooltip(Constants.FlagUpdateModeTTStr)]
     public FlagUpdateMode flagUpdateMode;
@@ -34,7 +34,7 @@ public class LROverlapChecks : MonoBehaviour
     public bool stayFlag { get; private set; }
     public bool exitFlag { get; private set; }
 
-    public int checkCount { get { return (leftCheck.check ? 1 : 0) + (rightCheck.check ? 1 : 0); } }
+    public int checkCount { get { return (leftCheck.checkTrue ? 1 : 0) + (rightCheck.checkTrue ? 1 : 0); } }
 
     private void Awake()
     {

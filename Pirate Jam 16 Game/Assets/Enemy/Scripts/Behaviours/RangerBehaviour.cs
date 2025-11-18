@@ -112,29 +112,9 @@ public class RangerBehaviour : Controller
 
     private void UpdateHorizontalMovement()
     {
-        if (HorizontalMovement.currentSpeed == 0)
-        {
-            if (moveTimer > moveDelay)
-            {
-                HorizontalMovement.FaceDirection(RandomM.Float0To1() > 0.5f ? Vector2.left : Vector2.right);
-                HorizontalMovement.SetSpeed(RandomM.Float0To1() < walkBackwardsChance ? -moveSpeed : moveSpeed);
-
-                moveTimer = 0.0f;
-            }
-        }
-        else
-        {
-            if (GroundDetection.GroundCheck.check && GroundDetection.EdgeChecks.exitFlag)
-            {
-                HorizontalMovement.MoveAwayFromCurrentDirection();
-            }
-            
-            if (GroundDetection.GroundCheck.check && moveTimer > moveDuration)
-            {
-                HorizontalMovement.SetSpeed(0f);
-                moveTimer = 0.0f;
-            }
-        }
+        EntityControllerL.CharacterEntityHorizontalMovementUpdate(
+            HorizontalMovement, GroundDetection,
+            ref moveTimer, moveDelay, walkBackwardsChance, moveSpeed, moveDuration);
 
         if (Attack.startAttackFlag)
         {
@@ -155,7 +135,7 @@ public class RangerBehaviour : Controller
 
     private void UpdateJumpMovement()
     {
-        if (GroundDetection.GroundCheck.check &&
+        if (GroundDetection.GroundCheck.checkTrue &&
             GroundDetection.StepChecks.enterFlag &&
             (GroundDetection.StepClearanceChecks.checkCount == 0) &&
             HorizontalMovement.currentSpeed != 0)

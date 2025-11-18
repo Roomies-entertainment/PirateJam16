@@ -39,11 +39,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Environment
+    uniqueID: 205828287
+    locked: 0
+  - name: Back
+    uniqueID: 1092046367
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Middle
-    uniqueID: 1092046367
     locked: 0
   - name: Front
     uniqueID: 1239768073
