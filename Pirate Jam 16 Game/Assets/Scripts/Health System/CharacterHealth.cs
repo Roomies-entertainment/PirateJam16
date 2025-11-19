@@ -46,9 +46,9 @@ public abstract class CharacterHealth : Health
         return base.ProcessDamageFlags(blockColliderHit || blockFlag, damageColliderHit, data);
     }
 
-    public override void ClearFlags()
+    public override void ClearUpdate()
     {
-        base.ClearFlags();
+        base.ClearUpdate();
 
         startBlockFlag = false;
         stopBlockFlag = false;

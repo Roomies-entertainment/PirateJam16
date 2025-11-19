@@ -18,10 +18,6 @@ public class PlayerInputs : MonoBehaviour
     private bool _blockFlag;
     public bool blockFlag { get { return _blockFlag; } }
 
-    [SerializeField] private const float JumpTimeout = 0.35f;
-
-    private float jumpTimer;
-
     public void OnMove(InputValue inputValue)
     {
         Vector2 value = inputValue.Get<Vector2>();
@@ -35,7 +31,7 @@ public class PlayerInputs : MonoBehaviour
 
     public void OnJump(InputValue inputValue)
     {
-        HandleTimedFlag(ref _jumpFlag, inputValue.Get<float>() == 1f, ref jumpTimer, JumpTimeout);
+        HandleHoldFlag(ref _jumpFlag, inputValue.Get<float>() == 1f);
     }
 
     public void OnAttack(InputValue inputValue)
@@ -74,15 +70,5 @@ public class PlayerInputs : MonoBehaviour
         {
             flag = false;
         }
-    }
-
-    public void UpdateTimers()
-    {
-        jumpTimer += Time.deltaTime;
-    }
-
-    public void ResetTimers()
-    {
-        jumpTimer = 0f;
     }
 }

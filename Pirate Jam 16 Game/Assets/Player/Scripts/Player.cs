@@ -203,11 +203,8 @@ public class Player : Controller
         if (Collision.enabled)      LateUpdateCollision();
         if (GroundDetector.enabled) LateUpdateGroundDetector();
         if (Health.enabled)         LateUpdateHealth();
-        if (Inputs.enabled)         LateUpdateInputs();
         if (Particles.enabled)      LateUpdateParticles();
         if (Animation.enabled)      LateUpdateAnimation();
-
-                                    EntityControllerL.CharacterEntityLateUpdate(Health);
 
         if (UI != null &&
             UI.enabled)             LateUpdateUI();
@@ -275,6 +272,8 @@ public class Player : Controller
                 Health.deflectProjectiles = false;
             }
         }
+
+        Health.ProcessHealthEvents();
     }
 
     private void LateUpdateCollision()
@@ -299,11 +298,6 @@ public class Player : Controller
         {
             GroundDetector.SetUprightConfiguration();
         }
-    }
-
-    private void LateUpdateInputs()
-    {
-        Inputs.UpdateTimers();
     }
 
     private void LateUpdateParticles()

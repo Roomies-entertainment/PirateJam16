@@ -1424,60 +1424,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4bccdd5ca0c122a4caee65e36c50504f, type: 3}
   - {fileID: 8300000, guid: f764eee21d3e8bf4a97ceb783de28fad, type: 3}
   - {fileID: 8300000, guid: 17533f35346b6d146b842e4655a06828, type: 3}
---- !u!1 &8206216734646593814
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5586226289939561141}
-  - component: {fileID: 5620367807889538894}
-  m_Layer: 7
-  m_Name: Behaviours
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5586226289939561141
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8206216734646593814}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.27999997, z: 0}
-  m_LocalScale: {x: 1.6901699, y: 1.6901699, z: 1.6901699}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4079875813400938342}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5620367807889538894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8206216734646593814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79933f509ebfe014ba71449286a338df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Components: {fileID: 6671308400160840112}
-  moveSpeed: 1
-  moveDelay: 3
-  moveDuration: 0.8
-  walkBackwardsChance: 0.3
-  attackDelayRange: {x: 0.4, y: 0.8}
-  attackDurationRange: {x: 0.3, y: 0.4}
-  blockDelayRange: {x: 0.3, y: 0.4}
-  blockDurationRange: {x: 1, y: 1.5}
-  blockChance: 0.5
 --- !u!1 &9092179470456444528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,6 +1434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4079875813400938342}
   - component: {fileID: 6133872198208598422}
+  - component: {fileID: 4540504220049989079}
   m_Layer: 7
   m_Name: Enemy Slime
   m_TagString: Untagged
@@ -1508,7 +1455,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5586226289939561141}
   - {fileID: 6900282181118926586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1539,6 +1485,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4540504220049989079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092179470456444528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79933f509ebfe014ba71449286a338df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Components: {fileID: 6671308400160840112}
+  moveSpeed: 1
+  moveDelay: 3
+  moveDuration: 0.8
+  walkBackwardsChance: 0.3
+  attackDelayRange: {x: 0.4, y: 0.8}
+  attackDurationRange: {x: 0.3, y: 0.4}
+  blockDelayRange: {x: 0.3, y: 0.4}
+  blockDurationRange: {x: 1, y: 1.5}
+  blockChance: 0.5
 --- !u!1001 &8422590845368845324
 PrefabInstance:
   m_ObjectHideFlags: 0

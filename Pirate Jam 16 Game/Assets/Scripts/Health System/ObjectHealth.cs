@@ -6,15 +6,9 @@ public class ObjectHealth : Health
 {
     private void LateUpdate()
     {
-        EntityControllerL.ProcessHealthEvents(this);
+        ProcessHealthEvents();
+        ClearUpdate();
 
-        if (dieFlag) gameObject.SetActive(false);  
-
-        EntityControllerL.ClearHealthUpdate(this);
-    }
-    
-    private void OnDisable()
-    {
-        EntityControllerL.ClearHealthUpdate(this);
+        if (dead) gameObject.SetActive(false);
     }
 }
