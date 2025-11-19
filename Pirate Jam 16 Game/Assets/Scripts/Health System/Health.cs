@@ -46,6 +46,17 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     [SerializeField] private UnityEvent<float, DetectionData> onBlockDamage;
     // [SerializeField] private UnityEvent<float, DetectionData> onMissDamage;
 
+    public void ProcessHealthEvents()
+    {
+        foreach (DamageEvent d in damageEvents)
+            IncrementHealth(-d.amount, d.detectionData);
+
+        foreach (DamageEvent h in healEvents)
+            IncrementHealth(h.amount, h.detectionData);
+        
+        CheckIsDead();
+    }
+
     public bool healthChangeFlag { get; private set; }
     public bool explosionDamageFlag { get; private set; }
 
@@ -53,7 +64,6 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     public List<DamageEvent> damageEvents = new();
     public List<DamageEvent> healEvents = new();
-    public void ClearHealthEvents() { damageEvents.Clear(); healEvents.Clear(); }
 
     public enum AttackResult
     {
@@ -284,8 +294,11 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     }
  */
 
-    public virtual void ClearFlags()
+    public virtual void ClearUpdate()
     {
+        damageEvents.Clear();
+        healEvents.Clear();
+        
         dieFlag = false;
         healthChangeFlag = false;
         explosionDamageFlag = false;
@@ -293,6 +306,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     private void OnDisable()
     {
+        ClearUpdate();
         StopAllCoroutines();
     }
 }

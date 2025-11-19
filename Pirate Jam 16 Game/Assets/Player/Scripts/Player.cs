@@ -206,8 +206,6 @@ public class Player : Controller
         if (Particles.enabled)      LateUpdateParticles();
         if (Animation.enabled)      LateUpdateAnimation();
 
-                                    EntityControllerL.CharacterEntityLateUpdate(Health);
-
         if (UI != null &&
             UI.enabled)             LateUpdateUI();
             
@@ -274,6 +272,8 @@ public class Player : Controller
                 Health.deflectProjectiles = false;
             }
         }
+
+        Health.ProcessHealthEvents();
     }
 
     private void LateUpdateCollision()

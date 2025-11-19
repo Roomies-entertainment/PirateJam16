@@ -2,37 +2,16 @@ using UnityEngine;
 
 public static class EntityControllerL
 {
-    public static void CharacterEntityLateUpdate(Health healthComponent)
+    public static void EnemyCharacterLateUpdate(GameObject enemyCharacter,
+        Health healthComponent, Attack attackComponent, HorizontalMovement hMovementComponent)
     {
-        if (healthComponent.enabled) ProcessHealthEvents(healthComponent);
-    }
+        if (healthComponent.enabled) healthComponent.ProcessHealthEvents();
 
-    public static void ProcessHealthEvents(Health healthComponent)
-    {
-        foreach (DamageEvent d in healthComponent.damageEvents)
-            healthComponent.IncrementHealth(-d.amount, d.detectionData);
+        hMovementComponent.ClearFlags();
 
-        foreach (DamageEvent h in healthComponent.healEvents)
-            healthComponent.IncrementHealth(h.amount, h.detectionData);
-        
-        healthComponent.CheckIsDead();
-    }
+        CharacterEntityLateUpdateClear(attackComponent, healthComponent);
 
-    public static void CharacterEntityLateUpdateClear(Attack attackComponent, Health healthComponent)
-    {
-        ClearAttackUpdate(attackComponent);
-        ClearHealthUpdate(healthComponent);
-    }
-    
-    public static void ClearAttackUpdate(Attack attackComponent)
-    {
-        attackComponent.ClearFlags();
-    }
-
-    public static void ClearHealthUpdate(Health healthComponent)
-    {
-        healthComponent.ClearHealthEvents();
-        healthComponent.ClearFlags();
+        if (healthComponent.dead) enemyCharacter.SetActive(false);
     }
 
     public static void CharacterEntityHorizontalMovementUpdate(
@@ -68,8 +47,9 @@ public static class EntityControllerL
         }
     }
 
-    public static void ClearHorizontalMovementUpdate(HorizontalMovement horizontalMovementComponent)
+    public static void CharacterEntityLateUpdateClear(Attack attackComponent, Health healthComponent)
     {
-        horizontalMovementComponent.ClearFlags();
+        attackComponent.ClearFlags();
+        healthComponent.ClearUpdate();
     }
 }
