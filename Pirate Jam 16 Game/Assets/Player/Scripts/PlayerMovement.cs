@@ -4,8 +4,11 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 3.5f;
-    public float jumpSpeed = 9.5f;
-    public float slowSpeed = 0.1f;
+    public float aerialSlowSpeed = 0.0f;
+
+    [Header("")]
+    public float jumpSpeed = 7.5f;
+    public float jumpHoldDuration = 0.2f;   public float jumpHoldTimer { get; private set; }
 
     [Header("")]
     public float hopVerticalSpeed = 3.5f;
@@ -22,9 +25,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("")]
     [SerializeField] private UnityEvent onWalkHop;
     [SerializeField] private UnityEvent onJump;
-
-    public float jumpDampTimer { get; private set; }
-    public const float JumpDampDuration = 0.1f;
 
     [HideInInspector] public float speedX, speedY;
     public void SetSpeeds(float speedX, float speedY)
@@ -53,12 +53,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void IncrementJumpTimers()
     {
-        jumpDampTimer += Time.deltaTime;
+        jumpHoldTimer += Time.deltaTime;
     }
 
     public void ResetJumpTimers()
     {
-        jumpDampTimer = 0f;
+        jumpHoldTimer = 0f;
     }
 
     public void OnJump()

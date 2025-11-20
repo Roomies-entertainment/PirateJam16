@@ -7,17 +7,6 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private Transform Colliders;
     [SerializeField] private Collider2D PhysicsCollider;
 
-    [Header("")]
-    [SerializeField] private Transform UprightConfiguration;
-    [SerializeField] private Transform FlatConfiguration;
-    private Transform lastConfig;
-    private Transform currentConfig;
-
-    [Space]
-    [SerializeField] private float configChangeDuration = 0.2f;
-    private float configChangeTimer = 0.1f;
-    private bool configChangeFlag = false;
-
     public float platformPhaseHoldTimer { get; private set; }
     public const float PlatformPhaseHoldDuration = 0.2f;
 
@@ -48,10 +37,6 @@ public class PlayerCollision : MonoBehaviour
     public PlatformPhaseState platformPhaseState { get; private set; }
     private List<Collider2D> phasedPlatforms = new();
 
-
-    [Header("")]
-    [SerializeField] [Range(0, 1)] [Tooltip("0 = Nothings a wall | 1 = Everythings a wall\nNot used when touching PlatformEffector components")]
-    private float wallSensitivity = 0.3f;
     private ContactPoint2D wallContactPoint;
     public bool GetOnWall(out ContactPoint2D contactPoint)
     {
@@ -93,7 +78,7 @@ public class PlayerCollision : MonoBehaviour
     {
         bool exiting = collision.contactCount == 0;
 
-        float maxNormalYAbs = wallSensitivity;
+        float maxNormalYAbs = 0.5f;
 
         // Basically if contacts are null player will know theyre not touching walls etc.
 

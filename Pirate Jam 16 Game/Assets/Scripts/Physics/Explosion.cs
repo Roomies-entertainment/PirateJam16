@@ -9,12 +9,15 @@ public class Explosion : MonoBehaviour
     ParticleSystemSpawn ParticleSystemSpawn;
     RandomizedSound RandomizedSound;
 
-    public float fieldofImpact;
-    private const float foiToDamage = 0.5f;
-    public int damage { get { return (int)Mathf.Round(fieldofImpact * foiToDamage); } }
+    public float fieldOfImpact = 3.2f;
+    
+    
+    private const float foiToDamage = 0.25f;
 
-    public float minForce = 8f;
-    public float maxForce = 12f;
+    public float forceClose = 12f;
+    public float forceFar = 8f;
+
+    public int damage = 1;
 
     [Header("")]
     public bool destroySelf = true;
@@ -29,13 +32,13 @@ public class Explosion : MonoBehaviour
     public void Explode()
     {
         var components = Detection.DetectComponentsInParents(
-            transform.position, fieldofImpact, default, typeof(Rigidbody2D), typeof(IProcessExplosion));
+            transform.position, fieldOfImpact, default, typeof(Rigidbody2D), typeof(IProcessExplosion));
 
         foreach (var component in components[typeof(Rigidbody2D)])
         {
             Rigidbody2D rb = (Rigidbody2D)component.Key;
             Vector2 toObject = rb.transform.position - transform.position;
-            Vector2 force = toObject.normalized * Mathf.Lerp(minForce, maxForce, toObject.magnitude / fieldofImpact);
+            Vector2 force = toObject.normalized * Mathf.Lerp(forceFar, forceClose, toObject.magnitude / fieldOfImpact);
 
             rb.AddForce(force, ForceMode2D.Impulse);
 
@@ -55,6 +58,6 @@ public class Explosion : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, fieldofImpact);
+        Gizmos.DrawWireSphere(transform.position, fieldOfImpact);
     }
 }

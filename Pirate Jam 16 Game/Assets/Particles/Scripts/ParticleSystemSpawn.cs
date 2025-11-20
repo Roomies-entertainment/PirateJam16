@@ -21,14 +21,7 @@ public class ParticleSystemSpawn : MonoBehaviour
     {
         foreach (var prefab in particlePrefabs)
         {
-            var obj = Instantiate(prefab, transform.position, transform.rotation);
-            var p = obj.GetComponentInChildren<ParticleSystem>();
-
-            if (p != null)
-                if (play)
-                    p.Play();
-                else
-                    Destroy(obj);
+            ParticleM.SpawnParticle(prefab, transform.position, null, play);
         }
     }
 }

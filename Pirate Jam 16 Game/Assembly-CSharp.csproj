@@ -73,6 +73,7 @@
     <Compile Include="Assets\UI\Scripts\Hint.cs" />
     <Compile Include="Assets\Scripts\Triggers\TriggerObjectDestroyer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Dialogue\Scripts\DialogueReferences.cs" />
     <Compile Include="Assets\Scripts\Detection\SurfaceDetector.cs" />
     <Compile Include="Assets\Scripts\Movement\Physics2DMove.cs" />
     <Compile Include="Assets\Enemy\Scripts\EnemyHealth.cs" />
@@ -99,7 +100,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Camera\CameraThreshold.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
-    <Compile Include="Assets\Scripts\Dialogue System\Dialogue.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerParticles.cs" />
     <Compile Include="Assets\Scripts\Detection\Detection.cs" />
     <Compile Include="Assets\Scripts\Triggers\TriggerEvent.cs" />
@@ -137,9 +137,9 @@
     <Compile Include="Assets\Sound\Scripts\AudioPlaylist.cs" />
     <Compile Include="Assets\Scripts\Effects\Parallax.cs" />
     <Compile Include="Assets\Scripts\SpawnProjectile.cs" />
-    <Compile Include="Assets\Scripts\Dialogue System\StaticReferences.cs" />
     <Compile Include="Assets\Enemy\Scripts\Behaviours\DumbSoldierBehaviour.cs" />
     <Compile Include="Assets\Particles\Scripts\ParticleSystemSpawn.cs" />
+    <Compile Include="Assets\Dialogue\Scripts\TriggerDialogue.cs" />
     <Compile Include="Assets\Scripts\Libraries\MathL.cs" />
     <Compile Include="Assets\Scripts\Definitions\Enums.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -157,6 +157,7 @@
     <Compile Include="Assets\Player\Scripts\Player.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\Dialogue\Scripts\Dialogue.cs" />
     <Compile Include="Assets\Scripts\Entity\Controller.cs" />
     <Compile Include="Assets\Scripts\Game Objects\DestroyObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerAttack.cs" />
+    <Compile Include="Assets\Dialogue\Scripts\DialoguePanel.cs" />
     <Compile Include="Assets\UI\Scripts\VolumeSettings.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Gizmos\AxisGizmo.cs" />
@@ -191,7 +193,6 @@
     <Compile Include="Assets\Game\Scripts\LevelM.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerPrefM.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerCollision.cs" />
-    <Compile Include="Assets\Scripts\Dialogue System\DialoguePanel.cs" />
     <Compile Include="Assets\Scripts\Physics\Explosion.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Physics\IProcessExplosion.cs" />

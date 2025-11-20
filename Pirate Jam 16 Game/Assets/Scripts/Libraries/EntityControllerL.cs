@@ -8,10 +8,10 @@ public static class EntityControllerL
         if (healthComponent.enabled) healthComponent.ProcessHealthEvents();
 
         hMovementComponent.ClearFlags();
+        attackComponent.ClearFlags();
+        healthComponent.ClearUpdate();
 
-        CharacterEntityLateUpdateClear(attackComponent, healthComponent);
-
-        if (healthComponent.dead) enemyCharacter.SetActive(false);
+        if (healthComponent.deathFlag) GameObject.Destroy(enemyCharacter);
     }
 
     public static void CharacterEntityHorizontalMovementUpdate(
@@ -45,11 +45,5 @@ public static class EntityControllerL
                 moveTimer = 0.0f;
             }
         }
-    }
-
-    public static void CharacterEntityLateUpdateClear(Attack attackComponent, Health healthComponent)
-    {
-        attackComponent.ClearFlags();
-        healthComponent.ClearUpdate();
     }
 }

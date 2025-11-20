@@ -7,8 +7,9 @@ public class ObjectHealth : Health
     private void LateUpdate()
     {
         ProcessHealthEvents();
-        ClearUpdate();
 
-        if (dead) gameObject.SetActive(false);
+        if (deathFlag) Destroy(gameObject);
+
+        ClearUpdate();
     }
 }

@@ -8,7 +8,7 @@ public class DelayRandomized
 {
     [SerializeField] protected float _delay;
     [SerializeField] protected float _delayAlt;
-    private float delay;
+    private float currentDelay;
 
     [Space()]
     [Tooltip("Range (random value from delay to delayAlt)\n\nSwitch (50% delay, 50% delayAlt)")]
@@ -22,14 +22,14 @@ public class DelayRandomized
             switch (delayRandomType)
             {
                 case RandomM.RandomType.Range:
-                    delay = RandomM.Range(_delay, _delayAlt); break;
+                    currentDelay = RandomM.Range(_delay, _delayAlt); break;
                 case RandomM.RandomType.Switch:
-                    delay = RandomM.Float0To1() <= 0.5f ? _delay : _delayAlt; break;
+                    currentDelay = RandomM.Float0To1() <= 0.5f ? _delay : _delayAlt; break;
                 default:
-                    delay = _delay; break;
+                    currentDelay = _delay; break;
             }
         }
 
-        return delay;
+        return currentDelay;
     }
 }
