@@ -12,23 +12,19 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
     public int maxHealth = 1;
 
     [Header("")]
-    [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector")]
-    protected DelayRandomized onDieDelay = new();
-    [SerializeField] [Tooltip("Delay for OnDie events assigned in inspector when dying from explosion")]
-    protected DelayRandomized explosionOnDieDelay = new();
-
-    [SerializeField] [Tooltip(  "Used any time this component's DestroyObject() method destroys itself or another object\n" +
-                                "Use DestroyObjectNoDelay to ignore")]
-    protected DelayRandomized destroyObjectDelay = new();
+    [SerializeField] protected DelayRandomized deathDelay = new();
+    [SerializeField] protected DelayRandomized explosionDeathDelay = new();
     
     public int health { get; protected set; }
-    public bool dead { get { return health <= 0; } }
-    public bool dieFlag { get; protected set; }
+    private bool deathQueuedFlag;
+    public bool deathFlag { get; protected set; }
 
     [Header("")]
     [SerializeField] protected bool damagedByExplosions = true;
     [SerializeField] protected bool damagedByProjectiles = true;
-    [Tooltip("Don't block attacks from behind")]
+
+    [Header("")]
+    [Tooltip("Block attacks from behind")]
     [SerializeField] protected bool blockBehindCheck = true;
 
     [Header("")]
@@ -82,17 +78,20 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     protected virtual void Start() { } // Gives it enabled checkbox
 
-    public virtual AttackResult ProcessDamage(int damage, DetectionData data)
+    public virtual AttackResult ProcessDamage(int damage, DetectionData data, bool avoidable = true)
     {
         if (!enabled)
         {
             return AttackResult.Miss;
         }
 
-        AttackResult attackResult = ProcessDamageFlags(
-            BlockDamageColliderHit(data),
-            TakeDamageColliderHit(data),
-            data);
+        AttackResult attackResult = AttackResult.Hit;
+        
+        if (avoidable)
+            attackResult = ProcessDamageFlags(
+                BlockDamageColliderHit(data),
+                TakeDamageColliderHit(data),
+                data);
 
         switch (attackResult)
         {
@@ -197,22 +196,22 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     public virtual void CheckIsDead()
     {
-        if (dead)
+        if (deathQueuedFlag)
+            return;
+
+        if (health <= 0)
         {
-            if (explosionOnDieDelay.GetDelay(true) > 0 && explosionDamageFlag)
-            {
-                StartCoroutine(OnDieDelayed(explosionOnDieDelay.GetDelay(false)));
-            }
+            float delay = deathDelay.GetDelay(true);
 
-            else if (onDieDelay.GetDelay(true) > 0)
-            {
-                StartCoroutine(OnDieDelayed(onDieDelay.GetDelay(false)));
-            }
+            if (explosionDamageFlag)
+                delay += explosionDeathDelay.GetDelay(true);
 
+            if (delay > 0.0)
+                StartCoroutine(OnDieDelayed(delay));
             else
-            {
                 OnDie();
-            }
+            
+            deathQueuedFlag = true;
         }
     }
 
@@ -225,18 +224,10 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
 
     protected virtual void OnDie()
     {
-        dieFlag = true;
+        deathFlag = true;
+        deathQueuedFlag = false;
+
         onDie?.Invoke();
-    }
-
-    public new void DestroyObject(Object objOverride = null)
-    {
-        Destroy(objOverride != null ? objOverride : gameObject, destroyObjectDelay.GetDelay(true));
-    }
-
-    public void DestroyObjectNoDelay(Object objOverride = null)
-    {
-        Destroy(objOverride != null ? objOverride : gameObject);
     }
 
     protected bool TakeDamageColliderHit(DetectionData data)
@@ -299,7 +290,7 @@ public abstract class Health : MonoBehaviour, IProcessExplosion, IProcessProject
         damageEvents.Clear();
         healEvents.Clear();
         
-        dieFlag = false;
+        deathFlag = false;
         healthChangeFlag = false;
         explosionDamageFlag = false;
     }

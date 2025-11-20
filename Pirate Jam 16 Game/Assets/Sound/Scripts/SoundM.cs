@@ -5,18 +5,9 @@ using UnityEngine.Audio;
 
 public static class SoundM
 {
-    public static ManagerReferences References;
-
     public static void PlaySound(
         AudioClip clip, Vector2 position,
         float volume = 1.0f, bool loop = false, float pitch = 1.0f, float spatialBlend = 1.0f) {
-
-        if (References == null)
-        {
-            Debug.Log("SoundM References is null");
-
-            return;
-        }
 
         if (clip == null)
         {
@@ -34,7 +25,7 @@ public static class SoundM
         source.pitch = pitch;
         source.spatialBlend = spatialBlend;
         source.loop = loop;
-        source.outputAudioMixerGroup = References.sfxMixerGroup;
+        source.outputAudioMixerGroup = ManagerReferences.references.sfxMixerGroup;
         source.Play();
 
         AudioSourceDestroyer destroyer = source.gameObject.AddComponent<AudioSourceDestroyer>();
@@ -46,13 +37,6 @@ public static class SoundM
     public static void PlaySound(
         AudioClip clip, float volume = 1.0f, float pitch = 1.0f, bool loop = false) {
 
-        if (References == null)
-        {
-            Debug.Log("SoundM References is null");
-
-            return;
-        }
-
         if (clip == null)
         {
             Debug.Log("Clip is null");
@@ -60,7 +44,7 @@ public static class SoundM
             return;
         }
 
-        AudioSource source = References.nonPositionalSource.AddComponent<AudioSource>();
+        AudioSource source = ManagerReferences.references.nonPositionalSource.AddComponent<AudioSource>();
 
         source.playOnAwake = true;
         source.clip = clip;
@@ -68,7 +52,7 @@ public static class SoundM
         source.pitch = pitch;
         source.spatialBlend = 0.0f;
         source.loop = loop;
-        source.outputAudioMixerGroup = References.sfxMixerGroup;
+        source.outputAudioMixerGroup = ManagerReferences.references.sfxMixerGroup;
         source.Play();
 
         AudioSourceDestroyer destroyer = source.gameObject.AddComponent<AudioSourceDestroyer>();

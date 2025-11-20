@@ -122,18 +122,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   maxHealth: 1
-  onDieDelay:
+  deathDelay:
     _delay: 0
     _delayAlt: 0
     delayRandomType: 0
-  explosionOnDieDelay:
-    _delay: 0.6
+  explosionDeathDelay:
+    _delay: 0.4
     _delayAlt: 1
     delayRandomType: 1
-  destroyObjectDelay:
-    _delay: 0
-    _delayAlt: 0
-    delayRandomType: 0
   damagedByExplosions: 1
   damagedByProjectiles: 1
   blockBehindCheck: 0
@@ -212,9 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1a920fe9015ce748a5829133a243a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldofImpact: 3.2
-  minForce: 8
-  maxForce: 12
+  fieldOfImpact: 3.2
+  forceClose: 12
+  forceFar: 8
+  damage: 1
   destroySelf: 1
 --- !u!114 &3823287857531194226
 MonoBehaviour:

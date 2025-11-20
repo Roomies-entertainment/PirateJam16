@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Player : Controller
 {
-    private PlayerInputs Inputs;
-    private PlayerCollision Collision;
+    // inspector assigned
+    [Header("")]
+    [SerializeField] private PlayerInputs Inputs;
+    [SerializeField] private PlayerColliders Colliders;
+    [SerializeField] private PlayerUI UI;
 
-    [SerializeField] // inspector assigned
-    private PlayerColliders Colliders;
+    private PlayerCollision Collision;
 
     private PlayerSurfaceDetector GroundDetector;
     private PlayerMovement Movement;
@@ -15,9 +17,6 @@ public class Player : Controller
     private PlayerHealth Health;
     private PlayerAnimation Animation;
     private PlayerParticles Particles;
-
-    [SerializeField] // inspector assigned
-    private PlayerUI UI;
 
     public void SetGameplayEnabled(bool setTo)
     {
@@ -29,7 +28,6 @@ public class Player : Controller
 
     private void Awake()
     {
-        Inputs          = Components.GetComponent<PlayerInputs>();
         Collision       = Components.GetComponent<PlayerCollision>();
         GroundDetector  = Components.GetComponent<PlayerSurfaceDetector>();
         Movement        = Components.GetComponent<PlayerMovement>();
@@ -38,8 +36,6 @@ public class Player : Controller
         Health          = Components.GetComponent<PlayerHealth>();
         Animation       = Components.GetComponent<PlayerAnimation>();
         Particles       = Components.GetComponent<PlayerParticles>();
-
-        StaticReferences.playerReference = this;
     }
 
     private void Start()
@@ -61,11 +57,13 @@ public class Player : Controller
     private void FixedUpdate()
     {
         bool onGroundFlag           = GroundDetector.surfaceDetected && Physics.speedY <= 0;
-        bool groundHitFlag          = GroundDetector.gotHit;
+        bool isGroundFlag           = onGroundFlag || (GroundDetector.gotHit && Physics.speedY > 0f);
+
         bool onWallFlag             = Collision.GetOnWall(out ContactPoint2D wallContact);
         bool onCeilingFlag          = Collision.GetOnCeiling(out ContactPoint2D ceilingContact);
+
         bool hopFlag                = Inputs.horizontalInput != 0f && Movement.hopTimer > Movement.hopDelay;
-        bool jumpFlag               = (onGroundFlag || groundHitFlag && Physics.speedY > 0f) && Inputs.jumpFlag;
+        bool jumpFlag               = Inputs.jumpFlag && (isGroundFlag || (!onGroundFlag && Movement.jumpHoldTimer < Movement.jumpHoldDuration));
 
         if (Movement.enabled)       FixedUpdateMovement(onGroundFlag, hopFlag, jumpFlag);
         if (Physics.enabled)        FixedUpdatePhysics(onGroundFlag, onWallFlag, onCeilingFlag, wallContact, ceilingContact, hopFlag, jumpFlag);
@@ -79,8 +77,14 @@ public class Player : Controller
         float speedX = Inputs.horizontalInput * Movement.moveSpeed;
         float speedY;
 
+        if (jumpFlag && onGroundFlag)
+        {
+            Movement.ResetJumpTimers();
+            Movement.OnJump();
+        }
+
         if (jumpFlag)
-            speedY = Movement.jumpDampTimer < PlayerMovement.JumpDampDuration ? Movement.jumpSpeed * 0.7f : Movement.jumpSpeed;
+            speedY = Movement.jumpSpeed * (Attack.attackFlag ? 0.4f : 1.0f);
         else
             speedY = Physics.speedY;
 
@@ -96,11 +100,6 @@ public class Player : Controller
         else
         {
             Movement.ResetGroundedTimers();
-        }
-
-        if (jumpFlag)
-        {
-            Movement.OnJump();
         }
 
         Movement.IncrementGroundedTimers();
@@ -126,7 +125,7 @@ public class Player : Controller
 
             if (Inputs.horizontalInput == 0f)
             {
-                Physics.AddHorizontalSpeed(-Physics.speedX * Movement.slowSpeed * Time.fixedDeltaTime);
+                Physics.AddHorizontalSpeed(-Physics.speedX * Movement.aerialSlowSpeed * Time.fixedDeltaTime);
             }
 
             Physics.AddVerticalSpeed(Physics2D.gravity.y * Time.fixedDeltaTime * (
@@ -208,11 +207,15 @@ public class Player : Controller
 
         if (UI != null &&
             UI.enabled)             LateUpdateUI();
-            
 
-                                    EntityControllerL.CharacterEntityLateUpdateClear(Attack, Health);
 
-        if (Health.dieFlag)         gameObject.SetActive(false);
+                                    Attack.ClearFlags();
+
+        if (Health.deathFlag)         gameObject.SetActive(false);
+        
+                                    
+                                    Health.ClearUpdate();
+
     }
     private void LateUpdateMovement(bool platformPhaseFlag)
     {
@@ -220,12 +223,7 @@ public class Player : Controller
         {
             Movement.speedY = -Movement.fallThroughPlatformSpeed;
         }
-
-        if (Inputs.attackFlag)
-        {
-            Movement.ResetJumpTimers();
-        }
-
+        
         Movement.IncrementJumpTimers();
     }
 
@@ -335,7 +333,7 @@ public class Player : Controller
             UI.UpdateHealthBar((float) Health.health / Health.maxHealth);
         }
 
-        if (Health.dieFlag)
+        if (Health.deathFlag)
         {
             UI.IncreaseDeathCounter();
             UI.SetDeathScreenActive(true);

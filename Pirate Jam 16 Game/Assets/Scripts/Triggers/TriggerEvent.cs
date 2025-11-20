@@ -10,15 +10,15 @@ public class TriggerEvent : MonoBehaviour
     private float enterCooldownTimer;
 
     [Header("")]
-    [SerializeField] private UnityEvent<Collider2D> onTriggerEnter;
+    [SerializeField] protected UnityEvent<Collider2D> onTriggerEnter;
     [SerializeField] private UnityEvent<Collider2D> onTriggerStay;
     [SerializeField] private UnityEvent<Collider2D> onTriggerExit;
 
-    private Collider2D col;
+    protected Collider2D col;
 
     private HashSet<Rigidbody2D> rigidbodiesProcessed = new();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         col = GetComponent<Collider2D>();
 
